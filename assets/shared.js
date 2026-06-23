@@ -21,7 +21,8 @@
 
   let savedLang = null;
   try { savedLang = localStorage.getItem('impactrakr-lang'); } catch (e) {}
-  setLang(savedLang || 'pt');
+  // Default = EN (PT é opcional). Respeita preferência salva se houver.
+  setLang(savedLang || 'en');
 
   langButtons.forEach(function (btn) {
     btn.addEventListener('click', function () { setLang(btn.dataset.lang); });
