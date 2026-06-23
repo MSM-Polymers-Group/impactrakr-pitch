@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImpacTrakr · Metodologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260623-0027">
+<style>
+  /* === Page-specific: Metodologia === */
+  section.intro { padding: var(--space-fluid-section) 0 var(--space-fluid-block); }
+  .intro .lede {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: var(--max-prose);
+    margin-top: var(--space-md);
+  }
+
+  /* === Modelo de três autoridades — banner em dark surface === */
+  .governance-banner {
+    margin: var(--space-2xl) 0;
+    padding: var(--space-2xl) var(--space-xl);
+    background: var(--brand-surface);
+    color: var(--on-dark);
+    border-radius: var(--r-lg);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .governance-banner .micro { color: var(--on-dark-mute); margin-bottom: var(--space-2xs); }
+  .governance-banner h2 {
+    color: var(--on-dark);
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    letter-spacing: -0.025em;
+    max-width: none;
+    line-height: 1.1;
+    margin: 0;
+  }
+  .governance-banner h2 .accent { color: var(--accent-on-dark); }
+  .governance-banner .gb-side p {
+    color: var(--on-dark-soft);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 56ch;
+  }
+  .governance-banner .gb-side strong { color: var(--on-dark); font-weight: 600; }
+  @media (max-width: 880px) {
+    .governance-banner { grid-template-columns: 1fr; padding: var(--space-xl) var(--space-lg); }
+  }
+
+  /* Plugged-in methodologies — institutional list, not cards */
+  section.plugged { padding: var(--space-fluid-section) 0; }
+  section.plugged h2 { margin-bottom: var(--space-md); }
+  section.plugged .lede { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
+
+  .methodology-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  .methodology-list li {
+    display: grid;
+    grid-template-columns: minmax(160px, 220px) 1fr 110px 90px;
+    gap: var(--space-md);
+    align-items: baseline;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .methodology-list .m-name {
+    font-weight: 700; font-size: 1.0625rem; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .methodology-list .m-author {
+    font-size: 0.875rem; color: var(--ink-faint); margin-top: 2px;
+  }
+  .methodology-list .m-scope { font-size: 0.9375rem; color: var(--ink-soft); }
+  .methodology-list .m-count {
+    text-align: right; font-weight: 700; font-size: 1.5rem;
+    color: var(--ink); letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on;
+  }
+  .methodology-list .m-count em {
+    font-style: normal; display: block;
+    font-size: 0.6875rem; color: var(--ink-faint);
+    font-weight: 500; letter-spacing: 0.04em;
+  }
+  .methodology-list .m-status {
+    text-align: right; font-size: 0.75rem; font-weight: 600;
+    color: var(--accent); letter-spacing: -0.005em;
+  }
+  .methodology-list .m-status.upcoming { color: var(--ink-faint); }
+  .methodology-list .m-status.future { color: var(--ink-mute); }
+  @media (max-width: 720px) {
+    .methodology-list li { grid-template-columns: 1fr auto; gap: var(--space-2xs); }
+    .methodology-list .m-scope { grid-column: 1 / -1; }
+    .methodology-list .m-count { grid-column: 1 / 2; text-align: left; }
+    .methodology-list .m-status { grid-column: 2 / 3; }
+  }
+
+  /* 139 rules — categorical breakdown table */
+  section.rules { padding: var(--space-fluid-section) 0; background: var(--surface-raised); }
+  section.rules h2 { margin-bottom: var(--space-md); }
+  section.rules .lede { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
+
+  .rules-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+  .rules-table thead th {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.75rem; font-weight: 700; color: var(--ink-faint);
+    letter-spacing: 0.04em; border-bottom: 2px solid var(--ink);
+    text-transform: none;
+  }
+  .rules-table thead th.num { text-align: right; }
+  .rules-table tbody td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .rules-table tbody td.num {
+    text-align: right; font-weight: 700;
+    font-feature-settings: 'tnum' on; color: var(--ink);
+    font-size: 1.0625rem; width: 80px;
+  }
+  .rules-table tbody td.cat {
+    font-weight: 600; color: var(--ink); width: 280px;
+    letter-spacing: -0.005em;
+  }
+  .rules-table tbody td.desc { color: var(--ink-soft); font-size: 0.875rem; }
+  .rules-table tbody td.src { width: 200px; font-size: 0.8125rem; color: var(--ink-faint); }
+  .rules-table tbody td.src .src-chip {
+    display: inline-block; padding: 1px 6px; border-radius: 3px;
+    font-size: 0.6875rem; font-weight: 700; margin-right: 4px;
+    letter-spacing: 0.02em; background: var(--bg);
+    color: var(--ink-soft); border: 1px solid var(--line);
+  }
+  .rules-table tbody td.src .src-chip.pure { color: #2c5a3d; border-color: #b9d8c4; background: #ebf3ef; }
+  .rules-table tbody td.src .src-chip.eu   { color: #1f4570; border-color: #b8c6db; background: #ecf0f6; }
+  .rules-table tbody td.src .src-chip.rc   { color: #7a3520; border-color: #d8c0b7; background: #f3ece8; }
+  .rules-table tfoot td {
+    padding: var(--space-md); font-weight: 700; font-size: 1.125rem;
+    color: var(--ink); border-top: 2px solid var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .rules-table tfoot td.num { text-align: right; font-size: 1.5rem; }
+  @media (max-width: 880px) {
+    .rules-table tbody td.desc, .rules-table thead th.desc { display: none; }
+    .rules-table tbody td.cat, .rules-table thead th.cat { width: auto; }
+  }
+
+  /* === Framework PURE — resumo === */
+  section.framework { padding: var(--space-fluid-section) 0; }
+  section.framework h2 { margin-bottom: var(--space-md); }
+  section.framework .lede { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
+  .framework-summary {
+    width: 100%; border-collapse: collapse;
+    border-top: 1px solid var(--line);
+    font-size: 0.9375rem;
+  }
+  .framework-summary th,
+  .framework-summary td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    text-align: left;
+  }
+  .framework-summary th {
+    width: 30%;
+    font-size: 0.8125rem;
+    color: var(--ink-faint);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  .framework-summary td {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .status-live {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #ebf3ef;
+    color: #2c5a3d;
+    border: 1px solid #b9d8c4;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  /* Link to full methodology */
+  .doc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1.5px solid var(--accent);
+    padding-bottom: 1px;
+    transition: color 150ms ease;
+  }
+  .doc-link:hover { color: var(--accent); }
+  .doc-link-arrow { transition: transform 150ms ease; font-weight: 700; }
+  .doc-link:hover .doc-link-arrow { transform: translateX(3px); }
+
+  .cta-doc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding: var(--space-lg) var(--space-xl);
+    background: #1f3f30;
+    color: #f4ede0;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 200ms ease, transform 200ms ease;
+  }
+  .cta-doc:hover { background: #182f23; transform: translateY(-1px); }
+  .cta-doc-text { display: flex; flex-direction: column; gap: 4px; }
+  .cta-doc-tag {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #99d97e;
+    text-transform: none;
+  }
+  .cta-doc-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f4ede0;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+  .cta-doc-sub {
+    font-size: 0.8125rem;
+    color: #c5b89a;
+    font-weight: 500;
+  }
+  .cta-doc-arrow {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #99d97e;
+    transition: transform 200ms ease;
+  }
+  .cta-doc:hover .cta-doc-arrow { transform: translateX(4px); }
+  @media (max-width: 720px) {
+    .cta-doc { flex-direction: column; align-items: flex-start; padding: var(--space-md); }
+    .cta-doc-arrow { align-self: flex-end; }
+  }
+
+  /* Light variant for the rules-modal trigger CTA */
+  .cta-doc.cta-doc-light {
+    margin-top: var(--space-md);
+    background: var(--surface-raised);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .cta-doc.cta-doc-light:hover { background: var(--bg); border-color: var(--ink-faint); transform: translateY(-1px); }
+  .cta-doc.cta-doc-light .cta-doc-tag { color: var(--accent); }
+  .cta-doc.cta-doc-light .cta-doc-title { color: var(--ink); }
+  .cta-doc.cta-doc-light .cta-doc-sub { color: var(--ink-faint); }
+  .cta-doc.cta-doc-light .cta-doc-arrow { color: var(--ink); }
+
+  /* === Rules Modal === */
+  .rules-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 33, 39, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+    z-index: 400;
+  }
+  .rules-modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .rules-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.96);
+    width: min(1200px, 96vw);
+    height: min(90vh, 900px);
+    background: var(--bg);
+    border-radius: 12px;
+    box-shadow: 0 24px 60px rgba(15, 33, 39, 0.25);
+    z-index: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease, transform 200ms ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .rules-modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+  .rules-modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    border: none;
+    background: var(--surface-raised);
+    color: var(--ink-soft);
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background 150ms ease, color 150ms ease;
+    z-index: 10;
+  }
+  .rules-modal-close:hover { background: var(--ink); color: var(--bg); }
+  .rules-modal-body {
+    overflow-y: auto;
+    height: 100%;
+    padding: var(--space-xl) var(--space-lg);
+  }
+  .rules-modal-body section.rules {
+    padding: 0;
+    background: transparent;
+  }
+  .rules-modal-body .container {
+    max-width: none;
+    padding: 0;
+  }
+  body.rules-modal-open { overflow: hidden; }
+  @media (max-width: 720px) {
+    .rules-modal { width: 96vw; height: 92vh; }
+    .rules-modal-body { padding: var(--space-md) var(--space-sm); }
+  }
+
+  /* === Framework detail (Escopo, Critérios, Parâmetros) === */
+  section.framework-detail { padding: var(--space-fluid-section) 0; background: var(--surface-raised); }
+  .fd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl) var(--space-xl);
+  }
+  .fd-block:nth-child(3) { grid-column: span 2; }
+  .fd-block h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-2xs);
+    border-bottom: 2px solid var(--ink);
+  }
+  .fd-block ul { list-style: none; padding: 0; margin: 0; }
+  .fd-block ul li {
+    padding: var(--space-2xs) 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .fd-block ul li:last-child { border-bottom: none; }
+  .fd-block ul li strong { color: var(--ink); font-weight: 600; }
+  .params-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+  .params-table th, .params-table td {
+    padding: var(--space-2xs) var(--space-sm);
+    border-bottom: 1px dashed var(--line);
+    text-align: left; vertical-align: top;
+  }
+  .params-table th { width: 40%; font-size: 0.8125rem; color: var(--ink-faint); font-weight: 600; }
+  .params-table td { color: var(--ink); font-weight: 500; }
+  @media (max-width: 880px) {
+    .fd-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+    .fd-block:nth-child(3) { grid-column: span 1; }
+  }
+
+  /* === Regras do framework — tabela integral filtrável === */
+  section.rules .lede { max-width: var(--max-prose); margin-bottom: var(--space-md); }
+  .rules-toolbar {
+    display: flex; flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center; gap: var(--space-md);
+    margin: var(--space-md) 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--line);
+  }
+  .rules-stats {
+    font-size: 0.875rem;
+    color: var(--ink-faint);
+    font-weight: 500;
+    font-feature-settings: 'tnum' on;
+  }
+  .rules-filters {
+    display: inline-flex; gap: 4px;
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 3px;
+    flex-wrap: wrap;
+  }
+  .rule-filter {
+    background: transparent; border: none;
+    padding: 6px 12px;
+    font-family: inherit; font-size: 0.8125rem; font-weight: 600;
+    color: var(--ink-faint); letter-spacing: -0.005em;
+    cursor: pointer; border-radius: 4px;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .rule-filter:hover { color: var(--ink); }
+  .rule-filter.active { background: var(--ink); color: var(--bg); }
+  .rule-filter .rf-count {
+    font-size: 0.6875rem; font-weight: 700; opacity: 0.7;
+    font-feature-settings: 'tnum' on;
+  }
+  .rules-table-wrap { overflow-x: auto; }
+  .rules-integral {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  .rules-integral thead th {
+    text-align: left;
+    padding: var(--space-2xs) var(--space-sm);
+    font-size: 0.6875rem; font-weight: 700;
+    color: var(--ink-faint); letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--ink);
+    text-transform: none; white-space: nowrap;
+  }
+  .rules-integral thead .col-num { width: 40px; }
+  .rules-integral thead .col-id  { width: 80px; }
+  .rules-integral tbody .col-id { white-space: nowrap; }
+  .rules-integral tbody .col-id code { white-space: nowrap; }
+  .rules-integral thead .col-cat { width: 180px; }
+  .rules-integral thead .col-src { width: 90px; }
+  .rules-integral thead .col-sev { width: 75px; }
+  .rules-integral tbody td {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .rules-integral tbody .col-num {
+    color: var(--ink-mute); font-weight: 600;
+    font-feature-settings: 'tnum' on; font-size: 0.8125rem;
+  }
+  .rules-integral tbody .col-id code {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.75rem; color: var(--ink);
+    background: var(--surface-raised);
+    padding: 2px 6px; border-radius: 3px; font-weight: 600;
+  }
+  .rules-integral .col-rule .r-title {
+    font-weight: 700; color: var(--ink);
+    font-size: 0.9375rem; letter-spacing: -0.005em;
+    margin-bottom: 4px; line-height: 1.35;
+  }
+  .rules-integral .col-rule .r-purpose {
+    font-size: 0.8125rem; color: var(--ink-soft);
+    line-height: 1.5; max-width: 80ch;
+  }
+  .rules-integral .col-cat {
+    font-size: 0.8125rem; color: var(--ink-soft); font-weight: 500;
+  }
+  .src-chip {
+    display: inline-block; padding: 2px 7px;
+    border-radius: 3px; font-size: 0.6875rem; font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .src-chip.src-pure      { background: #ebf3ef; color: #2c5a3d; border: 1px solid #b9d8c4; }
+  .src-chip.src-pure_gap  { background: #f0f5f1; color: #466b50; border: 1px solid #c9dccf; }
+  .src-chip.src-eu        { background: #ecf0f6; color: #1f4570; border: 1px solid #b8c6db; }
+  .src-chip.src-recyclass { background: #f3ece8; color: #7a3520; border: 1px solid #d8c0b7; }
+  .sev-chip {
+    display: inline-block; padding: 2px 7px;
+    border-radius: 3px; font-size: 0.6875rem; font-weight: 700;
+    letter-spacing: 0.04em;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  }
+  .sev-chip.sev-block,
+  .rules .lede .sev-block { background: #fbe9e7; color: #962d22; border: 1px solid #f4b8b0; }
+  .sev-chip.sev-flag,
+  .rules .lede .sev-flag  { background: #fff4dd; color: #7a5a14; border: 1px solid #e8cc8a; }
+  .rules .lede .sev-block,
+  .rules .lede .sev-flag {
+    display: inline-block; padding: 1px 6px;
+    border-radius: 3px; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.04em;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  }
+
+  /* "How we onboard a new methodology" */
+  section.onboarding { padding: var(--space-fluid-section) 0; }
+  section.onboarding h2 { margin-bottom: var(--space-md); }
+  .onboarding-steps { margin-top: var(--space-xl); display: grid; gap: var(--space-md); }
+  .step {
+    display: grid;
+    grid-template-columns: 60px 1fr 160px;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .step:last-child { border-bottom: 1px solid var(--line); }
+  .step .step-n {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700; font-size: 1.5rem;
+    color: var(--ink-mute); letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on;
+  }
+  .step h3 {
+    font-size: 1.125rem; font-weight: 600; color: var(--ink);
+    letter-spacing: -0.01em; margin: 0 0 var(--space-2xs);
+  }
+  .step p { color: var(--ink-soft); font-size: 0.9375rem; max-width: 60ch; margin: 0; }
+  .step .step-owner {
+    text-align: right; font-size: 0.8125rem;
+    color: var(--ink-faint); font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  .step .step-owner em {
+    font-style: normal; display: block;
+    font-size: 0.6875rem; color: var(--ink-mute);
+    font-weight: 500; margin-top: 2px; letter-spacing: 0.04em;
+  }
+  @media (max-width: 720px) {
+    .step { grid-template-columns: 40px 1fr; }
+    .step .step-owner { grid-column: 1 / -1; text-align: left; margin-top: var(--space-2xs); }
+  }
+</style>
+  <script src="assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="metodologia">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Plataforma de validação de créditos ambientais</span><span lang="en">Environmental credit validation platform</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="visao" href="index.html"><span><span lang="pt">Visão</span><span lang="en">Overview</span></span></a>
+    <a class="nav-tab" data-target="processo" href="process.html"><span><span lang="pt">Processo</span><span lang="en">Process</span></span></a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html"><span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span></a>
+    <a class="nav-tab" data-target="mercado" href="market.html"><span><span lang="pt">Mercado</span><span lang="en">Market</span></span></a>
+  </div>
+</nav>
+
+<!-- ============ INTRO ============ -->
+<section class="intro">
+  <div class="container">
+    <h1>
+      <span lang="pt">PURE.<br><span class="accent">Em produção hoje.</span></span><span lang="en">PURE.<br><span class="accent">Live in production.</span></span>
+    </h1>
+    <p class="lede">
+      <span lang="pt">139 regras codificadas, três conjuntos em paralelo, uma plataforma que executa. Esta é a metodologia que sustenta o crédito ambiental no cenário <strong>CRDC Malta</strong> — desde maio de 2026.</span><span lang="en">139 codified rules, three rulesets in parallel, one platform that executes. This is the methodology underpinning the environmental credit in the <strong>CRDC Malta</strong> scenario — since May 2026.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ MODELO DE TRÊS AUTORIDADES — banner em dark surface ============ -->
+<section>
+  <div class="container">
+    <div class="governance-banner">
+      <div class="gb-main">
+        <span class="micro"><span lang="pt">Modelo de governança</span><span lang="en">Governance model</span></span>
+        <h2>
+          <span lang="pt">O modelo de<br><span class="accent">três autoridades.</span></span><span lang="en">The three-authority<br><span class="accent">model.</span></span>
+        </h2>
+      </div>
+      <div class="gb-side">
+        <p>
+          <span lang="pt">Toda metodologia que entra em produção atravessa três responsabilidades independentes. Quem <strong>escreve a regra</strong> (autor). Quem <strong>atesta que a regra é metodologicamente correta</strong> (certificador). Quem <strong>executa a regra sobre os dados</strong> (ImpacTrakr). Quanto mais essas três responsabilidades vivem em entidades distintas, mais o crédito que sai do outro lado pode ser auditado por qualquer parte interessada — comprador, regulador, contraparte.</span><span lang="en">Every methodology that enters production goes through three independent responsibilities. Who <strong>writes the rule</strong> (author). Who <strong>certifies that the rule is methodologically sound</strong> (certifier). Who <strong>executes the rule against the data</strong> (ImpacTrakr). The more these three responsibilities live in distinct entities, the more the credit coming out the other side can be audited by any interested party — buyer, regulator, counterparty.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLUGGED-IN METHODOLOGIES ============ -->
+<section class="plugged">
+  <div class="container">
+    <h2><span lang="pt">Hoje plugadas</span><span lang="en">Plugged in today</span></h2>
+    <p class="lede">
+      <span lang="pt">Três conjuntos de regras rodam em paralelo no cenário Malta. Um autor, dois frameworks regulatórios. Cada um plugável de forma independente — quem opera fora da UE não ativa o módulo UE. Quem não busca prêmio técnico não ativa RecyClass.</span><span lang="en">Three rulesets run in parallel in the Malta scenario. One author, two regulatory frameworks. Each pluggable independently — anyone operating outside the EU doesn't activate the EU module. Anyone not seeking the technical premium doesn't activate RecyClass.</span>
+    </p>
+
+    <ul class="methodology-list">
+      <li>
+        <div>
+          <div class="m-name">PURE</div>
+          <div class="m-author">EcoCircle Global</div>
+        </div>
+        <div class="m-scope">
+          <span lang="pt">Conjunto que gera o crédito. Específica para plástico, validada por Bureau Veritas antes da entrada em produção.</span><span lang="en">The ruleset that generates the credit. Specific to plastic, validated by Bureau Veritas before entering production.</span>
+        </div>
+        <div class="m-count">95<em><span lang="pt">regras</span><span lang="en">rules</span></em></div>
+        <div class="m-status">Live</div>
+      </li>
+      <li>
+        <div>
+          <div class="m-name"><span lang="pt">Regulação UE 2024/1157</span><span lang="en">EU Regulation 2024/1157</span></div>
+          <div class="m-author"><span lang="pt">Comissão Europeia</span><span lang="en">European Commission</span></div>
+        </div>
+        <div class="m-scope">
+          <span lang="pt">Conformidade WSR + DIWASS. Exigida apenas para comercializar dentro da UE. Em vigor desde 21-mai-2026.</span><span lang="en">WSR + DIWASS compliance. Required only to commercialise inside the EU. In force since 21-May-2026.</span>
+        </div>
+        <div class="m-count">27<em><span lang="pt">regras</span><span lang="en">rules</span></em></div>
+        <div class="m-status">Live</div>
+      </li>
+      <li>
+        <div>
+          <div class="m-name">RecyClass</div>
+          <div class="m-author">RecyClass AISBL</div>
+        </div>
+        <div class="m-scope">
+          <span lang="pt">Certificação técnica de mercado, ancorada em EN 15343:2007 e ISO 22095:2020. Adiciona prêmio comercial ao crédito.</span><span lang="en">Market technical certification, anchored on EN 15343:2007 and ISO 22095:2020. Adds a commercial premium to the credit.</span>
+        </div>
+        <div class="m-count">17<em><span lang="pt">regras</span><span lang="en">rules</span></em></div>
+        <div class="m-status">Live</div>
+      </li>
+      <li>
+        <div>
+          <div class="m-name"><span lang="pt">Papelão</span><span lang="en">Cardboard</span></div>
+          <div class="m-author"><span lang="pt">Autor a confirmar</span><span lang="en">Author TBD</span></div>
+        </div>
+        <div class="m-scope">
+          <span lang="pt">Próxima metodologia em escopo. Mercado europeu de fibras recicladas em forte aperto regulatório (PPWR).</span><span lang="en">Next methodology in scope. European recycled-fibre market under strong regulatory pressure (PPWR).</span>
+        </div>
+        <div class="m-count">—<em><span lang="pt">a definir</span><span lang="en">TBD</span></em></div>
+        <div class="m-status upcoming">Q4 2026</div>
+      </li>
+      <li>
+        <div>
+          <div class="m-name"><span lang="pt">Vidro</span><span lang="en">Glass</span></div>
+          <div class="m-author"><span lang="pt">Autor a confirmar</span><span lang="en">Author TBD</span></div>
+        </div>
+        <div class="m-scope">
+          <span lang="pt">Em estudo. Cadeia de custódia bem definida facilita codificação; demanda recorrente da indústria de embalagem.</span><span lang="en">Under study. Well-defined chain of custody eases codification; recurring demand from the packaging industry.</span>
+        </div>
+        <div class="m-count">—<em><span lang="pt">a definir</span><span lang="en">TBD</span></em></div>
+        <div class="m-status future">2027</div>
+      </li>
+      <li>
+        <div>
+          <div class="m-name"><span lang="pt">Metais</span><span lang="en">Metals</span></div>
+          <div class="m-author"><span lang="pt">Autor a confirmar</span><span lang="en">Author TBD</span></div>
+        </div>
+        <div class="m-scope">
+          <span lang="pt">Mercado de sucata e metais não-ferrosos. Alta intensidade de carbono evitado — também atrativo a mercados de carbono.</span><span lang="en">Scrap and non-ferrous metal markets. High avoided-carbon intensity — also attractive to carbon markets.</span>
+        </div>
+        <div class="m-count">—<em><span lang="pt">a definir</span><span lang="en">TBD</span></em></div>
+        <div class="m-status future">2027</div>
+      </li>
+      <li>
+        <div>
+          <div class="m-name"><span lang="pt">Bateria (DPP)</span><span lang="en">Battery (DPP)</span></div>
+          <div class="m-author"><span lang="pt">Alinhado ao Battery Regulation EU 2023/1542</span><span lang="en">Aligned to EU Battery Regulation 2023/1542</span></div>
+        </div>
+        <div class="m-scope">
+          <span lang="pt">Digital Product Passport para baterias entra em vigor em 2027. Trilha de rastreabilidade do material reciclado por SKU — exatamente onde a plataforma já entrega.</span><span lang="en">Battery Digital Product Passport enters force in 2027. Recycled-material traceability per SKU — exactly where the platform already delivers.</span>
+        </div>
+        <div class="m-count">—<em><span lang="pt">a definir</span><span lang="en">TBD</span></em></div>
+        <div class="m-status future">2027–28</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ FRAMEWORK PURE — Resumo, Escopo, Critérios, Parâmetros ============ -->
+<section class="framework">
+  <div class="container">
+    <h2><span lang="pt">Framework PURE</span><span lang="en">PURE Framework</span></h2>
+    <p class="lede"><span lang="pt">Especificação aberta do conjunto de regras que sustenta o crédito PURE — o que cada participante precisa cumprir, o que cada evento precisa carregar, o que dispara aprovação ou rejeição. Cada regra abaixo é parte da metodologia em produção hoje no cenário CRDC Malta.</span><span lang="en">Open specification of the ruleset behind the PURE credit — what each participant must meet, what each event must carry, what triggers approval or rejection. Every rule below is part of the methodology running today in the CRDC Malta scenario.</span></p>
+
+    <table class="framework-summary">
+      <tbody>
+        <tr><th><span lang="pt">Metodologia</span><span lang="en">Methodology</span></th><td>PURE — Plastic Universal Recycling Equation</td></tr>
+        <tr><th><span lang="pt">Autor</span><span lang="en">Author</span></th><td>EcoCircle Global</td></tr>
+        <tr><th><span lang="pt">Validador independente</span><span lang="en">Independent validator</span></th><td>Bureau Veritas</td></tr>
+        <tr><th><span lang="pt">Versão</span><span lang="en">Version</span></th><td>1.0 · <span lang="pt">em produção</span><span lang="en">in production</span></td></tr>
+        <tr><th><span lang="pt">Status</span><span lang="en">Status</span></th><td><span class="status-live">Live</span></td></tr>
+        <tr><th><span lang="pt">Tipo de crédito</span><span lang="en">Credit type</span></th><td><span lang="pt">Crédito de reciclagem de plástico (TRC plástico)</span><span lang="en">Plastic recycling credit (plastic TRC)</span></td></tr>
+        <tr><th><span lang="pt">Registry destino</span><span lang="en">Target registry</span></th><td>Carrot · <span lang="pt">arquitetura pluggable</span><span lang="en">pluggable architecture</span></td></tr>
+        <tr><th><span lang="pt">Frameworks acoplados</span><span lang="en">Coupled frameworks</span></th><td>EU 2024/1157 (WSR + DIWASS) · RecyClass (EN 15343 + ISO 22095)</td></tr>
+      </tbody>
+    </table>
+
+    <a class="cta-doc" href="methodology-pure.html">
+      <div class="cta-doc-text">
+        <span class="cta-doc-tag"><span lang="pt">Especificação técnica</span><span lang="en">Technical specification</span></span>
+        <span class="cta-doc-title"><span lang="pt">Ler a metodologia PURE na íntegra</span><span lang="en">Read the full PURE methodology</span></span>
+        <span class="cta-doc-sub"><span lang="pt">19 seções · autoria EcoCircle Global · validada por Bureau Veritas · v1.0 · Junho 2025</span><span lang="en">19 sections · authored by EcoCircle Global · validated by Bureau Veritas · v1.0 · June 2025</span></span>
+      </div>
+      <span class="cta-doc-arrow">→</span>
+    </a>
+
+    <button type="button" class="cta-doc cta-doc-light" id="open-rules-modal">
+      <div class="cta-doc-text">
+        <span class="cta-doc-tag"><span lang="pt">Catálogo de validação</span><span lang="en">Validation catalogue</span></span>
+        <span class="cta-doc-title"><span lang="pt">Ver as 139 regras codificadas</span><span lang="en">Browse the 139 codified rules</span></span>
+        <span class="cta-doc-sub"><span lang="pt">PURE 95 · UE 27 · RecyClass 17 · filtrável por origem</span><span lang="en">PURE 95 · EU 27 · RecyClass 17 · filterable by source</span></span>
+      </div>
+      <span class="cta-doc-arrow">→</span>
+    </button>
+  </div>
+</section>
+
+<section class="framework-detail">
+  <div class="container">
+    <div class="fd-grid">
+      <div class="fd-block">
+        <h3><span lang="pt">Escopo</span><span lang="en">Scope</span></h3>
+        <ul>
+          <li><strong><span lang="pt">Materiais</span><span lang="en">Materials</span>:</strong> <span lang="pt">plástico — PET-1, HDPE-2, PP-5 e mixed polymer (Basel Y48). Hazardous A3210 com tratamento próprio.</span><span lang="en">plastic — PET-1, HDPE-2, PP-5 and mixed polymer (Basel Y48). Hazardous A3210 with separate handling.</span></li>
+          <li><strong><span lang="pt">Tratamento</span><span lang="en">Treatment</span>:</strong> <span lang="pt">recuperação R3 (reciclagem mecânica) — triagem, lavagem, extrusão.</span><span lang="en">R3 recovery (mechanical recycling) — sorting, washing, extrusion.</span></li>
+          <li><strong><span lang="pt">Geografia</span><span lang="en">Geography</span>:</strong> <span lang="pt">em operação na UE (Malta); arquitetura suporta qualquer jurisdição com framework regulatório acoplável.</span><span lang="en">live in the EU (Malta); architecture supports any jurisdiction with a pluggable regulatory framework.</span></li>
+        </ul>
+      </div>
+
+      <div class="fd-block">
+        <h3><span lang="pt">Critérios de elegibilidade</span><span lang="en">Eligibility criteria</span></h3>
+        <ul>
+          <li><strong><span lang="pt">Gerador</span><span lang="en">Producer</span>:</strong> <span lang="pt">identificado, com documentação e endereço homologado.</span><span lang="en">identified, with documentation and accredited address.</span></li>
+          <li><strong><span lang="pt">Transportador (Notifier)</span><span lang="en">Carrier (Notifier)</span>:</strong> <span lang="pt">licença de transporte de resíduo válida no escopo da rota.</span><span lang="en">valid waste-transport licence within the route scope.</span></li>
+          <li><strong><span lang="pt">Reciclador / Consignee</span><span lang="en">Recycler / Consignee</span>:</strong> <span lang="pt">permit R3 válido, EWC autorizado para o tipo de material, exatamente um por MassID.</span><span lang="en">valid R3 permit, authorised EWC for the material type, exactly one per MassID.</span></li>
+          <li><strong><span lang="pt">Integrador</span><span lang="en">Integrator</span>:</strong> <span lang="pt">contrato ImpacTrakr ativo e termos de uso aceitos.</span><span lang="en">active ImpacTrakr contract and accepted terms of use.</span></li>
+        </ul>
+      </div>
+
+      <div class="fd-block">
+        <h3><span lang="pt">Parâmetros-chave</span><span lang="en">Key parameters</span></h3>
+        <table class="params-table">
+          <tbody>
+            <tr><th><span lang="pt">Unidade da massa</span><span lang="en">Mass unit</span></th><td><span lang="pt">quilogramas (kg)</span><span lang="en">kilograms (kg)</span></td></tr>
+            <tr><th><span lang="pt">Drift de reconciliação</span><span lang="en">Reconciliation drift</span></th><td>±2% <span lang="pt">por categoria de polímero</span><span lang="en">per polymer category</span></td></tr>
+            <tr><th><span lang="pt">Tolerância geolocalização</span><span lang="en">Geolocation tolerance</span></th><td>2 km <span lang="pt">(GPS vs endereço homologado)</span><span lang="en">(GPS vs accredited address)</span></td></tr>
+            <tr><th><span lang="pt">Janela de armazenagem</span><span lang="en">Storage window</span></th><td><span lang="pt">FIFO obrigatório · auditável</span><span lang="en">FIFO required · auditable</span></td></tr>
+            <tr><th><span lang="pt">Prazo Certificado de Conclusão</span><span lang="en">Completion Certificate deadline</span></th><td>30 <span lang="pt">dias após R3 (Art. 15(6))</span><span lang="en">days after R3 (Art. 15(6))</span></td></tr>
+            <tr><th><span lang="pt">Período do projeto</span><span lang="en">Project period</span></th><td><span lang="pt">definido por contrato vigente; eventos fora da janela rejeitados</span><span lang="en">defined by active contract; out-of-window events rejected</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGRAS DO FRAMEWORK — MODAL ============ -->
+<div class="rules-modal-overlay" id="rules-modal-overlay"></div>
+<div class="rules-modal" id="rules-modal" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+  <button type="button" class="rules-modal-close" id="rules-modal-close" aria-label="Close">✕</button>
+  <div class="rules-modal-body">
+<section class="rules" id="rules-section">
+  <div class="container">
+    <h2><span lang="pt">Regras do framework</span><span lang="en">Framework rules</span></h2>
+    <p class="lede"><span lang="pt">As 139 regras codificadas, executadas em paralelo a cada evento. Cada uma carrega uma <strong>origem</strong> (PURE, EU ou RecyClass), uma <strong>categoria operacional</strong> e uma <strong>ação em falha</strong> — <span class="sev-block">BLOCK</span> trava o fluxo, <span class="sev-flag">FLAG</span> segue com alerta. <strong>Filtre abaixo</strong> para explorar.</span><span lang="en">The 139 codified rules, executed in parallel on each event. Each carries an <strong>origin</strong> (PURE, EU or RecyClass), an <strong>operational category</strong>, and a <strong>failure action</strong> — <span class="sev-block">BLOCK</span> halts the flow, <span class="sev-flag">FLAG</span> proceeds with warning. <strong>Filter below</strong> to explore.</span></p>
+
+    <div class="rules-toolbar">
+      <div class="rules-stats" id="rules-stats"></div>
+      <div class="rules-filters" role="group" aria-label="Filter by source">
+        <button class="rule-filter active" data-filter="all"><span lang="pt">Todas</span><span lang="en">All</span> <span class="rf-count">139</span></button>
+        <button class="rule-filter" data-filter="PURE">PURE <span class="rf-count">95</span></button>
+        <button class="rule-filter" data-filter="EU"><span lang="pt">UE</span><span lang="en">EU</span> <span class="rf-count">27</span></button>
+        <button class="rule-filter" data-filter="RECYCLASS">RecyClass <span class="rf-count">17</span></button>
+      </div>
+    </div>
+
+    <div class="rules-table-wrap">
+      <table class="rules-integral" id="rules-table">
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th class="col-id">ID</th>
+            <th class="col-rule"><span lang="pt">Regra</span><span lang="en">Rule</span></th>
+            <th class="col-cat"><span lang="pt">Categoria</span><span lang="en">Category</span></th>
+            <th class="col-src"><span lang="pt">Origem</span><span lang="en">Source</span></th>
+            <th class="col-sev"><span lang="pt">Ação</span><span lang="en">Action</span></th>
+          </tr>
+        </thead>
+        <tbody id="rules-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+  </div>
+</div>
+
+<script id="rules-data" type="application/json">
+{"rules":[{"id":"P-01","title":"Project period valid","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Garante que toda MassID submetida ao programa pertence a um Project Period vigente. Eventos fora da janela project_start..project_end não podem gerar TRC porque cairiam fora do escopo metodológico aprovado pela registry/PURE e seriam…"},{"id":"P-02","title":"Participant homologation active","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"Garante que Recyclers, Processors e INTs ativos na chain da MassID têm homologação vigente. Homologação é o checkpoint formal onde Compliance/Methodology aprovou o participant para o programa PURE — sem ela, qualquer dado que esse ator…"},{"id":"P-03","title":"KYC / KYB identity verification","pillar":"PURE","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"Verifica que cada participante completou o processo formal de identificação base (Know Your Customer / Know Your Business). É o gate fundamental de governance — sem KYC válido, Impactrakr não consegue provar para BV, o registry ou…"},{"id":"P-04","title":"No prior PURE TRC linked","pillar":"PURE","cluster":"QUALITY_ANTIFRAUD","severity":"BLOCK","purpose":"Bloqueia emissão de TRC duplicado para a mesma MassID. Um MassID só pode gerar UM Tokenized Recycling Credit ao longo de toda sua vida — qualquer tentativa de re-emissão (mesmo após retire/burn) é fraude por design. É o gate de unicidade…"},{"id":"P-05","title":"Data exclusivity acknowledgement on file","pillar":"PURE","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"Impede que o mesmo LOTE (MassID/underlying data) gere crédito em mais de um programa ambiental (Verra, Plastic Bank, Recyclass, PURE) — pecado capital de qualquer mercado de créditos. P-05 é o COMPROMISSO formal: cada participant assina…"},{"id":"P-06","title":"Document value > 0","pillar":"PURE","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"Sanity check quantitativo básico: nenhuma MassID pode entrar no pipeline com massa zero, negativa ou ausente. Valores inválidos quebram todos os cálculos downstream (yield, adjustment factor, eligible mass) e são forte indicativo de bug de…"},{"id":"P-07","title":"Unit of measure = kg","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Garante que toda massa registrada no MassID está em quilogramas. Outras unidades (libras, toneladas, gramas) quebram cálculos downstream de yield, plausibilidade e payload do registry — que assumem kg como base. É um gate trivial mas…"},{"id":"P-08","title":"Document category = MassID","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Garante que o registro ingerido pelo pipeline é de fato um Document de categoria 'MassID' e não outro tipo (ex.: invoice, receipt, kyc_record) que entrou no fluxo errado. Sem esta checagem, registros de outras categorias podem disparar…"},{"id":"P-09","title":"Document type = Plastic","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Restringe o pipeline PURE a plástico — metodologia PURE cobre apenas resíduo plástico, não orgânico, têxtil, papel, vidro ou metal. BOLD (metodologia legada) suportava categorias orgânicas; PURE rebaixa para plástico apenas. Sem esta…"},{"id":"P-10","title":"Waste stream classification present","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Exige que cada MassID declare explicitamente o waste stream (single polymer, mixed, composite, byproduct, residual) e a origin class (residential, commercial, industrial, marine). Sem esta classificação, regras downstream (P-13 composite,…"},{"id":"P-11","title":"Eligible resin family","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Restringe os créditos PURE às famílias de resina elegíveis: PET, HDPE, PVC, LDPE, PP, PS, EPS e 'Other' (com sub-tipo via P-12). Materiais fora destas famílias (biopolímeros experimentais, resinas não reconhecidas por padrão internacional)…"},{"id":"P-12","title":"Other plastic subtype description required","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Quando resinType='Other' (fora das 7 famílias canônicas), exige descrição textual explícita do sub-tipo. Sem isso, 'Other' vira fallback genérico que mascara resinas não-rastreadas e impede auditoria material. Esta regra força…"},{"id":"P-13","title":"Composite material eligibility","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Para MassIDs marcados como composite (múltiplos materiais), garante que o componente PRIMÁRIO é plástico. Sem isso, composites com primary não-plástico (ex.: Tetrapak com primary papel) entrariam como PURE, contaminando o cálculo. A regra…"},{"id":"P-14","title":"Mixed plastics accepted by recycler","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Para MassIDs com fluxo mixed (várias resinas misturadas), exige que o Recycler de destino tenha capability explícita para processar mixed input. Sem isso, mixed plastics podem ser enviadas para recycler que só processa single-polymer —…"},{"id":"P-15","title":"Non plastic component adjustment factor required","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Composites e materiais com debris (terra, umidade, restos orgânicos) precisam de um plastic content factor (0 < f <= 1) que ajusta o net weight para apenas a fração de plástico real. Sem isso, o crédito seria calculado sobre massa bruta e…"},{"id":"P-16","title":"Adjustment factor evidence pack present","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Quando P-15 dispara (composite/debris precisa de adjustment factor), exige um evidence pack completo: sampling_report (como a amostra foi coletada), lab_report (resultado da análise), protocol_reference (padrão metodológico usado) e…"},{"id":"P-17","title":"Hazardous toxic contamination exclusion (effective hazardous)","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Exclui MassIDs contaminados com substâncias tóxicas/perigosas, a menos que tenham passado por método de descontaminação padronizado e aprovado. Plástico perigoso vira passivo regulatório (EU WSR / Basel B3011) e fora do escopo PURE. Sem…"},{"id":"P-18","title":"Traceability to qualified recycler","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Triple-check final na cadeia: o MassID tem recyclerId definido, a chain de custódia é completa (do generator ao recycler) e o recycler tem permit válido. É um composite check que falha rápido quando qualquer um dos três falha — protege…"},{"id":"P-19","title":"No post facto disposal outcome","pillar":"PURE","cluster":"MATERIAL_COMPOSITION","severity":"BLOCK","purpose":"Se o outcome final do MassID for landfill, incineration, fuel_recovery ou qualquer disposal code, o crédito PURE não pode ser emitido — mesmo que todo o pipeline anterior tenha passado. Casos comuns: contaminação descoberta no processador,…"},{"id":"P-20","title":"Waste origin identified or flagged unidentified","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"Garante coerência entre o flag de origem conhecida e a presença de generator_id na MassID. Se a fonte é identificada (origin_known_flag=TRUE), tem que existir exatamente o generator que assina. Se a fonte é não-identificada (open-dump,…"},{"id":"P-21","title":"One Waste Generator when origin identified","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"Quando a origem é identificada, PURE exige EXATAMENTE 1 Generator na chain. Múltiplos Generators numa mesma MassID quebram o modelo de attribution (a quem creditar o ato de descarte responsável?) e abrem porta para double-counting. Zero…"},{"id":"P-22","title":"First identified participant consistency","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"Garante que o primeiro ator registrado no pickup_event é o mesmo declarado como primary_participant da MassID. Inconsistência aqui é sinal forte de manipulação de logs (alguém editou primary depois do pickup) ou bug de captura (app salvou…"},{"id":"P-23","title":"Primary address consistency","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"Garante coerência entre o endereço primário registrado na MassID e o endereço do primeiro pickup. Mismatch indica que algo foi editado depois do pickup, ou que o cadastro do Participant aponta para endereço diferente da operação real. Sem…"},{"id":"P-24","title":"One Recycler actor","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"PURE centra a certificação no Recycler final: exatamente 1 Recycler por MassID. Múltiplos Recyclers numa mesma MassID quebram attribution e abrem porta para double-credit (mesmo lote contado em 2 outcomes). Zero Recyclers significa que a…"},{"id":"P-25","title":"Hauler required unless generator deemed hauler","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"Se a MassID inclui leg de transporte, alguém transportou — seja um Hauler licenciado, seja o próprio Generator atuando como hauler (caso PURE prevê para small generators rurais). Sem hauler declarado, a chain de custódia tem buraco e BV…"},{"id":"P-26","title":"Processor actor required where intermediate sorting exists","pillar":"PURE","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"Quando a rota inclui sorting intermediário (Processor que separa, lava, granula), tem que existir Processor declarado e homologado. Sorting é etapa material que transforma o lote — sem rastrear o Processor, perde-se a evidência do que…"},{"id":"P-27","title":"Pick up event required","pillar":"PURE","cluster":"EVENTS_PICKUP","severity":"BLOCK","purpose":"Garante que todo MassID tem um pickup event registrado — o ponto inicial físico da chain de custódia. Sem pickup event documentado (com timestamp, ator, GPS, fotos), não há prova de que o material existiu na origem; abre porta para fraude…"},{"id":"P-28","title":"Drop off event required","pillar":"PURE","cluster":"EVENTS_PICKUP","severity":"BLOCK","purpose":"Espelho de P-27: garante que todo MassID tem um drop-off event registrado no destino final (recycler). Sem ele, não há prova física de que o material chegou ao recycler — chain quebra entre transport e processing. P-27 e P-28 juntos…"},{"id":"P-29","title":"Pick up geolocation precision","pillar":"PURE","cluster":"EVENTS_PICKUP","severity":"BLOCK","purpose":"Valida que o pickup event tem coordenadas GPS presentes e dentro da precisão tolerada (default 50m), além de estar dentro de um DropOffPoint registrado quando aplicável. Sem isso, eventos podem ser fabricados retroativamente em qualquer…"},{"id":"P-30","title":"Recycler drop off address match","pillar":"PURE","cluster":"EVENTS_PICKUP","severity":"BLOCK","purpose":"Cross-check entre o address declarado no drop-off event e o address registrado do Recycler. Diferença indica drop-off em facility errada (fraude ou erro operacional) — comum quando recycler tem múltiplas plantas e operador escolhe a…"},{"id":"P-31","title":"Drop off geolocation precision","pillar":"PURE","cluster":"EVENTS_PICKUP","severity":"BLOCK","purpose":"Espelho de P-29 para drop-off: exige GPS válido e preciso no evento de entrega + verifica que GPS está dentro da geo-fence do recycler. Sem isso, drop-off pode ser fabricado em qualquer ponto entre origem e destino — fraude de 'entreguei'…"},{"id":"P-32","title":"Receiving operator identifier present","pillar":"PURE","cluster":"EVENTS_PICKUP","severity":"BLOCK","purpose":"Exige que o drop-off event tenha o nome e identificador (e.g., user ID, CPF/passport, employee badge) do operador que recebeu o material no recycler. Sem identificação personalizada, recibos viram blanket — impede traceabilidade e…"},{"id":"P-33","title":"Vehicle type declared","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Quando existe leg de transport, o vehicle_type precisa estar declarado e dentro do enum aprovado (truck, van, motorcycle, bicycle, foot, vessel, other). Sem isso, regras downstream como P-34 (description quando Other) e P-35 (plate quando…"},{"id":"P-34","title":"Vehicle description required when Other","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Quando vehicleType='other', exige descrição textual explícita (mín. 3 chars) para evitar que 'other' vire blanket fallback que mascara modais não-catalogados. É espelho de P-12 (para vehicle em vez de waste material). Sem essa exigência,…"},{"id":"P-35","title":"Vehicle licence plate required for motorized vehicles","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Veículos motorizados (truck, van, motorcycle, vessel) exigem placa/registro para rastreabilidade legal e cross-check com EU-06 (vehicle registration match) e P-64 (route uniqueness). Sem placa, é impossível detectar plate-swap fraud…"},{"id":"P-36","title":"Driver identifier or justified exemption","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Para cada transport leg exige driverId OU exemptionReason. Driver identifiable permite traceability humana e accountability em casos de incidente/fraude. Exemption só é aceita com justificativa textual (ex.: 'autonomous vehicle Level 4',…"},{"id":"P-37","title":"Transport manifest required for business pickups","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Pickups originados de fonte business (não residencial) exigem OBRIGATORIAMENTE manifest formal de transporte — é requisito legal em quase todas as jurisdições (B2B waste transfer). Residential é exempt e usa geo-digital proof (foto + GPS +…"},{"id":"P-38","title":"Transport manifest attachment required unless exempted","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Estende P-37: além do ID do manifest, exige o ARQUIVO físico anexado (PDF/imagem assinada) UNLESS o operador marcou manifestExemptionFlag=true (a ser justificado em P-39). Sem o arquivo, o manifest é só um ID sem prova documental — viola…"},{"id":"P-39","title":"Transport manifest exemption justification","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Se hauler/business marcou manifestExemptionFlag=TRUE (escapando P-38), exige justificativa textual ≥ 10 chars explicando a base legal (ex.: 'Microempresa <500kg/mês, regional exemption Lei BR XYZ'; 'Domestic transfer <2t/year per WSR Art.…"},{"id":"P-40","title":"Transport manifest required fields complete","pillar":"PURE","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Quando há manifest anexado, exige que campos obrigatórios estejam preenchidos: shipper, consignee, wasteCode, weight, date, signature. Manifest com fields vazios não tem força probatória — viola EU WSR Article 19 e a maioria das…"},{"id":"P-41","title":"Transport manifest weight fallback control","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Quando scale_weight está ausente (pesagem por balança não foi feita) e o sistema vai usar o peso DO MANIFEST como fallback, exige que weight_capture_method esteja explicitamente declarado como 'manifest'. Sem essa declaração, peso de…"},{"id":"P-42","title":"At least one weighing event or permitted manifest fallback","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Todo MassID precisa de PELO MENOS uma evidência de peso: ou >=1 weighing event (scale-based) ou weightCaptureMethod='manifest' (com fallback documentado em P-41) ou weightCaptureMethod='residential_average' (documentado em PG-11). Sem…"},{"id":"P-43","title":"Weight capture method declared","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Exige declaração explícita de COMO o peso foi capturado (enum: digital, photo, manual, manifest, residential_average, visual_estimate). Sem isso, sistema downstream assume default e cálculos de uncertainty (PG-14) ficam sem base. Também…"},{"id":"P-44","title":"Scale type declared (plastic-curated enum)","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Garante que toda WeighEvent declara um tipo de balança (`scaleType`) reconhecido na enum plástico-curada — 10 valores cobrindo as modalidades operacionais reais de reciclagem de plástico (weighbridge para volumosos, intra-facility scales…"},{"id":"P-45","title":"Weighing fields complete","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Para cada weighing event, exige presença de gross_kg, tare_kg, net_kg e container_fields aplicáveis (quando container_used=true). Esses fields alimentam P-46 (net formula) e P-47 (adjusted net). Sem completude, cálculos downstream falham…"},{"id":"P-46","title":"Net weight formula valid","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Para cada weighing event, verifica que net_kg = gross_kg - tare_kg dentro de tolerância (default 0.5%). Inconsistência indica input ruim, weighbridge mal calibrada (RC-07), ou tentativa de manipulação (declarar net maior do que…"},{"id":"P-47","title":"Plastic content adjusted net weight","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Quando P-15 dispara (composite/debris), o sistema deve aplicar plasticContentFactor para calcular eligible_kg = net_kg * factor (apenas a fração de plástico real é elegível para crédito). Esta regra verifica que o cálculo foi feito e está…"},{"id":"P-48","title":"Scale operator + validator segregation of duties (WEIGHING-specific)","pillar":"PURE","cluster":"WEIGHING","severity":"BLOCK","purpose":"Enforce segregação de funções (segregation of duties) nas operações de pesagem: `measuredBy` (quem executou a leitura da balança) e `validatedBy` (quem revisou/atestou) devem ser pessoas DISTINTAS. P-48 é estritamente sobre segregação —…"},{"id":"P-49","title":"Recycler legally qualified, permit active at event date, EWC in scope","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Trinity check do Recycler como endpoint do crédito: homologação ativa + audit em dia + permit válido. Falha em qualquer uma das três invalida o outcome — o Recycler é onde o ato de reciclagem ocorre, então sua qualificação legal e técnica…"},{"id":"P-50","title":"Recycler process declared (mechanism + subtype + quality delta)","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Cada Recycler precisa declarar QUAL processo de reciclagem foi aplicado (mechanical, chemical, closed_loop, downcycling, upcycling). Sem isso, P-51 (no fuel) e cálculo de adjustment factor downstream não conseguem rodar. processType também…"},{"id":"P-51","title":"Chemical recycling not fuel energy recovery","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Exclusão explícita do PURE: chemical recycling cujo output vira combustível (pirólise → óleo combustível) ou energia (incineração com recuperação) NÃO é reciclagem para fins de crédito. PURE alinha com EU Waste Framework Directive: só…"},{"id":"P-52","title":"Recycling manifest event required","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Evento de recycling manifest é o registro formal do recebimento do lote pelo destino final de reciclagem. recyclingManifestId não-nulo é o triggers de P-53 (anexo) e P-55..P-57 (validações de conteúdo). Sem este evento, não há prova do…"},{"id":"P-53","title":"Recycling manifest attachment required unless exempt","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Garante que cada recyclingManifestId tem o documento (PDF/XML) anexado, OU está marcado como exemption legítima. PURE permite exemption para jurisdições onde manifest digital substitui o documento físico (DIWASS) ou onde o Recycler atua…"},{"id":"P-54","title":"Recycling manifest exemption justification","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Sempre que se invoca exemption do manifest físico (P-53), tem que existir justificativa textual documentada e auditável. Sem isso, exemption vira escape de oversight. PURE exige reason não-vazia E em formato auditável (mínimo 20 chars)…"},{"id":"P-55","title":"Recycling manifest address = recycler address","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"O destino declarado no manifest tem que bater com o endereço do Recycler associado à MassID. Mismatch é sinal forte de fraude (lote desviado para destino paralelo) ou erro de input (manifest preenchido com endereço errado). BV reprova…"},{"id":"P-56","title":"Recycling manifest required fields complete","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Manifest precisa ter os 6 campos legalmente exigidos preenchidos (destination, material, quantity, date, final_receiver, process_reference). Faltar qualquer um vira manifest inválido perante autoridade regulatória e perante BV. Esta regra…"},{"id":"P-57","title":"Recycling manifest value = certified mass or adjusted certified mass","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Reconcilia a quantidade declarada no manifest com a massa recebida (recycler_receipt) e com a eligible mass (após adjustment factor para non-plastic content). Drift entre os 3 valores acima da tolerância de 1% sinaliza fraude…"},{"id":"P-58","title":"Recycled transformed event required","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"TRC só pode ser emitido APÓS evento de transformação concluída (recycling_complete_event). Recebimento no Recycler não basta — o lote precisa efetivamente ter sido transformado em flake/pellet/monômero. Sem este evento, créditos seriam…"},{"id":"P-59","title":"Output type declared","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Recycler precisa declarar a forma material do output (flake, pellet, regrind, monomer, other). Esta info é usada para classificar o crédito downstream (compradores diferenciam pellet de flake) e para validar plausibilidade de yield (P-60).…"},{"id":"P-60","title":"Output mass plausibility","pillar":"PURE","cluster":"RECYCLER_OUTCOME","severity":"FLAG","purpose":"FLAG quando yield (output_kg / input_kg) cai fora da janela esperada por processType/outputType. Yield muito alto (>100%) é fraude pura. Yield muito baixo pode ser perda legítima ou underreporting. Manual review confirma com o Recycler.…"},{"id":"P-61","title":"Source monthly mass plausibility","pillar":"PURE","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"FLAG quando volume mensal de um Generator excede threshold derivado do seu profile (histórico, expected capacity, baseline declarado). Generator que de repente reporta 10x sua média mensal é sinal forte de double-pickup, captura adulterada…"},{"id":"P-62","title":"Recycler monthly capacity plausibility","pillar":"PURE","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"FLAG quando o input mensal de um Recycler excede sua capacidade homologada. Recycler reportando processamento acima do seu maquinário declarado é sinal de overstatement, sub-rota não declarada (e.g., subcontratação não aprovada) ou…"},{"id":"P-63","title":"Duplicate mass check","pillar":"PURE","cluster":"QUALITY_ANTIFRAUD","severity":"BLOCK","purpose":"Anti-double-counting CORE control. Detecta tentativa de submeter a mesma massa duas vezes via (a) mesmo MassID hash, ou (b) mesmo payload hash (mesmos atributos materiais: peso, generator, receiver, timeframe). Sem este gate, é trivial…"},{"id":"P-64","title":"Route uniqueness check","pillar":"PURE","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"FLAG quando route_signature (hash de plate+pickup+dropoff+timeBucket) se repete suspeitosamente (≥3x na mesma janela curta). Repetição extrema indica possível mass-spam de pickups fabricados pelo mesmo veículo. Manual review confirma se é…"},{"id":"P-65","title":"MassID FIFO custody continuity","pillar":"PURE","cluster":"QUALITY_ANTIFRAUD","severity":"BLOCK","purpose":"Garante que a sequência de MassIDEvents (CREATED→PICKED_UP→IN_TRANSIT→RECEIVED→SAMPLED→PROCESSED→RECYCLED) segue ordem temporal monotônica E que custody_seq não tem buracos ou estados pulados. FIFO é principio explícito do PURE para chain…"},{"id":"P-66","title":"No conflicting environmental credit claim (reactive enforcement)","pillar":"PURE","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"Enforcement reativo de double-counting. Não fazemos cross-check ativo com outros registries (Verra, Plastic Bank, Recyclass) porque (a) não temos integração e (b) o próprio registry não faz isso em pre-validation. Quando Compliance…"},{"id":"P-67","title":"Bad actor propagation","pillar":"PURE","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"Quando uma MassID é flagged por incidente severo (hash chain quebrado, duplicate confirmado, fraude documentada), TODOS os atores ligados e TODOS os créditos vinculados entram em exception state. Esta é a 'Proof of Authority penalty logic'…"},{"id":"PG-01","title":"KYC field format and semantic validation","pillar":"PURE_GAP","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"Complementa P-03 (que garante presença do kyc_kyb_record com estrutura mínima) validando FORMATO e SEMÂNTICA de cada campo individual. P-03 confirma que existe — PG-01 confirma que faz sentido. Sem isso, BV/auditor pode encontrar 'taxId =…"},{"id":"PG-02","title":"T&C and data-rights acceptance — chain-wide check","pillar":"PURE_GAP","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"Enforça que TODOS os Participants da chain do MassID (Generator, Hauler, Recycler, Processor, INT) têm aceite vivo de T&C + Data Rights no momento da submissão ao registry. P-05 valida o participant individual no onboarding/ingestão; PG-02…"},{"id":"PG-03","title":"AML / CFT compliance acknowledgement","pillar":"PURE_GAP","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"Anti-Money-Laundering / Combating the Financing of Terrorism. PURE §5.1.2 exige que cada participant reconheça que entender o uso da plataforma para lavagem de dinheiro ou financiamento de terrorismo é proibido. Em jurisdições com…"},{"id":"PG-04","title":"Digital asset and local law compliance","pillar":"PURE_GAP","cluster":"KYC_GOVERNANCE","severity":"FLAG","purpose":"PURE §5.1.3 exige aceite de que stable coins e criptos podem não ser legais em todas as jurisdições, ANTES de receber rewards on-chain. Além disso, exige wallet address verificada (§10.2 — rewards distribution). Sem wallet, não tem como…"},{"id":"PG-05","title":"INT homologation validation","pillar":"PURE_GAP","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"INT (Network Integrator) é a porta de entrada do dMRV no ecossistema do registry — quem assina o submission payload é sempre um INT. PURE §7.1.2 exige homologation prévia do INT (data quality + security audit) antes de qualquer ingestão…"},{"id":"PG-06","title":"Recycler counterfactual destination documentation","pillar":"PURE_GAP","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"PURE exige que cada Recycler declare e documente o cenário CONTRAFACTUAL de destinação — para onde o plástico iria fisicamente se NÃO entrasse no programa do registry. Categorias aceitas: landfill (aterro sanitário regular), open_dump…"},{"id":"PG-07","title":"Recycler capacity backed by business plan evidence","pillar":"PURE_GAP","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"PURE §7.1.1 exige que a capacidade declarada do Recycler (recyclerCapacity) seja sustentada por evidência documental — business plan, project plan, layout do site, lista de equipamentos. Sem PG-07, recyclers podem inflar capacity declarada…"},{"id":"PG-08","title":"Recycler prior volume records (CDFs / Waste Delivery Summaries)","pillar":"PURE_GAP","cluster":"HOMOLOGATION_PARTICIPANT","severity":"BLOCK","purpose":"PURE §7.1.1 exige histórico oficial de volumes processados (Brasil: CDF — Certificado de Destinação Final; UE: Waste Delivery Summary Report). Esse histórico ancora a credibilidade dos volumes futuros declarados — sem ele, o Recycler está…"},{"id":"PG-09","title":"Homologation renewal window flag","pillar":"PURE_GAP","cluster":"HOMOLOGATION_PARTICIPANT","severity":"FLAG","purpose":"PURE §7.4 exige renewal de homologation antes de completar 24 meses desde a última homologation; recomenda outreach pelo participant pelo menos 3 meses antes. PG-09 cria o FLAG proativo (90 dias antes do vencimento) para que Operations…"},{"id":"PG-10","title":"Recycler social impact data","pillar":"PURE_GAP","cluster":"HOMOLOGATION_PARTICIPANT","severity":"FLAG","purpose":"PURE §7.1.1 (Environmental, Social & Economic Accounting, §12) exige declaração de impacto social do workforce do Recycler — proporção de low-income, minorias, mulheres, LGBTQIA+, e benefícios para a comunidade local (job creation,…"},{"id":"PG-11","title":"Residential pickup weight averaging logic","pillar":"PURE_GAP","cluster":"WEIGHING","severity":"BLOCK","purpose":"PURE §8.4 permite que pickups residenciais (households, apartments) sem balança usem average weight conservador. P-41 só cobre manifest weight fallback; PG-11 institui e valida o método 'residential_average' especificamente. Sem PG-11,…"},{"id":"PG-12","title":"PoA propagation to INTs","pillar":"PURE_GAP","cluster":"QUALITY_ANTIFRAUD","severity":"BLOCK","purpose":"PURE §8.7 (Proof-of-Authority) define que Bad Actors podem ser temporariamente suspended ou permanently removed do rede de registries. P-67 implementa bad-actor propagation para participants da supply chain (G, B, H, P, R), mas NÃO cobre…"},{"id":"PG-13","title":"Project period start date lower bound","pillar":"PURE_GAP","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"PURE §9.2 estabelece lower bound do project period: credits só podem ser emitidos para MassIDs com completionDate ≥ January 1 do prior calendar year. P-01 só checa upper bound (project window end). PG-13 é o complemento essencial: trava…"},{"id":"PG-14","title":"Uncertainty documentation for data and parameters","pillar":"PURE_GAP","cluster":"WEIGHING","severity":"FLAG","purpose":"PURE §8.1 exige procedures de qualidade que account for uncertainty em data e parameters. Captura via scale tem calibration cert (Recyclass RC-07 cobre); métodos não-scale (manual, residential_average, visual_estimate) precisam declarar…"},{"id":"PG-15","title":"Labor law and child protection compliance","pillar":"PURE_GAP","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"PURE §5.1.6 exige que Recyclers, Processors e Haulers comprovem compliance com os ILO Fundamental Rights at Work — sem trabalho infantil, sem trabalho forçado, liberdade de associação, não-discriminação. Em waste streams informais…"},{"id":"PG-16","title":"Data privacy and GDPR compliance","pillar":"PURE_GAP","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"PURE §5.1.7 + GDPR (UE 2016/679) exigem que TODOS os participants reconheçam compliance com data privacy. Para INTs (que processam personal data de Waste Generators), exigência adicional de Data Processing Agreement (DPA) assinado com o…"},{"id":"PG-17","title":"Open dump source evidence","pillar":"PURE_GAP","cluster":"EVENTS_PICKUP","severity":"BLOCK","purpose":"PURE §6.2 + §7.1.1 exigem que se plastic waste for sourced em open-air dump, evidence MUST be provided para validar tal source. dMRV captura originClass mas não força evidence quando origin é open_dump. PG-17 fecha esse gap: BLOCK quando…"},{"id":"PG-18","title":"Blend composition tracking (mistura de fardos por Ecoparque)","pillar":"PURE_GAP","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Garante que outputs reciclados produzidos a partir de mistura (blend) de múltiplos Ecoparques/origens registrem a composição com `% peso ou volume por origem`, data e hora do blend. Sem esse registro, rastreabilidade até a origem…"},{"id":"PG-19","title":"Output QC approval document (aprovação documental do lote produzido)","pillar":"PURE_GAP","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Antes da emissão do TRC sobre um lote produzido, exige documento de aprovação QC do output vinculado ao output batch ID. Hoje o catálogo cobre QC do INPUT (P-15..P-16 composition cluster), mas não cobre QC do OUTPUT (lote final pronto pra…"},{"id":"PG-20","title":"Role-specific accreditation valid","pillar":"PURE_GAP","cluster":"KYC_GOVERNANCE","severity":"BLOCK","purpose":"Complementa P-03 (que valida identidade base). PG-20 valida que o participant tem accreditation/licenca VALIDA por role: Hauler precisa de licenca de transporte de residuos; Recycler precisa de licenca de operacao ambiental + Recyclass…"},{"id":"EU-01","title":"EWC code required","pillar":"EU","cluster":"WASTE_CLASSIFICATION","severity":"BLOCK","purpose":"Garante que todo MassID transportado/processado dentro da UE traz um código EWC válido do European Waste Catalogue (Decision 2000/532/EC). Sem EWC, nem o waste permit do recycler nem o documento de transporte (WTN/Annex VII) podem ser…"},{"id":"EU-02","title":"EWC code consistency across chain","pillar":"EU","cluster":"WASTE_CLASSIFICATION","severity":"BLOCK","purpose":"Detecta fraude documental e erro operacional comparando o código EWC declarado em cada elo da cadeia (pickup → transport → processor → recycler). Mudança de EWC sem reclassificação justificada (ex.: pre-treatment legítimo) é sinal de…"},{"id":"EU-03","title":"Hazardous classification check (EWC consistency)","pillar":"EU","cluster":"WASTE_CLASSIFICATION","severity":"BLOCK","purpose":"Detecta MassIDs cujo EWC é hazardous (asterisco no código, conforme Decision 2000/532/EC) — sob PURE Methodology, hazardous waste é EXCLUÍDO do programa (P-17). Em EU, hazardous tem regulação adicional (HazWaste Directive 91/689/EEC…"},{"id":"EU-04","title":"Licensed waste carrier","pillar":"EU","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Garante que todo Hauler que transporta waste dentro da UE possui registro/licença de carrier de waste emitido por autoridade competente (ex.: ERA Malta, Environment Agency UK pré-Brexit, Umweltbundesamt DE). Sem licença, o transporte é…"},{"id":"EU-05","title":"Carrier license valid at time of transport","pillar":"EU","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Complementa EU-04: a licença existe e tem campos, mas precisa estar VIGENTE na data do transport. Carrier transporting com licença vencida está em violação direta de WSR Art. 18(4) e expõe a Impactrakr a co-responsabilidade. Aplica…"},{"id":"EU-06","title":"Vehicle authorization match (plate + AuthorizedVehicleRegister)","pillar":"EU","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Verifica que o veículo usado no transporte está autorizado para operar pela Hauler responsável: (1) `vehiclePlate` está presente quando exigido (interage com P-35 para veículos motorizados) E (2) plate consta no…"},{"id":"EU-07","title":"Waste Transfer Note required","pillar":"EU","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"Todo movement de waste DOMÉSTICO dentro de um Member State (não cross-border) precisa ter Waste Transfer Note (WTN) ou seu equivalente digital estruturado (DIWASS, draft EU). Sem WTN, o transport é juridicamente nulo. EU-07 é o gate de…"},{"id":"EU-08","title":"WTN data completeness","pillar":"EU","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"EU-07 garante que o WTN existe; EU-08 garante que o WTN está PREENCHIDO com os fields legalmente obrigatórios: description, EWC code, quantity, date, origin, destination, carrier. WTN incompleto é juridicamente equivalente a WTN…"},{"id":"EU-09","title":"WTN party consistency","pillar":"EU","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"WTN.parties (Generator, Hauler, Recycler) precisam ser EXATAMENTE os mesmos participants registrados na MassID.chain. Mismatch indica: (a) WTN forjado/copiado de outro shipment, (b) participant não registrado fazendo transporte (waste…"},{"id":"EU-10","title":"Annex VII required","pillar":"EU","cluster":"CROSS_BORDER","severity":"BLOCK","purpose":"Para waste shipments cross-border (entre Member States ou para fora da UE) classificados como green-listed (Annex III/IIIA/IIIB), o WSR 2024/1157 Art. 18 exige Annex VII document acompanhando o shipment. Sem Annex VII, o shipment é tratado…"},{"id":"EU-11","title":"Recovery operation code required","pillar":"EU","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Annex VII deve declarar o código de RECOVERY operation (R1-R13 conforme Annex II WFD) — NÃO disposal (D1-D15). PURE certifica apenas recovery (recycling, R3 é o típico para plásticos). Sem código R válido, o shipment cross-border é…"},{"id":"EU-12","title":"Shipment type compliance","pillar":"EU","cluster":"CROSS_BORDER","severity":"BLOCK","purpose":"WSR 2024/1157 classifica shipments em duas rotas: (a) GREEN-LISTED (Annex III/IIIA/IIIB) — apenas Annex VII basta; (b) NOTIFICATION-REQUIRED (Annex IV ou mixed/unlisted) — exige notificação prévia (Art. 4-15) com consent dos competent…"},{"id":"EU-13","title":"Recycler permit valid (EU regulatory)","pillar":"EU","cluster":"ADMINISTRATION_LICENSING","severity":"BLOCK","purpose":"Recycler facility precisa ter waste treatment permit emitido por competent authority (ERA Malta, EA UK, BImSchG-Genehmigung DE, etc.) conforme Art. 23 WFD. Operar sem permit é violação criminal — e qualquer waste recebido fica sem…"},{"id":"EU-14","title":"Waste type allowed by recycler permit scope","pillar":"EU","cluster":"ADMINISTRATION_LICENSING","severity":"BLOCK","purpose":"EU-13 valida que o permit existe e está vigente; EU-14 valida que o EWC do MassID é ACEITO pelo permit. Recyclers só podem processar waste cujo EWC consta na permit_scope. Processar EWC fora do escopo é violação do permit e expõe o…"},{"id":"EU-15","title":"Processor permit valid where applicable","pillar":"EU","cluster":"ADMINISTRATION_LICENSING","severity":"BLOCK","purpose":"Quando a chain inclui um Processor (sorting/pre-treatment intermediário entre Generator e Recycler), este também precisa ter waste treatment permit válido. Processors sem permit são frequentes em waste trafficking — recebem mixed waste e…"},{"id":"EU-16","title":"Continuous legal custody chain","pillar":"EU","cluster":"CHAIN_OF_CUSTODY","severity":"BLOCK","purpose":"Garante que a cadeia de custódia legal (Generator → [Processor] → Hauler → Recycler) está completa, sem gaps documentais. Cada transfer entre dois participants precisa de evento documentado (pickup, drop-off, receipt). Gap na chain = waste…"},{"id":"EU-17","title":"Mass consistency across legal documents","pillar":"EU","cluster":"CHAIN_OF_CUSTODY","severity":"BLOCK","purpose":"Bate o valor de massa declarado entre os documentos legais (WTN, Annex VII, dMRV measurement, recycler_receipt). Drift > tolerância é red flag clássico para fraude documental ou weighbridge mal calibrada. Sem este cross-check, o pipeline…"},{"id":"EU-18","title":"Date continuity","pillar":"EU","cluster":"CHAIN_OF_CUSTODY","severity":"BLOCK","purpose":"Garante que os timestamps dos eventos seguem ordem cronológica lógica: pickup ≤ transport_start ≤ delivery ≤ processing ≤ recycling. Datas fora de ordem indicam: (a) backdating fraudulent, (b) erro de input do operador, ou (c) bug de sync…"},{"id":"EU-19","title":"Location consistency","pillar":"EU","cluster":"CHAIN_OF_CUSTODY","severity":"BLOCK","purpose":"Garante que os endereços-chave do MassID (pickup, drop-off, processing site, recycler site) correspondem aos endereços REGISTRADOS dos participants e facilities permitidas. Address discrepancy pode indicar: (a) waste indo para facility…"},{"id":"EU-20","title":"Digital equivalent compliance","pillar":"EU","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"Quando um documento é submetido em formato digital estruturado (ex.: DIWASS payload, ou XML/JSON nacional de WTN), precisa conter TODOS os fields legalmente exigidos do equivalente físico. WSR 2024/1157 introduz DIWASS como digital-first…"},{"id":"EU-21","title":"Document integrity","pillar":"EU","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"Garante que todo documento anexado a MassID tem (a) file hash gravado e bate com conteúdo no storage, (b) version_no monotônico, (c) timestamp confiável, (d) link explícito ao MassID. Documents sem hash/versão/timestamp são tampering…"},{"id":"EU-22","title":"Audit trail","pillar":"EU","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"Garante que TODA mudança em dados ou documents tem AuditLog entry com user attribution, timestamp e diff. Sem audit trail completo, BV não consegue defensibility (BV-02, BV-33, BV-34, BV-36 dependem disto). Também é requirement GDPR (Art.…"},{"id":"EU-23","title":"Transport route plausibility","pillar":"EU","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"Detecta anomalias plausibility no transport: distância vs tempo (ex.: 800km em 2h = falso), pickup/dropoff GPS muito próximos (transporte fake), ou route_km incompatível com geo-distance real (operador inflando km). FLAG — vai para manual…"},{"id":"EU-24","title":"Duplicate document detection","pillar":"EU","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"Detecta documentos (WTN, Annex VII, receipts) reusados em múltiplos MassIDs — fraud pattern clássico: um mesmo WTN cobre 'oficialmente' 1 tonelada e o operador atribui a 3 MassIDs diferentes. FLAG — vai para manual review, pois alguns docs…"},{"id":"EU-25","title":"Volume vs vehicle capacity","pillar":"EU","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"Detecta MassIDs cuja massa declarada excede a capacidade declarada do veículo usado no transport. Excesso indica: (a) overload ilegal de carga (perigoso e fora de norma), (b) dados inflados de massa para credit fraud, (c) erro de matching…"},{"id":"EU-26","title":"Facility throughput vs permit","pillar":"EU","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"No fechamento mensal, agrega o total processado por cada Recycler/Processor e compara contra a CAPACITY declarada no permit (annual cap dividida por 12 ou monthly cap explícito). Excesso indica: (a) operação além do permit (violação), (b)…"},{"id":"EU-27","title":"Pickup geo-fence inside Hauler registered zones","pillar":"EU","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Verifica que o pickup geocoded (lat/lon) da MassID está dentro de uma das zonas geográficas registradas pela Hauler em sua área de operação autorizada. Splitada de EU-06 (decisão Rodrigo 2026-06-03 Option A) — atomic control para geo-fence…"},{"id":"RC-01","title":"Company registration document","pillar":"RECYCLASS","cluster":"ADMINISTRATION_LICENSING","severity":"BLOCK","purpose":"Garante que o Recycler/Sorting Centre possui prova formal de existência jurídica antes de ser admitido na rede. RecyClass §1.1 lista Company Registration como Category 1 (mandatório): sem este documento o Certification Body não emite selo…"},{"id":"RC-02","title":"Licensed throughput limits not exceeded","pillar":"RECYCLASS","cluster":"ADMINISTRATION_LICENSING","severity":"BLOCK","purpose":"Detecta overstatement de volume reciclado/triado contra o limite legal do operating license (RecyClass §1.4). RecyClass é estrito: se o total dos últimos 12 meses excede o limite licenciado, a re-certificação trava e a auditoria BV…"},{"id":"RC-03","title":"Storage limits not exceeded","pillar":"RECYCLASS","cluster":"ADMINISTRATION_LICENSING","severity":"BLOCK","purpose":"Detecta excesso de estocagem de Input Plastic Waste no site contra o limite de armazenamento autorizado no operating license (RecyClass §1.5). RecyClass calcula como média de 3 meses (now + -1mo + -2mo) para suavizar picos sazonais.…"},{"id":"RC-04","title":"Public liability insurance","pillar":"RECYCLASS","cluster":"ADMINISTRATION_LICENSING","severity":"BLOCK","purpose":"Garante que Recycler/Sorting Centre tem cobertura de seguro de responsabilidade civil válida para operação. RecyClass §1.8 lista como Category 1 (mandatório) para Recyclers; §1.6 Sorting exige público + employees' liability. Sem este…"},{"id":"RC-05","title":"Organisational chart and job descriptions","pillar":"RECYCLASS","cluster":"STAFF_ORG","severity":"FLAG","purpose":"Garante governança organizacional mínima — organograma + descrições de cargo de supervisor para cima. RecyClass §2.2 lista como Category 1 (mandatório) porque audit trail depende de saber quem é responsável por que decisão (weighing,…"},{"id":"RC-06","title":"Technical staff qualifications and training","pillar":"RECYCLASS","cluster":"STAFF_ORG","severity":"FLAG","purpose":"Verifica que floor supervisors e managers têm qualificação técnica reconhecida (polímero, gestão de waste facility, ou produção) + registros de treinamento de staff operando equipamento. RecyClass exige isso porque processo de recycling…"},{"id":"RC-07","title":"Weighbridge calibration certificate","pillar":"RECYCLASS","cluster":"WEIGHING","severity":"BLOCK","purpose":"Quando há weighbridge no site (usado para compra de input ou venda de output), RecyClass §3.6 exige certificado de calibração válido emitido por organização autorizada (típico ISO 17025 lab). Sem isto, todo MassID pesado nesse weighbridge…"},{"id":"RC-08","title":"Input waste sector classification","pillar":"RECYCLASS","cluster":"MATERIAL_COMPOSITION","severity":"FLAG","purpose":"RecyClass §3.2 exige que o setor do waste seja identificável e documentado por MassID (packaging, B&C, WEEE, ELV, agriculture, other). Este campo enriquece o data dictionary e é obrigatório para reportar ao Circular Plastics Alliance…"},{"id":"RC-09","title":"Physical stock inspection records","pillar":"RECYCLASS","cluster":"PROCESS_CAPACITY","severity":"FLAG","purpose":"RecyClass §4.5 exige inspeções físicas regulares de estoque para validar que o stock management system bate com a realidade. Variance > 5% = sinal de falha de pesagem, perda não-contabilizada, ou subreporting de output. Suporta o volume…"},{"id":"RC-10","title":"Energy and water consumption tracking","pillar":"RECYCLASS","cluster":"PROCESS_CAPACITY","severity":"FLAG","purpose":"RecyClass §5.1.6/5.1.7 exige reporte de energia (kWh/ton output) e água (l/ton output) por evaluation period. São KPIs ambientais (não credit integrity) que alimentam co-benefits section §12 da PURE methodology e o PPWR/ESPR reporting EU.…"},{"id":"RC-11","title":"Recycled content calculation with pre/post-consumer split","pillar":"RECYCLASS","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"RecyClass §5.12 + EN 15343:2007 §6 exigem cálculo formal de recycled content per Recycled Output, COM split obrigatório entre pre-consumer e post-consumer. Denominador inclui virgin polymers, masterbatch, modifiers, fillers — qualquer…"},{"id":"RC-12","title":"End-market records for recycled output","pillar":"RECYCLASS","cluster":"RECYCLER_OUTCOME","severity":"FLAG","purpose":"RecyClass §6.2 (Category 2) exige registro dos end-markets do Recycled Output: quem comprou, qual país, qual aplicação. Não bloqueia certificação inicial, mas é mandatório no monitoring audit (renewal). Suporta o chain of custody claim e…"},{"id":"RC-13","title":"Pellet loss and microplastics prevention procedure","pillar":"RECYCLASS","cluster":"ENVIRONMENTAL","severity":"BLOCK","purpose":"RecyClass §7.5/7.6 exige procedimento documentado para prevenir vazamento de pellets, flakes e Recycled Output no meio ambiente — endereça diretamente leakage de microplásticos, uma das maiores preocupações regulatórias EU pós-PPWR. Este é…"},{"id":"RC-14","title":"Wastewater off-site licensed treatment","pillar":"RECYCLASS","cluster":"ENVIRONMENTAL","severity":"BLOCK","purpose":"RecyClass §7.3 exige que processos úmidos (PET washing, HDPE film washing) tenham evidence de envio de wastewater para tratamento off-site licenciado, OU direct discharge proibido. Sem isso, plastic recyclers podem descartar água…"},{"id":"RC-15","title":"Subcontractor third-party certification (RecyClass or equivalent)","pillar":"RECYCLASS","cluster":"SUBCONTRACTING","severity":"BLOCK","purpose":"RecyClass §8.2 exige que TODO subcontracted recycling/sorting seja feito por empresa com certificação externa (RecyClass, EuCertPlast, ou esquema reconhecido por Plastics Recyclers Europe). Homologation no registry é NECESSÁRIA mas NÃO…"},{"id":"RC-16","title":"REACH / SVHC substances of concern compliance","pillar":"RECYCLASS","cluster":"QUALITY_ANTIFRAUD","severity":"BLOCK","purpose":"RecyClass §9.9 exige que Recycler tenha procedimento de compliance com REACH SVHC (Substances of Very High Concern — lista ECHA), REACH restrictions, e POP Regulation (EU 2019/1021). Plastics recyclers correm risk material de carry-over de…"},{"id":"RC-17","title":"Complaints register procedure","pillar":"RECYCLASS","cluster":"QUALITY_ANTIFRAUD","severity":"FLAG","purpose":"RecyClass §1.10/1.7 exige registro de reclamações + procedimento documentado de tratamento (como recebe, acknowledge, investiga, resolve, alimenta improvement). É quality management básico — Category 2 para Recycling, mandatory para…"},{"id":"PG-21","title":"Recycler storage permit compliance (universal)","pillar":"PURE_GAP","cluster":"ADMINISTRATION_LICENSING","severity":"FLAG","purpose":"PURE gap counterpart to RC-03. Validates that every Recycler/Processor (not only RecyClass-scoped) respects storage limits from their operating license. Without PG-21, participants not pursuing RecyClass certification could exceed storage…"},{"id":"PG-22","title":"Pre/post-consumer split captured at MassID origin","pillar":"PURE_GAP","cluster":"RECYCLER_OUTCOME","severity":"BLOCK","purpose":"Resolves B-02 (HIGH gap): RC-11 expects RecyclingOutcome.preConsumerPct + postConsumerPct that no PURE rule currently writes. Without origin-side capture of consumer class (industrial / commercial / post-consumer / municipal), downstream…"},{"id":"PG-23","title":"Hauler waste-transport license valid (universal)","pillar":"PURE_GAP","cluster":"TRANSPORT","severity":"BLOCK","purpose":"Resolves D-03 (HIGH reverse_gap): EU-04 validates licensed waste carrier; PURE has no global equivalent. Mirror pattern (ADR-041): PG-23 is universal hauler license gate, independent of EU-04 (different concerns — PG-23 gates TRC_ISSUANCE,…"},{"id":"PG-24","title":"Attached document integrity (hash + timestamp + version)","pillar":"PURE_GAP","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"Resolves D-12 (HIGH reverse_gap): EU-21 requires document integrity hash; PURE only hashes the MassID (P-63), not attached evidence. Without document hash + timestamp + version, replay attacks (same PDF reused) pass silently. PG-24…"},{"id":"PG-25","title":"Audit trail retention >=5 years (periodic check)","pillar":"PURE_GAP","cluster":"DOC_INTEGRITY","severity":"BLOCK","purpose":"Resolves D-13 (HIGH reverse_gap): EU-22 mandates 5y audit trail retention; PURE methodology silent. Without explicit retention rule, ops can purge logs prematurely (legal exposure under WSR + GDPR). PG-25 runs periodic job validating…"},{"id":"PG-26","title":"Scale calibration certificate (universal sibling of RC-07)","pillar":"PURE_GAP","cluster":"WEIGHING","severity":"FLAG","purpose":"Resolves D-21 (HIGH reverse_gap): RC-07 validates weighbridge calibration (annual); PURE has no global equivalent. Sibling of RC-07 (ADR-037 + ADR-041): same physical signal (calibration of the scale used to record WeighEvent), declared…"},{"id":"PG-27","title":"Recycler pellet loss prevention procedure (universal sibling of RC-13)","pillar":"PURE_GAP","cluster":"ENVIRONMENTAL","severity":"FLAG","purpose":"Resolves D-25 (HIGH reverse_gap): RC-13 validates recycler pellet loss prevention procedure (microplastic discharge prevention); PURE markets it as co-benefit but doesn't gate. Sibling of RC-13 (ADR-037 + ADR-041): same procedure check,…"},{"id":"PG-28","title":"Recycler chemical compliance (REACH / SVHC / POP) — universal sibling of RC-16","pillar":"PURE_GAP","cluster":"ENVIRONMENTAL","severity":"FLAG","purpose":"Resolves D-28 (HIGH reverse_gap): RC-16 enforces REACH/SVHC/POP chemical screening for recycled output; PURE silent. Sibling of RC-16 (ADR-037 + ADR-041): same screening requirement, severities differ (PG-28 FLAG, RC-16 BLOCK for…"}],"clusterLabels":{"KYC_GOVERNANCE":"KYC & Governança","WEIGHING":"Pesagem","HOMOLOGATION_PARTICIPANT":"Homologação de participante","MATERIAL_COMPOSITION":"Composição do material","EVENTS_PICKUP":"Eventos de coleta","TRANSPORT":"Transporte","RECYCLER_OUTCOME":"Outcome do reciclador","QUALITY_ANTIFRAUD":"Qualidade & antifraude","WASTE_CLASSIFICATION":"Classificação do resíduo","CHAIN_OF_CUSTODY":"Cadeia de custódia","DOC_INTEGRITY":"Integridade documental","CROSS_BORDER":"Transfronteiriço","ADMINISTRATION_LICENSING":"Administração & licenças","STAFF_ORG":"Pessoal & organização","PROCESS_CAPACITY":"Capacidade do processo","ENVIRONMENTAL":"Ambiental","SUBCONTRACTING":"Subcontratação","OTHER":"Outros"},"pillarLabels":{"PURE":"PURE","PURE_GAP":"PURE+","EU":"UE","RECYCLASS":"RecyClass"},"totals":{"all":139,"PURE":67,"PURE_GAP":28,"EU":27,"RECYCLASS":17}}
+</script>
+
+<script>
+(function () {
+  const data = JSON.parse(document.getElementById('rules-data').textContent);
+  const rules = data.rules;
+  const tbody = document.getElementById('rules-tbody');
+  const stats = document.getElementById('rules-stats');
+  const filters = document.querySelectorAll('.rule-filter');
+
+  function render(filter) {
+    const list = (filter === 'all')
+      ? rules
+      : (filter === 'PURE')
+        ? rules.filter(r => r.pillar === 'PURE' || r.pillar === 'PURE_GAP')
+        : rules.filter(r => r.pillar === filter);
+    tbody.innerHTML = list.map((r, i) => {
+      const sevClass = r.severity === 'BLOCK' ? 'sev-block' : 'sev-flag';
+      // Collapse PURE + PURE_GAP into a single "PURE" label/chip
+      const displayPillar = (r.pillar === 'PURE_GAP') ? 'PURE' : r.pillar;
+      const pillarLabel = data.pillarLabels[displayPillar] || displayPillar;
+      const clusterLabel = data.clusterLabels[r.cluster] || r.cluster;
+      const pillarClass = 'src-' + displayPillar.toLowerCase();
+      return '<tr>' +
+        '<td class="col-num">' + (i + 1) + '</td>' +
+        '<td class="col-id"><code>' + r.id + '</code></td>' +
+        '<td class="col-rule"><div class="r-title">' + escapeHtml(r.title) + '</div><div class="r-purpose">' + escapeHtml(r.purpose) + '</div></td>' +
+        '<td class="col-cat">' + escapeHtml(clusterLabel) + '</td>' +
+        '<td class="col-src"><span class="src-chip ' + pillarClass + '">' + pillarLabel + '</span></td>' +
+        '<td class="col-sev"><span class="sev-chip ' + sevClass + '">' + r.severity + '</span></td>' +
+      '</tr>';
+    }).join('');
+    const lang = document.documentElement.getAttribute('data-app-lang') || 'pt';
+    const label = lang === 'pt' ? 'Exibindo' : 'Showing';
+    stats.textContent = label + ' ' + list.length + ' / ' + rules.length;
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  filters.forEach(btn => btn.addEventListener('click', () => {
+    filters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  }));
+
+  document.addEventListener('impactrakr:lang', () => render(document.querySelector('.rule-filter.active').dataset.filter));
+
+  render('all');
+
+  // ===== Rules Modal open/close =====
+  const modal = document.getElementById('rules-modal');
+  const overlay = document.getElementById('rules-modal-overlay');
+  const openBtn = document.getElementById('open-rules-modal');
+  const closeBtn = document.getElementById('rules-modal-close');
+
+  function openModal() {
+    modal.classList.add('open');
+    overlay.classList.add('open');
+    document.body.classList.add('rules-modal-open');
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.classList.remove('rules-modal-open');
+  }
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (overlay) overlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+})();
+</script>
+
+<!-- ============ ONBOARDING NEW METHODOLOGY ============ -->
+<section class="onboarding">
+  <div class="container">
+    <h2><span lang="pt">Como cadastramos uma nova metodologia</span><span lang="en">How we onboard a new methodology</span></h2>
+    <p class="lede" style="max-width: var(--max-prose); margin-top: var(--space-md);">
+      <span lang="pt">A plataforma é agnóstica por construção: o engine de regras é o mesmo, muda o conjunto plugado. Tempo médio do briefing à produção: <strong>~6 semanas</strong>.</span><span lang="en">The platform is agnostic by construction: the rule engine is the same, only the plugged ruleset changes. Average time from brief to production: <strong>~6 weeks</strong>.</span>
+    </p>
+
+    <div class="onboarding-steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div>
+          <h3><span lang="pt">Autor produz a especificação</span><span lang="en">Author produces the spec</span></h3>
+          <p><span lang="pt">A organização autora da metodologia escreve a especificação técnica — escopo de material, critérios de qualificação, regras de cadeia de custódia, fórmulas de balanço de massa. Documento de partida.</span><span lang="en">The methodology-authoring organisation writes the technical spec — material scope, qualification criteria, custody-chain rules, mass-balance formulas. The starting document.</span></p>
+        </div>
+        <div class="step-owner">
+          <span lang="pt">Autor</span><span lang="en">Author</span>
+          <em>EcoCircle · DG ENV · etc</em>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">02</div>
+        <div>
+          <h3><span lang="pt">Certificador independente valida</span><span lang="en">Independent certifier validates</span></h3>
+          <p><span lang="pt">Antes de qualquer codificação, um certificador independente — Bureau Veritas, Kiwa, SGS conforme escopo — revisa a especificação e atesta conformidade técnica e regulatória. Sem esse aval, a metodologia não avança. <strong>É esse selo que torna a regra utilizável no mercado.</strong></span><span lang="en">Before any codification, an independent certifier — Bureau Veritas, Kiwa, SGS, depending on scope — reviews the spec and certifies technical and regulatory conformity. Without that sign-off, the methodology does not advance. <strong>That seal is what makes the rule usable in the market.</strong></span></p>
+        </div>
+        <div class="step-owner">
+          <span lang="pt">Certificador</span><span lang="en">Certifier</span>
+          <em><span lang="pt">~2 semanas</span><span lang="en">~2 weeks</span></em>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">03</div>
+        <div>
+          <h3><span lang="pt">ImpacTrakr codifica e integra</span><span lang="en">ImpacTrakr codifies and integrates</span></h3>
+          <p><span lang="pt">Cada regra da especificação validada vira código auditável: critério, evidência exigida, ação em falha, registro em hash chain. Integração com o pipeline de dados do cliente (sistema de gestão de resíduos existente). Após codificação, vai para produção.</span><span lang="en">Each rule of the validated spec becomes auditable code: criterion, required evidence, failure action, hash-chain record. Integration with the client's existing waste-management data pipeline. After codification, it goes live.</span></p>
+        </div>
+        <div class="step-owner">
+          ImpacTrakr
+          <em><span lang="pt">~4 semanas</span><span lang="en">~4 weeks</span></em>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2><span lang="pt">Tem uma metodologia em mente?</span><span lang="en">Got a methodology in mind?</span></h2>
+        <p><span lang="pt">Nos mande a especificação. Em 6 semanas roda em produção, validada por terceiro independente.</span><span lang="en">Send us the spec. In 6 weeks it runs in production, validated by an independent third party.</span></p>
+      </div>
+      <div class="cta-actions">
+        <a class="cta-btn primary" href="mailto:info@impactrakr.com?subject=Nova%20metodologia">
+          <span>→</span><span><span lang="pt">Falar com a engenharia</span><span lang="en">Talk to engineering</span></span>
+        </a>
+        <a class="cta-btn secondary" href="market.html">
+          <span>→</span><span><span lang="pt">Ver mercado</span><span lang="en">See market</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/shared.js"></script>
+</body>
+</html>

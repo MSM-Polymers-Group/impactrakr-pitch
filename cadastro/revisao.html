@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão · Cadastro · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css?v=20260623-0027">
+<link rel="stylesheet" href="assets/cadastro.css">
+  <script src="../assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="cadastro">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Revisão e envio</span><span lang="en">Review and submission</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top: var(--space-xl);">
+  <div class="cad-wrap">
+    <div id="stepper" class="stepper" data-step="5"></div>
+
+    <div class="cad-head">
+      <h1><span lang="pt">Revisão final.</span><span lang="en">Final review.</span></h1>
+      <p>
+        <span lang="pt">Confira tudo antes de enviar. Após o envio, edições só são possíveis via solicitação ao Compliance Officer — princípio de <strong>imutabilidade de eventos</strong> da plataforma.</span><span lang="en">Review everything before submitting. After submission, edits are only possible by request to the Compliance Officer — the platform's <strong>event immutability</strong> principle.</span>
+      </p>
+    </div>
+
+    <div id="review-content"></div>
+
+    <div class="cad-section" style="margin-top: var(--space-2xl);">
+      <h2><span lang="pt">Termo final e consentimento</span><span lang="en">Final terms and consent</span></h2>
+      <div class="cad-banner">
+        <p>
+          <span lang="pt"><em>"Declaro que todas as informações fornecidas são verdadeiras e estou ciente de que a falsificação ou omissão pode resultar na desqualificação da minha participação na plataforma ImpacTrakr. Autorizo a ImpacTrakr a utilizar os meus dados exclusivamente para fins de verificação e conformidade com as metodologias plugadas, em conformidade com GDPR (EU 2016/679) e LGPD (Lei 13.709/2018)."</em></span>
+          <span lang="en"><em>"I declare that all information provided is true and acknowledge that falsification or omission may result in disqualification from the ImpacTrakr platform. I authorise ImpacTrakr to use my data exclusively for verification and compliance with plugged methodologies, in accordance with GDPR (EU 2016/679) and LGPD (Law 13.709/2018)."</em></span>
+        </p>
+      </div>
+
+      <form id="consent-form">
+        <div class="decl-list">
+          <label><input type="checkbox" data-field="consent_truth" required> <span><strong><span lang="pt">Li e concordo.</span><span lang="en">I have read and agree.</span></strong> <span lang="pt">Aceito o termo acima e autorizo o processamento dos meus dados conforme descrito.</span><span lang="en">I accept the terms above and authorise data processing as described.</span></span></label>
+
+          <label><input type="checkbox" data-field="consent_audit"> <span><strong><span lang="pt">Autorizo auditoria remota (opcional).</span><span lang="en">I authorise remote audit (optional).</span></strong> <span lang="pt">Aceito participar de auditoria remota (vídeo) caso solicitado pela equipe de Compliance — alternativa rápida à auditoria in loco.</span><span lang="en">I accept participating in remote (video) audit if requested by Compliance team — fast alternative to on-site audit.</span></span></label>
+        </div>
+      </form>
+    </div>
+
+    <div class="cad-footer">
+      <a href="operacao.html" class="cad-btn cad-btn-secondary">← <span lang="pt">Voltar</span><span lang="en">Back</span></a>
+      <button type="button" class="cad-btn cad-btn-primary" id="submit-btn" disabled>
+        <span lang="pt">Enviar para análise</span><span lang="en">Submit for review</span> →
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/shared.js"></script>
+<script src="assets/cadastro.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  Cadastro.renderStepper(5);
+  Cadastro.bindForm('#consent-form', 'consent');
+
+  const langPt = document.documentElement.getAttribute('data-app-lang') === 'pt';
+  const state = Cadastro.getState();
+  const kyc = state.kyc || {};
+  const kyb = state.kyb || {};
+  const op = state.op || {};
+  const docs = state.docs || {};
+  const uploads = state.uploads || {};
+
+  const roleLabels = {
+    producer: 'Gerador', carrier: 'Carrier · Notifier', processor: 'Processador',
+    recycler: 'Reciclador · Consignee', integrator: 'Integrador', auditor: 'Auditor'
+  };
+  const jurisLabels = { malta: 'Malta · EU', eu_other: 'Outros UE', brazil: 'Brasil', latam: 'LATAM' };
+
+  function row(k, v) {
+    if (!v) v = '<em style="color: var(--ink-mute);">' + (langPt ? '(não informado)' : '(not provided)') + '</em>';
+    return `<div class="rb-row"><span>${k}</span><span>${v}</span></div>`;
+  }
+
+  const docsCount = Object.values(docs).filter(Boolean).length;
+  const uploadsCount = Object.values(uploads).filter(Boolean).length;
+
+  document.getElementById('review-content').innerHTML = `
+    <div class="review-block">
+      <h3><span lang="pt">Perfil e jurisdição</span><span lang="en">Profile and jurisdiction</span></h3>
+      ${row(langPt ? 'Papel' : 'Role', roleLabels[state.role] || state.role)}
+      ${row(langPt ? 'Jurisdição' : 'Jurisdiction', jurisLabels[state.juris] || state.juris)}
+      ${row(langPt ? 'Módulos ativos' : 'Active modules', Object.keys(state.modules || {}).filter(k => state.modules[k]).map(k=>k.toUpperCase()).join(' · '))}
+    </div>
+    <div class="review-block">
+      <h3><span lang="pt">Representante (KYC)</span><span lang="en">Representative (KYC)</span></h3>
+      ${row(langPt ? 'Nome' : 'Name', kyc.name)}
+      ${row('E-mail', kyc.email)}
+      ${row(langPt ? 'Telefone' : 'Phone', kyc.phone)}
+      ${row(langPt ? 'Documentos enviados' : 'Documents uploaded', uploadsCount + ' / 3')}
+    </div>
+    <div class="review-block">
+      <h3><span lang="pt">Empresa (KYB)</span><span lang="en">Company (KYB)</span></h3>
+      ${row(langPt ? 'Razão Social' : 'Legal name', kyb.legal_name)}
+      ${row(langPt ? 'ID fiscal' : 'Tax ID', kyb.tax_id)}
+      ${row(langPt ? 'Cidade / País' : 'City / Country', (kyb.city || '') + ' · ' + (kyb.country || ''))}
+      ${row(langPt ? 'Cargo do declarante' : 'Declarant role', kyb.declarant_role)}
+    </div>
+    <div class="review-block">
+      <h3><span lang="pt">Documentos legais</span><span lang="en">Legal documents</span></h3>
+      ${row(langPt ? 'Total enviados' : 'Total uploaded', docsCount + ' ' + (langPt ? 'documentos' : 'documents'))}
+    </div>
+    <div class="review-block">
+      <h3><span lang="pt">Operação</span><span lang="en">Operation</span></h3>
+      ${row(langPt ? 'Capacidade autorizada' : 'Authorised capacity', op.capacity_ty ? op.capacity_ty + ' t/ano' : '')}
+      ${row(langPt ? 'Throughput atual' : 'Current throughput', op.throughput_current ? op.throughput_current + ' t/ano' : '')}
+      ${row(langPt ? 'Polímeros' : 'Polymers', op.polymers)}
+    </div>
+  `;
+
+  const submitBtn = document.getElementById('submit-btn');
+  function updateSubmit() {
+    submitBtn.disabled = !(Cadastro.getState().consent || {}).consent_truth;
+  }
+  document.querySelectorAll('[data-field="consent_truth"]').forEach(el => el.addEventListener('change', updateSubmit));
+  updateSubmit();
+
+  submitBtn.addEventListener('click', () => {
+    Cadastro.setState({ submittedAt: new Date().toISOString() });
+    window.location.href = 'status.html';
+  });
+});
+</script>
+</body>
+</html>

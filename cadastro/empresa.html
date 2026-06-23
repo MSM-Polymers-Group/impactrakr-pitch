@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empresa · Cadastro · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css?v=20260623-0027">
+<link rel="stylesheet" href="assets/cadastro.css">
+  <script src="../assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="cadastro">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Empresa · KYB</span><span lang="en">Company · KYB</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top: var(--space-xl);">
+  <div class="cad-wrap">
+    <div id="stepper" class="stepper" data-step="2"></div>
+
+    <div class="cad-head">
+      <h1><span lang="pt">Dados da empresa.</span><span lang="en">Company details.</span></h1>
+      <p><span lang="pt">Identificação fiscal, endereço e contatos. Próxima etapa coleta os documentos legais — eles dependem da jurisdição que você selecionou.</span><span lang="en">Fiscal identification, address and contacts. Next step collects legal documents — they depend on the jurisdiction you selected.</span></p>
+    </div>
+
+    <form id="kyb-form" autocomplete="on">
+      <div class="cad-section">
+        <h2><span lang="pt">Identificação fiscal</span><span lang="en">Fiscal identification</span></h2>
+        <div class="field-grid">
+          <div class="field">
+            <label for="kyb-legal"><span lang="pt">Razão Social</span><span lang="en">Legal name</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-legal" data-field="legal_name" required>
+          </div>
+          <div class="field">
+            <label for="kyb-trade"><span lang="pt">Nome fantasia</span><span lang="en">Trade name</span></label>
+            <input type="text" id="kyb-trade" data-field="trade_name">
+          </div>
+          <div class="field">
+            <label for="kyb-tax"><span lang="pt">Identificação fiscal · CNPJ / TIN / VAT / MBR</span><span lang="en">Tax ID · CNPJ / TIN / VAT / MBR</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-tax" data-field="tax_id" placeholder="ex: 12.345.678/0001-90 · MT12345678" required>
+          </div>
+          <div class="field">
+            <label for="kyb-vat"><span lang="pt">VAT Number (se UE)</span><span lang="en">VAT Number (if EU)</span></label>
+            <input type="text" id="kyb-vat" data-field="vat_id" placeholder="MT12345678">
+          </div>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">Endereço completo da empresa</span><span lang="en">Complete company address</span></h2>
+        <div class="field-grid">
+          <div class="field">
+            <label for="kyb-cep"><span lang="pt">CEP / Código postal</span><span lang="en">Postal code</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-cep" data-field="postal_code" required>
+          </div>
+          <div class="field">
+            <label for="kyb-street"><span lang="pt">Rua / Logradouro</span><span lang="en">Street</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-street" data-field="street" required>
+          </div>
+          <div class="field">
+            <label for="kyb-num"><span lang="pt">Número</span><span lang="en">Number</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-num" data-field="number" required>
+          </div>
+          <div class="field">
+            <label for="kyb-compl"><span lang="pt">Complemento</span><span lang="en">Complement</span></label>
+            <input type="text" id="kyb-compl" data-field="complement">
+          </div>
+          <div class="field">
+            <label for="kyb-district"><span lang="pt">Bairro</span><span lang="en">District</span></label>
+            <input type="text" id="kyb-district" data-field="district">
+          </div>
+          <div class="field">
+            <label for="kyb-city"><span lang="pt">Cidade</span><span lang="en">City</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-city" data-field="city" required>
+          </div>
+          <div class="field">
+            <label for="kyb-state"><span lang="pt">Estado / Região</span><span lang="en">State / Region</span></label>
+            <input type="text" id="kyb-state" data-field="state">
+          </div>
+          <div class="field">
+            <label for="kyb-country"><span lang="pt">País</span><span lang="en">Country</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-country" data-field="country" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">Representação legal</span><span lang="en">Legal representation</span></h2>
+        <div class="field-grid">
+          <div class="field">
+            <label for="kyb-role"><span lang="pt">Cargo do declarante na empresa</span><span lang="en">Declarant's role in company</span> <span class="req">*</span></label>
+            <input type="text" id="kyb-role" data-field="declarant_role" placeholder="CEO · Diretor · Sócio-administrador" required>
+          </div>
+          <div class="field">
+            <label for="kyb-cemail"><span lang="pt">E-mail corporativo</span><span lang="en">Corporate e-mail</span> <span class="req">*</span></label>
+            <input type="email" id="kyb-cemail" data-field="corp_email" required>
+          </div>
+        </div>
+        <div class="upload-card" data-upload="legal_rep_doc">
+          <span class="up-icon">⊞</span>
+          <div class="up-info">
+            <strong><span lang="pt">Documento de representação legal</span><span lang="en">Legal representation document</span></strong>
+            <em><span lang="pt">Contrato Social · Ata de Nomeação · Procuração. Comprova que você responde pela empresa.</span><span lang="en">Articles of Association · Appointment Minutes · Power of Attorney. Proves you can sign for the company.</span></em>
+          </div>
+          <button type="button" class="up-btn"><span lang="pt">Enviar</span><span lang="en">Upload</span></button>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">Contatos operacionais</span><span lang="en">Operational contacts</span></h2>
+        <p class="sec-lede"><span lang="pt">A equipe da ImpacTrakr vai falar com essas pessoas no dia-a-dia. Pode ser a mesma pessoa nas duas funções.</span><span lang="en">ImpacTrakr team will reach out to these people daily. Can be the same person in both roles.</span></p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="kyb-tech"><span lang="pt">Contato técnico (nome · cargo · telefone · e-mail)</span><span lang="en">Technical contact (name · role · phone · e-mail)</span></label>
+            <textarea id="kyb-tech" data-field="contact_tech" rows="3" placeholder="João Silva · Eng. Operações · +356 9999 9999 · joao@empresa.com"></textarea>
+          </div>
+          <div class="field">
+            <label for="kyb-com"><span lang="pt">Contato comercial (nome · cargo · telefone · e-mail)</span><span lang="en">Commercial contact (name · role · phone · e-mail)</span></label>
+            <textarea id="kyb-com" data-field="contact_com" rows="3" placeholder="Maria Santos · Diretora Comercial · +356 9999 9999 · maria@empresa.com"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="cad-footer">
+      <a href="representante.html" class="cad-btn cad-btn-secondary">← <span lang="pt">Voltar</span><span lang="en">Back</span></a>
+      <button type="button" class="cad-btn cad-btn-primary" id="next-btn">
+        <span lang="pt">Continuar</span><span lang="en">Continue</span> →
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/shared.js"></script>
+<script src="assets/cadastro.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  Cadastro.renderStepper(2);
+
+  const state = Cadastro.getState();
+  const juris = state.juris || 'malta';
+  const langPt = document.documentElement.getAttribute('data-app-lang') === 'pt';
+
+  // Jurisdiction-specific labels and visibility
+  const config = {
+    malta: {
+      tax_label: { pt: 'MBR · Malta Business Registry', en: 'MBR · Malta Business Registry' },
+      tax_ph: 'C 12345 (formato Malta MBR)',
+      vat_label: { pt: 'VAT Number (obrigatório UE)', en: 'VAT Number (required EU)' },
+      vat_ph: 'MT12345678',
+      vat_required: true,
+      postal_label: { pt: 'Código postal (Malta: 3+4 dígitos)', en: 'Postal code (Malta: 3+4 digits)' },
+      postal_ph: 'TXN 1234',
+      state_label: { pt: 'Localidade (Malta usa Local Council)', en: 'Locality (Malta uses Local Council)' },
+      state_ph: 'ex: Birkirkara · Sliema · Valletta',
+      country_default: 'Malta',
+      country_lock: true,
+      district_show: false,
+      role_ph: 'Managing Director · Director · Authorised Signatory'
+    },
+    eu_other: {
+      tax_label: { pt: 'Trade Register Number · país UE', en: 'Trade Register Number · EU country' },
+      tax_ph: 'ex: DE-HRB 123456 · FR-RCS 123 456 789',
+      vat_label: { pt: 'VAT Number (obrigatório UE)', en: 'VAT Number (required EU)' },
+      vat_ph: 'DE123456789',
+      vat_required: true,
+      postal_label: { pt: 'Código postal', en: 'Postal code' },
+      postal_ph: '10115 · 75001 · 28001',
+      state_label: { pt: 'Estado / Bundesland / Région', en: 'State / Region' },
+      state_ph: 'ex: Bayern · Île-de-France · Cataluña',
+      country_default: '',
+      country_lock: false,
+      district_show: false,
+      role_ph: 'Managing Director · Geschäftsführer · Président'
+    },
+    brazil: {
+      tax_label: { pt: 'CNPJ', en: 'CNPJ' },
+      tax_ph: '12.345.678/0001-90',
+      vat_label: { pt: 'VAT Number (não se aplica)', en: 'VAT Number (n/a)' },
+      vat_ph: '',
+      vat_required: false,
+      vat_hidden: true,
+      postal_label: { pt: 'CEP', en: 'CEP (postal code)' },
+      postal_ph: '01310-100',
+      state_label: { pt: 'UF · Estado', en: 'UF · State' },
+      state_ph: 'SP · RJ · MG',
+      country_default: 'Brasil',
+      country_lock: true,
+      district_show: true,
+      role_ph: 'Sócio-administrador · Diretor · CEO'
+    },
+    latam: {
+      tax_label: { pt: 'NIT / RUC / RTN · ID fiscal local', en: 'NIT / RUC / RTN · local tax ID' },
+      tax_ph: 'ex: NIT 12345678-9 (GT) · RUC 20123456789 (PE)',
+      vat_label: { pt: 'IVA / VAT (se aplicável)', en: 'IVA / VAT (if applicable)' },
+      vat_ph: '',
+      vat_required: false,
+      postal_label: { pt: 'Código postal', en: 'Postal code' },
+      postal_ph: '01001 (Cidade da Guatemala)',
+      state_label: { pt: 'Departamento / Província', en: 'Department / Province' },
+      state_ph: 'ex: Guatemala · San José · Panamá',
+      country_default: '',
+      country_lock: false,
+      district_show: true,
+      role_ph: 'Representante Legal · Gerente General · Director'
+    }
+  };
+
+  const cfg = config[juris] || config.malta;
+
+  // Apply jurisdiction-specific tweaks
+  function setLabel(fieldId, labelObj) {
+    const label = document.querySelector(`label[for="${fieldId}"]`);
+    if (!label || !labelObj) return;
+    const txt = langPt ? labelObj.pt : labelObj.en;
+    // Preserve the required asterisk if present
+    const req = label.querySelector('.req');
+    label.innerHTML = txt + (req ? ' <span class="req">*</span>' : '');
+  }
+  function setPlaceholder(id, ph) {
+    const el = document.getElementById(id);
+    if (el && ph !== undefined) el.placeholder = ph;
+  }
+  function hideField(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const wrap = el.closest('.field');
+    if (wrap) wrap.style.display = 'none';
+  }
+  function lockField(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = value;
+    el.readOnly = true;
+    el.style.background = 'var(--surface-raised)';
+    el.style.color = 'var(--ink-faint)';
+  }
+
+  setLabel('kyb-tax', cfg.tax_label);
+  setPlaceholder('kyb-tax', cfg.tax_ph);
+
+  setLabel('kyb-vat', cfg.vat_label);
+  setPlaceholder('kyb-vat', cfg.vat_ph);
+  if (cfg.vat_hidden) hideField('kyb-vat');
+  if (cfg.vat_required) {
+    const vatLabel = document.querySelector('label[for="kyb-vat"]');
+    if (vatLabel && !vatLabel.querySelector('.req')) vatLabel.innerHTML += ' <span class="req">*</span>';
+  }
+
+  setLabel('kyb-cep', cfg.postal_label);
+  setPlaceholder('kyb-cep', cfg.postal_ph);
+
+  setLabel('kyb-state', cfg.state_label);
+  setPlaceholder('kyb-state', cfg.state_ph);
+
+  if (cfg.country_default && cfg.country_lock) {
+    lockField('kyb-country', cfg.country_default);
+  }
+
+  if (!cfg.district_show) {
+    hideField('kyb-district');
+  }
+
+  setPlaceholder('kyb-role', cfg.role_ph);
+
+  // Update page header with jurisdiction context
+  const headP = document.querySelector('.cad-head p');
+  if (headP) {
+    const jurisLabels = {
+      malta: 'Malta · EU',
+      eu_other: langPt ? 'União Europeia' : 'European Union',
+      brazil: 'Brasil',
+      latam: 'América Latina'
+    };
+    const banner = document.createElement('div');
+    banner.className = 'cad-banner';
+    banner.style.marginTop = 'var(--space-md)';
+    banner.innerHTML = `<p><strong>${langPt ? 'Jurisdição ativa' : 'Active jurisdiction'}: ${jurisLabels[juris] || juris}.</strong> ${langPt ? 'Os campos abaixo estão calibrados para essa jurisdição. Outras serão habilitadas se você operar em mais países.' : 'Fields below are calibrated for this jurisdiction. Others will be enabled if you operate in more countries.'}</p>`;
+    headP.insertAdjacentElement('afterend', banner);
+  }
+
+  Cadastro.bindForm('#kyb-form', 'kyb');
+  Cadastro.bindMockUploads();
+  document.getElementById('next-btn').addEventListener('click', () => window.location.href = 'documentos.html');
+});
+</script>
+</body>
+</html>

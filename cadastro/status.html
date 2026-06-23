@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status · Cadastro · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css?v=20260623-0027">
+<link rel="stylesheet" href="assets/cadastro.css">
+  <script src="../assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="cadastro">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Submissão recebida</span><span lang="en">Submission received</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top: var(--space-2xl);">
+  <div class="cad-wrap">
+    <div class="status-card">
+      <span class="status-icon">✓</span>
+      <h1><span lang="pt">Cadastro enviado.</span><span lang="en">Submission received.</span></h1>
+      <p>
+        <span lang="pt">A equipe de Compliance da ImpacTrakr vai revisar sua submissão e responder em até <strong>48 horas</strong>. Você receberá um e-mail de confirmação no endereço corporativo informado.</span><span lang="en">The ImpacTrakr Compliance team will review your submission and respond within <strong>48 hours</strong>. You will receive a confirmation e-mail at the corporate address you provided.</span>
+      </p>
+
+      <div class="status-timeline">
+        <div class="st-row">
+          <span class="st-icon">✓</span>
+          <span><strong><span lang="pt">Submissão recebida</span><span lang="en">Submission received</span></strong></span>
+          <span class="st-meta" id="received-time">—</span>
+        </div>
+        <div class="st-row">
+          <span class="st-icon">…</span>
+          <span><strong><span lang="pt">Em análise pelo Compliance Officer</span><span lang="en">Under Compliance Officer review</span></strong> · <span lang="pt">SLA até 48h</span><span lang="en">SLA up to 48h</span></span>
+          <span class="st-meta"><span lang="pt">em andamento</span><span lang="en">in progress</span></span>
+        </div>
+        <div class="st-row pending">
+          <span class="st-icon">○</span>
+          <span><span lang="pt">Decisão: aprovação ou exigência de correção</span><span lang="en">Decision: approval or correction request</span></span>
+          <span class="st-meta"><span lang="pt">pendente</span><span lang="en">pending</span></span>
+        </div>
+        <div class="st-row pending">
+          <span class="st-icon">○</span>
+          <span><span lang="pt">Inclusão na rede ImpacTrakr · status ACTIVE</span><span lang="en">Inclusion in ImpacTrakr network · ACTIVE status</span></span>
+          <span class="st-meta"><span lang="pt">pendente</span><span lang="en">pending</span></span>
+        </div>
+        <div class="st-row pending">
+          <span class="st-icon">○</span>
+          <span><span lang="pt">Liberação para registro de massa + emissão de crédito</span><span lang="en">Cleared for mass registration + credit issuance</span></span>
+          <span class="st-meta"><span lang="pt">pendente</span><span lang="en">pending</span></span>
+        </div>
+      </div>
+
+      <div style="margin-top: var(--space-2xl); padding-top: var(--space-md); border-top: 1px solid var(--line);">
+        <p style="font-size: 0.875rem; color: var(--ink-faint); margin-bottom: var(--space-md);">
+          <span lang="pt">Validade da homologação: <strong>12 meses</strong>. Você poderá iniciar a renovação 3 meses antes do vencimento.</span><span lang="en">Homologation validity: <strong>12 months</strong>. You may begin renewal 3 months before expiry.</span>
+        </p>
+        <a href="../index.html" class="cad-btn cad-btn-secondary"><span lang="pt">Voltar ao site</span><span lang="en">Back to site</span></a>
+        <button type="button" class="cad-btn cad-btn-ghost" id="restart-btn" style="margin-left: var(--space-sm);">
+          <span lang="pt">Recomeçar cadastro (limpar dados)</span><span lang="en">Restart onboarding (clear data)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/shared.js"></script>
+<script src="assets/cadastro.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  const state = Cadastro.getState();
+  if (state.submittedAt) {
+    const d = new Date(state.submittedAt);
+    document.getElementById('received-time').textContent = d.toLocaleString();
+  } else {
+    document.getElementById('received-time').textContent = '—';
+  }
+  document.getElementById('restart-btn').addEventListener('click', () => {
+    if (confirm('Apagar todos os dados deste cadastro?')) {
+      Cadastro.resetState();
+      window.location.href = 'index.html';
+    }
+  });
+});
+</script>
+</body>
+</html>

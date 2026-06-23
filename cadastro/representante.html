@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Representante · Cadastro · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css?v=20260623-0027">
+<link rel="stylesheet" href="assets/cadastro.css">
+  <script src="../assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="cadastro">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Representante legal · KYC</span><span lang="en">Legal representative · KYC</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top: var(--space-xl);">
+  <div class="cad-wrap">
+    <div id="stepper" class="stepper" data-step="1"></div>
+
+    <div class="cad-head">
+      <h1><span lang="pt">Dados do representante legal.</span><span lang="en">Legal representative details.</span></h1>
+      <p><span lang="pt">Identificamos primeiro <strong>quem</strong> está assinando pela empresa. Use seus dados pessoais — não da empresa.</span><span lang="en">First we identify <strong>who</strong> is signing on behalf of the company. Use your personal data — not company data.</span></p>
+    </div>
+
+    <form id="kyc-form" autocomplete="on">
+      <div class="cad-section">
+        <h2><span lang="pt">Identificação pessoal</span><span lang="en">Personal identification</span></h2>
+        <div class="field-grid">
+          <div class="field">
+            <label for="rep-name"><span lang="pt">Nome completo</span><span lang="en">Full name</span> <span class="req">*</span></label>
+            <input type="text" id="rep-name" data-field="name" required>
+          </div>
+          <div class="field">
+            <label for="rep-birth"><span lang="pt">Data de nascimento</span><span lang="en">Date of birth</span> <span class="req">*</span></label>
+            <input type="date" id="rep-birth" data-field="birth" required>
+          </div>
+          <div class="field">
+            <label for="rep-phone"><span lang="pt">Telefone (com DDD/DDI)</span><span lang="en">Phone (with country code)</span> <span class="req">*</span></label>
+            <input type="tel" id="rep-phone" data-field="phone" placeholder="+356 9999 9999" required>
+          </div>
+          <div class="field">
+            <label for="rep-email"><span lang="pt">E-mail pessoal</span><span lang="en">Personal e-mail</span> <span class="req">*</span></label>
+            <input type="email" id="rep-email" data-field="email" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">Endereço residencial</span><span lang="en">Residential address</span></h2>
+        <div class="field">
+          <label for="rep-addr"><span lang="pt">Endereço residencial completo</span><span lang="en">Complete residential address</span> <span class="req">*</span></label>
+          <input type="text" id="rep-addr" data-field="addr" placeholder="Street · Number · City · Postal Code · Country" required>
+          <span class="hint"><span lang="pt">Inclua rua, número, cidade, código postal e país.</span><span lang="en">Include street, number, city, postal code and country.</span></span>
+        </div>
+        <div class="upload-card" data-upload="proof_residence">
+          <span class="up-icon">⤴</span>
+          <div class="up-info">
+            <strong><span lang="pt">Comprovante de residência</span><span lang="en">Proof of residence</span></strong>
+            <em><span lang="pt">Conta de luz, água, internet ou banco. Emitido nos últimos 90 dias. Nomeie como "comprovante-residencia-{seu-nome}.pdf"</span><span lang="en">Utility bill or bank statement. Issued within the last 90 days. Name it "proof-residence-{your-name}.pdf"</span></em>
+          </div>
+          <button type="button" class="up-btn"><span lang="pt">Enviar</span><span lang="en">Upload</span></button>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">Nacionalidade(s) e identidade</span><span lang="en">Nationality and identity</span></h2>
+        <p class="sec-lede"><span lang="pt">Se você tem mais de uma nacionalidade, marque todas e envie um documento por nacionalidade.</span><span lang="en">If you have multiple nationalities, check all and submit one document per nationality.</span></p>
+
+        <div class="decl-list">
+          <label><input type="checkbox" data-field="nat_br"> <span>Brasileira</span></label>
+          <label><input type="checkbox" data-field="nat_mt"> <span><span lang="pt">Maltesa</span><span lang="en">Maltese</span></span></label>
+          <label><input type="checkbox" data-field="nat_pt"> <span><span lang="pt">Portuguesa</span><span lang="en">Portuguese</span></span></label>
+          <label><input type="checkbox" data-field="nat_it"> <span><span lang="pt">Italiana</span><span lang="en">Italian</span></span></label>
+          <label><input type="checkbox" data-field="nat_de"> <span><span lang="pt">Alemã</span><span lang="en">German</span></span></label>
+          <label><input type="checkbox" data-field="nat_es"> <span><span lang="pt">Espanhola</span><span lang="en">Spanish</span></span></label>
+          <label><input type="checkbox" data-field="nat_other"> <span><span lang="pt">Outra (especificar abaixo)</span><span lang="en">Other (specify below)</span></span></label>
+        </div>
+
+        <div class="upload-card" data-upload="id_doc">
+          <span class="up-icon">⊡</span>
+          <div class="up-info">
+            <strong><span lang="pt">Documento de identidade oficial</span><span lang="en">Official ID document</span></strong>
+            <em><span lang="pt">Passaporte, ID nacional ou CNH. Um por nacionalidade. Nomeie "id-{nacionalidade}-{seu-nome}.pdf"</span><span lang="en">Passport, national ID or driver's licence. One per nationality. Name "id-{nationality}-{your-name}.pdf"</span></em>
+          </div>
+          <button type="button" class="up-btn"><span lang="pt">Enviar</span><span lang="en">Upload</span></button>
+        </div>
+
+        <div class="upload-card" data-upload="selfie_bio" style="margin-top: var(--space-sm);">
+          <span class="up-icon">⊙</span>
+          <div class="up-info">
+            <strong><span lang="pt">Selfie biométrica</span><span lang="en">Biometric selfie</span></strong>
+            <em><span lang="pt">Foto sua segurando o documento ao lado do rosto — verificação anti-fraude. Nomeie "kyc-{seu-nome}.jpg"</span><span lang="en">Photo of you holding the ID next to your face — anti-fraud verification. Name "kyc-{your-name}.jpg"</span></em>
+          </div>
+          <button type="button" class="up-btn"><span lang="pt">Enviar</span><span lang="en">Upload</span></button>
+        </div>
+      </div>
+    </form>
+
+    <div class="cad-footer">
+      <a href="index.html" class="cad-btn cad-btn-secondary">← <span lang="pt">Voltar</span><span lang="en">Back</span></a>
+      <button type="button" class="cad-btn cad-btn-primary" id="next-btn">
+        <span lang="pt">Continuar</span><span lang="en">Continue</span> →
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/shared.js"></script>
+<script src="assets/cadastro.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  Cadastro.renderStepper(1);
+
+  const state = Cadastro.getState();
+  const juris = state.juris || 'malta';
+  const langPt = document.documentElement.getAttribute('data-app-lang') === 'pt';
+
+  // Jurisdiction-specific defaults
+  const config = {
+    malta: {
+      phone_ph: '+356 9999 9999',
+      addr_ph: 'Triq il-Kbira · Birkirkara · BKR 1234 · Malta',
+      priority_nat: 'nat_mt',
+      nationalities: [
+        { id: 'nat_mt', pt: 'Maltesa', en: 'Maltese' },
+        { id: 'nat_it', pt: 'Italiana', en: 'Italian' },
+        { id: 'nat_uk', pt: 'Britânica', en: 'British' },
+        { id: 'nat_de', pt: 'Alemã', en: 'German' },
+        { id: 'nat_fr', pt: 'Francesa', en: 'French' },
+        { id: 'nat_pt', pt: 'Portuguesa', en: 'Portuguese' },
+        { id: 'nat_es', pt: 'Espanhola', en: 'Spanish' },
+        { id: 'nat_other', pt: 'Outra UE / não-UE', en: 'Other EU / non-EU' }
+      ],
+      id_hint: { pt: 'Cartão de Identidade Maltês · Passaporte UE · ID equivalente.', en: 'Maltese ID Card · EU Passport · equivalent ID.' }
+    },
+    eu_other: {
+      phone_ph: '+49 30 12345678 · +33 1 23 45 67 89',
+      addr_ph: 'Strasse · Numero · CAP · Cidade · País UE',
+      priority_nat: null,
+      nationalities: [
+        { id: 'nat_de', pt: 'Alemã', en: 'German' },
+        { id: 'nat_fr', pt: 'Francesa', en: 'French' },
+        { id: 'nat_it', pt: 'Italiana', en: 'Italian' },
+        { id: 'nat_es', pt: 'Espanhola', en: 'Spanish' },
+        { id: 'nat_pt', pt: 'Portuguesa', en: 'Portuguese' },
+        { id: 'nat_nl', pt: 'Holandesa', en: 'Dutch' },
+        { id: 'nat_pl', pt: 'Polonesa', en: 'Polish' },
+        { id: 'nat_other', pt: 'Outra UE / não-UE', en: 'Other EU / non-EU' }
+      ],
+      id_hint: { pt: 'Passaporte UE · Carta d\'Identità · Personalausweis · DNI · equivalente.', en: 'EU Passport · National ID · equivalent.' }
+    },
+    brazil: {
+      phone_ph: '+55 11 99999-9999',
+      addr_ph: 'Rua · Número · Bairro · Cidade · UF · CEP',
+      priority_nat: 'nat_br',
+      nationalities: [
+        { id: 'nat_br', pt: 'Brasileira', en: 'Brazilian' },
+        { id: 'nat_pt', pt: 'Portuguesa', en: 'Portuguese' },
+        { id: 'nat_it', pt: 'Italiana', en: 'Italian' },
+        { id: 'nat_es', pt: 'Espanhola', en: 'Spanish' },
+        { id: 'nat_jp', pt: 'Japonesa', en: 'Japanese' },
+        { id: 'nat_other', pt: 'Outra', en: 'Other' }
+      ],
+      id_hint: { pt: 'CNH · RG · Passaporte · CPF acompanhado de outro documento.', en: 'CNH · RG · Passport · CPF with supporting document.' }
+    },
+    latam: {
+      phone_ph: '+502 5555 5555 · +506 8888 8888',
+      addr_ph: 'Calle · Número · Colonia · Ciudad · Departamento · CP · País',
+      priority_nat: null,
+      nationalities: [
+        { id: 'nat_gt', pt: 'Guatemalteca', en: 'Guatemalan' },
+        { id: 'nat_cr', pt: 'Costa-riquenha', en: 'Costa Rican' },
+        { id: 'nat_pa', pt: 'Panamenha', en: 'Panamanian' },
+        { id: 'nat_co', pt: 'Colombiana', en: 'Colombian' },
+        { id: 'nat_mx', pt: 'Mexicana', en: 'Mexican' },
+        { id: 'nat_br', pt: 'Brasileira', en: 'Brazilian' },
+        { id: 'nat_other', pt: 'Outra', en: 'Other' }
+      ],
+      id_hint: { pt: 'DPI (GT) · Cédula · Pasaporte LATAM · equivalente.', en: 'National ID (DPI/Cédula) · LATAM Passport · equivalent.' }
+    }
+  };
+
+  const cfg = config[juris] || config.malta;
+
+  document.getElementById('rep-phone').placeholder = cfg.phone_ph;
+  document.getElementById('rep-addr').placeholder = cfg.addr_ph;
+
+  // Rebuild nationality list
+  const natContainer = document.querySelector('.decl-list');
+  if (natContainer) {
+    natContainer.innerHTML = cfg.nationalities.map(n =>
+      `<label><input type="checkbox" data-field="${n.id}"> <span>${langPt ? n.pt : n.en}</span></label>`
+    ).join('');
+  }
+
+  // ID upload hint
+  const idCard = document.querySelector('.upload-card[data-upload="id_doc"] em');
+  if (idCard && cfg.id_hint) {
+    idCard.innerHTML = (langPt ? cfg.id_hint.pt : cfg.id_hint.en) + ' · ' + (langPt ? 'Um por nacionalidade.' : 'One per nationality.');
+  }
+
+  // Jurisdiction context banner
+  const headP = document.querySelector('.cad-head p');
+  if (headP) {
+    const jurisLabels = {
+      malta: 'Malta · EU',
+      eu_other: langPt ? 'União Europeia' : 'European Union',
+      brazil: 'Brasil',
+      latam: 'América Latina'
+    };
+    const banner = document.createElement('div');
+    banner.className = 'cad-banner';
+    banner.style.marginTop = 'var(--space-md)';
+    banner.innerHTML = `<p><strong>${langPt ? 'Jurisdição' : 'Jurisdiction'}: ${jurisLabels[juris] || juris}.</strong> ${langPt ? 'Nacionalidades e formatos abaixo calibrados para esta região.' : 'Nationalities and formats below calibrated for this region.'}</p>`;
+    headP.insertAdjacentElement('afterend', banner);
+  }
+
+  Cadastro.bindForm('#kyc-form', 'kyc');
+  Cadastro.bindMockUploads();
+  document.getElementById('next-btn').addEventListener('click', () => window.location.href = 'empresa.html');
+});
+</script>
+</body>
+</html>

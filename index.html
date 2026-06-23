@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImpacTrakr · Plataforma de validação de créditos ambientais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260623-0027">
+<style>
+  /* === Page-specific: Visão === */
+  .tese-band { background: var(--primary); color: var(--on-dark); padding: 28px 0; margin-top: 24px; border-radius: 12px; }
+  .tese-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 8px 32px; }
+  .tese-item { padding: 0 8px; }
+  .tese-item h4 {
+    margin: 0 0 10px; color: var(--accent); font-family: 'Manrope', sans-serif;
+    font-style: italic; font-weight: 600; font-size: 16px; letter-spacing: 0;
+  }
+  .tese-item p { color: var(--on-dark-soft); margin: 0; font-size: 13.5px; line-height: 1.55; }
+  @media (max-width: 880px) {
+    .tese-grid { grid-template-columns: 1fr; gap: 18px; }
+  }
+
+  /* === "Where we sit" — positioning diagram === */
+  section.where-we-sit { padding: var(--space-fluid-section) 0; }
+  .where-we-sit h2 { margin-bottom: var(--space-md); }
+  .where-we-sit .lede {
+    max-width: var(--max-prose);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: var(--space-2xl);
+  }
+  .positioning-diagram {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: var(--space-md);
+    align-items: stretch;
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .pd-node {
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 110px;
+  }
+  .pd-node .pd-role {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    text-transform: none;
+    margin-bottom: var(--space-2xs);
+  }
+  .pd-node .pd-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-3xs);
+  }
+  .pd-node .pd-example {
+    font-size: 0.8125rem;
+    color: var(--ink-faint);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  /* The center (us) */
+  .pd-center {
+    background: #1f3f30;
+    border-color: #1f3f30;
+    color: #f4ede0;
+    grid-column: 2;
+    grid-row: 2;
+    box-shadow: 0 12px 32px rgba(15, 33, 39, 0.18);
+  }
+  .pd-center .pd-role { color: #99d97e; }
+  .pd-center .pd-name { color: #f4ede0; font-size: 1.5rem; letter-spacing: -0.025em; }
+  .pd-center .pd-example { color: #c5b89a; font-size: 0.875rem; }
+
+  /* Horizontal flow: upstream → us → downstream */
+  .pd-upstream { grid-column: 1; grid-row: 2; }
+  .pd-downstream { grid-column: 3; grid-row: 2; }
+
+  /* Vertical inputs: methodology + regulation feed into us from above */
+  .pd-methodology { grid-column: 2; grid-row: 1; }
+  .pd-regulation { grid-column: 2; grid-row: 3; }
+
+  /* Connector lines via pseudo-elements */
+  .pd-node.pd-upstream::after,
+  .pd-node.pd-downstream::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: var(--space-md);
+    border-top: 1.5px solid var(--ink-mute);
+    transform: translateY(-50%);
+  }
+  .pd-node.pd-upstream::after { right: -1px; }
+  .pd-node.pd-downstream::before { left: -1px; }
+
+  .pd-methodology::after,
+  .pd-regulation::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    height: var(--space-md);
+    border-left: 1.5px solid var(--ink-mute);
+    transform: translateX(-50%);
+  }
+  .pd-methodology::after { bottom: -1px; }
+  .pd-regulation::before { top: -1px; }
+
+  /* Bottom takeaway */
+  .pd-takeaway {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--line);
+    max-width: var(--max-prose);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  .pd-takeaway strong { color: var(--ink); }
+
+  @media (max-width: 880px) {
+    .positioning-diagram {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, auto);
+      gap: var(--space-sm);
+    }
+    .pd-methodology { grid-column: 1; grid-row: 1; }
+    .pd-upstream    { grid-column: 1; grid-row: 2; }
+    .pd-center      { grid-column: 1; grid-row: 3; }
+    .pd-downstream  { grid-column: 1; grid-row: 4; }
+    .pd-regulation  { grid-column: 1; grid-row: 5; }
+    .pd-node::before, .pd-node::after { display: none; }
+  }
+
+  /* === Manifesto block (declaração de propósito) === */
+  .manifesto {
+    margin: var(--space-2xl) auto 0;
+    max-width: 880px;
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .manifesto p {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    margin: 0 auto;
+    max-width: 56ch;
+  }
+  .manifesto p strong { font-weight: 700; color: var(--ink); }
+  .manifesto p .accent {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* === 8 Princípios de design === */
+  section.principles { padding: var(--space-fluid-section) 0; }
+  section.principles h2 { margin-bottom: var(--space-md); }
+  section.principles .lede {
+    max-width: var(--max-prose);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: var(--space-2xl);
+  }
+  .principles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: principle;
+  }
+  .principles-list li {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: var(--space-md);
+    align-items: baseline;
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--line);
+    counter-increment: principle;
+  }
+  .principles-list li:last-child { border-bottom: 1px solid var(--line); }
+  .principles-list li::before {
+    content: counter(principle, decimal-leading-zero);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ink-mute);
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on;
+  }
+  .principles-list .p-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-3xs);
+    line-height: 1.3;
+  }
+  .principles-list .p-body {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 80ch;
+  }
+  .principles-list .p-body strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 720px) {
+    .principles-list li { grid-template-columns: 40px 1fr; }
+    .principles-list li::before { font-size: 1rem; }
+    .principles-list .p-title { font-size: 1rem; }
+  }
+</style>
+  <script src="assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="visao">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Plataforma de validação de créditos ambientais</span><span lang="en">Environmental credit validation platform</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="visao" href="index.html">
+      <span class="nav-num">01</span>
+      <span><span lang="pt">Visão</span><span lang="en">Overview</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span class="nav-num">02</span>
+      <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span class="nav-num">03</span>
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span class="nav-num">04</span>
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span></span>
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <span class="micro">
+      <span lang="pt">Visão geral</span><span lang="en">Overview</span>
+    </span>
+    <h1>
+      <span lang="pt">A camada independente que valida<br><span class="accent">o crédito ambiental.</span></span><span lang="en">The independent layer that validates<br><span class="accent">the environmental credit.</span></span>
+    </h1>
+    <p class="subtitle">
+      <span lang="pt">Auditamos metodologias. Não criamos. Conectamos qualquer registry. Operamos em qualquer jurisdição. <strong>Plataforma agnóstica desde o dia 1.</strong></span><span lang="en">We audit methodologies. We do not author. We plug into any registry. We operate in any jurisdiction. <strong>Agnostic platform from day one.</strong></span>
+    </p>
+
+    <!-- 3 BULLETS DE TESE -->
+    <div class="tese-band">
+      <div class="tese-grid">
+        <div class="tese-item">
+          <h4><span lang="pt">Independente por design</span><span lang="en">Independent by design</span></h4>
+          <p>
+            <span lang="pt">A ferramenta que valida não pode ser a autora do que valida. Operamos como S&P ou Moody's do crédito ambiental — separação dura entre quem cria a regra, quem valida e quem registra.</span><span lang="en">The tool that validates cannot author what it validates. We operate as the S&P or Moody's of environmental credits — hard separation between rule-maker, validator, and registry.</span>
+          </p>
+        </div>
+        <div class="tese-item">
+          <h4><span lang="pt">Plataforma agnóstica</span><span lang="en">Agnostic platform</span></h4>
+          <p>
+            <span lang="pt">Qualquer registry. Qualquer metodologia auditada. Qualquer jurisdição. Modelo de plataforma desde o dia 1, validado em produção no cenário regulatório mais exigente do mundo.</span><span lang="en">Any registry. Any audited methodology. Any jurisdiction. Platform model since day one, validated in production in the most demanding regulatory scenario in the world.</span>
+          </p>
+        </div>
+        <div class="tese-item">
+          <h4><span lang="pt">Onde a regulação aperta</span><span lang="en">Where regulation tightens</span></h4>
+          <p>
+            <span lang="pt">Reg 2024/1157, DIWASS, PPWR, ESPR, DPP — cada lei nova vira módulo plugável. Cada plástico sem destino vira oportunidade comercial. A regulação acelera; a arquitetura absorve.</span><span lang="en">Reg 2024/1157, DIWASS, PPWR, ESPR, DPP — each new law becomes a pluggable module. Each plastic with no destination becomes commercial opportunity. Regulation accelerates; the architecture absorbs.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manifesto / declaração de propósito -->
+    <div class="manifesto">
+      <p>
+        <span lang="pt">A ImpacTrakr é <strong>infraestrutura</strong>, não produto. Existe pra fazer uma coisa só: <span class="accent">validar com independência</span> o crédito ambiental — pra que mercado, regulação e capital possam confiar no que estão precificando.</span><span lang="en">ImpacTrakr is <strong>infrastructure</strong>, not a product. It exists to do one thing only: <span class="accent">independently validate</span> the environmental credit — so that markets, regulators, and capital can trust what they're pricing.</span>
+      </p>
+    </div>
+
+    <div class="numbers-strip">
+      <div class="num-item">
+        <div class="num-value">139</div>
+        <div class="num-label"><span lang="pt">Regras validadas</span><span lang="en">Rules validated</span></div>
+      </div>
+      <div class="num-item">
+        <div class="num-value">36</div>
+        <div class="num-label"><span lang="pt">Documentos rastreados</span><span lang="en">Documents tracked</span></div>
+      </div>
+      <div class="num-item">
+        <div class="num-value">17</div>
+        <div class="num-label"><span lang="pt">Estados da massa</span><span lang="en">Mass states</span></div>
+      </div>
+      <div class="num-item">
+        <div class="num-value">4,2<sup>s</sup></div>
+        <div class="num-label"><span lang="pt">Tempo do engine</span><span lang="en">Engine runtime</span></div>
+      </div>
+      <div class="num-item">
+        <div class="num-value">3<sup><span lang="pt"> d</span><span lang="en"> d</span></sup></div>
+        <div class="num-label"><span lang="pt">Ciclo end-to-end</span><span lang="en">End-to-end cycle</span></div>
+      </div>
+      <div class="num-item">
+        <div class="num-value">60</div>
+        <div class="num-label"><span lang="pt">ADRs públicos</span><span lang="en">Public ADRs</span></div>
+      </div>
+    </div>
+
+    <div class="trust-band">
+      <span class="trust-label"><span lang="pt">Plataforma agnóstica · conectada a</span><span lang="en">Agnostic platform · connected to</span></span>
+      <div class="trust-logos">
+        <span class="partner"><span lang="pt">Registries</span><span lang="en">Registries</span><em><span lang="pt">Carrot ativo · arquitetura pluggable</span><span lang="en">Carrot live · pluggable architecture</span></em></span>
+        <span class="partner"><span lang="pt">Metodologias auditadas</span><span lang="en">Audited methodologies</span><em><span lang="pt">PURE/EcoCircle ativa · outras em pipeline</span><span lang="en">PURE/EcoCircle live · others in pipeline</span></em></span>
+        <span class="partner"><span lang="pt">Frameworks regulatórios</span><span lang="en">Regulatory frameworks</span><em><span lang="pt">EU 2024/1157 ativo · multi-jurisdição</span><span lang="en">EU 2024/1157 live · multi-jurisdiction</span></em></span>
+        <span class="partner"><span lang="pt">Certificações técnicas</span><span lang="en">Technical certifications</span><em><span lang="pt">RecyClass ativa · standards pluggable</span><span lang="en">RecyClass live · pluggable standards</span></em></span>
+      </div>
+      <div class="trust-validated">
+        <span><span lang="pt">Metodologia PURE <strong>validada pela Bureau Veritas</strong> antes da entrada em produção · 60 ADRs públicos · trilha de evidências em hash chain SHA-256</span><span lang="en">PURE methodology <strong>validated by Bureau Veritas</strong> before entering production · 60 public ADRs · evidence trail anchored on SHA-256 hash chain</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHERE WE SIT — positioning diagram ============ -->
+<section class="where-we-sit">
+  <div class="container">
+    <h2>
+      <span lang="pt">Onde nos posicionamos<br><span class="accent">no ecossistema.</span></span><span lang="en">Where we sit<br><span class="accent">in the ecosystem.</span></span>
+    </h2>
+    <p class="lede">
+      <span lang="pt">A ImpacTrakr é a camada que <strong>executa as regras</strong> entre o sistema de gestão de resíduos e o registry que emite o crédito. Quem cria a regra, quem registra o crédito e quem coleta o material são <strong>partes distintas</strong>. É essa separação que torna o crédito auditável.</span><span lang="en">ImpacTrakr is the layer that <strong>executes the rules</strong> between the waste management system and the registry that issues the credit. Who writes the rule, who records the credit, and who collects the material are <strong>distinct parties</strong>. That separation is what makes the credit auditable.</span>
+    </p>
+
+    <div class="positioning-diagram">
+      <div class="pd-node pd-methodology">
+        <div class="pd-role"><span lang="pt">Autor da regra</span><span lang="en">Rule author</span></div>
+        <div class="pd-name"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></div>
+        <div class="pd-example">EcoCircle · DG ENV · futuros</div>
+      </div>
+
+      <div class="pd-node pd-upstream">
+        <div class="pd-role"><span lang="pt">Origem dos dados</span><span lang="en">Data origin</span></div>
+        <div class="pd-name"><span lang="pt">Sistema de gestão</span><span lang="en">Management system</span></div>
+        <div class="pd-example">
+          <span lang="pt">qualquer ERP, planilha,<br>plataforma de resíduos</span><span lang="en">any ERP, spreadsheet,<br>waste platform</span>
+        </div>
+      </div>
+
+      <div class="pd-node pd-center">
+        <div class="pd-role"><span lang="pt">Camada de validação</span><span lang="en">Validation layer</span></div>
+        <div class="pd-name">ImpacTrakr</div>
+        <div class="pd-example">
+          <span lang="pt">executa · valida · arquiva<br>hash chain SHA-256</span><span lang="en">executes · validates · archives<br>SHA-256 hash chain</span>
+        </div>
+      </div>
+
+      <div class="pd-node pd-downstream">
+        <div class="pd-role"><span lang="pt">Destino do crédito</span><span lang="en">Credit destination</span></div>
+        <div class="pd-name">Registry</div>
+        <div class="pd-example">
+          <span lang="pt">Carrot · Verra · Gold<br>· qualquer registry compatível</span><span lang="en">Carrot · Verra · Gold<br>· any compatible registry</span>
+        </div>
+      </div>
+
+      <div class="pd-node pd-regulation">
+        <div class="pd-role"><span lang="pt">Conformidade local</span><span lang="en">Local compliance</span></div>
+        <div class="pd-name"><span lang="pt">Legislação</span><span lang="en">Legislation</span></div>
+        <div class="pd-example">EU 2024/1157 · DIWASS · RecyClass · <span lang="pt">futuros</span><span lang="en">future</span></div>
+      </div>
+    </div>
+
+    <p class="pd-takeaway">
+      <span lang="pt">Esse é o <strong>moat estrutural</strong>. A ImpacTrakr não cria metodologia, não opera registry, não coleta material. Executa o juiz independente entre os três — e cada papel pode ser substituído sem reescrever o produto.</span><span lang="en">This is the <strong>structural moat</strong>. ImpacTrakr doesn't author methodology, doesn't run a registry, doesn't collect material. It plays the independent referee between the three — and each role can be swapped without rewriting the product.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ PRINCÍPIOS DE DESIGN ============ -->
+<section class="principles">
+  <div class="container">
+    <h2>
+      <span lang="pt">Construída sob<br><span class="accent">oito princípios.</span></span><span lang="en">Built on<br><span class="accent">eight principles.</span></span>
+    </h2>
+    <p class="lede">
+      <span lang="pt">Cada princípio é uma decisão arquitetural irreversível. São eles que sustentam a tese de independência e a capacidade de a plataforma rodar em qualquer mercado regulado, com qualquer metodologia auditada, conectada a qualquer registry.</span><span lang="en">Each principle is an irreversible architectural decision. Together they sustain the independence thesis and the platform's ability to run in any regulated market, with any audited methodology, connected to any registry.</span>
+    </p>
+
+    <ul class="principles-list">
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">Independência arbitral por design</span><span lang="en">Arbitral independence by design</span></div>
+          <div class="p-body"><span lang="pt">Não autoramos metodologia, não operamos registry, não coletamos material. Validamos. <strong>É a separação que torna o crédito auditável.</strong></span><span lang="en">We don't author methodology, don't run a registry, don't collect material. We validate. <strong>This separation is what makes the credit auditable.</strong></span></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">Imutabilidade absoluta de eventos</span><span lang="en">Absolute event immutability</span></div>
+          <div class="p-body"><span lang="pt">Sem edição. Correção é evento novo, nunca sobreposição. A trilha de evidência só cresce — <strong>nunca é reescrita</strong>.</span><span lang="en">No edits. Corrections are new events, never overwrites. The evidence trail only grows — <strong>never rewritten</strong>.</span></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">Hash chain SHA-256 por evento</span><span lang="en">Per-event SHA-256 hash chain</span></div>
+          <div class="p-body"><span lang="pt">Toda decisão de regra ancorada criptograficamente. <strong>Reproduzível em qualquer ponto da história</strong>, sem depender da nossa palavra.</span><span lang="en">Every rule decision cryptographically anchored. <strong>Reproducible at any point in history</strong>, without depending on our word.</span></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">ADRs públicos para toda decisão arquitetural</span><span lang="en">Public ADRs for every architectural decision</span></div>
+          <div class="p-body"><span lang="pt">Sessenta e contando. Contexto, alternativas, consequências — documentados, versionados, datados. <strong>Quem entra no time amanhã lê e entende por que tudo é como é.</strong></span><span lang="en">Sixty and counting. Context, alternatives, consequences — documented, versioned, dated. <strong>Anyone joining tomorrow reads them and understands why everything is the way it is.</strong></span></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">Validação contínua, não amostral</span><span lang="en">Continuous, not sample-based validation</span></div>
+          <div class="p-body"><span lang="pt">Cada evento dispara 139 regras em paralelo, em ~4,2 segundos. <strong>A auditoria deixa de ser revisão anual e vira propriedade estrutural do fluxo.</strong></span><span lang="en">Each event runs 139 rules in parallel, in ~4.2 seconds. <strong>The audit stops being an annual review and becomes a structural property of the flow.</strong></span></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">Multi-metodologia plugável</span><span lang="en">Pluggable multi-methodology</span></div>
+          <div class="p-body"><span lang="pt">Um engine único, qualquer metodologia auditada por terceiro. Hoje rodando PURE (plástico). <strong>Próxima em ~6 semanas</strong>, sem reescrever a plataforma.</span><span lang="en">A single engine, any third-party-audited methodology. Today running PURE (plastic). <strong>Next one in ~6 weeks</strong>, without rewriting the platform.</span></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">Multi-registry plugável</span><span lang="en">Pluggable multi-registry</span></div>
+          <div class="p-body"><span lang="pt">Registry destino é configuração, não dependência. Carrot hoje, Verra, Gold ou qualquer outro compatível amanhã — <strong>sem refazer integração end-to-end</strong>.</span><span lang="en">Target registry is configuration, not dependency. Carrot today, Verra, Gold, or any other compatible tomorrow — <strong>without rebuilding integration end-to-end</strong>.</span></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div class="p-title"><span lang="pt">Multi-jurisdição plugável</span><span lang="en">Pluggable multi-jurisdiction</span></div>
+          <div class="p-body"><span lang="pt">Cada framework regulatório é módulo independente. EU 2024/1157 ativa, próximas (LATAM, BR, APAC) sob demanda. <strong>A regulação muda; a arquitetura não precisa mudar com ela.</strong></span><span lang="en">Each regulatory framework is an independent module. EU 2024/1157 active; next (LATAM, BR, APAC) on demand. <strong>Regulation changes; the architecture doesn't need to change with it.</strong></span></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ MODULAR ============ -->
+<section class="modular">
+  <div class="container">
+    <span class="micro">
+      <span lang="pt">Modular por design</span><span lang="en">Modular by design</span>
+    </span>
+    <div class="modular-intro">
+      <h2>
+        <span lang="pt">Cada cliente ativa apenas<br><span style="color: var(--highlight); font-style: italic; font-weight: 600;">o que seu mercado exige.</span></span><span lang="en">Each customer activates only<br><span style="color: var(--highlight); font-style: italic; font-weight: 600;">what their market requires.</span></span>
+      </h2>
+      <p>
+        <span lang="pt">Três módulos independentes, mesma arquitetura. Recicladores no Brasil pedem só carbono. Compradores de resin8 na Alemanha pedem PURE + EU + RecyClass. O CRDC Guatemala pede só PURE. <strong>Você nos diz seu mercado. A gente liga os módulos certos.</strong></span><span lang="en">Three independent modules, one architecture. Recyclers in Brazil ask only for carbon. Resin8 buyers in Germany ask for PURE + EU + RecyClass. CRDC Guatemala asks for PURE only. <strong>You tell us your market. We turn on the right modules.</strong></span>
+      </p>
+    </div>
+
+    <div class="modules-overview-grid">
+      <div class="module-overview-card">
+        <span class="mod-badge"><span lang="pt">Módulo 1</span><span lang="en">Module 1</span></span>
+        <h3><span lang="pt">Metodologia PURE</span><span lang="en">PURE Methodology</span></h3>
+        <div class="mod-count">95 <span lang="pt">regras</span><span lang="en">rules</span></div>
+        <p>
+          <span lang="pt">Conjunto que gera o crédito. Autoria EcoCircle Global, executado pela ImpacTrakr, validado pela Bureau Veritas.</span><span lang="en">The ruleset that generates the credit. Authored by EcoCircle Global, executed by ImpacTrakr, validated by Bureau Veritas.</span>
+        </p>
+      </div>
+      <div class="module-overview-card">
+        <span class="mod-badge"><span lang="pt">Módulo 2</span><span lang="en">Module 2</span></span>
+        <h3><span lang="pt">Regulação UE</span><span lang="en">EU Regulation</span></h3>
+        <div class="mod-count">27 <span lang="pt">regras</span><span lang="en">rules</span></div>
+        <p>
+          <span lang="pt">Conformidade com a Regulação Europeia de Movimentação de Resíduos. Exigida apenas para comercializar dentro da União Europeia.</span><span lang="en">Compliance with the European Waste Shipment Regulation. Required only to commercialise within the European Union.</span>
+        </p>
+      </div>
+      <div class="module-overview-card">
+        <span class="mod-badge"><span lang="pt">Módulo 3</span><span lang="en">Module 3</span></span>
+        <h3>RecyClass</h3>
+        <div class="mod-count">17 <span lang="pt">regras</span><span lang="en">rules</span></div>
+        <p>
+          <span lang="pt">Certificação técnica de mercado, ancorada nas normas EN 15343 e ISO 22095. Adiciona prêmio comercial ao crédito.</span><span lang="en">Market technical certification, anchored on EN 15343 and ISO 22095 standards. Adds a commercial premium to the credit.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="configs-section">
+      <h3>
+        <span lang="pt">Como diferentes clientes configuram</span><span lang="en">How different customers configure it</span>
+      </h3>
+      <div class="configs-grid">
+        <div class="config-card live">
+          <div class="config-name">
+            <span>CRDC Malta</span>
+            <span class="status"><span lang="pt">Em operação</span><span lang="en">Live</span></span>
+          </div>
+          <div class="config-mods">
+            <span class="mod-chip on">PURE</span>
+            <span class="mod-chip on"><span lang="pt">UE</span><span lang="en">EU</span></span>
+            <span class="mod-chip on">RecyClass</span>
+          </div>
+          <p class="config-desc">
+            <span lang="pt">Cenário regulatório completo: gera crédito PURE, comercializa dentro da União Europeia, ganha prêmio RecyClass.</span><span lang="en">Full regulatory scenario: generates PURE credit, commercialises inside the European Union, earns RecyClass premium.</span>
+          </p>
+        </div>
+        <div class="config-card upcoming">
+          <div class="config-name">
+            <span>CRDC Guatemala</span>
+            <span class="status">Q3 2026</span>
+          </div>
+          <div class="config-mods">
+            <span class="mod-chip on">PURE</span>
+            <span class="mod-chip off"><span lang="pt">UE</span><span lang="en">EU</span></span>
+            <span class="mod-chip off">RecyClass</span>
+          </div>
+          <p class="config-desc">
+            <span lang="pt">Mercado das Américas. Apenas a metodologia PURE — sem regulação europeia, sem certificação local. Mesma plataforma, configuração diferente.</span><span lang="en">Americas market. PURE methodology only — no European regulation, no local certification. Same platform, different configuration.</span>
+          </p>
+        </div>
+        <div class="config-card future">
+          <div class="config-name">
+            <span><span lang="pt">Próximo cliente</span><span lang="en">Next customer</span></span>
+            <span class="status"><span lang="pt">Configurável</span><span lang="en">Configurable</span></span>
+          </div>
+          <div class="config-mods">
+            <span class="mod-chip toggle">?</span>
+            <span class="mod-chip toggle">?</span>
+            <span class="mod-chip toggle">?</span>
+          </div>
+          <p class="config-desc">
+            <span lang="pt">Reciclador europeu que quer só carbono. Comprador asiático que quer só rastreabilidade. Cooperativa brasileira que quer só PURE. <strong>Mesma arquitetura.</strong></span><span lang="en">European recycler who wants carbon only. Asian buyer who wants only traceability. Brazilian cooperative that wants PURE only. <strong>Same architecture.</strong></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>
+          <span lang="pt">Quer ver isso rodando ao vivo?</span><span lang="en">Want to see this running live?</span>
+        </h2>
+        <p>
+          <span lang="pt">Demo guiada de 30 minutos sobre o cenário CRDC Malta + amostra de audit pack pra você levar para a reunião.</span><span lang="en">30-minute guided demo on the CRDC Malta scenario + sample audit pack to bring to your meeting.</span>
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a class="cta-btn primary" href="mailto:info@impactrakr.com?subject=Agendar%20demo%20ImpacTrakr">
+          <span>▶</span>
+          <span><span lang="pt">Agendar demo ao vivo</span><span lang="en">Schedule live demo</span></span>
+        </a>
+        <a class="cta-btn secondary" href="process.html">
+          <span>→</span>
+          <span><span lang="pt">Ver o processo</span><span lang="en">See the process</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/shared.js"></script>
+</body>
+</html>

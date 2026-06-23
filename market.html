@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImpacTrakr · Mercado &amp; regulação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260623-0027">
+<style>
+  /* === Page-specific: Mercado === */
+
+  section.intro { padding: var(--space-fluid-section) 0 var(--space-fluid-block); }
+  .intro .lede { font-size: 1.0625rem; line-height: 1.55; color: var(--ink-soft); max-width: var(--max-prose); margin-top: var(--space-md); }
+
+  /* "Por que plástico primeiro" — 3 razões em prose, não cards */
+  section.why-plastic { padding: var(--space-fluid-block) 0; border-top: 1px solid var(--line); }
+  .why-plastic h2 { margin-bottom: var(--space-md); }
+  .reasons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--line);
+  }
+  .reason { padding-right: var(--space-md); }
+  .reason .reason-anchor {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.04em; color: var(--accent);
+    margin-bottom: var(--space-xs);
+    text-transform: none;
+  }
+  .reason h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    margin-bottom: var(--space-2xs);
+    line-height: 1.2;
+  }
+  .reason p {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+  }
+  @media (max-width: 880px) {
+    .reasons { grid-template-columns: 1fr; gap: var(--space-lg); }
+  }
+
+  /* "Tamanho da oportunidade" — large numbers in committed dark surface */
+  section.tam {
+    margin: var(--space-fluid-section) 0;
+    padding: 0;
+  }
+  .tam-surface {
+    background: #1f3f30;
+    color: #f4ede0;
+    border-radius: 12px;
+    padding: var(--space-2xl) var(--space-xl);
+  }
+  .tam-surface h2 {
+    color: #f4ede0;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    letter-spacing: -0.025em;
+    max-width: 22ch;
+    line-height: 1.1;
+    margin-bottom: var(--space-2xs);
+  }
+  .tam-surface h2 em { font-style: normal; color: #99d97e; }
+  .tam-surface .tam-lede {
+    font-size: 0.9375rem;
+    color: #c5b89a;
+    max-width: 56ch;
+    margin: 0 0 var(--space-xl);
+    line-height: 1.55;
+  }
+  .tam-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+  .tam-item { border-top: 1px solid #364f3f; padding-top: var(--space-md); }
+  .tam-value {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    color: #f4ede0;
+    letter-spacing: -0.03em;
+    font-feature-settings: 'tnum' on;
+  }
+  .tam-value sup {
+    font-size: 0.45em;
+    font-weight: 600;
+    color: #99d97e;
+    margin-left: 4px;
+    top: -0.6em;
+  }
+  .tam-label {
+    font-size: 0.8125rem;
+    color: #c5b89a;
+    margin-top: var(--space-2xs);
+    max-width: 32ch;
+    line-height: 1.5;
+  }
+  .tam-source {
+    display: block;
+    margin-top: var(--space-xs);
+    font-size: 0.6875rem;
+    color: #91a294;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  @media (max-width: 880px) {
+    .tam-grid { grid-template-columns: 1fr; gap: var(--space-md); }
+    .tam-surface { padding: var(--space-xl) var(--space-lg); }
+  }
+
+  /* "Por que Malta" — narrative + sidebar of context */
+  section.why-malta { padding: var(--space-fluid-section) 0; }
+  .why-malta h2 { margin-bottom: var(--space-md); }
+  .malta-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-2xl);
+    margin-top: var(--space-xl);
+  }
+  .malta-main p {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 var(--space-sm);
+  }
+  .malta-main p strong { color: var(--ink); font-weight: 600; }
+  .malta-aside {
+    padding: var(--space-md) var(--space-lg);
+    background: var(--surface-raised);
+    border-left: 3px solid var(--accent);
+    align-self: start;
+  }
+  .malta-aside h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    margin-bottom: var(--space-2xs);
+    text-transform: none;
+  }
+  .malta-aside ul { list-style: none; padding: 0; margin: 0; }
+  .malta-aside li {
+    padding: var(--space-2xs) 0;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+  .malta-aside li:last-child { border-bottom: none; }
+  .malta-aside li span:first-child { color: var(--ink-faint); font-weight: 500; }
+  .malta-aside li span:last-child { font-weight: 600; }
+  @media (max-width: 880px) {
+    .malta-layout { grid-template-columns: 1fr; gap: var(--space-xl); }
+  }
+
+  /* "Roadmap geográfico" — quarterly table */
+  section.geo { padding: var(--space-fluid-section) 0; background: var(--surface-raised); }
+  .geo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--space-xl);
+    font-size: 0.9375rem;
+  }
+  .geo-table thead th {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    border-bottom: 2px solid var(--ink);
+  }
+  .geo-table tbody td {
+    padding: var(--space-md) var(--space-md);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .geo-table tbody td.when {
+    width: 130px;
+    font-weight: 700;
+    color: var(--ink);
+    font-feature-settings: 'tnum' on;
+    letter-spacing: -0.005em;
+  }
+  .geo-table tbody td.where {
+    width: 220px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .geo-table tbody td.config { color: var(--ink-soft); font-size: 0.875rem; }
+  .geo-table tbody td.config .mods { display: inline-flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+  .geo-table tbody td.config .mods span {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: var(--bg);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+  }
+  .geo-table tbody td.config .mods span.on {
+    background: #1f3f30;
+    color: #99d97e;
+    border-color: #1f3f30;
+  }
+  .geo-table tbody tr.live td.when { color: var(--accent); }
+  .geo-table tbody tr.future td.when { color: var(--ink-mute); }
+
+  /* "Onde nos posicionamos" — competitive matrix */
+  section.position { padding: var(--space-fluid-section) 0; }
+  section.position .lede { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
+  .position-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  .position-table thead th {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--ink);
+    text-transform: none;
+  }
+  .position-table thead th.them { width: 25%; }
+  .position-table thead th.us { width: 30%; }
+  .position-table tbody td {
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .position-table tbody td.dim {
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    width: 18%;
+  }
+  .position-table tbody td.them { color: var(--ink-faint); font-size: 0.875rem; }
+  .position-table tbody td.us {
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    background: #f4f7f2;
+  }
+  .position-table tbody td.us strong { color: #1f3f30; font-weight: 700; }
+  @media (max-width: 880px) {
+    .position-table { font-size: 0.875rem; }
+    .position-table tbody td { padding: var(--space-sm); }
+  }
+
+  /* "Quem ganha quando a plataforma roda" — stakeholders network */
+  section.stakeholders { padding: var(--space-fluid-section) 0; }
+  section.stakeholders h2 { margin-bottom: var(--space-md); }
+  section.stakeholders .lede { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
+  .stakeholders-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+  .stakeholders-list li {
+    display: grid;
+    grid-template-columns: minmax(180px, 220px) 1fr;
+    gap: var(--space-md);
+    align-items: baseline;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stakeholders-list .s-role {
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .stakeholders-list .s-role em {
+    display: block;
+    font-style: normal;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-faint);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+  .stakeholders-list .s-gain { color: var(--ink-soft); font-size: 0.9375rem; line-height: 1.55; }
+  .stakeholders-list .s-gain strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 720px) {
+    .stakeholders-list li { grid-template-columns: 1fr; gap: var(--space-2xs); }
+  }
+
+  /* Refined regulatory timeline */
+  section.reg-timeline { padding: var(--space-fluid-section) 0; background: var(--surface-raised); }
+  .reg-intro { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
+  .reg-intro p { font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
+
+  /* FAQ — keep minimal */
+  section.faq { padding: var(--space-fluid-section) 0; }
+</style>
+  <script src="assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="mercado">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Plataforma de validação de créditos ambientais</span><span lang="en">Environmental credit validation platform</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="visao" href="index.html"><span><span lang="pt">Visão</span><span lang="en">Overview</span></span></a>
+    <a class="nav-tab" data-target="processo" href="process.html"><span><span lang="pt">Processo</span><span lang="en">Process</span></span></a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html"><span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span></a>
+    <a class="nav-tab" data-target="mercado" href="market.html"><span><span lang="pt">Mercado</span><span lang="en">Market</span></span></a>
+  </div>
+</nav>
+
+<!-- ============ INTRO ============ -->
+<section class="intro">
+  <div class="container">
+    <h1>
+      <span lang="pt">Por que agora.<br><span class="accent">Por que começamos por Malta.</span></span><span lang="en">Why now.<br><span class="accent">Why we start with Malta.</span></span>
+    </h1>
+    <p class="lede">
+      <span lang="pt">A regulação europeia que torna o processo digital obrigatório já entrou em vigor. As datas que se seguem aplicam restrições adicionais ao plástico — exportação, conteúdo reciclado, passaporte digital. <strong>Quem opera com planilha hoje opera ilegalmente amanhã.</strong></span><span lang="en">The European regulation that makes this digital process mandatory is already in force. The dates ahead apply additional restrictions on plastic — exports, recycled content, digital passport. <strong>Whoever operates with spreadsheets today operates illegally tomorrow.</strong></span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ POR QUE PLÁSTICO PRIMEIRO ============ -->
+<section class="why-plastic">
+  <div class="container">
+    <h2>
+      <span lang="pt">Por que plástico, primeiro.</span><span lang="en">Why plastic, first.</span>
+    </h2>
+    <div class="reasons">
+      <div class="reason">
+        <div class="reason-anchor">01</div>
+        <h3><span lang="pt">A regulação aperta primeiro aqui</span><span lang="en">Regulation tightens here first</span></h3>
+        <p><span lang="pt">Reg 2024/1157 (WSR) entrou em vigor em maio. DIWASS, obrigatório. Proibição B3011 para non-OECD em novembro. PPWR força conteúdo reciclado. Nenhum outro material concentra tantas datas-limite simultâneas.</span><span lang="en">Reg 2024/1157 (WSR) entered force in May. DIWASS, mandatory. B3011 export ban to non-OECD in November. PPWR enforces recycled content. No other material concentrates this many simultaneous deadlines.</span></p>
+      </div>
+      <div class="reason">
+        <div class="reason-anchor">02</div>
+        <h3><span lang="pt">A demanda comercial está em escassez</span><span lang="en">Commercial demand is in short supply</span></h3>
+        <p><span lang="pt">Resin reciclada de qualidade técnica certificada vale prêmio crescente. Marcas (Unilever, Coca-Cola, L'Oréal) firmaram compromissos de uso de reciclado que não conseguem cumprir sem rastreabilidade. Mercado disposto a pagar pelo crédito auditado.</span><span lang="en">Certified-grade recycled resin commands a growing premium. Brands (Unilever, Coca-Cola, L'Oréal) have made recycled-content pledges they cannot meet without traceability. The market is willing to pay for audited credit.</span></p>
+      </div>
+      <div class="reason">
+        <div class="reason-anchor">03</div>
+        <h3><span lang="pt">Os plásticos sem destino são o problema mais lucrativo</span><span lang="en">Plastics with no destination are the most valuable problem</span></h3>
+        <p><span lang="pt">Mixed polymer (Basel Y48), filmes contaminados, multicamadas: hoje incinerados ou aterrados. A regulação fecha esse escape. Quem rastrear e validar a reciclagem desses materiais captura o maior delta de valor por tonelada.</span><span lang="en">Mixed polymer (Basel Y48), contaminated films, multi-layers: today incinerated or landfilled. Regulation closes that escape valve. Whoever traces and validates the recycling of these materials captures the largest value delta per tonne.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAMANHO DA OPORTUNIDADE ============ -->
+<section class="tam">
+  <div class="container">
+    <div class="tam-surface">
+      <h2>
+        <span lang="pt">Tamanho da<br><em>oportunidade.</em></span><span lang="en">Size of the<br><em>opportunity.</em></span>
+      </h2>
+      <p class="tam-lede">
+        <span lang="pt">Três medidas relevantes — não somáveis. Cada uma define um mercado endereçável distinto onde a plataforma se conecta.</span><span lang="en">Three relevant measures — not additive. Each defines a distinct addressable market the platform plugs into.</span>
+      </p>
+      <div class="tam-grid">
+        <div class="tam-item">
+          <div class="tam-value">€60 <sup>bn</sup></div>
+          <div class="tam-label">
+            <span lang="pt">Mercado europeu de plástico reciclado em 2030, com targets PPWR obrigatórios.</span><span lang="en">European recycled-plastic market by 2030, with mandatory PPWR targets.</span>
+          </div>
+          <span class="tam-source">Source · Eurostat · McKinsey Plastics Recycling 2024</span>
+        </div>
+        <div class="tam-item">
+          <div class="tam-value">€7,2 <sup>bn</sup></div>
+          <div class="tam-label">
+            <span lang="pt">Mercado global de créditos plásticos (PCC + ocean-bound) com CAGR 27% até 2030.</span><span lang="en">Global plastic credits market (PCC + ocean-bound) at 27% CAGR through 2030.</span>
+          </div>
+          <span class="tam-source">Source · Verra · Plastic Bank · BloombergNEF 2025</span>
+        </div>
+        <div class="tam-item">
+          <div class="tam-value">€1,5 <sup>bn</sup></div>
+          <div class="tam-label">
+            <span lang="pt">Mercado de dMRV software para materiais reguladores (waste · battery DPP · ESPR) em 2030.</span><span lang="en">dMRV software market for regulated materials (waste · battery DPP · ESPR) by 2030.</span>
+          </div>
+          <span class="tam-source">Source · IDC · CB Insights ESG Tech 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POR QUE MALTA ============ -->
+<section class="why-malta">
+  <div class="container">
+    <h2>
+      <span lang="pt">Por que começamos por Malta.</span><span lang="en">Why we start with Malta.</span>
+    </h2>
+    <div class="malta-layout">
+      <div class="malta-main">
+        <p>
+          <span lang="pt">Malta é nosso <strong>founding pilot</strong>, projetado em coordenação com a MARE Foundation, parte do grupo. O design foi proposital: começar com um deployment do grupo permite validar a arquitetura agnóstica end-to-end em produção real, sem ficar refém de calendário externo. Provamos a plataforma sob a regulação mais exigente do mundo — Reg 2024/1157 ativa, DIWASS obrigatório, RecyClass como certificação técnica — antes de comercializar para fora.</span><span lang="en">Malta is our <strong>founding pilot</strong>, designed in coordination with the MARE Foundation, part of the group. The design was deliberate: starting with a group deployment lets us validate the agnostic architecture end-to-end in real production, without being tied to an external calendar. We proved the platform under the world's most demanding regulation — Reg 2024/1157 live, DIWASS mandatory, RecyClass as technical certification — before commercialising outside.</span>
+        </p>
+        <p>
+          <span lang="pt">A arquitetura é <strong>global por design</strong> — registry-agnóstica, metodologia-plugável, jurisdição-multi. Em Q3 2026 entra o CRDC Guatemala (mercado das Américas, sem regulação UE, sem RecyClass — mesma plataforma, configuração diferente). Em 2027, deployments arm's-length na Europa continental e LATAM. O moat não é Malta. O moat é que a plataforma roda <strong>em qualquer lugar onde a regulação aperte</strong>.</span><span lang="en">The architecture is <strong>global by design</strong> — registry-agnostic, methodology-pluggable, multi-jurisdiction. Q3 2026 brings CRDC Guatemala live (Americas market, no EU regulation, no RecyClass — same platform, different config). In 2027, arm's-length deployments in continental Europe and LATAM. The moat isn't Malta. The moat is that the platform runs <strong>anywhere regulation tightens</strong>.</span>
+        </p>
+      </div>
+      <div class="malta-aside">
+        <h3><span lang="pt">Pilot CRDC Malta — em números</span><span lang="en">CRDC Malta Pilot — in numbers</span></h3>
+        <ul>
+          <li><span><span lang="pt">Em operação desde</span><span lang="en">Live since</span></span><span>2026</span></li>
+          <li><span><span lang="pt">Capacidade</span><span lang="en">Capacity</span></span><span>~1,2 t/h</span></li>
+          <li><span><span lang="pt">Material primário</span><span lang="en">Primary material</span></span><span>PET-1</span></li>
+          <li><span><span lang="pt">Módulos ativos</span><span lang="en">Active modules</span></span><span>PURE · EU · RecyClass</span></li>
+          <li><span><span lang="pt">Cliente comprador</span><span lang="en">Buyer client</span></span><span>MARE Foundation</span></li>
+          <li><span><span lang="pt">Registry destino</span><span lang="en">Target registry</span></span><span>Carrot</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP GEOGRÁFICO ============ -->
+<section class="geo">
+  <div class="container">
+    <h2>
+      <span lang="pt">Roadmap geográfico</span><span lang="en">Geographic roadmap</span>
+    </h2>
+    <p class="lede" style="max-width: var(--max-prose); margin-top: var(--space-md);">
+      <span lang="pt">Cada nova jurisdição é uma nova configuração — não um novo produto. A arquitetura suporta jurisdições simultâneas; o que muda é o conjunto de módulos ativados. <strong>Em conversa hoje:</strong> auditores tier-1 EU, CRDCs nas Américas, recicladores europeus.</span><span lang="en">Each new jurisdiction is a new configuration — not a new product. The architecture supports simultaneous jurisdictions; what changes is the set of activated modules. <strong>In conversation today:</strong> tier-1 EU auditors, CRDCs in the Americas, European recyclers.</span>
+    </p>
+    <table class="geo-table">
+      <thead>
+        <tr>
+          <th class="when"><span lang="pt">Quando</span><span lang="en">When</span></th>
+          <th class="where"><span lang="pt">Onde</span><span lang="en">Where</span></th>
+          <th class="config"><span lang="pt">Configuração</span><span lang="en">Configuration</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="live">
+          <td class="when"><span lang="pt">Hoje</span><span lang="en">Live</span></td>
+          <td class="where">Malta · EU</td>
+          <td class="config">
+            <span lang="pt">Cenário regulatório completo. PET-1 plástico via CRDC Malta + MARE Foundation.</span><span lang="en">Full regulatory scenario. PET-1 plastic via CRDC Malta + MARE Foundation.</span>
+            <div class="mods"><span class="on">PURE</span><span class="on">UE</span><span class="on">RecyClass</span></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="when">Q3 2026</td>
+          <td class="where">Guatemala · LATAM</td>
+          <td class="config">
+            <span lang="pt">Apenas PURE. Mercado das Américas. Custo de infra coberto pelo CRDC Guatemala.</span><span lang="en">PURE only. Americas market. Infrastructure cost covered by CRDC Guatemala.</span>
+            <div class="mods"><span class="on">PURE</span><span>—</span><span>—</span></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="when">2027</td>
+          <td class="where"><span lang="pt">Europa continental</span><span lang="en">Continental Europe</span></td>
+          <td class="config">
+            <span lang="pt">Deployments arm's-length em recicladores tier-1 EU. PURE + UE + RecyClass + papelão como segunda metodologia.</span><span lang="en">Arm's-length deployments at tier-1 EU recyclers. PURE + EU + RecyClass + cardboard as second methodology.</span>
+            <div class="mods"><span class="on">PURE+</span><span class="on">UE</span><span class="on">RecyClass</span></div>
+          </td>
+        </tr>
+        <tr class="future">
+          <td class="when">2027+</td>
+          <td class="where">Brasil · APAC</td>
+          <td class="config">
+            <span lang="pt">PURE + framework regulatório local (CONAMA · normas APAC). Sem dependência de regulação europeia.</span><span lang="en">PURE + local regulatory framework (CONAMA · APAC standards). No dependency on European regulation.</span>
+            <div class="mods"><span class="on">PURE+</span><span>+local</span><span>—</span></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ QUEM GANHA QUANDO A PLATAFORMA RODA ============ -->
+<section class="stakeholders">
+  <div class="container">
+    <h2>
+      <span lang="pt">Quem ganha quando<br><span class="accent">a plataforma roda.</span></span><span lang="en">Who wins when<br><span class="accent">the platform runs.</span></span>
+    </h2>
+    <p class="lede">
+      <span lang="pt">A independência arbitral não é só princípio — é gerador de valor pra cada lado da cadeia. Cada stakeholder captura algo distinto. O ecossistema cresce em <strong>oito direções simultâneas</strong>, não em uma.</span><span lang="en">Arbitral independence isn't just a principle — it generates value for every side of the chain. Each stakeholder captures something distinct. The ecosystem grows in <strong>eight simultaneous directions</strong>, not one.</span>
+    </p>
+
+    <ul class="stakeholders-list">
+      <li>
+        <div class="s-role">
+          <span lang="pt">Reciclador / Processador</span><span lang="en">Recycler / Processor</span>
+          <em><span lang="pt">opera o R3 recovery</span><span lang="en">operates R3 recovery</span></em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt">Captura o <strong>prêmio do crédito auditado</strong>. O recovery deixa de ser custo regulatório e vira receita certificável. RecyClass + PURE no mesmo lote = preço premium no mercado spot.</span><span lang="en">Captures the <strong>audited credit premium</strong>. Recovery stops being a regulatory cost and becomes certifiable revenue. RecyClass + PURE on the same batch = premium price on the spot market.</span>
+        </div>
+      </li>
+      <li>
+        <div class="s-role">
+          <span lang="pt">Transportador (Notifier)</span><span lang="en">Carrier (Notifier)</span>
+          <em><span lang="pt">responsável legal pelo movimento</span><span lang="en">legally responsible for the move</span></em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt">Opera dentro da regulação <strong>sem fricção burocrática</strong>. Annex VII submetido via DIWASS direto da plataforma, prazos legais automáticos, cadeia de assinaturas registrada — em vez de planilha + correio + risco de multa.</span><span lang="en">Operates within regulation <strong>without bureaucratic friction</strong>. Annex VII submitted via DIWASS directly from the platform, legal deadlines automated, signature chain recorded — instead of spreadsheet + mail + fine risk.</span>
+        </div>
+      </li>
+      <li>
+        <div class="s-role">
+          <span lang="pt">Gerador (Producer)</span><span lang="en">Producer (Generator)</span>
+          <em><span lang="pt">produz o resíduo qualificado</span><span lang="en">produces the qualifying waste</span></em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt">Cumpre obrigações regulatórias <strong>com rastreabilidade nativa</strong> em vez de declaração afiançada. Restaurantes, marinas, hospitais entregam massa e veem o destino registrado no mesmo sistema — fim do "confia, foi reciclado".</span><span lang="en">Meets regulatory obligations <strong>with native traceability</strong> instead of self-declarations. Restaurants, marinas, hospitals hand off mass and see the destination recorded in the same system — end of "trust me, it was recycled".</span>
+        </div>
+      </li>
+      <li>
+        <div class="s-role">
+          <span lang="pt">Comprador do crédito</span><span lang="en">Credit buyer</span>
+          <em><span lang="pt">marca · ESG officer · fundo</span><span lang="en">brand · ESG officer · fund</span></em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt">Compra <strong>crédito que sobrevive a due diligence</strong>. Trilha auditável ponta-a-ponta, registry de blockchain, certificação técnica. Unilever, Coca-Cola e L'Oréal precisam de prova de origem reciclada — aqui está, com hash chain.</span><span lang="en">Buys <strong>credit that survives due diligence</strong>. End-to-end auditable trail, blockchain registry, technical certification. Unilever, Coca-Cola, and L'Oréal need recycled-origin proof — here it is, with hash chain.</span>
+        </div>
+      </li>
+      <li>
+        <div class="s-role">
+          <span lang="pt">Autor da metodologia</span><span lang="en">Methodology author</span>
+          <em>EcoCircle · DG ENV · <span lang="pt">futuros</span><span lang="en">future</span></em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt">Sua metodologia <strong>roda em produção sem refazer integração</strong>. Escreve uma vez, executa em N clientes pela ImpacTrakr. Royalties ou licenciamento sobre uma base instalada crescente, sem custo operacional.</span><span lang="en">Their methodology <strong>runs in production without rebuilding integration</strong>. Write once, execute across N clients via ImpacTrakr. Royalties or licensing over a growing installed base, with no operational cost.</span>
+        </div>
+      </li>
+      <li>
+        <div class="s-role">
+          Registry
+          <em>Carrot · Verra · Gold</em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt">Recebe <strong>créditos pré-validados</strong>, com evidência completa em hash chain. Reduz custo operacional próprio, aumenta confiança do mercado, escala mais clientes pela mesma equipe.</span><span lang="en">Receives <strong>pre-validated credits</strong>, with full evidence on hash chain. Reduces its own operational cost, increases market confidence, scales more clients with the same team.</span>
+        </div>
+      </li>
+      <li>
+        <div class="s-role">
+          <span lang="pt">Certificador / Auditor</span><span lang="en">Certifier / Auditor</span>
+          <em>BV · Kiwa · SGS · <span lang="pt">RecyClass-aprovados</span><span lang="en">RecyClass-approved</span></em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt"><strong>Escala.</strong> Em vez de auditar um cliente por ano em campo, sustenta a base instalada da plataforma. A digitalização do trabalho que hoje é manual é receita recorrente nova pro setor TIC.</span><span lang="en"><strong>Scale.</strong> Instead of auditing one client per year in the field, sustains the platform's installed base. The digitisation of work that's manual today becomes new recurring revenue for the TIC sector.</span>
+        </div>
+      </li>
+      <li>
+        <div class="s-role">
+          <span lang="pt">Regulador / Governo</span><span lang="en">Regulator / Government</span>
+          <em>DG ENV · <span lang="pt">autoridades nacionais</span><span lang="en">national authorities</span></em>
+        </div>
+        <div class="s-gain">
+          <span lang="pt">Ganha <strong>visibilidade contínua do fluxo regulado</strong>. Conformidade não é mais auto-declarada e revisada depois — é demonstrada por evento. DIWASS recebe direto, sem dependência de relatório anual.</span><span lang="en">Gains <strong>continuous visibility of the regulated flow</strong>. Compliance is no longer self-declared and reviewed later — it's demonstrated per event. DIWASS receives directly, with no dependency on annual reporting.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ REGULATORY TIMELINE ============ -->
+<section class="reg-timeline">
+  <div class="container">
+    <h2><span lang="pt">Cronograma regulatório</span><span lang="en">Regulatory timeline</span></h2>
+    <div class="reg-intro">
+      <p>
+        <span lang="pt">Cada data abaixo aperta o cerco contra fluxos não rastreados. Cada uma é nova receita endereçável para uma plataforma que já roda em produção.</span><span lang="en">Each date below tightens the noose on untracked flows. Each one is new addressable revenue for a platform that already runs in production.</span>
+      </p>
+    </div>
+    <div class="reg-timeline-track">
+      <div class="timeline-node done">
+        <div class="time-marker"><span lang="pt">Em vigor</span><span lang="en">Active</span></div>
+        <div class="time-date">21 mai 2026</div>
+        <div class="time-event">WSR + DIWASS</div>
+        <div class="time-impact"><span lang="pt">Toda movimentação intra-EU de resíduo plástico passa pelo sistema eletrônico central. Annex VII obrigatório por trecho.</span><span lang="en">Every intra-EU plastic waste movement goes through the central electronic system. Annex VII required per leg.</span></div>
+      </div>
+      <div class="timeline-node upcoming">
+        <div class="time-marker"><span lang="pt">Próxima</span><span lang="en">Upcoming</span></div>
+        <div class="time-date">21 nov 2026</div>
+        <div class="time-event"><span lang="pt">Proibição B3011 → non-OECD</span><span lang="en">B3011 export ban → non-OECD</span></div>
+        <div class="time-impact"><span lang="pt">Exportação de plástico limpo para fora da OCDE proibida por 2,5 anos no mínimo. Reciclagem precisa fechar dentro da Europa.</span><span lang="en">Clean plastic export outside OECD banned for at least 2.5 years. Recycling must close within Europe.</span></div>
+      </div>
+      <div class="timeline-node future">
+        <div class="time-marker"><span lang="pt">Roteiro</span><span lang="en">Roadmap</span></div>
+        <div class="time-date">2027</div>
+        <div class="time-event">DPP rollout (ESPR)</div>
+        <div class="time-impact"><span lang="pt">Digital Product Passport por SKU começa a ser exigido. Cada produto carrega trilha de origem do material.</span><span lang="en">Digital Product Passport per SKU starts being required. Each product carries material origin trail.</span></div>
+      </div>
+      <div class="timeline-node future">
+        <div class="time-marker"><span lang="pt">Roteiro</span><span lang="en">Roadmap</span></div>
+        <div class="time-date">2030</div>
+        <div class="time-event"><span lang="pt">Conteúdo reciclado obrigatório</span><span lang="en">Mandatory recycled content</span></div>
+        <div class="time-impact"><span lang="pt">Threshold mínimo de conteúdo reciclado por categoria de embalagem entra em vigor. Sem rastreabilidade, sem mercado.</span><span lang="en">Minimum recycled content threshold per packaging category enters force. No traceability, no market.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ONDE NOS POSICIONAMOS ============ -->
+<section class="position">
+  <div class="container">
+    <h2><span lang="pt">Onde nos posicionamos</span><span lang="en">Where we stand</span></h2>
+    <p class="lede">
+      <span lang="pt">Não competimos com registries — somos a camada que os alimenta. Não competimos com metodologias — somos quem as executa. Não competimos com auditoras tradicionais — somos a versão contínua e digital do que elas fazem manualmente uma vez por ano. <strong>Competimos com a planilha.</strong></span><span lang="en">We don't compete with registries — we are the layer that feeds them. We don't compete with methodologies — we are who executes them. We don't compete with traditional auditors — we are the continuous, digital version of what they do manually once a year. <strong>We compete with the spreadsheet.</strong></span>
+    </p>
+
+    <table class="position-table">
+      <thead>
+        <tr>
+          <th class="dim"><span lang="pt">Dimensão</span><span lang="en">Dimension</span></th>
+          <th class="them"><span lang="pt">Planilha + auditoria anual</span><span lang="en">Spreadsheet + annual audit</span></th>
+          <th class="them"><span lang="pt">Registry só (Verra, Gold)</span><span lang="en">Registry only (Verra, Gold)</span></th>
+          <th class="them"><span lang="pt">MRV manual / dMRV early</span><span lang="en">Manual MRV / early dMRV</span></th>
+          <th class="us"><span lang="pt">ImpacTrakr</span><span lang="en">ImpacTrakr</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="dim"><span lang="pt">Validação</span><span lang="en">Validation</span></td>
+          <td class="them"><span lang="pt">1× ao ano, amostral</span><span lang="en">Once a year, sampling</span></td>
+          <td class="them"><span lang="pt">Não valida — só registra</span><span lang="en">Doesn't validate — just records</span></td>
+          <td class="them"><span lang="pt">Por lote, manual</span><span lang="en">Per batch, manual</span></td>
+          <td class="us"><strong><span lang="pt">Contínua, automática, 4,2s</span><span lang="en">Continuous, automated, 4.2s</span></strong></td>
+        </tr>
+        <tr>
+          <td class="dim"><span lang="pt">Compliance EU</span><span lang="en">EU compliance</span></td>
+          <td class="them"><span lang="pt">Ilegal a partir de mai/2026</span><span lang="en">Illegal as of May/2026</span></td>
+          <td class="them"><span lang="pt">Fora de escopo</span><span lang="en">Out of scope</span></td>
+          <td class="them"><span lang="pt">Requer customização</span><span lang="en">Requires customisation</span></td>
+          <td class="us"><strong><span lang="pt">Reg 2024/1157 + DIWASS nativos</span><span lang="en">Reg 2024/1157 + DIWASS native</span></strong></td>
+        </tr>
+        <tr>
+          <td class="dim"><span lang="pt">Trilha de evidência</span><span lang="en">Evidence trail</span></td>
+          <td class="them"><span lang="pt">Documentos físicos / PDFs</span><span lang="en">Physical docs / PDFs</span></td>
+          <td class="them"><span lang="pt">Hash do registro final</span><span lang="en">Hash of final record</span></td>
+          <td class="them"><span lang="pt">Logs por etapa</span><span lang="en">Per-step logs</span></td>
+          <td class="us"><strong><span lang="pt">Hash chain SHA-256 por evento</span><span lang="en">SHA-256 hash chain per event</span></strong></td>
+        </tr>
+        <tr>
+          <td class="dim"><span lang="pt">Independência arbitral</span><span lang="en">Arbitral independence</span></td>
+          <td class="them"><span lang="pt">Auditor contratado pelo cliente</span><span lang="en">Auditor hired by client</span></td>
+          <td class="them"><span lang="pt">Registry com seu próprio método</span><span lang="en">Registry with its own method</span></td>
+          <td class="them"><span lang="pt">Variável</span><span lang="en">Variable</span></td>
+          <td class="us"><strong><span lang="pt">Não autora metodologia · não opera registry · não coleta</span><span lang="en">No methodology authorship · no registry operation · no collection</span></strong></td>
+        </tr>
+        <tr>
+          <td class="dim"><span lang="pt">Adicionar nova jurisdição</span><span lang="en">Add new jurisdiction</span></td>
+          <td class="them"><span lang="pt">Reescrever planilha</span><span lang="en">Rewrite spreadsheet</span></td>
+          <td class="them"><span lang="pt">N/A</span><span lang="en">N/A</span></td>
+          <td class="them"><span lang="pt">Meses</span><span lang="en">Months</span></td>
+          <td class="us"><strong><span lang="pt">~6 semanas, configuração plugável</span><span lang="en">~6 weeks, pluggable configuration</span></strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq">
+  <div class="container">
+    <h2><span lang="pt">O que você está pensando agora.</span><span lang="en">What you're thinking right now.</span></h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3><span lang="pt">E se uma regra falhar?</span><span lang="en">What if a rule fails?</span></h3>
+        <p><span lang="pt"><strong>BLOCK</strong> impede o avanço e notifica o Compliance Officer + o participante responsável. <strong>FLAG</strong> segue no fluxo com alerta no metadado, para investigação posterior. Cada decisão fica registrada com timestamp, IP e responsável — auditável para sempre.</span><span lang="en"><strong>BLOCK</strong> stops the flow and notifies the Compliance Officer + responsible participant. <strong>FLAG</strong> proceeds with metadata warning for later investigation. Every decision is recorded with timestamp, IP and responsible party — auditable forever.</span></p>
+      </div>
+      <div class="faq-item">
+        <h3><span lang="pt">Em quanto tempo eu opero?</span><span lang="en">How fast do I get operational?</span></h3>
+        <p><span lang="pt">A homologação dos 3 participantes (Gerador, Carrier e Consignee) leva <strong>até 48h em Fase 1</strong> (revisão manual). Após status ACTIVE, o primeiro ciclo completo é demonstrado em 3 dias — exatamente o cenário CRDC Malta.</span><span lang="en">Homologation of the 3 participants (Producer, Carrier, Consignee) takes <strong>up to 48h in Phase 1</strong> (manual review). Once ACTIVE, the first complete cycle is demonstrated in 3 days — the exact CRDC Malta scenario.</span></p>
+      </div>
+      <div class="faq-item">
+        <h3><span lang="pt">É realmente compliant?</span><span lang="en">Is it actually compliant?</span></h3>
+        <p><span lang="pt">Metodologia PURE <strong>validada pela Bureau Veritas</strong> antes da entrada em produção. <strong>60 ADRs</strong> de arquitetura publicados. <strong>Hash chain SHA-256</strong> ancora a trilha de evidências do início ao fim. DIWASS retorna comprovações eletrônicas oficiais com força legal.</span><span lang="en">PURE methodology <strong>validated by Bureau Veritas</strong> before entering production. <strong>60 architecture ADRs</strong> published. <strong>SHA-256 hash chain</strong> anchors the evidence trail end-to-end. DIWASS returns legally binding electronic confirmations.</span></p>
+      </div>
+      <div class="faq-item">
+        <h3><span lang="pt">Quem é legalmente responsável?</span><span lang="en">Who is legally responsible?</span></h3>
+        <p><span lang="pt">O <strong>Carrier autorizado atua como Notifier</strong> (Art. 3 da Regulation EU 2024/1157), responsável pelo movimento do resíduo perante a autoridade. Cadeia de custódia formal em cada handover. A ImpacTrakr é a <strong>plataforma</strong> — orquestra, valida e arquiva, mas não assume responsabilidade legal pelo material.</span><span lang="en">The <strong>licensed Carrier acts as Notifier</strong> (Art. 3 of Regulation EU 2024/1157), legally responsible for the waste movement before the authority. Formal chain of custody at each handover. ImpacTrakr is the <strong>platform</strong> — orchestrates, validates and archives, but does not assume legal responsibility for the material.</span></p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span lang="pt">E se um dado for editado depois?</span><span lang="en">What if data is edited later?</span></h3>
+        <p><span lang="pt">Não pode. <strong>Eventos são imutáveis por design.</strong> Se uma informação precisa ser corrigida, o evento original permanece registrado (com motivo), e um novo evento é criado. A trilha de evidência só cresce — nunca é reescrita. É exatamente isso que torna o crédito auditável: o auditor pode reproduzir qualquer cálculo, em qualquer momento, e ver toda a história.</span><span lang="en">It can't. <strong>Events are immutable by design.</strong> If information needs to be corrected, the original event stays on record (with reason), and a new event is created. The evidence trail only grows — it's never rewritten. That's precisely what makes the credit auditable: an auditor can reproduce any calculation, at any time, and see the entire history.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2><span lang="pt">Quer ver isso rodando ao vivo?</span><span lang="en">Want to see this running live?</span></h2>
+        <p><span lang="pt">Demo guiada de 30 minutos sobre o cenário CRDC Malta + amostra de audit pack pra você levar para a reunião.</span><span lang="en">30-minute guided demo on the CRDC Malta scenario + sample audit pack to bring to your meeting.</span></p>
+      </div>
+      <div class="cta-actions">
+        <a class="cta-btn primary" href="mailto:info@impactrakr.com?subject=Agendar%20demo%20ImpacTrakr">
+          <span>▶</span><span><span lang="pt">Agendar demo ao vivo</span><span lang="en">Schedule live demo</span></span>
+        </a>
+        <a class="cta-btn secondary" href="process.html">
+          <span>←</span><span><span lang="pt">Voltar ao processo</span><span lang="en">Back to process</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/shared.js"></script>
+</body>
+</html>

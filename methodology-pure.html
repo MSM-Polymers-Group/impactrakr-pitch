@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PURE · Metodologia integral · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260623-0027">
+<style>
+  body { background: var(--bg); }
+  .doc-wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
+  .doc-head { padding: var(--space-fluid-section) 0 var(--space-xl); border-bottom: 1px solid var(--line); }
+  .doc-back { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-faint); font-size: 0.875rem; font-weight: 600; text-decoration: none; margin-bottom: var(--space-md); transition: color 150ms ease; }
+  .doc-back:hover { color: var(--ink); }
+  .doc-head h1 { max-width: none; margin-bottom: var(--space-sm); }
+  .doc-subtitle { font-size: 1.0625rem; color: var(--ink-soft); max-width: var(--max-prose); margin: 0 0 var(--space-lg); line-height: 1.5; }
+  .doc-meta { display: flex; gap: var(--space-md) var(--space-lg); flex-wrap: wrap; font-size: 0.8125rem; color: var(--ink-faint); }
+  .doc-meta span strong { color: var(--ink); font-weight: 700; margin-right: 4px; }
+  .doc-banner { margin: var(--space-md) 0 0; padding: var(--space-sm) var(--space-md); background: #f4f7f2; border-left: 3px solid var(--accent); font-size: 0.875rem; color: var(--ink-soft); border-radius: 0 4px 4px 0; }
+  .doc-banner strong { color: var(--ink); }
+  .doc-layout { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-2xl); padding: var(--space-xl) 0 var(--space-fluid-section); }
+  @media (max-width: 980px) { .doc-layout { grid-template-columns: 1fr; } .doc-toc { display: none; } }
+  .doc-toc { position: sticky; top: 80px; max-height: calc(100vh - 100px); overflow-y: auto; font-size: 0.8125rem; align-self: start; }
+  .toc-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em; color: var(--ink-faint); margin-bottom: var(--space-2xs); padding-bottom: var(--space-2xs); border-bottom: 1px solid var(--line); }
+  .toc-list { list-style: none; padding: 0; margin: 0; }
+  .toc-list li { margin: 6px 0; line-height: 1.35; }
+  .toc-list li a { color: var(--ink-soft); text-decoration: none; display: block; padding: 2px 0; transition: color 150ms ease; }
+  .toc-list li a:hover { color: var(--ink); }
+  .toc-l2 { font-weight: 600; color: var(--ink); margin-top: 12px !important; }
+  .toc-l2 a { color: var(--ink) !important; }
+  .toc-l3 { padding-left: 14px; font-size: 0.75rem; }
+  .doc-content { max-width: 720px; font-size: 0.9375rem; line-height: 1.65; color: var(--ink-soft); }
+  .doc-content h2 { font-size: 1.625rem; color: var(--ink); margin: var(--space-2xl) 0 var(--space-sm); padding-bottom: var(--space-2xs); border-bottom: 1.5px solid var(--ink); max-width: none; letter-spacing: -0.02em; scroll-margin-top: 80px; }
+  .doc-content h2:first-child { margin-top: 0; }
+  .doc-content h3 { font-size: 1.1875rem; color: var(--ink); margin: var(--space-xl) 0 var(--space-2xs); letter-spacing: -0.01em; scroll-margin-top: 80px; }
+  .doc-content h4 { font-size: 1rem; color: var(--ink); margin: var(--space-lg) 0 var(--space-2xs); letter-spacing: -0.005em; scroll-margin-top: 80px; }
+  .doc-content p { margin: 0 0 var(--space-sm); max-width: none; }
+  .doc-content strong { color: var(--ink); font-weight: 600; }
+  .doc-content ul.doc-list { list-style: none; padding: 0; margin: 0 0 var(--space-sm); }
+  .doc-content ul.doc-list li { position: relative; padding: 4px 0 4px 18px; color: var(--ink-soft); }
+  .doc-content ul.doc-list li::before { content: '·'; position: absolute; left: 0; top: 4px; color: var(--accent); font-weight: 700; font-size: 1.25rem; line-height: 1; }
+  .doc-content table.doc-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0 var(--space-lg); font-size: 0.875rem; border-top: 1.5px solid var(--ink); }
+  .doc-content table.doc-table th, .doc-content table.doc-table td { text-align: left; padding: var(--space-2xs) var(--space-sm); border-bottom: 1px solid var(--line); vertical-align: top; }
+  .doc-content table.doc-table th { font-weight: 700; color: var(--ink); background: var(--surface-raised); }
+  .doc-content table.doc-table td { color: var(--ink-soft); }
+</style>
+  <script src="assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="metodologia">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Plataforma de validação de créditos ambientais</span><span lang="en">Environmental credit validation platform</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="visao" href="index.html"><span><span lang="pt">Visão</span><span lang="en">Overview</span></span></a>
+    <a class="nav-tab" data-target="processo" href="process.html"><span><span lang="pt">Processo</span><span lang="en">Process</span></span></a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html"><span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span></a>
+    <a class="nav-tab" data-target="mercado" href="market.html"><span><span lang="pt">Mercado</span><span lang="en">Market</span></span></a>
+  </div>
+</nav>
+
+<div class="doc-wrap">
+
+  <header class="doc-head">
+    <a class="doc-back" href="methodology.html"><span lang="pt">← Voltar à Metodologia</span><span lang="en">← Back to Methodology</span></a>
+    <span class="micro"><span lang="pt">Especificação · v1.0 · Junho 2025</span><span lang="en">Specification · v1.0 · June 2025</span></span>
+    <h1>PURE Plastic Recycling Credit</h1>
+    <p class="doc-subtitle">A recycling credit designed to accelerate the transition to a resource-efficient, low-carbon, and inclusive circular economy.</p>
+    <div class="doc-meta">
+      <span><strong><span lang="pt">Autor:</span><span lang="en">Author:</span></strong> EcoCircle Global</span>
+      <span><strong><span lang="pt">Validador independente:</span><span lang="en">Independent validator:</span></strong> Bureau Veritas</span>
+      <span><strong><span lang="pt">Executor:</span><span lang="en">Executor:</span></strong> ImpacTrakr</span>
+      <span><strong><span lang="pt">Versão:</span><span lang="en">Version:</span></strong> <span lang="pt">1.0 · Junho 2025</span><span lang="en">1.0 · June 2025</span></span>
+    </div>
+    <p class="doc-banner">
+      <span lang="pt">
+        <strong>Sobre este documento.</strong> Especificação técnica integral da metodologia PURE, escrita pela <strong>EcoCircle Global</strong> e validada pela <strong>Bureau Veritas</strong> antes da entrada em produção. A <strong>ImpacTrakr</strong> executa a metodologia como camada independente de validação — não autora, não opera registry, não coleta material. Esta página reproduz o documento original com referências a redes específicas de registry generalizadas (a plataforma é registry-agnóstica).
+      </span><span lang="en">
+        <strong>About this document.</strong> Full technical specification of the PURE methodology, authored by <strong>EcoCircle Global</strong> and validated by <strong>Bureau Veritas</strong> before entering production. <strong>ImpacTrakr</strong> executes the methodology as an independent validation layer — does not author, does not operate the registry, does not collect material. This page reproduces the original document with references to specific registry networks generalised (the platform is registry-agnostic).
+      </span>
+    </p>
+  </header>
+
+  <div class="doc-layout">
+    <nav class="doc-toc" aria-label="Table of contents">
+<div class="toc-label"><span lang="pt">Conteúdo</span><span lang="en">Contents</span></div>
+<ol class="toc-list">
+<li class="toc-l2"><a href="#1-overview">1. OVERVIEW</a></li>
+<li class="toc-l3"><a href="#11-summary-table">1.1 Summary Table</a></li>
+<li class="toc-l2"><a href="#2-definitions">2. DEFINITIONS</a></li>
+<li class="toc-l2"><a href="#3-scope-and-applicability">3. SCOPE AND APPLICABILITY</a></li>
+<li class="toc-l3"><a href="#31-scope">3.1 Scope</a></li>
+<li class="toc-l3"><a href="#32-applicability">3.2 Applicability</a></li>
+<li class="toc-l3"><a href="#33-activities-and-participants">3.3 Activities and Participants</a></li>
+<li class="toc-l3"><a href="#34-safeguards">3.4 Safeguards</a></li>
+<li class="toc-l3"><a href="#35-entry-into-force">3.5 Entry into force</a></li>
+<li class="toc-l2"><a href="#4-normative-references">4. NORMATIVE REFERENCES</a></li>
+<li class="toc-l2"><a href="#5-participation-requirements">5. PARTICIPATION REQUIREMENTS</a></li>
+<li class="toc-l3"><a href="#51-the-registrys-terms-conditions">5.1 the registry’s Terms &amp; Conditions</a></li>
+<li class="toc-l3"><a href="#52-the-registrys-token-sale-agreement">5.2 the registry’s Token Sale Agreement</a></li>
+<li class="toc-l2"><a href="#6-project-requirements">6. PROJECT REQUIREMENTS</a></li>
+<li class="toc-l3"><a href="#61-geographic-boundaries">6.1 Geographic Boundaries</a></li>
+<li class="toc-l3"><a href="#62-baseline">6.2 Baseline</a></li>
+<li class="toc-l3"><a href="#63-additionality">6.3. Additionality</a></li>
+<li class="toc-l3"><a href="#64-leakage">6.4 Leakage</a></li>
+<li class="toc-l2"><a href="#7-homologation">7. HOMOLOGATION</a></li>
+<li class="toc-l3"><a href="#71-participants">7.1 Participants</a></li>
+<li class="toc-l3"><a href="#72-responsibilities">7.2 Responsibilities</a></li>
+<li class="toc-l3"><a href="#73-homologation-period">7.3 Homologation Period</a></li>
+<li class="toc-l3"><a href="#74-renewal">7.4 Renewal</a></li>
+<li class="toc-l2"><a href="#8-monitoring-measuring-mass">8. MONITORING &amp; MEASURING MASS</a></li>
+<li class="toc-l3"><a href="#81-mass-recording-requirements">8.1 Mass Recording Requirements</a></li>
+<li class="toc-l3"><a href="#82-establishing-chain-of-custody">8.2 Establishing Chain of Custody</a></li>
+<li class="toc-l3"><a href="#83-the-recycler">8.3 The Recycler</a></li>
+<li class="toc-l3"><a href="#84-processors-and-the-waste-generator">8.4 Processors and the Waste Generator</a></li>
+<li class="toc-l3"><a href="#85-network-integrators-ints-data-rights">8.5 Network Integrators (INTs) &amp; Data Rights</a></li>
+<li class="toc-l3"><a href="#86-data-responsibilities-and-protection">8.6 Data Responsibilities and Protection</a></li>
+<li class="toc-l3"><a href="#87-bad-actors-self-policing-and-proof-of-authority">8.7 Bad Actors, Self-Policing, and Proof-of-Authority</a></li>
+<li class="toc-l2"><a href="#9-certification-of-activities">9. CERTIFICATION OF ACTIVITIES</a></li>
+<li class="toc-l3"><a href="#91-the-certification-process">9.1 The Certification Process</a></li>
+<li class="toc-l3"><a href="#92-allowable-project-period">9.2 Allowable Project Period</a></li>
+<li class="toc-l3"><a href="#93-recertification">9.3 Recertification</a></li>
+<li class="toc-l2"><a href="#10-issuing-pure-credits-distributing-rewards">10. ISSUING PURE CREDITS &amp; DISTRIBUTING REWARDS</a></li>
+<li class="toc-l3"><a href="#101-credits-and-tokenization">10.1 Credits and Tokenization</a></li>
+<li class="toc-l3"><a href="#102-rewards-distribution-model">10.2 Rewards Distribution Model</a></li>
+<li class="toc-l3"><a href="#103-rewards-distribution-discounts-for-large-revenue-busines">10.3 Rewards Distribution Discounts for Large Revenue Businesses</a></li>
+<li class="toc-l3"><a href="#104-exemption-from-large-business-qualification">10.4 Exemption from Large Business Qualification</a></li>
+<li class="toc-l3"><a href="#105-the-incentive-mechanism-for-full-supply-chain-digitizati">10.5 The Incentive Mechanism for F​​ull Supply Chain Digitization</a></li>
+<li class="toc-l3"><a href="#106-recognition-of-ecosystem-ideology">10.6 Recognition of Ecosystem Ideology</a></li>
+<li class="toc-l3"><a href="#107-token-retirement-to-the-credit-registry">10.7 Token Retirement to the credit registry</a></li>
+<li class="toc-l3"><a href="#108-forward-contracts">10.8 Forward Contracts</a></li>
+<li class="toc-l3"><a href="#109-refunds">10.9 Refunds</a></li>
+<li class="toc-l2"><a href="#11-co-benefits-of-recycling">11. CO-BENEFITS OF RECYCLING</a></li>
+<li class="toc-l3"><a href="#111-avoiding-the-bad-and-the-ugly">11.1 Avoiding the “bad and the ugly”:</a></li>
+<li class="toc-l3"><a href="#112-increasing-the-good">11.2 Increasing “the good”:</a></li>
+<li class="toc-l2"><a href="#12-envir-social-economic-accounting">12. ENVIR., SOCIAL &amp; ECONOMIC ACCOUNTING</a></li>
+<li class="toc-l2"><a href="#13-offsets-and-greenwashing">13. OFFSETS AND GREENWASHING</a></li>
+<li class="toc-l2"><a href="#14-penalties-suspensions">14. PENALTIES &amp; SUSPENSIONS</a></li>
+<li class="toc-l2"><a href="#15-quality-assurance-and-quality-controls">15. QUALITY ASSURANCE AND QUALITY CONTROLS</a></li>
+<li class="toc-l2"><a href="#16-uncertainties">16. UNCERTAINTIES</a></li>
+<li class="toc-l3"><a href="#161-market">16.1 Market</a></li>
+<li class="toc-l3"><a href="#162-technology">16.2 Technology</a></li>
+<li class="toc-l3"><a href="#163-adoption">16.3 Adoption</a></li>
+<li class="toc-l2"><a href="#17-commitment-to-the-market">17. COMMITMENT TO THE MARKET</a></li>
+<li class="toc-l2"><a href="#18-appendix">18. APPENDIX</a></li>
+<li class="toc-l3"><a href="#181-pure-credit-valuation-exercise">18.1. PURE CREDIT VALUATION EXERCISE</a></li>
+<li class="toc-l3"><a href="#182-implications-for-the-waste-market">18.2 Implications for the Waste Market</a></li>
+<li class="toc-l3"><a href="#183-the-effective-price">18.3 The Effective Price</a></li>
+<li class="toc-l3"><a href="#184-price-comparisons-with-the-voluntary-plastic-credits-mar">18.4 Price Comparisons with the Voluntary Plastic Credits Market</a></li>
+<li class="toc-l2"><a href="#19-document-history">19. DOCUMENT HISTORY</a></li>
+</ol></nav>
+    <main class="doc-content">
+      <p>Version: 1.0</p>
+<p>DATE</p>
+<p>For comments &amp; Feedback: methodology@impactrakr.com</p>
+<p>For updates follow us here</p>
+<p>Developed by: EcoCircle Global</p>
+<p>For: distributed credit registries</p>
+<p>Application: blockchain-based credit registry network</p>
+<h2 id="1-overview">1. OVERVIEW</h2>
+<p>The current trajectory of plastic production and waste disposal is unsustainable, with plastic flows and their environmental impacts expected to grow significantly without intervention. Global plastic production and use are projected to rise from 435 million tons in 2020 to 736 million tons by 2040, while the share of recycled plastics remains stagnant at just 6% of total consumption. Plastic waste generation will increase from 360 million tons in 2020 to 617 million tons by 2040, outpacing improvements in waste management. This imbalance will lead to 119 million tons of mismanaged plastic waste annually, up from 81 million tons in 2020.</p>
+<p>As a result, plastic pollution leakage into the environment could grow from 20 million tons in 2020 to 30 million tons in 2040, nearly doubling the stock of plastics in rivers and oceans. The plastic lifecycle, driven by production and conversion processes, will then emit 2.8 gigatons of CO₂-equivalent annually by 2040, accounting for 5% of global emissions, compared to 1.8 gigatons in 2020. Without significant changes, plastics will remain a major contributor to environmental degradation, climate change, and biodiversity loss1.</p>
+<p>Landfills and open dumping sites remain the primary disposal routes for plastic waste, with open dumps accounting for nearly 40% of waste disposal in low- and middle-income countries. However, these methods are unsustainable and harmful. Plastics in landfills degrade into microplastics, contaminating soil, waterways, and ecosystems. Incineration, another common disposal method, releases large quantities of CO₂ and toxic pollutants into the atmosphere. Contaminated plastic waste in mixed streams reduces recyclability and leads to missed opportunities for resource recovery, driving the extraction, production, and transportation of virgin materials, further compounding carbon emissions.</p>
+<p>A transition to a circular plastics economy offers a critical solution to address these issues. Studies suggest that making reuse and recycling the standard for end-of-life plastics could reduce greenhouse gas emissions from plastics supply chains by 45% and plastic leakage into the environment by more than 80% by 2040. Doubling the circularity rate of plastics could meet 85% of the global GHG reduction targets needed to limit global warming to below 2°C, highlighting the transformative potential of a circular approach.</p>
+<p>However, achieving this transition requires significant changes to how plastic waste is managed. Diverting plastic waste from landfills and incineration to proper collection, sorting, and recycling systems is key to enabling a circular economy. The associated costs of building and maintaining this infrastructure, combined with operational and treatment expenses, present major economic challenges.</p>
+<p>Plastic credits provide a market-based mechanism to overcome these financial barriers. By rewarding responsible waste management practices, plastic credits incentivize stakeholders across the supply chain to participate in plastic waste recovery and recycling activities. Through this system, the foundation for systemic change can be established, fostering sustainable plastic use and reducing the environmental and climate impacts of plastic waste.</p>
+<p>The PURE Plastic Credit, certified under this methodology, is designed to address the financial and operational challenges of plastic waste management. By leveraging the registry’s digital Measurement, Reporting, and Verification (dMRV) system, the methodology ensures transparent, reliable, and verifiable documentation of plastic collection and recycling activities. Transactions are recorded on a public blockchain, making data accessible and credible for all stakeholders. Independent third-party verification further enhances trust and credibility while ensuring affordability for projects in underserved regions. This approach aims to scale actionable solutions and enable the transition to a circular economy for plastics. Rewards Distribution Policy</p>
+<p>The PURE Plastic Credit represents a transformative opportunity to accelerate the shift from a linear “Take &gt; Make &gt; Waste” model to a resource-efficient, low-carbon, and inclusive circular economy for plastics. By aligning financial incentives with measurable environmental outcomes, the methodology provides a practical tool for addressing the global plastic waste crisis and fostering sustainable resource management.</p>
+<p>The following table describes the key elements of the PURE methodology.</p>
+<h3 id="11-summary-table">1.1 Summary Table</h3>
+<table class="doc-table"><tbody>
+<tr><th>Subject</th><th>The PURE methodology establishes the certification process for confirming plastic waste diversion from landfills towards professional recycling facilities for proper processing, as well as the issuance of PURE credits that reward the participants involved along the supply chain for their environmental and societal contributions.</th></tr>
+<tr><td>PURE is for</td><td>Market participants that want to support the global transition to a resource-efficient, low-carbon, and inclusive circular economy.
+
+Companies that want to offset a portion of their plastic waste footprint by supporting system-based solutions that reduce plastic waste.
+
+Plastic waste recycling facilities and haulers that want to be recognized for their environmental contributions and earn rewards for their achievements.
+
+Waste Generators that want to certify plastic waste recycling and receive rewards that can reduce sorting, hauling, and recycling costs.
+
+Municipalities that want support to prevent plastic waste from reaching landfills and to ensure its reintegration into sustainable, circular uses.
+
+Municipalities that want to jump-start Extended Producer Responsibility (EPR) schemes in the plastic packaging sector, whereby producers help cover the cost of proper recycling of plastic waste.</td></tr>
+<tr><td>Objectives</td><td>To uniquely identify and certify post-consumer and post-industrial plastic waste mass arrival at recycling facilities.
+To identify the good actors participating in well-functioning plastic waste recycling supply chains.
+To properly measure and capture the value of plastic recycling work to society and the environment.
+To issue PURE credits that reward the participants involved in verified plastic waste sorting, hauling, and recycling work and encourage adoption by those who are currently sending plastic waste to landfills, dumps, or incinerators. (Rewards to plastic recycling service providers serve as important capital for further investment in their businesses in a market where capital is often difficult to access or is prohibitively expensive).
+To enhance data transparency and quality and establish trust within the waste management sector by applying new technologies such as blockchain for waste tracking, smart contracts for transparent rewards payments, and digital Measurement, Reporting, and Verification (dMRV) processes for environmental certification. 
+The certification of plastic waste diversion from landfills and dumps demonstrates a serious commitment to the environment. Retired PURE Recycling Credits serve as proof of investment in innovative solutions toward global sustainability and can be used to meet internal ESG goals and/or external EPR mandates.
+To help direct new resources efficiently to recycling supply chain service providers so that they can invest in their operations and increase their capacity for performing environmental work.</td></tr>
+<tr><td>Results</td><td>PURE will accelerate the transition from a wasteful, linear economy to a resource-efficient, low-carbon, and inclusive circular economy by fomenting the sorting of plastic waste into dedicated supply chains for adequate processing, thereby unleashing the full potential of the technical cycles of a circular economy.
+PURE will reduce pollution to land, water, and the atmosphere; preserve vital natural resources for future generations to use; reduce GHG emissions associated with needless extraction, transportation, and processing of raw materials; dramatically reduce the practice of landfilling and incineration and the expense that goes with it to the government and ultimately the taxpayer; and generate tens of millions of jobs, including for many of the most vulnerable among us, in recycling, repair, and remanufacturing services.
+PURE and the the credit network will form communities that work together locally and globally to build and sustain a resource-efficient, low-carbon, and inclusive circular economy.</td></tr>
+<tr><td>Geography</td><td>Global</td></tr>
+<tr><td>SDGs</td><td>Primary: 
+12: Ensure Sustainable Consumption and Production (encourage sustainable production practices, better plastic design, and enhanced recycling to minimize waste; circular economy) 
+13: Climate Action (reduce carbon emissions through improved recycling and waste recovery, avoiding emissions from plastic production and disposal)
+Secondary (co-benefit considerations):
+03: Good Health and Well-Being (reduce pollution-related health risks by minimizing plastic leakage and exposure to harmful contaminants)
+06: Clean water and sanitation (avoid leachate from landfills by improving plastic waste recovery and treatment)
+08: Decent Work and Economic Growth (green jobs in recycling, repair and remanufacturing)
+09: Industry, Innovation, and Infrastructure (promoting innovations in plastic recycling technologies, infrastructure development, and waste management solutions)
+11: Sustainable Cities and Communities (developing efficient, sustainable waste management systems to reduce plastic pollution and improve urban environments)
+14: Life Below Water (improve the recovery and recyclability of plastics through better sorting of organic waste, reducing harmful discharges into marine ecosystems)
+15: Life on Land (prevent plastic pollution on land by reducing litter, illegal dumping, and plastic leakage, protecting ecosystems and biodiversity)
+17: Partnerships for the Goals (working together on effective circular economy &amp; climate financing)</td></tr>
+</tbody></table>
+<p>TABLE OF CONTENTS</p>
+<h2 id="2-definitions">2. DEFINITIONS</h2>
+<p>Auditors: independent, third-party businesses, organizations, or consultants who homologate Participants for participation in the the credit network and/or utilize the registry methodologies to certify waste mass recycling and issue recycling or carbon credits.</p>
+<p>Bad Actor: is a Participant who/that intentionally or unintentionally, acts in a manner that is not in line with the policies of this methodology or the the credit network.</p>
+<p>Baseline: A baseline (also known as a reference scenario) is a benchmark or reference point used to measure and compare the environmental gains of a project. It represents the environmental impact that would occur in the absence of the project or intervention being evaluated. The baseline is essential for determining the effectiveness of a project in reducing negative environmental impact.</p>
+<p>the registry foundation: is a foundation in Switzerland building the blockchain-based credit registry network and creating a global community that will utilize, manage, own, and support it. the registry foundation’s mission (purpose) is to accelerate the transition to a resource-efficient, low-carbon, and inclusive circular economy.</p>
+<p>the credit network (or “the registry”): is the technology infrastructure utilized to record product and waste supply chain data, apply a digital Measurement Reporting and Verification (dMRV) process for certifying environmental gain and issuing credits, and provide a distribution mechanism for rewarding supply chain participants who contributed to the environmental gain realized. The the credit network is stewarded by the the registry foundation, and governance will be progressively distributed to its global community of users.</p>
+<p>the credit registry: is the repository where all retired credits are stored for public consultation. The the credit registry holds all of the Tokenized Recycling Credits (non-fungible tokens) that are no longer transferable and which can be used to prove environmental (waste and carbon) contributions.</p>
+<p>Network Integrators (INT): is a homologated supply chain tracking, waste logistics, and waste recycling software or hardware application that records activity data of all types, including but not limited to product and waste identification, sorting, hauling, processing, measuring, auditing, recycling, upcycling, and reuse, and submits them to the the credit network.</p>
+<p>Chemical recycling: is the conversion to monomer or production of new raw materials by changing the chemical structure of plastic waste through cracking, gasification, or depolymerization, excluding energy recovery and incineration. Chemical recycling should be seen as an option only for plastic waste that cannot be mechanically recycled, an alternative with a much lower environmental impact. Chemical recycling technologies that convert plastic into fuels through processes like pyrolysis (often called “plastic-to-fuel” or P2F) are not within the scope of this methodology since they do not contribute to circularity.</p>
+<p>Circle Economy: is a system where materials never become waste and nature is regenerated. In a circular economy, products and materials are kept in circulation through processes like maintenance, reuse, refurbishment, remanufacture, recycling, and composting. The circular economy tackles climate change and other global challenges, like biodiversity loss, waste, and pollution, by decoupling economic activity from the consumption of finite resources. The circular economy is driven by three principles: eliminate waste and pollution, use circular products and materials (at their highest value), and regenerate nature (Ellen MacArthur Foundation).</p>
+<p>Closed-loop recycling: A recycling process where materials are continuously recovered and reused to create new products of the same or similar quality and purpose as the original, without significant degradation. This approach ensures that the material maintains its value and functionality across multiple cycles, enabling a circular system where virgin resources are minimized.</p>
+<p>Downcycling: The process of recycling plastic waste into products of lower quality or reduced functionality compared to the original material, diminishing its potential for future recovery. PURE emphasizes that products should be designed to enable reuse or closed-loop recycling whenever possible. While downcycling is preferable to disposal methods such as landfilling or incineration and, hence, accepted as a temporary or last-resort option, downcycling should be minimized through upstream waste prevention, product redesign, and better sorting infrastructure.</p>
+<p>Extended Producer Responsibility (EPR): an environmental policy approach that holds producers responsible for product management through the product’s lifecycle. EPR supports recycling and materials management goals that contribute to a circular economy and can also encourage product design changes that minimize environmental impacts. (For more information see also the EMF’s definition.)</p>
+<p>Know Your Customer/Client (KYC): is the mandatory process of identifying and verifying the customer&#x27;s identity when participating in a program. Participation may be denied or excluded permanently if a participant fails to meet KYC or KYB (Know Your Business) requirements.</p>
+<p>Landfill: is a waste disposal site for the deposit of waste onto or into land under controlled or regulated conditions. According to the ZWH principles, landfilling should be avoided at all costs, particularly for plastic waste, as it represents the least desirable option in sustainable waste management.</p>
+<p>MassID: A MassID is a unique digital asset created when any amount of post-consumer or post-industrial waste is identified and measured in the market and where custody is established. MassIDs represent publicly verifiable ownership, and therefore responsibility, over a unit of waste mass with an immutable record of recycling operations (executed service orders) logged in it. MassIDs are utilized to establish a chain of custody of waste in a manner that enables attaching waste responsibility all the way to the source of waste creation (its location and user.) MassIDs are the mechanism through which rewards can be distributed to Participants recorded along the recycling and reuse supply chains.</p>
+<p>Mechanical Recycling: is a process that involves the physical treatment of waste materials to recover valuable resources without significantly altering their chemical structure. This method typically includes grinding, washing, sorting, drying, re-granulating and compounding, and is favored in circular economy models for its reduced environmental impacts and its ability to retain the material&#x27;s value.</p>
+<p>NGO Beneficiary: a non-profit organization that receives token rewards from the the credit network. NGO Beneficiaries can be homologated if their mission is related to advancing the transition to a circular economy through activities related to: research, development, awareness, education, or other activities.</p>
+<p>Non-Fungible Token (NFT): is a blockchain-based, cryptographic token that attributes single ownership to a unique digital or physical asset. Cryptographic signatures, native to blockchains, store transactional information, including the prior and current owner of each NFT.</p>
+<p>NFT Smart Contract: is a digital contract that governs how NFTs function. It is a blockchain computer program that executes automatically when predetermined terms and conditions are met. Smart contracts issue NFTs and determine an owner, set a price for purchase and payouts (also known as royalties) to other contributors, and establish rules for how the NFT can be deactivated (retired or burned), among many other functions.</p>
+<p>Producer: a producer is any company involved in any activity along the product chain, including: sourcing (e.g., extracting raw materials, growing biological products (crops, cattle, etc.)), hauling, processing, converting, manufacturing, filling, packing, and selling.</p>
+<p>Producer Responsibility Organization (PRO): is an organization, typically a non-profit, that represents a group of companies participating in an EPR (Extended Producer Responsibility) program (also known as a producer responsibility program). PROs can develop and manage their own programs or participate in larger regional or national programs.</p>
+<p>Recycling Credit Buyer: a business or individual that purchases a credit with the aim of financially supporting the recovery and transformation of waste into new resources that can be used again within the economy. The buyer contributes by generating external environmental and social benefits (see co-benefits section) for meeting individual and/or corporate ESG goals while also potentially meeting compliance mandates such as those related to carbon and waste reduction (Extended Producer Responsibility).</p>
+<p>Supply Chain “Participants”: supply chain participants include those individuals or businesses involved in sorting, hauling, storing, processing, recycling, and buying recycled materials. They include:</p>
+<p>Waste Generator: is an individual or business (excluding processors and recyclers) with an identified location where waste is picked up. The Waste Generator can be considered the source of where waste is created (see Waste Source below) and holds the critical task of sorting waste correctly;</p>
+<p>Hauler: a business and/or individual that transports waste from one location to another;</p>
+<p>Processor: a business that sorts waste without performing comprehensive mass transformation;</p>
+<p>Recycler (aka End Processor): a Processor that performs the most comprehensive work of mass transformation for reintroduction into the economy as a new input (e.g., Composter);</p>
+<p>Buyer of recycled materials: a business and/or individual that purchases recycled materials for use in their production processes.</p>
+<p>Tokenized Recycling Credit (TRC): is a blockchain token representing the environmental work expended by a set of contributing Participants to recycle a unique amount of waste, measured in tons. The purchase of a TRC NFT (Non-Fungible Token) using blockchain fungible tokens distributes rewards in the form of fungible tokens to contributing Participant’s digital wallets in accordance with the NFT’s smart contract. Retired TRCs (to the registry’s Registry) serve as proof of environmental contribution and can be utilized as waste offsets by Producers in Extended Producer Responsibility programs. (For more information, see definitions for Non-Fungbile Tokens and NFT Smart Contracts).</p>
+<p>Upcycling: The process of transforming plastic waste into new products or materials of higher quality or environmental value than the original, extending the material&#x27;s lifecycle and maximizing its utility within the circular economy.</p>
+<p>Waste Delivery Summary Report: is a compliance document issued by the Recycler and submitted to an environmental regulator that reports the amount and type of post-consumer and post-industrial waste received at the recycling facility during a given period.</p>
+<p>[Example: In the case of Brazil, the document is called a final destination certificate, or Certificado de Destinação Final (“CDF”.) The CDF is submitted to the Brazilian Ministry of the Environment and it contains a series of waste transport manifests (known as “MTRs”, see separate definition).]</p>
+<p>Waste “Source”: The source of  waste creation is an identified Waste Generator where a resource has been consumed and transformed into waste at a given location. The waste source may also be further distinguished between post-consumer and post-industrial.</p>
+<p>Waste Transport Manifest: is an environmental compliance document for reporting waste hauling activities to environmental government agencies. It identifies the location and holder of the waste where it was collected, the Hauler, the location and business where it was (or will be) dropped off, along with the physical properties of the materials being hauled.</p>
+<p>[Example: in the case of Brazil, this document is referred to as the MTR (Manifesto de Transporte de Resíduos). The document is registered in a federal waste monitoring and reporting system known as SINIR (Sistema Nacional de Informações sobre a Gestão de Resíduos Sólidos).]</p>
+<p>Zero Waste “Definition”: The conservation of all resources by means of responsible production, consumption, reuse, and recovery of products, packaging, and materials without burning and with no discharges to land, water, or air that threaten the environment or human health. (ZWIA)</p>
+<p>Zero Waste Goal: To reduce waste to landfills by more than 90% by reducing, reusing, recycling, and composting resources without incineration.</p>
+<h2 id="3-scope-and-applicability">3. SCOPE AND APPLICABILITY</h2>
+<h3 id="31-scope">3.1 Scope</h3>
+<p>This methodology outlines a comprehensive process for certifying a unique mass of collected and sorted plastic waste, measured in kilograms, as it moves through the entire supply chain. Certification is finalized upon proof that the material has been successfully recycled or upcycled into secondary raw materials using mechanical or chemical recycling techniques at a professional, legally qualified facility.</p>
+<p>PURE applies to all geographies and does not exclude participant types, including those legally required to sort and recycle plastic waste, as compliance rates in such geographies are often low due to insufficient enforcement. The business of recycling competes with alternatives such as landfilling, incineration, and uncontrolled dumping, which are often cheaper or unregulated. To scale system-based solutions, all participants need to be encouraged to join and receive fair, transparent rewards for their contributions to reducing plastic pollution.</p>
+<p>The primary objective of this methodology is to serve as an effective, low-cost, and transparent mechanism to value the environmental work performed through plastic recycling. It also acts as an incentive tool to encourage stakeholders to contract recycling services that divert more plastic waste from landfills and incinerators toward recycling facilities. PURE serves as a systems change solution aimed to accelerate the transition to a circular, low-carbon global economy.</p>
+<h3 id="32-applicability">3.2 Applicability</h3>
+<h4 id="321-eligible-materials">3.2.1 Eligible materials</h4>
+<p>Types of Plastics:</p>
+<p>All items made from the seven primary plastic types fall within the scope of this methodology:</p>
+<ul class="doc-list">
+<li>Polyethylene Terephthalate (PET or PETE)</li>
+<li>High-Density Polyethylene (HDPE)</li>
+<li>Polyvinyl Chloride (PVC)</li>
+<li>Low-Density Polyethylene (LDPE)</li>
+<li>Polypropylene (PP)</li>
+<li>Polystyrene (PS) or Expanded Polystyrene (EPS)</li>
+<li>Other plastics (categorized as “O”)</li>
+</ul>
+<p>Examples of “other plastics” include materials such as acrylic (Polymethyl Methacrylate), Acrylonitrile Butadiene Styrene (ABS), Polyamide (Nylon), Polycarbonate, and Polylactic Acid.</p>
+<p>Composite Materials:</p>
+<p>Packaging and products made from multiple layers or types of materials are eligible, provided they include one or more of the primary plastic types listed above. Composite materials may consist of combinations such as:</p>
+<ul class="doc-list">
+<li>Different plastic layers.</li>
+<li>Thin coatings or foils of metals.</li>
+<li>Layers of paper or cardboard.</li>
+</ul>
+<p>Composite materials are classified based on the combination of materials used in the main structure of the packaging or product, regardless of detachable elements such as caps, labels, or seals.</p>
+<p>Mixed plastics:</p>
+<p>For recycling technologies that do not distinguish among plastic types, plastic waste classified as mixed plastics are within the scope of the methodology.</p>
+<p>Adjustment factor for non-plastic components</p>
+<p>For composite materials containing non-plastic components, an adjustment factor must be applied to reflect the actual recyclable plastic content. This factor should be based on representative sampling and compositional analysis in line with ISO 15270:2008 and EN 14899:2005, and validated through traceability and conformity principles such as those outlined in EN 15343:2007 on recycled content assessment. In the case of mixed plastics containing non-plastic elements, such as organic or inorganic debris, a sampling strategy should be employed referencing methodologies outlined in ISO 15270:2008. Both scenarios must undergo validation by a homologated independent third-party Auditor.</p>
+<h4 id="322-eligible-activities">3.2.2 Eligible activities</h4>
+<p>This methodology applies to source-sorted plastic waste collection, sorting, hauling, and delivery activities that track plastic waste to decentralized, professional, and legally-qualified recycling facilities for off-site processing and recovery.</p>
+<p>Eligible recycling activities include mechanical recycling, closed-loop recycling, upcycling, chemical recycling and downcycling. When the term “recycling” is mentioned throughout the methodology, particularly in the Homologation section, it covers all these activities</p>
+<p>[Note: PURE prioritizes downcycling over landfilling and incineration but recognizes that this practice should ultimately be phased out as improved product design and circular solutions become more widespread. To reflect this transition, a discount factor for credits generated under this scope is being evaluated and will be implemented in future revisions of this methodology.]</p>
+<p>While the focus is on certifying off-site recycling, it is acknowledged that certain solutions, such as on-site pre-sorting or localized recycling operations, may offer greater environmental benefits by reducing transportation impacts, and are thus also considered eligible. Additionally, reducing the generation of plastic waste in the first place remains the most effective and ideal practice, as outlined in the Zero Waste Hierarchy.</p>
+<h4 id="323-not-applicable">3.2.3 Not Applicable</h4>
+<p>Waste that is not plastic is not within the scope of this methodology.</p>
+<p>Plastic waste contaminated with hazardous or toxic materials, where the plastic cannot be decontaminated through a standardized and proven method, is not applicable under this methodology. This exclusion is based on technical and regulatory guidance outlined in ISO 15270:20089, EN 13430:2004, and the Basel Convention’s Technical Guidelines on Plastic Waste, which specify that hazardous plastic materials or those contaminated beyond acceptable thresholds should not be processed through general recycling routes without specialized treatment. The applicability of such materials will be assessed and validated by a homologated independent third-party Auditor.</p>
+<p>This methodology does not apply to plastic waste that cannot be tracked to legally qualified recycling facilities or to facilities without adequate sorting or recycling processes. High contamination levels that lead to subsequent disposal in landfills or incinerators post facto are also excluded.</p>
+<p>This methodology does not certify the actual recycling processes carried out at the recycling facility. It only certifies the delivery of plastic waste to facilities that meet high standards for sorting and recycling, as previously verified through a rigorous homologation process and an independent third-party recycling Auditor.</p>
+<p>the registry’s primary focus is on environmental outcomes. While plastic waste management can generate various co-benefits, such as environmental, social, or economic improvements, PURE does not formally measure or certify them as part of the methodology’s scope or criteria, and does not assess or judge Participant activities beyond compliance with its specific requirements. the registry aims to keep a narrow focus and not pass judgment on the activities of its Participants that extend beyond the environmental work employed and the methodology’s Requirements.</p>
+<h3 id="33-activities-and-participants">3.3 Activities and Participants</h3>
+<p>Confirmation of the delivery of plastic waste at a recycling facility requires at least: 1) the identification of the last location where the plastic waste was picked up (a Waste Generator or Processor) along with the responsible individual at the pickup location (the “Holder”); 2) The hauling company that transported the waste mass; and 3) the Recycler’s responsible party at the drop-off location (the “Receiver”), who serves as the “Validator” of the amount, quality, and type of plastic waste received at the recycling facility.</p>
+<p>The recycling facility (“Recycler”) is a key participant in the process and must undergo a comprehensive homologation review, involving an on-site visit by a third-party auditor, to ensure its recycling capacity and compliance with scientifically acceptable and legal standards. Each Recycler is responsible for requesting that their data be submitted to this methodology for proper evaluation, certification, and the issuance of plastic credits.</p>
+<p>Processing facilities that sort plastic waste before it reaches a Recycler will also need to be homologated, as they play a critical role in ensuring proper sorting is conducted before delivery to the recycling facility.</p>
+<p>Both Recyclers and Processors will need to work with their waste management software providers, identified as Network Integrators (“INTs”), to become homologated by the the registry foundation and be considered for certification under this plastic credit methodology.</p>
+<p>Waste Generators must comply with the Requirements of this methodology, including undergoing an extensive KYC (Know Your Customer) verification. Depending on the type of Waste Generator, the level of required documentation may vary. For example, informal waste pickers may not have access to the full range of formal documentation, perhaps not having an email or a permanent residential address. Businesses will also need to provide additional information, such as disclosing the size of their operations. It is the responsibility of business managers to sign the registry’s agreements, verify their data, and provide all necessary information.</p>
+<p>[Note: Waste Generators identified as large revenue-generating organizations will have rewards significantly discounted, addressing concerns about companies benefiting even when legally required to sort, haul, and recycle plastic waste. This approach ensures that the broader ecosystem benefits from increased rewards, while service providers gain critical resources to invest in facilities, technologies, and infrastructure. More information can be found in the Rewards Distribution Policy.]</p>
+<p>Haulers will also need to meet all Participant Requirements and be identified within the digital management system.</p>
+<p>All participants will need to work with INTs to ensure that their data is accurate and properly submitted to the the credit network.</p>
+<p>All participants are subject to a thorough KYC process, requiring comprehensive individual and company identification.</p>
+<h3 id="34-safeguards">3.4 Safeguards</h3>
+<h4 id="341-protection-inclusion">3.4.1. Protection &amp; Inclusion</h4>
+<p>the registry works to ensure that the projects involved in its methodologies are inclusive of a broad set of stakeholders and limit the risk of negative consequences associated with its activities. the registry aims to assure:</p>
+<p>There is no harm to the environment or the communities involved.</p>
+<p>Human rights are protected.</p>
+<p>Stakeholders are consulted.</p>
+<p>Legal requirements are complied with.</p>
+<p>Corruption and bribery do not occur.</p>
+<p>The homologation of Processors and Recyclers is conducted annually to verify and assure, as best as possible, that the activities above are being met.</p>
+<h4 id="342-avoiding-double-counting">3.4.2 Avoiding Double-Counting</h4>
+<p>To avoid double-counting the registry communicates to supply chain participants (Waste Generator, Haulers, Processors or Recyclers) through its Terms &amp; Conditions for use of the platform that participants cannot claim the waste offset benefits within Extended Producer Responsibility programs. This right is transferred to the holder of a unique, non-transferrable, retired recycling credit (e.g., held by a Producer). EPR program managers must only accept the registry “offset” claims through proof of ownership of retired tokenized recycling credits (TRCs). Waste Generators may claim individual waste reduction, but if they are found to claim offsetting, they will be penalized or suspended.</p>
+<p>This methodology cannot guarantee that its participants are not involved in the sale of other environmental credits associated with the specific waste mass being tracked; however, every participant vouches not to do so as part of the registry’s Terms &amp; Conditions and their involvement in this methodology. If such activities are discovered, the participant will be penalized, along with, potentially, all of those who are associated with the bad actor. (For more information, see the sections on Bad Actors, Self-Policing, and Proof-of-Authority and Penalties &amp; Suspensions).</p>
+<h4 id="343-participant-verification">3.4.3 Participant Verification</h4>
+<p>Processors and Recyclers must be homologated by the registry before participating in this methodology and Audited by an independent third-party recycling expert.</p>
+<p>Network Integrators (INTs) must be homologated by the registry for data integration and to ensure quality.</p>
+<p>Non-Government Organizations receiving rewards must be homologated.</p>
+<p>All Participants are KYC’d (Know Your Customer), including Waste Generators and PURE Plastic Credit Buyers as part of the Participation Requirements.</p>
+<h4 id="344-data-verification">3.4.4 Data Verification</h4>
+<p>The the registry engineering team verifies the data structure of supply chain and recycling records submitted to it by integrators (INTs) in advance of approval for data submission.</p>
+<p>Code scripts are run to verify mass supply chain data and environmental compliance with this methodology to ensure high integrity data for digital, Measurement, Verification, and Reporting (dMRV) purposes.</p>
+<p>Data verification models will improve over time and will help build confidence in the the credit network. More information can be found in the Monitoring &amp; Measuring Mass section.</p>
+<h3 id="35-entry-into-force">3.5 Entry into force</h3>
+<p>The date of entry into force of this methodology is February, 2025.</p>
+<h2 id="4-normative-references">4. NORMATIVE REFERENCES</h2>
+<p>While there are no universally applicable global standards for plastic recycling that encompass all locations and facility types, certain international guidelines provide a framework for best practices. For instance: ISO 21067:2007 - Packaging Vocabulary, ISO 15270:2008 - Plastics Recovery and Recycling Guidelines, ISO 472:2013 - Plastics Vocabulary, ISO 18604:2013 - Packaging Material Recycling, ISO 24161:2022 - Plastics Mechanical Recycling Quality Requirements, and ISO 59010:2024 - Circular Economy Business Model Transition Guidance.</p>
+<p>These ISO standards provide a comprehensive framework for sustainable packaging and plastic waste management. They ensure consistent terminology, promote recyclable design, and offer strategies for efficient recovery and contamination control. The standards also set quality requirements for mechanical recycling to enhance material reuse. Together, they support the shift to circular business models by optimizing resource flows and value networks.</p>
+<p>The PURE methodology mandates compliance with local plastic recycling laws and regulations. It relies on local industry experts to perform annual on-site facility audits to ensure that recycling operations meet professional standards. These audits include verifying test methods for assessing the quality of recycled plastics and adherence to local environmental standards.</p>
+<h2 id="5-participation-requirements">5. PARTICIPATION REQUIREMENTS</h2>
+<p>Individuals and companies wishing to participate in the PURE methodology must meet the participation requirements set below. Additional information will be required based on Participant roles identified in the Homologation process and throughout this document.</p>
+<p>the registry foundation may issue new requirements at any time, and the Participants wishing to comply with the new role requirements will need to update their information within a determined period.</p>
+<p>The implementation of activities required for participation in the PURE methodology must not lead to the violation of any applicable local law, statute, or regulation, regardless of whether or not they are enforced.</p>
+<p>Failure to comply with the requirements and the general spirit of the the credit network may result in immediate disqualification from the PURE methodology and exclusion from the the credit network altogether.</p>
+<h3 id="51-the-registrys-terms-conditions">5.1 the registry’s Terms &amp; Conditions</h3>
+<p>All participants in the PURE methodology must accept the the registry foundation’s Terms &amp; Conditions (T&amp;C). The following items contained within the T&amp;C are highlighted for added clarity.</p>
+<h4 id="511-know-your-customer-kyc">5.1.1 Know Your Customer (KYC)</h4>
+<p>In order to participate in the the registry ecosystem and receive token rewards from the PURE methodology, all Participants (Waste Generators, Haulers, Processors, Recyclers, and Credit Buyers) will need to provide individual identification information, which include:</p>
+<p>full name,</p>
+<p>mobile number,</p>
+<p>birthdate,</p>
+<p>email address,</p>
+<p>residential address,</p>
+<p>document showing proof of residential address,</p>
+<p>provide all nationalities,</p>
+<p>show government ID for each nationality,</p>
+<p>share documents showing proof of government ID, including proof of possession, such as a photo of the individual holding the ID.</p>
+<p>In the case of a company, the legal representative must provide, in addition to their individual identification, the following information:</p>
+<p>documents showing proof of legal representation,</p>
+<p>a corporate email,</p>
+<p>the legal name of the corporation,</p>
+<p>Tax ID of the company,</p>
+<p>a document demonstrating proof of tax identification as well as any additional information that the Foundation may legitimately request from time to time in order to complete the Foundation&#x27;s examination (&quot;KYC-Check&quot;).</p>
+<h4 id="512-money-laundering-and-combating-the-financing-of-terroris">5.1.2 Money Laundering and Combating the Financing of Terrorism</h4>
+<p>Blockchain is a transformative technology. Unfortunately, there have been instances where Bad Actors have used such solutions to launder money and finance terrorism.</p>
+<p>For this reason, Participants in the PURE methodology and the the credit network must understand that partaking in money laundering or the financing of terrorist activities on or off of the the credit network will not be tolerated. Any evidence of such activities may lead to immediate and permanent removal from the platform (see Penalties &amp; Suspensions section). In addition, the registry foundation will cooperate fully with authorities investigating money laundering activities as well as assist with any work required for Combating the Financing of Terrorism (CFT) that may involve the the credit network. Participants need to acknowledge and accept such audits as identified in the the credit network’s Terms and Conditions.</p>
+<h4 id="513-compliance-with-local-digital-asset-laws">5.1.3 Compliance with Local Digital Asset Laws</h4>
+<p>Digital asset legislation is at different stages of development around the world. All Participants must understand local digital asset laws and ensure that they are meeting legal requirements. In order to understand these risks, please review the following:</p>
+<p>the registry will use smart contracts to mint Non-Fungible Tokens (NFTs) which will contain MassIDs that represent waste recovered at homologated recycling centers;</p>
+<p>Stable Coins and/or Central Bank Digital Currencies (CBDCs) will be utilized as the purchasing vehicle of NFTs for Recycling Credit Buyers (Note: while a credit buyer may make a purchase directly with the foundation without directly interacting with Stable Coins or CBDCs, it must be clear that digital assets will be the mechanism through which rewards are distributed to recycling contributors);</p>
+<p>Stable Coins and/or CBDCs will be distributed to Participants who have provided their digital wallets for receiving the proceeds from their contributions within successful supply chains;</p>
+<p>All Participants who receive stable coins will be KYC’d;</p>
+<p>the registry foundation does not provide custody of wallets or assets;</p>
+<p>Each Participant is responsible for providing their wallet address, managing their digital assets, and any keys related to accessing their wallets for retrieving their rewards.</p>
+<p>The the registry foundation uses blockchain technology to reduce costs related to providing transparency in the distribution of rewards and as a mechanism to scale the use of the protocol and its methodologies around the world so that it can deliver environmental, social, and economic impact as quickly as possible.</p>
+<h4 id="514-commitment-to-proper-sorting-and-recycling-participation">5.1.4 Commitment to Proper Sorting and Recycling Participation</h4>
+<p>All Participants commit to pursuing high-performance recycling practices, which may involve contracting with professional recycling service providers, purchasing adequate equipment, establishing internal processes for sorting and storing waste properly, training employees, educating customers, hiring consultants, paying for logistics, and using waste management software for waste tracking and recycling certification, among others.</p>
+<p>Each participant is responsible for doing their part in properly sorting, storing, hauling, and recycling plastic waste, and where necessary, working with partners to educate, improve practices, and collaborate on keeping processes clean, efficient, effective, and low-cost.</p>
+<h4 id="515-commitment-to-data-quality-and-self-policing">5.1.5 Commitment to Data Quality and Self-Policing</h4>
+<p>Data quality is of the utmost importance.</p>
+<p>Diligence with proper sorting, measuring (weighing), identifying waste types, and logging data regarding shipment, hauling, receipt, weighing, and auditing, among other activities, is necessary in order to effectively participate in this and any other of the network&#x27;s methodologies.</p>
+<p>Participants also recognize their role in reporting any data anomalies they observe to the the credit network so that proper orientation can be given and a high standard of data quality can be maintained.</p>
+<h4 id="516-compliance-with-labor-laws-and-work-conditions">5.1.6 Compliance with labor laws and work conditions</h4>
+<p>Participants must comply with all local, national, and international labor laws. We bring special attention to the following:</p>
+<p>Participants must conduct their business activities in accordance with the International Labor Office’s (ILO’s) Declaration on Fundamental Principles and Rights at Work concerning fundamental rights, namely: freedom of association and the effective recognition of the right to collective bargaining; the elimination of all forms of forced or compulsory labor; the effective abolition of child labor; the elimination of discrimination in respect of employment and occupation; and a safe and healthy working environment.</p>
+<p>Participants are committed to implementing and improving occupational health safety and management systems aimed at minimizing work-related risks, hazards, and fatalities, oriented by the International Labour Office (ILO) guidelines on occupational safety and health management systems and the ILO training manual WARM, Work Adjustment for Recycling and Managing Waste.</p>
+<p>Participants adhere to the United Nations Convention on the Rights of the Child. The Convention distinguishes childhood from adulthood, which lasts until 18 years of age. Childhood is considered a special, protected period in a person’s life, and children must be allowed to grow, learn, play, develop, and flourish with dignity.</p>
+<h4 id="517-compliance-with-data-privacy-and-confidentiality">5.1.7 Compliance with Data Privacy and Confidentiality</h4>
+<p>All Participants, in particular the Network Integrators (INTs), must comply with local and international data privacy laws to ensure the privacy of all Participants are protected.</p>
+<p>Attention should be given to laws such as the EU’s General Data Protection Regulation (GDPR), The Council of Europe’s Convention for the Protection of Individuals with regard to Automatic Processing of Personal Data, the California Consumer Privacy Act (CCPA) and Brazil’s General Law for Protection of Personal Data (LGPD), to name a few.</p>
+<h4 id="518-commitment-to-confidentiality">5.1.8 Commitment to Confidentiality</h4>
+<p>All Participants, in particular the Network Integrators (INTs), must commit to protecting the confidentiality of the business activities of network Participants in order to preserve a healthy business environment and the collaborative spirit of working together to optimize waste recovery and minimize pollution.</p>
+<h4 id="519-transfer-of-data-rights">5.1.9 Transfer of Data Rights</h4>
+<p>Participants understand that they transfer all rights to the data submitted to the the credit network to the the registry foundation. Participants also understand that the registry foundation seeks to sell credits on a best-efforts basis but that it has no obligation to do so.</p>
+<p>Participants recognize that they cannot request that other certification entities issue recycling, carbon, or other environmental credits relating to the data that is submitted, as this would constitute double counting and possibly double profiting. Such activities will result in immediate suspension and likely permanent removal from participation in this methodology or any other methodologies utilized by the the credit network. For more information, see the section on Penalties &amp; Suspensions.</p>
+<h3 id="52-the-registrys-token-sale-agreement">5.2 the registry’s Token Sale Agreement</h3>
+<p>Buyers of credits (tokens) and receivers of rewards must accept the terms set in the registry foundation’s Token Sale Agreement.</p>
+<p>We expect PURE Buyers to understand the early stages of the development of the the credit network and the associated risks before making a purchase.</p>
+<h2 id="6-project-requirements">6. PROJECT REQUIREMENTS</h2>
+<h3 id="61-geographic-boundaries">6.1 Geographic Boundaries</h3>
+<p>PURE’s methodology does not impose geographic boundaries, allowing for flexibility in project implementation.</p>
+<p>Projects operating under PURE’s methodology should: 1) Prioritize local and regional operations to minimize transportation distances, associated emissions, and environmental impact; 2) Consider proximity to waste generation sources to optimize logistics, collection, and processing efficiency. 3) Promote equitable waste management access in remote, marginalized, or underserved communities.</p>
+<p>Each project must clearly define its operational scope, specifying the municipalities, regions, or countries involved. Cross-border activities are permitted, provided they fully comply with relevant domestic and international laws and regulations.</p>
+<h3 id="62-baseline">6.2 Baseline</h3>
+<p>The recycled plastic waste is compared to the baseline scenario of disposing of the waste in one of the following locations:</p>
+<ul class="doc-list">
+<li>Landfills with or without flaring of methane gas.</li>
+<li>Incinerators with or without energy recovery.</li>
+<li>Open-air dumps (akin to natural ecosystems).</li>
+</ul>
+<p>The disposal of recyclable and reusable plastics in any of the above end-of-life scenarios is considered unacceptable due to their environmental and economic impacts. Mechanical recycling significantly reduces greenhouse gas (GHG) emissions compared to virgin plastic production, showing up to a 70% reduction in emissions for materials like PET. Chemical recycling, while more energy-intensive, enables the recovery of plastics that cannot be mechanically recycled, breaking them into monomers or raw materials for new plastic production.</p>
+<p>In contrast, landfills are especially problematic, as plastics do not degrade, potentially leading to the release of microplastics into the environment. Incineration, even with energy recovery, produces significant greenhouse gas (GHG) emissions and toxic byproducts. Open-air dumping poses the most immediate threats to ecosystems, often resulting in widespread plastic pollution and harm to marine and terrestrial biodiversity. Recycling provides a far superior solution for reducing environmental contamination, conserving resources, and supporting the transition to a circular economy.</p>
+<h3 id="63-additionality">6.3. Additionality</h3>
+<h4 id="631-definition">6.3.1 Definition</h4>
+<p>Additionality is a term commonly used to evaluate carbon project accounting and to describe the GHG emissions that are additionally reduced or removed that would otherwise not have occurred in the absence of a carbon credit or offset purchase.</p>
+<p>Within the context of plastic credits, additionality refers to the quantifiable reduction in plastic waste that would have been sent to those scenarios defined in the baseline section (landfills, incinerators, or open dumping), enabled by the implementation of verified recycling processes. Compared to other environmental projects, measuring additionality for plastic waste is more straightforward because the tangible waste mass and clear baselines, making measurement, reporting, and verification simpler. Therefore, any amount of plastic waste that is diverted from landfills, incinerators, or open dumping, is considered additional under PURE.</p>
+<h4 id="632-further-notes">6.3.2 Further notes</h4>
+<p>Recycling rates for plastic waste are estimated to be in the low percentages globally. Despite increased awareness and regulatory efforts, the majority of plastic waste still ends up in landfills, is incinerated, or pollutes the environment. Investment in recycling infrastructure and services is urgently needed worldwide. A solid and predictable market for recycled plastics must be projected to attract private recycling companies to expand their services and infrastructure in parallel with public waste management systems.</p>
+<p>Recycling supply chains, even in developed countries, remain vulnerable to disruption due to price volatility in recovered plastics, lack of demand for recycled materials, or shifts in global trade policies. This instability underscores the need for mechanisms to stabilize recycling markets and ensure their resilience.</p>
+<p>Recycled plastic waste often has low resale value compared to virgin plastics, making it particularly susceptible to market disruptions. Regulation alone is insufficient to address these challenges. Even where regulations mandate recycling, improper sorting, contamination, and illegal dumping persist, as these are often easier and cheaper alternatives to proper recycling. This methodology emphasizes the importance of better sorting technologies and processes to improve the quality and efficiency of recycling streams.</p>
+<p>Plastic credits serve as a “cashback” mechanism that rewards Participants for recycling activities when verified. By reducing the total cost of recycling operations, plastic credits help stabilize recycling markets, support Pay-As-You-Throw (PAYT) systems, and incentivize waste reduction and proper sorting.</p>
+<p>This system change solution directs resources to existing recycling service providers to help them expand their operations while also encouraging Waste Generators, recycling entrepreneurs, and other stakeholders to participate actively in the circular economy for plastics. By aligning financial incentives with tangible environmental outcomes, plastic credits foster a robust market for recycling, helping drive systemic change in how plastic waste is managed globally. (see PURE pricing exercise)</p>
+<h3 id="64-leakage">6.4 Leakage</h3>
+<p>Leakage refers to the unintentional loss, mismanagement, or improper disposal of plastic waste during the recycling process or other project activities. While no plastic waste leakage has been identified in existing projects under this methodology, it remains a critical area for monitoring and improvement.</p>
+<p>If leakage is identified during future project evaluations and is found to be part of the credited process, the associated leakage volume will be subtracted from the credited plastic waste amounts. Leakage will also be addressed in future versions of this methodology with enhanced monitoring and reporting requirements to ensure transparency and accuracy in crediting.</p>
+<h2 id="7-homologation">7. HOMOLOGATION</h2>
+<p>Processors, Recyclers, INTs and NGO beneficiaries must be homologated to participate in the the credit network.</p>
+<p>In addition to meeting all of the participation requirements, candidates are required to provide additional information through the registry’s RFI (Request For Information) process regarding their business and environmental activities, and successfully complete the homologation process as detailed below.</p>
+<h3 id="71-participants">7.1 Participants</h3>
+<h4 id="711-processors-and-recyclers">7.1.1 Processors and Recyclers</h4>
+<p>Processors and Recyclers must successfully complete the three stages of the homologation process to be approved for participation. The three stages include:</p>
+<ul class="doc-list">
+<li>Complete the Homologation RFI;</li>
+<li>Obtain preliminary approval by the the registry homologation team;</li>
+<li>Pass a third-party Audit performed by a plastic recycling expert in the country where the Participant conducts its work.</li>
+</ul>
+<p>The homologation process will analyze the information as follows.</p>
+<p>Processors must:</p>
+<ul class="doc-list">
+<li>Provide the business licenses and permits that are legally required to conduct its plastic waste recycling or upcycling related activities.</li>
+<li>Provide the environmental licenses and permits that are legally required to conduct its plastic waste recycling related activities.</li>
+<li>Provide documentation confirming activities are in compliance with local safety laws and the best practices that are employed to manage risk to workers.</li>
+<li>Describe the current impact of recycling activities on natural ecosystems.</li>
+<li>Provide an action plan for addressing any potential natural ecosystem contamination that may occur.</li>
+<li>Describe the processes and technologies utilized for conducting sorting tasks.</li>
+<li>When sorting is conducted, provide full digital record-keeping of the sorting activities by material type and weight, along with provenance information such as bin, container, and cargo, as well as the corresponding waste transport manifest.</li>
+<li>Prove that proper pick-up, drop-off, sorting, storage, and shipment of plastic waste material is conducted through digital proofs submitted to the protocol by the Processor’s INT. The digital record must specify the amount (in kg) and type of plastic waste that was handled, along with the location where it was picked up (Waste Generator or Processor), the Hauler, and the receiving party. (See more details under the section Mass Logistics, Measurement and Monitoring).</li>
+<li>Waste transport manifests (MTRs in Brazil) will be required as corroboration of digital records for all waste hauling activities.</li>
+</ul>
+<p>Recyclers must meet all of the homologation requirements belonging to Processors, as well as demonstrate legal standing and professional capability to perform the recycling work.</p>
+<ul class="doc-list">
+<li>Declare current plastic waste recycling volumes;</li>
+<li>Provide prior plastic volume records to support the declared plastic volume amount.  In the case of Brazil, provide the Certificate of Final Destination (CDFs) that is utilized;</li>
+<li>Declare the current maximum plastic recycling capacity of the facility;</li>
+<li>Provide a project or business plan demonstrating the facility capacity presented above. Information such as the facility’s site area, infrastructure, equipment, personnel, and technologies can be utilized.</li>
+<li>Provide the waste technology baseline (landfill, landfill with flaring, or dump) utilized to compare the environmental gains realized by plastic waste recycling. The Recycler must provide the name of the landfill where its waste is ordinarily sent by traditional public waste hauling and the technology baseline utilized at the facility. (Note: It is the Recycler’s responsibility to contact its local landfill and request documentation on flaring (methane burning) activities if the landfill utilizes such technologies.). If the plastic waste was is sourced at an open-air dump, evidences must be provided to validate such sources.</li>
+<li>Describe the plastic recycling process utilized (e.g., mechanical, chemical, upcycling)</li>
+<li>Provide the average processing period (number of days) for the plastic recycling process. This includes the time required for sorting, cleaning, and either mechanical or chemical recycling. Indicate whether the timeline varies based on plastic types or contamination levels.</li>
+<li>Describe the plastic waste types commonly processed. If mixed plastics are processed, include a breakdown of their typical composition and describe the method used for separating recyclable from non-recyclable materials. For plastics that are not recyclable, describe their alternative disposal methods (e.g., energy recovery, landfilling) and any measures taken to minimize non-recyclable content in the input stream.</li>
+<li>Describe the procedures used to measure and monitor the quality of the recycling process, possibly including:</li>
+<li>Purity levels of sorted plastics.</li>
+<li>Contaminant removal efficiency.</li>
+<li>Recycling yield by plastic type (e.g., PET, HDPE).</li>
+<li>Moisture content in recycled materials.</li>
+<li>Melt flow index (MFI) to assess processability.</li>
+<li>Visual inspections for contaminants and consistency.</li>
+<li>Mechanical properties of recycled outputs (e.g., tensile strength, impact resistance).</li>
+<li>The applicability of these procedures may depend on the context of the recycling process and the intended use of the recycled outputs. Where applicable, include test methods such as ash content analysis, particle size distribution, or odor testing to ensure the recycled plastic meets the required standards for its specific application.</li>
+<li>Describe the location and range of territory covered related to the recycling services. Specify the mechanisms used to ensure all plastic waste within the defined area is accounted for.</li>
+<li>Describe the positive social and environmental impacts associated with the activities.</li>
+<li>Indicate whether low-income individuals are involved in the activities, the number of individuals involved, and their proportion of the total workforce.</li>
+<li>Indicate whether individuals identifying as minorities, women, or LGBTQIA+ are involved, the number of individuals identified, and their proportion to the total workforce.</li>
+<li>Indicate if local communities benefit directly from the activities (e.g., through job creation, improved waste management, or education programs). Provide context for these benefits.</li>
+<li>Indicate whether there are environmental benefits to the activity within the area where the service takes place and describe the context.</li>
+</ul>
+<h4 id="712-network-integrators-ints">7.1.2 Network Integrators (INTs)</h4>
+<p>The homologation process for INTs involves a thorough analysis of the quality and security of data integration conducted through the registry’s API’s. Data verification will be continuous, and poor data quality or security breaches may lead to penalties and/or permanent removal from the the credit network.</p>
+<h4 id="713-ngos-as-beneficiaries-of-rewards">7.1.3 NGOs as Beneficiaries of Rewards</h4>
+<p>The homologation process for a non-governmental organization will involve the NGO’s proving their commitment to the advancement of the Circular Economy and good legal standing:</p>
+<p>Submittal of the organization’s governing documents</p>
+<p>Submittal of the organization’s tax ID</p>
+<p>Proof of the organization’s good standing to conduct business</p>
+<p>Proof of the organization’s good standing with tax authorities</p>
+<p>Proof of the organization’s mission or purpose to advance the transition to a circular economy;</p>
+<p>Proof that the organization is apolitical.</p>
+<p>Changes to any of the above must be communicated within two weeks of the changes and may result in the loss of privileges for receiving donations and suspension or removal from the the credit network.</p>
+<h3 id="72-responsibilities">7.2 Responsibilities</h3>
+<p>It is the sole responsibility of each candidate to guarantee that the data on the Homologation RFI forms is true, accurate, and up-to-date.</p>
+<p>The candidate must complete and submit the Homologation RFI to the Foundation in a timely manner, and all communication should be cordial and purposeful with the goal of completing the process efficiently.</p>
+<p>An assessment as to the capabilities of the candidate to conduct its duties will be determined, and only upon approval may the candidate partake in the rewards distributed through PURE Plastic credits.</p>
+<p>Candidates understand that additional information may be required even after homologation approval and agree to allow auditors to perform further verification work and even conduct a non-scheduled on-site visit.</p>
+<h3 id="73-homologation-period">7.3 Homologation Period</h3>
+<p>Successful completion of the homologation process allows Participants to engage with the the credit network for 24 months from the date of the last audit.</p>
+<h3 id="74-renewal">7.4 Renewal</h3>
+<p>Homologated Participants, excluding INTs, must renew their homologation before the completion of 24 months from their last homologation date. It is the responsibility of each Participant to engage with the registry’s “Operations Team” to ensure their homologation is successfully completed in time. We recommend that Participants reach out at least 3 months prior to the homologation expiration date.</p>
+<p>Homologation renewal may be initiated at any time after 3 months from the last homologation date.</p>
+<p>the registry may use partners to conduct homologation services.</p>
+<p>Homologation and its renewals may incur a cost for the candidate.</p>
+<p>the registry’s homologation team can be reached at operations@impactrakr.com.</p>
+<h4 id="741-processors-and-recyclers">7.4.1 Processors and Recyclers</h4>
+<p>In order to renew the homologation of Participant status, Processors and Recyclers must complete a full homologation review, including a third-party audit as described above.</p>
+<h4 id="742-network-integrators-ints">7.4.2 Network Integrators (INTs)</h4>
+<p>INTS will not be required to undergo a homologation recertification for Participant Homologation as the analysis of the data and relationship are ongoing.</p>
+<h4 id="743-ngos">7.4.3 NGOs</h4>
+<p>In order to renew the NGO’s homologated Participant status and be eligible to receive donations, NGOs must complete a full homologation review, as described above.</p>
+<h2 id="8-monitoring-measuring-mass">8. MONITORING &amp; MEASURING MASS</h2>
+<h3 id="81-mass-recording-requirements">8.1 Mass Recording Requirements</h3>
+<p>At each point of the plastic waste recycling supply chain, plastic waste mass data, including plastic waste type(s) and amount (kg), must be captured into a digital information system that records the provenance (location and prior owner), the Hauler, as well as the destination and new owner (the Receiver). For more information, see Validators &amp; SOs.</p>
+<p>The net weight in kg must be properly recorded:</p>
+<p>Net Weight (kg) = Gross weight (kg) - Bin weight (kg)</p>
+<p>Plastic waste types must be identified whenever possible following the stated at section Eligible materials.</p>
+<p>All data must be provided with accuracy by qualified personnel holding clearly identified roles and responsibilities under proper supervision. The monitoring process of the activities must encompass steps relating to waste identification, pick-up, hauling, delivery, sorting/sortation, and transformation determined through continued measurement of weight.</p>
+<p>At a minimum, the final leg of the waste supply chain must be fully documented to report the drop-off of plastic waste at a recycling facility. This includes:</p>
+<ul class="doc-list">
+<li>the identification of the last location where the waste was picked up (a Waste Generator or Processor) along with the responsible individual at the pickup location (the &quot;Holder&quot;);</li>
+<li>the Hauler that transported the waste mass;</li>
+<li>the Recycler’s responsible party at the drop-off location (the “Receiver”), who serves as the “Validator” of the amount, quality, and type of waste received at the recycling facility.</li>
+</ul>
+<p>Quality procedures to acquire and manage data must be established, including to account for uncertainty in data and parameters, where applicable.</p>
+<h3 id="82-establishing-chain-of-custody">8.2 Establishing Chain of Custody</h3>
+<p>Waste mass data submitted to the the credit network is codified into unique digital assets called MassIDs and validated by the Holder and Receiver of the waste mass. Provenance and Chain of Custody are recorded in MassIDs through supply chain event data that transfers waste responsibility of MassIDs on a First-In-First-Out basis in accordance with the rules established by the the credit network (for more information, see MassIDs - Codifying Waste in the registry’s whitepaper).</p>
+<h3 id="83-the-recycler">8.3 The Recycler</h3>
+<p>The certification of MassIDs involves verification of plastic waste (MassIDs) delivered to a recycling facility. The process of recycling can also cover the transformation of plastic by-products, which can include residual plastics from industrial processes (e.g., scraps or off-cuts) or any residual plastics from recycling processes, such as plastic dust or any plastic material judged improper to be incorporated in the final initially-intended product.</p>
+<h3 id="84-processors-and-the-waste-generator">8.4 Processors and the Waste Generator</h3>
+<p>Processors and Waste Generators must prove through a digital record registered in a waste management application (INT) that a specific amount (in kg) of a plastic waste was picked up at their location by a Hauler and delivered to a homologated Processor or Recycler.</p>
+<p>A waste transport manifest will be required as corroboration of digital records for plastic waste pickup at businesses. In cases where the plastic waste weight is not captured digitally using a scale, the weight reported in official government waste transport manifests may be used.</p>
+<p>Plastic waste pickup at residences (households and apartments) will require digitally captured, georeferenced data. If a pickup is conducted without weighing at a residence, then a conservative average can be utilized. (Note: all Waste Generators will be considered as the “Source” of plastic waste generation.)</p>
+<p>In the case where a Hauler is not identified, the Waste Generator is considered the Hauler, as the responsibility with regard to plastic waste belongs to the Generator or Processor until it reaches another Processor or the Recycler (aka End Processor).</p>
+<h3 id="85-network-integrators-ints-data-rights">8.5 Network Integrators (INTs) &amp; Data Rights</h3>
+<p>It should be noted that all Participant data and corresponding logistics, supply chain, and waste management data is submitted to the the credit network through software management applications homologated as Network Integrators (INTs) by the the registry foundation.</p>
+<h3 id="86-data-responsibilities-and-protection">8.6 Data Responsibilities and Protection</h3>
+<p>Each Participant is responsible for the accuracy of the data that is recorded on the the credit network.</p>
+<p>The burden of meeting data accuracy rests with the Participants working together with INTs (Network Integrators) that are submitting the data to the the credit network.</p>
+<h3 id="87-bad-actors-self-policing-and-proof-of-authority">8.7 Bad Actors, Self-Policing, and Proof-of-Authority</h3>
+<p>When economic rewards are involved, everyone has a vested interest in ensuring the ecosystem works well. Because MassIDs track the chain of custody and serve as the vehicle for distributing rewards, when they are flagged for suspicious activity or are identified as containing bad data, disqualifying them from being included in credits, everyone associated with the MassID is financially penalized.</p>
+<p>In addition, Bad Actors may be temporarily suspended or permanently removed from the the credit network, seriously punishing every Participant associated with the Bad Actor and affecting the attractiveness of the service to its customers. This is known as Proof-of-Authority (PoA), a system that ensures actors will do everything in their power to maintain their reputation.</p>
+<p>PoA serves as the fundamental building block for self-policing across recycling supply chains. For more information, see the section on penalties and suspensions.</p>
+<h2 id="9-certification-of-activities">9. CERTIFICATION OF ACTIVITIES</h2>
+<p>the registry certifies the arrival of plastic waste at professional recycling facilities, proving that waste was diverted from landfills, incinerators, open dumping, and the environment, and identifies the good actors in the recycling ecosystem.</p>
+<h3 id="91-the-certification-process">9.1 The Certification Process</h3>
+<p>Certification is a comprehensive process that contains eight (8) steps:</p>
+<ul class="doc-list">
+<li>Development of the methodology in consultation with industry experts and consultants.</li>
+<li>Homologation of Integrators (INTs) providing supply chain and recycling data, along with NGOs in the country of operation who may receive rewards.</li>
+<li>Homologation of Processors and Recyclers involved in the given supply chain.</li>
+<li>Third-party audits of the recycling activities of Processors and Recyclers, conducted by recycling experts.</li>
+<li>Running of the registry verification scripts (code) for validating supply chain mass data activities, mass codification, and chain of custody.</li>
+<li>Running of Plastic Credit Methodology verification scripts (code) for mass certification and issuance of credits generated at each Recycler.</li>
+<li>Publication of data inputs and outputs to a public, immutable database that can be easily accessed and verified by all Participants.</li>
+<li>Issuance of credits that provide self-verifiable data relating to supply chain activities and distribution of rewards to each Participant.</li>
+</ul>
+<p>Once the homologation processes are complete and all actors are in good standing, the process of mass certification is conducted in a fully digital manner, known as digital Measurement, Reporting, and Verification (dMRV). Supply chain and recycling activities are digitally recorded and backed with official government documentation for waste hauling and processing, which will vary based on the regulations of each country.</p>
+<p>the registry’s dMRV solutions aim to scale the measurement, reporting, and verification of plastic recycling activities for individuals, businesses, and communities globally with speed and at a low cost. This approach addresses the planet’s urgent environmental needs while returning greater value to the Participants contributing important environmental work. Data quality is enforced through a self-policing mechanism that identifies Bad Actors and penalizes those associated with them, known as “Proof-of-Authority” (see more info).</p>
+<p>The the registry foundation collaborates with consultants and industry experts to develop this methodology. The certification process itself is an innovative system that may encounter some failures, which the the credit network commits to addressing quickly, keeping all parties informed, and iterating for continuous improvement.</p>
+<h3 id="92-allowable-project-period">9.2 Allowable Project Period</h3>
+<p>PURE Plastic credits can be issued from certified MassIDs that extend to January 1 of the prior calendar year, as long as all criteria established under the PURE methodology are met.</p>
+<h3 id="93-recertification">9.3 Recertification</h3>
+<p>the registry does not apply a “recertification” process as is commonly practiced in the carbon credit markets. Instead, the registry requires that Processors and Recyclers renew their homologation “certification” every 24 months. For more information, see the section on renewal.</p>
+<h2 id="10-issuing-pure-credits-distributing-rewards">10. ISSUING PURE CREDITS &amp; DISTRIBUTING REWARDS</h2>
+<p>Code-audited MassIDs are packaged into PURE Plastic credits that contain the social, economic, and environmental value that was created by the collective work of the Participants. MassIDs and PURE Plastic Credit IDs can be looked up in the registry’s public registry at [link to public registry — depends on deployment].</p>
+<h3 id="101-credits-and-tokenization">10.1 Credits and Tokenization</h3>
+<p>A PURE Plastic Credit is a Tokenized Recycling Credit (TRC) as defined in the the registry White Paper. A TRC contains a uniquely identified waste mass (MassID), measured in kg, that arrived at a homologated plastic waste recycling facility and was tokenized into a non-fungible token (NFT) using the ERC-721 standard.</p>
+<p>TRCs will be sold over the counter to individual buyers (i.e., not on the open market initially).</p>
+<p>the registry foundation is under no obligation to sell the TRCs but will apply a best efforts basis to ensure that all participants recorded in the chain of custody of each MassID are rewarded for their contributions and that a fair value for the benefit realized to society and to the environment is obtained.</p>
+<p>Proceeds from the purchase of each TRC will be distributed in the form of stable coins (e.g., USDC) to each Participant wallet over the blockchain to ensure transparency in the distribution of rewards.</p>
+<h3 id="102-rewards-distribution-model">10.2 Rewards Distribution Model</h3>
+<p>Rewards are distributed in accordance with the contribution weight of each MassID within each credit (TRC) and the participant allocations within each MassID.</p>
+<p>The smart contract for the PURE methodology calculates reward amounts based on the Rewards Distribution Policy and distributes tokens that were used to purchase each NFT to contributor’s wallets based on the policy at the time of the sale. Rewards distribution percentages can be found at: [link to rewards distribution policy — depends on deployment]</p>
+<p>Participant categories include:</p>
+<table class="doc-table"><tbody>
+<tr><th>G</th><th>Waste Generator</th></tr>
+<tr><td>B</td><td>Bin Custodian</td></tr>
+<tr><td>H</td><td>Hauler(s)</td></tr>
+<tr><td>P</td><td>Processor(s)</td></tr>
+<tr><td>R</td><td>Recyclers (All Recyclers are also a P)</td></tr>
+<tr><td>I</td><td>Network Integrators</td></tr>
+<tr><td>A</td><td>Author of a Methodology</td></tr>
+<tr><td>D</td><td>Developer of a Methodology (code provider)</td></tr>
+<tr><td>N</td><td>the credit network</td></tr>
+</tbody></table>
+<p>The the registry foundation, with the support of its community members, will adjust distributions to optimize participation and recycling rates for different locations around the world.</p>
+<h3 id="103-rewards-distribution-discounts-for-large-revenue-busines">10.3 Rewards Distribution Discounts for Large Revenue Businesses</h3>
+<p>Waste Generator businesses that generated more than US$4 million in revenue in the prior calendar year will have the rewards attributed to them reduced by 50% so as to not discourage credit buyers from buying credits that have a portion of the rewards being distributed to large corporations. While some may disagree with any amount of proceeds from the credit going to large businesses, a financial incentive is still important to encourage participation.</p>
+<p>The portion of the credit that was discounted from large businesses will be directed to a digital wallet managed by the the registry foundation to be donated to Non-Governmental Organizations (NGOs) involved in advancing circular economy activities in the country where the Recycler is located.</p>
+<p>For country-specific reward discounts for large revenue businesses, see the “Reward Distribution Discounts” section within the Rewards Distribution Policy of the the registry White Paper.</p>
+<h3 id="104-exemption-from-large-business-qualification">10.4 Exemption from Large Business Qualification</h3>
+<p>All Waste generator businesses will be considered by default to be large businesses generating more than US$4 million in revenues per year. Waste Generators wishing to obtain medium or small business status will need to request a business size adjustment and provide documentation proving their revenue status. Prior calendar year financial status will be permitted.</p>
+<p>An email request for business size adjustment can be submitted to: operations@impactrakr.com.</p>
+<h3 id="105-the-incentive-mechanism-for-full-supply-chain-digitizati">10.5 The Incentive Mechanism for F​​ull Supply Chain Digitization</h3>
+<p>Unfortunately, recycling supply chains rarely record the chain of custody in digital fashion through to the source where waste is created. Waste Generators are left unsure whether their sorting efforts are yielding environmental results (“Is my waste actually being recycled?”) or if it is worth paying for such services. In addition, there is no incentive to sort when free pick-up is available, even if it is being sent to a landfill or dump. For more information, see Reaching the Source of Waste Creation.</p>
+<p>The the credit network applies an incentive mechanism to encourage recycling and composting service providers to digitize their supply chains all the way to the source of waste creation in order to bring clarity and rewards to the Waste Generator, who is the key player in making sure waste is sorted properly as soon as it is created.</p>
+<p>A discount is applied (see Distribution Discount under the Rewards Distribution Policy section of the whitepaper) to the rewards that Recyclers, Processors, Haulers and Bin Custodians receive when the Generator is not identified digitally and the full chain of custody can’t be established.</p>
+<p>The rewards that would be paid out to service providers if the Waste Generator were identified, as well as the portion allocated to the Waste Generator are retained by the Network for use by the the registry foundation to support growth in the network. More information can be found at Waste Source Not Identified.</p>
+<h3 id="106-recognition-of-ecosystem-ideology">10.6 Recognition of Ecosystem Ideology</h3>
+<p>It is important that Credit Buyers recognize that the purchase of credits serves to support a community of individuals and businesses working together as an ecosystem to perform a specific and important environmental task. This means that it is possible that rewards may be distributed to companies that the buyer may view as not sharing the same values or even to competitors.</p>
+<p>It is important to have an ecosystem mindset and understand that the same may occur in reverse; a different Credit Buyer could be purchasing credits that distribute rewards to the company in question for its recycling work and that the Credit Buyer wishes they were going to a different company.</p>
+<h3 id="107-token-retirement-to-the-credit-registry">10.7 Token Retirement to the credit registry</h3>
+<p>Buyers of PUREs can “burn” the TRCs (the act of permanently retiring the credit) to the registry’s Registry to prove permanent ownership. Holders of PURE should only report their environmental contribution once the credits are retired and can no longer be transferred. More information is available at the the credit registry (EPR/ESG).</p>
+<h3 id="108-forward-contracts">10.8 Forward Contracts</h3>
+<p>The foundation may sell PURE Plastic credits in non-transferable forward contracts for future delivery of credits that will contain full, realized environmental gains. Selling forward contracts is a mechanism to help finance the transition to a circular economy. Recyclers, INTs, and other service providers gain clarity in the potential rewards that can be generated and are incentivized to invest time and effort to become part of the ecosystem.</p>
+<h3 id="109-refunds">10.9 Refunds</h3>
+<p>Given the early stages of the development of the the credit network, refunds on credits sold or requests for exchanging Tokenized Recycling Credits will not be met at this time.</p>
+<p>We expect the reason for such requests to most likely involve possible bad data regarding MassIDs. Given the complexity of reverse engineering TRCs after they are sold to address a MassID, the the registry team prefers to agree with Buyers on a no refund or replacement policy for the time being.</p>
+<p>Given the quality of the data that is being collected and the safeguards put in place, the risk of bad data is expected to be extremely low.</p>
+<h2 id="11-co-benefits-of-recycling">11. CO-BENEFITS OF RECYCLING</h2>
+<p>Plastic waste recycling generates significant co-benefits for society. Below, we point out some of “the good” (that is generated) and “the bad and the ugly” that is avoided.</p>
+<h3 id="111-avoiding-the-bad-and-the-ugly">11.1 Avoiding the “bad and the ugly”:</h3>
+<p>Plastic waste recycling helps to:</p>
+<ul class="doc-list">
+<li>Reduce pollution and environmental contamination: Diverts waste from landfills, dumps, and the environment, preventing microplastic pollution, soil and water contamination, and harmful emissions from incineration.</li>
+<li>Conserve natural resources: Reduces the need for raw material extraction, protecting habitats, minimizing carbon-intensive processes, and ensuring resources are available for future generations.</li>
+<li>Lower waste management costs: Reduces collection, hauling, and tipping fees, delays the need for new landfills, and extends landfill lifespans, saving municipal resources.</li>
+<li>Improve public health: Reduces exposure to pollution-related illnesses caused by improper waste disposal, lowering healthcare costs for municipalities.</li>
+</ul>
+<p>(For more on the “bad”, see Recycling Systems are Broken.)</p>
+<h3 id="112-increasing-the-good">11.2 Increasing “the good”:</h3>
+<p>Some of the benefits of plastic recycling include:</p>
+<ul class="doc-list">
+<li>Creation of valuable secondary raw materials: Recycled plastics can be transformed into high-quality materials for manufacturing, reducing dependence on virgin plastics, production costs, and associated GHG emissions.</li>
+<li>Pollution reduction: Prevents microplastic leakage, reduces ocean contamination, and mitigates harmful byproducts from incineration.</li>
+<li>Support for ocean clean-up efforts: Reduces the flow of plastic waste into marine environments, aiding ocean restoration and ecosystem health.</li>
+<li>Resource conservation and energy savings: Recycling reduces the need for extracting and refining fossil fuels, significantly lowering the carbon footprint and energy consumption. For example, recycling PET can save up to 70% of the energy required for virgin production.</li>
+<li>GHG mitigation: Cuts emissions across the plastic lifecycle by decreasing reliance on virgin plastic production, contributing to global climate goals.</li>
+<li>Advancement of a circular economy: Ensures plastics are reused, repurposed, and reprocessed, minimizing waste generation and promoting resource efficiency.</li>
+<li>Job creation and economic growth: Expands green job opportunities. For instance, achieving a 75% recycling rate in the U.S. by 2030 could create over 1.1 million new jobs.</li>
+<li>Improved waste system performance: Reduces contamination in waste streams, enabling better recovery of materials like metals, glass, and paper.</li>
+<li>Technological and industrial innovation: Drives advancements in chemical recycling, automated sorting systems, and other sustainable solutions.</li>
+<li>Public awareness and education: Engages communities, promotes informed consumer choices, and fosters sustainable behaviors to combat plastic pollution.</li>
+</ul>
+<h2 id="12-envir-social-economic-accounting">12. ENVIR., SOCIAL &amp; ECONOMIC ACCOUNTING</h2>
+<p>PURE Tokenized Recycling Credits (TRCs) corroborate, with a high degree of certainty, that a specific mass of plastic material (measured in kilograms) has been recycled. For more information on TRCs, see the section in the whitepaper on Recycling Tokens.</p>
+<p>PURE recycling credits confirm investment in a system change solution that aims to build a more sustainable and equitable planet by transitioning from a carbon-intensive and wasteful linear economy toward a waste-free, resource-efficient, low-carbon, circular economy. Buyers of PURE recycling credits obtain a valuable ESG product to demonstrate a serious and “PURE” investment in our future.</p>
+<p>Manufacturers, retailers, and other large plastic waste generators can use PURE recycling credits as a plastic waste offset mechanism, demonstrating investment in reducing plastic waste entering landfills, incinerators, or the environment. Holders of PURE credits may claim, within reason, their contributions to the co-benefits created through recycling activities, with the exception of GHG (or carbon equivalent) emissions reductions.</p>
+<p>PURE credits cannot be used in carbon reduction (offset) accounting.</p>
+<p>However, holders of PURE credits may also be granted carbon credits associated with the waste mass being recycled if both of the following conditions are met:</p>
+<ul class="doc-list">
+<li>The MassIDs contained in the PURE Credit meet the criteria for the issuance of carbon credits related to the GHG emissions reductions realized through recycling activities, detailed in a separate the registry methodology.</li>
+<li>The PURE Credit has been retired, meaning it can no longer be transferred. Retired tokens eliminate the possibility of the owner of the PURE Credit selling the PURE Credit and potentially double-counting GHG emissions.</li>
+</ul>
+<p>Carbon credits are issued in the form of Non-Fungible Tokens (NFTs), known as TCCs (Tokenized Carbon Credits). More information can be found in the whitepaper under TCC (Carbon Credits). The co-benefits associated with recycling cannot be utilized in pricing negotiations or communications by the holder of the carbon credits. This also eliminates the possibility of double-counting of co-benefits.</p>
+<p>If a Credit Buyer uses the PURE TRC for official GHG accounting or in market communications, they will be penalized and suspended from purchasing credits, as will holders of TCCs who attempt to claim the co-benefits realized in TRCs.</p>
+<h2 id="13-offsets-and-greenwashing">13. OFFSETS AND GREENWASHING</h2>
+<p>The use of offsets as a form of investing in systems that reduce negative externalities is a fundamentally important practice, even if it is still in its early stages globally. Critics of such schemes argue that offsets are nothing more than a form of greenwashing where large companies can buy credits at a low price and keep polluting, in essence getting a “free lunch” while not actually being encouraged to shift to cleaner practices. Such critiques are fair when the Credit Buyer realizes outsized marketing value compared with the actual investment made.</p>
+<p>The other side of this coin is that any amount of investment in pollution prevention systems is incredibly valuable in building the systems needed to transition to a more sustainable planet. “Offseting” is a fundamentally effective idea as it attributes the cost of clean-up to the companies that are commercially benefiting from the pollution being created, and the purchase of offsets, when executed properly, can drive community action on waste reduction through better sorting and contracting of performant recycling services. More regulation can ensure that all companies are “offsetting” a “fair” portion of the pollution they are creating and paying a fair price. For an example, see “The Environment Exchange” attributions for “Who is responsible for how much?” in the UK. Extended Producer Responsibility programs, which measure the amount of waste that a company produces and require offsetting a portion of their waste, offer great promise. The ideal scenario would be to establish a minimum floor price for credits agreed upon by market participants in order to prevent greenwashing. Second, increased adoption of EPR programs and enforcement would lead to price increases to the point where companies would be financially incentivized to switch to more sustainable product design, material choices, and business models. The cost will ultimately be transferred to the consumer, but all companies will then compete to develop products and provide services that pollute less.</p>
+<p>The the credit network, functioning as a digital ecosystem, will enable EPR programs to scale quickly all over the world. In fact, PURE serves as an important tool to help local regulators launch EPR programs for Plastic waste treatment.</p>
+<h2 id="14-penalties-suspensions">14. PENALTIES &amp; SUSPENSIONS</h2>
+<p>In the event of any irregularities in activities or in reporting of data relating to a supply chain Participant, flagged as a potential “Bad Actor”, the registry foundation or an homologated independent third party Auditor, may suspend the Participant immediately from involvement in the PURE methodology and the participation in the issuance of certificates and/or credits related to it. Participants associated with any Bad Actors may also be suspended immediately. Additional information may be requested from all of the Participants involved until sufficient clarification has been provided in order to determine how long the penalty may be or if and when the Participant may be reinstated. the registry foundation has no obligation to return the value associated with the credits sold while Participants have been penalized, and the burden rests on each Participant to ensure that the data provided is accurate.</p>
+<p>If any participant fails to provide a response to the request for information within 30 days, the participant may be permanently disqualified from participating in PURE for the issuance of credits.</p>
+<p>For the period in which the activities in question failed to meet the requirements of the PURE methodology, participants will not receive any rewards from PURE credits.</p>
+<p>During the period of non-compliance, PUREs issued prior to this period involving the Bad Actor will not be sold until the situation is resolved.</p>
+<p>In the event of fraud being identified for any of the requirements of the PURE methodology, the participant will permanently lose their Homologation, and applicable legal measures will be taken.</p>
+<p>Any evidence of intentional practices that negatively impact the wellbeing of local communities or of natural ecosystems will serve as solid justification for permanent exclusion from participating in the PURE methodology, other protocols utilized by the the registry foundation, and removal from the the credit network itself.</p>
+<p>Legal action may be taken by the the registry foundation against the party for any damages done to the Foundation or its network.</p>
+<h2 id="15-quality-assurance-and-quality-controls">15. QUALITY ASSURANCE AND QUALITY CONTROLS</h2>
+<p>As a tech enabled dMRV solution, the PURE methodology and the the credit network work in conjunction to digitally measure, report, and verify environmental contributions created through the activities of supply chain Participants collaborating to recover waste for recycling.</p>
+<p>Because waste is tangible and easily measured, supply chains can be monitored, and the recycling activities performed by Recyclers are consistent and verifiable with a high degree of certainty. The quality of environmental reporting can be very precise, especially when conducted in full digital fashion. [Note: The the credit network encourages full digitization by utilizing its “Incentive Mechanism for Full Supply Chain Digitization.]</p>
+<p>Quality assurance and controls on the the credit network involve a set of solutions, including: the identification of all participants (KYC), homologation of the key actors (Recyclers, Haulers, Processors, INTs and NGOs), verification of a Recycler’s work through independent audits, supply chain data processing, scripts for Mass audits, methodology verification, and issuance of credits, utilization of Proof-of-Authority to identify and penalize bad actors, tracking of reward distribution through the use of blockchain network transactions, the use of immutable records in a decentralized peer-to-peer public network, and non-fungible tokens for retiring credits in a manner that cannot be transferred, among others.</p>
+<p>As a digital solution, quality controls will improve over time as larger data sets are utilized and verification models advance. Governance over the network will be progressively decentralized to local and global communities so that the technology can be adapted to suit the needs of specific local markets. Data is made publicly available with controls for privacy and confidentiality so that trust can be established between Participants in a manner that was not possible before the advent of blockchains.</p>
+<p>Lastly, the technological solution and economics of the the credit network were designed to not interfere with or compete with the services and products created by the Participants in the recycling and waste management markets. the registry is additive to all Participants and shares the proceeds from the sale of credits with all identified stakeholders, thereby making it inclusive and scalable globally.</p>
+<h2 id="16-uncertainties">16. UNCERTAINTIES</h2>
+<p>Uncertainties are common with new products and technologies that challenge the status quo.</p>
+<p>We will list some of the uncertainties below:</p>
+<h3 id="161-market">16.1 Market</h3>
+<ul class="doc-list">
+<li>The global community has not yet realized the importance of transitioning to the circular economy and understood that it has the potential to become the most important decarbonization tool available to the world. The connection between better resource management and reduced global GHG emissions, for most, is still not clear.</li>
+<li>While some recycling supply chains are digitized and well documented, the vast majority of waste hauling, processing, and recycling activities globally are not. Digitization, support from regulators, and economic incentives will take time to take hold.</li>
+<li>Companies typically do not measure their waste and carbon emissions footprints, especially relating to waste diversion and scope 3 emissions, respectively. Many still don’t understand the positive impact that can be generated for their businesses by engaging with their customers and communities at large to address environmental and social challenges collectively (e.g., waste offsets that distribute rewards across recycling supply chains.)</li>
+<li>Municipalities and governments lack the resources, expertise, and technologies to address linear economy problems and will need to recognize their new roles as limited stakeholders within a dynamic circular economy.</li>
+<li>Extended Producer Responsibility (EPR) programs are still in their infancy, and most are conducted without the use of technology. The utilization of recycled material purchase receipts (e.g., Recovery Notes) to prove financial contributions has proven to be easily manipulated, and payments to a single actor at the end of the supply chain do nothing to change the behavior of Waste Generators with respect to sorting waste properly.</li>
+<li>EPR programs for plastic producers are an innovation in themselves. While they are very much needed, the introduction of such programs will face resistance and take time.</li>
+<li>Without a floor price on credits, companies can purchase credits</li>
+</ul>
+<h3 id="162-technology">16.2 Technology</h3>
+<ul class="doc-list">
+<li>Blockchain is a disruptive technology that will change the way many businesses transact with their customers and do commerce with each other over the internet. While blockchains have been around for more than 15 years, they are still in their infancy. The promise for greater transparency, security, and trust is clear, but failures still exist. In addition, the concept of ownership within blockchain networks, where Participants obtain a stake in the network, partake in its governance, and shape its future, remains foreign to most and will take time to implement.</li>
+<li>the registry’s models for supply chain verification and audits are still in their early stages of development. They will improve significantly and rapidly, especially with the use of AI, but some failures can be expected.</li>
+<li>The development of Proof-of-Authority solutions that identifies Bad Actors and penalized them and those associated with the Bad Actor are also still in the early stages of development. While PoA will become one of the most important tools for ensuring quality data is provided at a global level, it still remains to be tested at scale.</li>
+</ul>
+<h3 id="163-adoption">16.3 Adoption</h3>
+<ul class="doc-list">
+<li>While the the credit network and PURE Recycling Credit have been designed to add value to all Participants, it remains to be seen if enough value will be distributed to each Participant to ensure that they take part. In addition, many environmentalists critique the use of offsets, claiming that they only serve as a license to pollute. The price of credits will need to factor in both the value that is being created for each participant as well as successfully drive waste reduction and substitution, very likely necessitating the establishment of a floor price.</li>
+<li>Owning a digital wallet will soon become as ubiquitous as having an email address, a cell phone number, or a corporate bank account. However, its use is still in its early stages. Concerns over financial regulation and self-custody of assets remain real, despite the added security and transparency they provide.</li>
+<li>The demands for a user to engage with the network have been designed to be minimal.  Waste Generators, Haulers, Processors, and Recyclers only need to provide a wallet address in order to receive their rewards. Recycling Credit Buyers will need a more tailored experience to assist in the purchase of credits and to demonstrate proof of environmental contributions realized.</li>
+</ul>
+<h2 id="17-commitment-to-the-market">17. COMMITMENT TO THE MARKET</h2>
+<p>the registry foundation commits to doing its best to price and sell credits in accordance with the environmental, social, and societal contributions that the activities verified within the PURE methodology realize. In time, the registry intends to sell credits on the open market in order to allow the market to set the price for its credits.</p>
+<p>the registry foundation commits to doing its best to fairly distribute rewards among Participants, while understanding that Participants will often not agree with the allocation that is awarded to them (see rewards distribution model), as well as any discounts to distributions that are applied to encourage further digitization of waste supply chains (see Incentive Mechanism).</p>
+<p>The Foundation commits to moving these decision-making processes to its community over time in order to make these processes inclusive of both local and global stakeholders.</p>
+<h2 id="18-appendix">18. APPENDIX</h2>
+<h3 id="181-pure-credit-valuation-exercise">18.1. PURE CREDIT VALUATION EXERCISE</h3>
+<p>To determine the economic value of 1 ton of plastic waste arriving at a professional recycling facility with the reasonable expectation that it will be properly recycled, one must understand the full cost to society of the status quo, which involves burying waste at a landfill or dump. One must also consider the additional investment needed for sorting, storing, hauling, and recycling plastic waste, as well as the equipment, dedicated logistics network, facilities, and skilled personnel required. The PURE credit is a disruptive product designed to break this vicious linear cycle and open a path to the circular economy. Its price is the determining factor in successfully accomplishing this goal and ensures that all Participants are sufficiently compensated and/or incentivized to work together.</p>
+<p>The pricing exercise below attempts to establish a minimum price for the PURE Credit from plastic waste, utilizing only non-controversial and easily quantifiable contributions, without attempting to cover all of the benefits that can be observed in the Co-Benefits sections. We also opt for the lowest value of any estimate range to remove any risk of overestimation while ensuring that the critical valuation categories are considered.</p>
+<p>Below, we delve into a valuation exercise that attempts to value the minimum price of 1 ton of plastic waste diverted from landfills in Brazil. It should be noted that Brazil’s overall recycling rate is approximately 4% and that the country is ranked 114th out of 124 countries that have reported waste management data. Brazil’s rate of plastic (all types) recycling is estimated to be around 20%.</p>
+<table class="doc-table"><tbody>
+<tr><th>PURE credit pricing exercise</th></tr>
+<tr><td>Logistics Services Costs</td></tr>
+<tr><td>The public sector in upper-middle-income countries (e.g., Brazil) spends on average US$50–100/ton to collect and transfer waste and US$20–65/ton for landfilling, or at least US$70.00 and at most US$165.00.
+Total = US$70 /ton.</td></tr>
+<tr><td>Value of Recycled Plastic Waste from a Recycling Credits Market</td></tr>
+<tr><td>Starting with 1 ton of collected plastic waste, considering the breakdown of plastic types commonly found in waste streams, and applying Brazil’s-specific discount to reflect differences in recycling infrastructure and collection efficiency (recycling rate at 20%) it is estimated that around 200 kilograms of the plastic waste can be effectively recovered. Applying a 50% discount to account for losses due to contamination and processing inefficiencies, resulting in a final recyclable plastic mass of approximately 100 kilograms. This mass can be further broken down into specific plastic types, assuming a typical composition and multiplying by its respective market price using global market references:
+PET (35%): 35 kg × $800 per ton = $28.00
+Natural HDPE (25%): 25 kg × $714 per ton = $17.85
+Color HDPE (20%): 20 kg × $528 per ton = $10.56
+Polypropylene (PP, 10%): 10 kg × $600 per ton = $6.00
+Low-Density Polyethylene (LDPE, 10%): 10 kg × $300 per ton = $3.00 
+Summing these contributions yields a total estimated value of $65.41 per ton of plastic waste recovered and recycled. 
+Total = US$65.41 /ton</td></tr>
+<tr><td>Healthcare Cost Savings</td></tr>
+<tr><td>According to the International Solid Waste Association (ISWA), healthcare costs in Brazil related to poor waste management are US$370 million each year, or US$10–US$20 per ton. The Foundation’s own calculation, based on the total healthcare costs, estimates US$4.63 per ton, and we choose to use our more conservative figure.
+
+Total = US$4.63 /ton</td></tr>
+<tr><td>Green Jobs</td></tr>
+<tr><td>It is no surprise that removing plastic waste from landfills and recovering it for use by the economy is a significant green job creator. We utilize GAIA’s model for green job generation and calculate that for every 1 ton of plastic waste diverted, 0.6 jobs are created. However, we were not able to accurately quantify the dollar value of a green job in Brazil and, for this reason, excluded it from the exercise.
+
+Total = US$?</td></tr>
+<tr><td>Total Sum Value (in US$ of 1 ton of Recycled Plastic Waste) ≈ US$140</td></tr>
+</tbody></table>
+<h3 id="182-implications-for-the-waste-market">18.2 Implications for the Waste Market</h3>
+<p>As presented in the example above, a PURE Credit sold at US$140 per ton in Brazil offers a breakthrough in the economics of the waste management market, helping a Waste Generator cover the difference in cost between plastic waste recycling and landfilling (considered as US$65 /ton) with the additional US$75 per ton.</p>
+<p>For organizations that generate more than US$4 million in revenue, a portion of the rewards (50% or US$70.00) will be directed to NGO’s that are working to advance the circular economy.</p>
+<p>An additional US$56 per ton, or 40% of the value of the credit, is injected directly into the recycling market, serving as important investment capital for recycling service providers where it is known to already be working.</p>
+<h3 id="183-the-effective-price">18.3 The Effective Price</h3>
+<p>It should be noted that the effective price of a Recycling Credit in an EPR scheme is far lower on a per-ton basis than the listed price. The reason is that Producers are only required to contribute a portion of the “product waste” they put into the market.</p>
+<p>For example, if a Consumer-Packaged Goods company needs to offset 5% of the total amount in weight that it produced in purchased plastic waste credits, then they are effectively paying 5% of the price of a credit per ton of end-products produced (US$140*0.05 = US$7). This is the effective price the CPG is paying the ecosystem to help make sure its plastic waste is recovered and recycled properly. Given that this specific end-product is also largely consumed, the percentages that each company needs to contribute in offsets, relative to the total volume of end-products produced, are very small. In addition, EPR schemes share the cost of product waste among Producers along supply chains, reducing even further the percentage each company needs to purchase.</p>
+<p>A well-designed EPR program in the packaging waste industry can yield a significant positive impact, requiring very small investments on a per-ton basis of end-products produced by Producers that would collectively represent significant resources to support post-consumer and post-industrial plastic waste recovery and recycling activity. Percent contributions are determined by regulators in partnership with PROs (Producer Responsibility Organizations.)</p>
+<h3 id="184-price-comparisons-with-the-voluntary-plastic-credits-mar">18.4 Price Comparisons with the Voluntary Plastic Credits Market</h3>
+<p>Price comparisons are a natural process of analyzing the value of a product, and while the Voluntary Plastic Credits Market shows great disparity between prices, from close to US$100.00 per ton to more than US$1,000.00, we believe our plastic credit should be valued for its innovative qualities, identified in the Overview and Co-Benefits sections. We invite buyers not to look at PURE and compare it to existing plastic credits, but to see it for what it is: a system-change solution that can finance the transition to a resource-efficient, low-carbon, and inclusive circular economy.</p>
+<h2 id="19-document-history">19. DOCUMENT HISTORY</h2>
+<table class="doc-table"><tbody>
+<tr><th>Version</th><th>Date (yyyy/mm/dd)</th><th>Status</th></tr>
+<tr><td>v1.0</td><td>2024/03/12</td><td>Public Consultation and Beta testing with innovative companies</td></tr>
+</tbody></table>
+    </main>
+  </div>
+</div>
+
+<script src="assets/shared.js"></script>
+</body>
+</html>

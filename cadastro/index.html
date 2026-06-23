@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css?v=20260623-0027">
+<link rel="stylesheet" href="assets/cadastro.css">
+  <script src="../assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="cadastro">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Cadastro de novo participante</span><span lang="en">New participant onboarding</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="padding-top: var(--space-xl);">
+  <div class="cad-wrap">
+    <span class="micro"><span lang="pt">Homologação</span><span lang="en">Onboarding</span></span>
+    <div class="cad-head">
+      <h1>
+        <span lang="pt">Comece sua homologação<br>na ImpacTrakr.</span><span lang="en">Begin your ImpacTrakr<br>onboarding.</span>
+      </h1>
+      <p>
+        <span lang="pt"><strong>Em cinco passos · até 48h em Fase 1 · processo modular por jurisdição.</strong> A lista de documentos exigidos depende do seu papel na cadeia e do país onde sua operação roda. Vamos identificar isso agora.</span><span lang="en"><strong>Five steps · up to 48h in Phase 1 · jurisdiction-modular process.</strong> The list of required documents depends on your role in the chain and the country where your operation runs. Let's identify that now.</span>
+      </p>
+    </div>
+
+    <div class="cad-banner">
+      <p>
+        <span lang="pt"><strong>Salvamento automático.</strong> Você pode pausar a qualquer momento e retomar de onde parou usando o mesmo navegador. Os documentos físicos ficam no seu lado até o envio final.</span><span lang="en"><strong>Auto-save.</strong> You can pause at any moment and resume from where you stopped using the same browser. Physical documents stay on your side until final submission.</span>
+      </p>
+    </div>
+
+    <div class="cad-section">
+      <h2><span lang="pt">1. Qual é o seu papel na cadeia?</span><span lang="en">1. What is your role in the chain?</span></h2>
+      <p class="sec-lede">
+        <span lang="pt">Você pode atuar em mais de um papel; selecione o principal.</span><span lang="en">You may operate in more than one role; select the primary one.</span>
+      </p>
+
+      <div class="choice-grid" id="role-grid">
+        <button type="button" class="choice-card" data-role="producer">
+          <span class="cc-icon">◇</span>
+          <span class="cc-title"><span lang="pt">Gerador</span><span lang="en">Producer</span></span>
+          <span class="cc-desc"><span lang="pt">Produz o resíduo plástico — comércio, marina, restaurante, indústria.</span><span lang="en">Generates the plastic waste — retail, marina, restaurant, industry.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-role="carrier">
+          <span class="cc-icon">→</span>
+          <span class="cc-title"><span lang="pt">Transportador (Carrier · Notifier)</span><span lang="en">Carrier (Notifier)</span></span>
+          <span class="cc-desc"><span lang="pt">Transporta o resíduo · responsável legal sob Reg EU 2024/1157.</span><span lang="en">Transports the waste · legally responsible under EU Reg 2024/1157.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-role="processor">
+          <span class="cc-icon">▣</span>
+          <span class="cc-title"><span lang="pt">Processador</span><span lang="en">Processor</span></span>
+          <span class="cc-desc"><span lang="pt">Triagem · separação · pré-tratamento entre gerador e reciclador.</span><span lang="en">Sorting · separation · pre-treatment between producer and recycler.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-role="recycler">
+          <span class="cc-icon">♺</span>
+          <span class="cc-title"><span lang="pt">Reciclador (Consignee)</span><span lang="en">Recycler (Consignee)</span></span>
+          <span class="cc-desc"><span lang="pt">Opera recuperação R3 mecânica · destino final do material.</span><span lang="en">Operates R3 mechanical recovery · final destination of the material.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-role="integrator">
+          <span class="cc-icon">⌬</span>
+          <span class="cc-title"><span lang="pt">Integrador</span><span lang="en">Integrator</span></span>
+          <span class="cc-desc"><span lang="pt">Software de gestão / dMRV que envia dados via API à plataforma.</span><span lang="en">Management / dMRV software pushing data via API to the platform.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-role="auditor">
+          <span class="cc-icon">✓</span>
+          <span class="cc-title"><span lang="pt">Auditor / Certificador</span><span lang="en">Auditor / Certifier</span></span>
+          <span class="cc-desc"><span lang="pt">Bureau Veritas · Kiwa · SGS · RecyClass-approved.</span><span lang="en">Bureau Veritas · Kiwa · SGS · RecyClass-approved.</span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="cad-section">
+      <h2><span lang="pt">2. Onde sua operação roda?</span><span lang="en">2. Where does your operation run?</span></h2>
+      <p class="sec-lede">
+        <span lang="pt">A jurisdição define a lista de documentos e órgãos competentes. Você pode adicionar mais jurisdições depois — a homologação é parametrizada por país.</span><span lang="en">Jurisdiction defines the document list and competent authorities. You can add more jurisdictions later — homologation is per-country.</span>
+      </p>
+
+      <div class="choice-grid" id="juris-grid">
+        <button type="button" class="choice-card" data-juris="malta">
+          <span class="cc-icon">🇲🇹</span>
+          <span class="cc-title">Malta · EU</span>
+          <span class="cc-desc"><span lang="pt">Operação em Malta sob Reg EU 2024/1157 · DIWASS · RecyClass · ERA.</span><span lang="en">Operation in Malta under EU Reg 2024/1157 · DIWASS · RecyClass · ERA.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-juris="eu_other">
+          <span class="cc-icon">🇪🇺</span>
+          <span class="cc-title"><span lang="pt">Outros membros UE</span><span lang="en">Other EU members</span></span>
+          <span class="cc-desc"><span lang="pt">Alemanha · França · Itália · Espanha · Portugal · etc. Documentos do Member State.</span><span lang="en">Germany · France · Italy · Spain · Portugal · etc. Member State documents.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-juris="brazil">
+          <span class="cc-icon">🇧🇷</span>
+          <span class="cc-title">Brasil</span>
+          <span class="cc-desc"><span lang="pt">CNPJ · IBAMA · CETESB/INEA · MTR · CDF · CONAMA. Compatível com programas BR.</span><span lang="en">CNPJ · IBAMA · CETESB/INEA · MTR · CDF · CONAMA. Compatible with BR programs.</span></span>
+        </button>
+        <button type="button" class="choice-card" data-juris="latam">
+          <span class="cc-icon">🌎</span>
+          <span class="cc-title">LATAM</span>
+          <span class="cc-desc"><span lang="pt">Guatemala · Costa Rica · Panamá · Colômbia. Documentação local + PURE methodology.</span><span lang="en">Guatemala · Costa Rica · Panama · Colombia. Local documentation + PURE methodology.</span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="cad-section">
+      <h2><span lang="pt">3. Quais módulos de validação você precisa?</span><span lang="en">3. Which validation modules do you need?</span></h2>
+      <p class="sec-lede">
+        <span lang="pt">Cada módulo é independente. Marque os que se aplicam ao seu mercado.</span><span lang="en">Each module is independent. Check the ones that apply to your market.</span>
+      </p>
+
+      <div class="decl-list" id="modules-list">
+        <label><input type="checkbox" data-module="pure" checked> <span><strong>PURE</strong> · <span lang="pt">metodologia base · 95 regras</span><span lang="en">base methodology · 95 rules</span> <em style="color: var(--ink-mute); font-size: 0.75rem;"><span lang="pt">(obrigatório se você quer emitir crédito)</span><span lang="en">(required if you want to issue credit)</span></em></span></label>
+        <label><input type="checkbox" data-module="eu"> <span><strong>Regulação UE 2024/1157</strong> · <span lang="pt">27 regras · obrigatório para comercializar dentro da UE</span><span lang="en">27 rules · required to commercialise within the EU</span></span></label>
+        <label><input type="checkbox" data-module="recyclass"> <span><strong>RecyClass</strong> · <span lang="pt">17 regras · certificação técnica · adiciona prêmio comercial</span><span lang="en">17 rules · technical certification · adds commercial premium</span></span></label>
+      </div>
+    </div>
+
+    <div class="cad-footer">
+      <a href="../index.html" class="cad-btn cad-btn-ghost">← <span lang="pt">Voltar ao site</span><span lang="en">Back to site</span></a>
+      <button type="button" class="cad-btn cad-btn-primary" id="next-btn" disabled>
+        <span lang="pt">Continuar</span><span lang="en">Continue</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/shared.js"></script>
+<script src="assets/cadastro.js" defer></script>
+<script>
+(function () {
+  const state = JSON.parse(localStorage.getItem('cad-state') || '{}');
+  let role = state.role || null;
+  let juris = state.juris || null;
+  let modules = state.modules || { pure: true, eu: false, recyclass: false };
+
+  function syncUI() {
+    document.querySelectorAll('#role-grid .choice-card').forEach(c => {
+      c.classList.toggle('selected', c.dataset.role === role);
+    });
+    document.querySelectorAll('#juris-grid .choice-card').forEach(c => {
+      c.classList.toggle('selected', c.dataset.juris === juris);
+    });
+    document.querySelectorAll('#modules-list input').forEach(i => {
+      i.checked = !!modules[i.dataset.module];
+    });
+    document.getElementById('next-btn').disabled = !(role && juris);
+  }
+
+  document.querySelectorAll('#role-grid .choice-card').forEach(c => {
+    c.addEventListener('click', () => { role = c.dataset.role; persist(); syncUI(); });
+  });
+  document.querySelectorAll('#juris-grid .choice-card').forEach(c => {
+    c.addEventListener('click', () => { juris = c.dataset.juris; persist(); syncUI(); });
+  });
+  document.querySelectorAll('#modules-list input').forEach(i => {
+    i.addEventListener('change', () => { modules[i.dataset.module] = i.checked; persist(); });
+  });
+
+  function persist() {
+    localStorage.setItem('cad-state', JSON.stringify({ ...state, role, juris, modules }));
+  }
+
+  document.getElementById('next-btn').addEventListener('click', () => {
+    if (role && juris) window.location.href = 'representante.html';
+  });
+
+  syncUI();
+})();
+</script>
+</body>
+</html>

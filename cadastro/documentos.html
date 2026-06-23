@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentos · Cadastro · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css?v=20260623-0027">
+<link rel="stylesheet" href="assets/cadastro.css">
+  <script src="../assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="cadastro">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Documentos legais · KYB+</span><span lang="en">Legal documents · KYB+</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top: var(--space-xl);">
+  <div class="cad-wrap">
+    <div id="stepper" class="stepper" data-step="3"></div>
+
+    <div class="cad-head">
+      <h1><span lang="pt">Documentos legais.</span><span lang="en">Legal documents.</span></h1>
+      <p>
+        <span lang="pt">A lista abaixo é parametrizada pelo seu perfil e jurisdição selecionados na primeira etapa. Você pode pausar e retomar — o que enviar fica salvo.</span><span lang="en">The list below is parameterised by your profile and jurisdiction selected at step 1. You can pause and resume — what you upload is saved.</span>
+      </p>
+    </div>
+
+    <div class="cad-banner" id="context-banner">
+      <p><strong>Perfil:</strong> <span id="ctx-role">—</span> · <strong>Jurisdição:</strong> <span id="ctx-juris">—</span> · <strong><span lang="pt">Módulos ativos</span><span lang="en">Active modules</span>:</strong> <span id="ctx-modules">—</span></p>
+    </div>
+
+    <div id="doc-licencas-block" style="display: none;">
+      <div class="doc-group">
+        <h3><span lang="pt">Licenças e documentos operacionais</span><span lang="en">Licences and operational documents</span></h3>
+        <ul class="doc-list" id="doc-licencas"></ul>
+      </div>
+    </div>
+
+    <div id="doc-certidoes-block" style="display: none;">
+      <div class="doc-group">
+        <h3><span lang="pt">Certidões / Clearances</span><span lang="en">Clearances</span></h3>
+        <ul class="doc-list" id="doc-certidoes"></ul>
+      </div>
+    </div>
+
+    <div id="doc-descritivos-block" style="display: none;">
+      <div class="doc-group">
+        <h3><span lang="pt">Descritivos e declarações</span><span lang="en">Descriptions and declarations</span></h3>
+        <ul class="doc-list" id="doc-descritivos"></ul>
+      </div>
+    </div>
+
+    <div class="cad-section" style="margin-top: var(--space-2xl);">
+      <h2><span lang="pt">Algum documento ausente?</span><span lang="en">Any missing document?</span></h2>
+      <p class="sec-lede">
+        <span lang="pt">Se houver dispensa ou ausência legítima de algum item da lista, descreva qual e a justificativa. A equipe de Compliance vai avaliar caso a caso.</span><span lang="en">If there is legitimate exemption or absence, describe which and the justification. The Compliance team will assess case by case.</span>
+      </p>
+      <div class="field">
+        <label for="missing-justif"><span lang="pt">Documentos ausentes e justificativa</span><span lang="en">Missing documents and justification</span></label>
+        <textarea id="missing-justif" data-field="missing_justification" rows="4" form="doc-form" placeholder="ex: 'AVCB em renovação · protocolo 12345 do Corpo de Bombeiros · será enviado em 30 dias.'"></textarea>
+      </div>
+      <form id="doc-form" style="display:none"></form>
+    </div>
+
+    <div class="cad-footer">
+      <a href="empresa.html" class="cad-btn cad-btn-secondary">← <span lang="pt">Voltar</span><span lang="en">Back</span></a>
+      <button type="button" class="cad-btn cad-btn-primary" id="next-btn">
+        <span lang="pt">Continuar</span><span lang="en">Continue</span> →
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/shared.js"></script>
+<script src="assets/cadastro.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  Cadastro.renderStepper(3);
+
+  const state = Cadastro.getState();
+  const role = state.role || 'recycler';
+  const juris = state.juris || 'malta';
+  const modules = state.modules || { pure: true };
+
+  const roleLabels = {
+    producer: { pt: 'Gerador', en: 'Producer' },
+    carrier: { pt: 'Transportador / Notifier', en: 'Carrier / Notifier' },
+    processor: { pt: 'Processador', en: 'Processor' },
+    recycler: { pt: 'Reciclador / Consignee', en: 'Recycler / Consignee' },
+    integrator: { pt: 'Integrador', en: 'Integrator' },
+    auditor: { pt: 'Auditor / Certificador', en: 'Auditor / Certifier' }
+  };
+  const jurisLabels = {
+    malta: 'Malta · EU',
+    eu_other: { pt: 'Outros membros UE', en: 'Other EU members' },
+    brazil: 'Brasil',
+    latam: 'LATAM'
+  };
+  const langPt = document.documentElement.getAttribute('data-app-lang') === 'pt';
+
+  function lbl(v) {
+    if (typeof v === 'string') return v;
+    return langPt ? v.pt : v.en;
+  }
+
+  document.getElementById('ctx-role').textContent = lbl(roleLabels[role] || role);
+  document.getElementById('ctx-juris').textContent = lbl(jurisLabels[juris] || juris);
+  document.getElementById('ctx-modules').textContent =
+    Object.keys(modules).filter(k => modules[k]).map(k => k.toUpperCase()).join(' · ') || '—';
+
+  const docs = Cadastro.getDocumentList(role, juris, modules);
+
+  function renderList(targetId, blockId, items) {
+    if (!items.length) return;
+    document.getElementById(blockId).style.display = '';
+    const ul = document.getElementById(targetId);
+    ul.innerHTML = items.map(item => {
+      const text = langPt ? item.pt : item.en;
+      const tag = item.req
+        ? '<span class="req-tag">' + (langPt ? 'OBRIGATÓRIO' : 'REQUIRED') + '</span>'
+        : '<span class="opt-tag">' + (langPt ? 'OPCIONAL' : 'OPTIONAL') + '</span>';
+      return `
+        <li data-doc-id="${item.id}">
+          <div class="doc-info"><strong>${text}${tag}</strong>
+            <em>${langPt ? 'Nomeie como' : 'Name it as'} "${item.id}-{empresa}.pdf" · ${langPt ? 'tamanho máximo 100 MB' : 'max size 100 MB'}</em>
+          </div>
+          <button type="button" class="doc-up-btn">${langPt ? 'Enviar' : 'Upload'}</button>
+        </li>
+      `;
+    }).join('');
+  }
+
+  renderList('doc-licencas', 'doc-licencas-block', docs.licencas);
+  renderList('doc-certidoes', 'doc-certidoes-block', docs.certidoes);
+  renderList('doc-descritivos', 'doc-descritivos-block', docs.descritivos);
+
+  Cadastro.bindForm('#doc-form', 'docmeta');
+  Cadastro.bindMockUploads();
+
+  document.getElementById('next-btn').addEventListener('click', () => window.location.href = 'operacao.html');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-app-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação · Cadastro · ImpacTrakr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css?v=20260623-0027">
+<link rel="stylesheet" href="assets/cadastro.css">
+  <script src="../assets/logo.js?v=20260623-0027" defer></script>
+</head>
+<body data-page="cadastro">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+    <div class="top-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <div class="top-meta">
+        DMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Descritivo operacional + declarações</span><span lang="en">Operational description + declarations</span></em>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top: var(--space-xl);">
+  <div class="cad-wrap">
+    <div id="stepper" class="stepper" data-step="4"></div>
+
+    <div class="cad-head">
+      <h1><span lang="pt">Como sua operação funciona.</span><span lang="en">How your operation works.</span></h1>
+      <p><span lang="pt">Descritivo operacional + declarações de conformidade. Conteúdo análogo ao que a Carrot pede, adaptado para reciclagem de plástico (R3 mecânico).</span><span lang="en">Operational description + conformity declarations. Content analogous to what Carrot requires, adapted for plastic recycling (mechanical R3).</span></p>
+    </div>
+
+    <form id="op-form" autocomplete="on">
+      <div class="cad-section">
+        <h2><span lang="pt">1. Informações gerais</span><span lang="en">1. General information</span></h2>
+        <div class="field">
+          <label for="op-activity"><span lang="pt">Descritivo breve das atividades</span><span lang="en">Brief description of activities</span></label>
+          <textarea id="op-activity" data-field="activity" rows="3" placeholder="ex: Reciclagem mecânica de PET-1 e HDPE-2, com triagem, lavagem e extrusão. Capacidade autorizada 5.000 t/ano."></textarea>
+        </div>
+        <div class="field">
+          <label for="op-other-prog"><span lang="pt">A empresa participa de outro programa de geração de créditos?</span><span lang="en">Does the company participate in another credit program?</span></label>
+          <input type="text" id="op-other-prog" data-field="other_program" placeholder="ex: 'Não' ou 'Sim, Verra · Project ID 1234'">
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">2. Dimensão do projeto</span><span lang="en">2. Project dimension</span></h2>
+        <div class="field-grid">
+          <div class="field">
+            <label for="op-area"><span lang="pt">Área total da instalação (m²)</span><span lang="en">Total area of the facility (m²)</span></label>
+            <input type="number" id="op-area" data-field="area_m2" placeholder="ex: 8500">
+          </div>
+          <div class="field">
+            <label for="op-capacity"><span lang="pt">Capacidade autorizada (t/ano)</span><span lang="en">Authorised capacity (t/year)</span></label>
+            <input type="number" id="op-capacity" data-field="capacity_ty" placeholder="ex: 12000">
+          </div>
+          <div class="field">
+            <label for="op-current"><span lang="pt">Throughput atual médio (t/ano)</span><span lang="en">Current average throughput (t/year)</span></label>
+            <input type="number" id="op-current" data-field="throughput_current" placeholder="ex: 8400">
+          </div>
+          <div class="field">
+            <label for="op-radius"><span lang="pt">Raio de atendimento (km)</span><span lang="en">Service radius (km)</span></label>
+            <input type="number" id="op-radius" data-field="service_radius" placeholder="ex: 180">
+          </div>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">3. Estrutura e equipamentos</span><span lang="en">3. Structure and equipment</span></h2>
+        <div class="field">
+          <label for="op-weighing"><span lang="pt">Pesagem: equipamento + manutenção / calibragem periódica</span><span lang="en">Weighing: equipment + maintenance / periodic calibration</span></label>
+          <textarea id="op-weighing" data-field="weighing" rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label for="op-qc"><span lang="pt">Controle de qualidade pós-extrusão (QC)</span><span lang="en">Post-extrusion quality control (QC)</span></label>
+          <textarea id="op-qc" data-field="qc" rows="2" placeholder="ex: análise IV por amostra a cada lote · MFI · contaminação visual"></textarea>
+        </div>
+        <div class="field">
+          <label for="op-software"><span lang="pt">Software de gestão de resíduos / logística</span><span lang="en">Waste management / logistics software</span></label>
+          <input type="text" id="op-software" data-field="software" placeholder="ex: nome do software + integração com ImpacTrakr">
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">4. Detalhes da operação</span><span lang="en">4. Operational details</span></h2>
+        <div class="field">
+          <label for="op-polymers"><span lang="pt">Polímeros aceitos + Basel codes</span><span lang="en">Accepted polymers + Basel codes</span></label>
+          <textarea id="op-polymers" data-field="polymers" rows="2" placeholder="ex: PET-1 (B3011) · HDPE-2 (B3011) · mixed Y48 sob condição"></textarea>
+        </div>
+        <div class="field">
+          <label for="op-process"><span lang="pt">Processo R3 — fluxo completo</span><span lang="en">R3 process — full flow</span></label>
+          <textarea id="op-process" data-field="process_flow" rows="3" placeholder="recebimento → triagem → lavagem → extrusão → QC → granulação → estocagem"></textarea>
+        </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="op-yield"><span lang="pt">Yield médio por tonelada de input (%)</span><span lang="en">Average yield per tonne of input (%)</span></label>
+            <input type="text" id="op-yield" data-field="yield_pct" placeholder="ex: 78% para PET-1; 82% para HDPE-2">
+          </div>
+          <div class="field">
+            <label for="op-cycle"><span lang="pt">Tempo médio do ciclo (dias)</span><span lang="en">Average cycle time (days)</span></label>
+            <input type="number" id="op-cycle" data-field="cycle_days" placeholder="ex: 5">
+          </div>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">5. Gestão ambiental</span><span lang="en">5. Environmental management</span></h2>
+        <div class="field">
+          <label for="op-wastewater"><span lang="pt">Wastewater treatment + microplastic mitigation</span><span lang="en">Wastewater treatment + microplastic mitigation</span></label>
+          <textarea id="op-wastewater" data-field="wastewater" rows="2" placeholder="ex: filtragem 5µm + tratamento off-site licenciado"></textarea>
+        </div>
+        <div class="field">
+          <label for="op-incidents"><span lang="pt">Histórico de autuações ambientais (5 últimos anos)</span><span lang="en">Environmental enforcement history (last 5 years)</span></label>
+          <textarea id="op-incidents" data-field="incidents" rows="2" placeholder="Nenhuma · ou descreva ocorrência + status"></textarea>
+        </div>
+      </div>
+
+      <div class="cad-section">
+        <h2><span lang="pt">Declarações de conformidade</span><span lang="en">Conformity declarations</span></h2>
+        <p class="sec-lede"><span lang="pt">Marque cada declaração após ler. Estas afirmações têm peso legal e serão arquivadas no audit pack.</span><span lang="en">Check each declaration after reading. These statements carry legal weight and will be filed in the audit pack.</span></p>
+
+        <div class="decl-list">
+          <label><input type="checkbox" data-field="decl_anti_double"> <span><strong><span lang="pt">Anti-dupla-contagem.</span><span lang="en">Anti-double-counting.</span></strong> <span lang="pt">Cada lote submetido à ImpacTrakr não foi nem será reportado a outro programa de crédito.</span><span lang="en">Each batch submitted to ImpacTrakr has not been and will not be reported to any other credit program.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_legal"> <span><strong><span lang="pt">Conformidade legal.</span><span lang="en">Legal compliance.</span></strong> <span lang="pt">Cumprimento integral da legislação ambiental, fiscal e trabalhista vigente da jurisdição declarada.</span><span lang="en">Full compliance with environmental, fiscal and labour legislation in force in the declared jurisdiction.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_no_rsu"> <span><strong><span lang="pt">Origem qualificada.</span><span lang="en">Qualified origin.</span></strong> <span lang="pt">Não recebemos resíduo sólido urbano (RSU) de coleta pública sem rastreabilidade — somente streams identificáveis.</span><span lang="en">We do not accept Municipal Solid Waste from public collection without traceability — only identifiable streams.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_no_hazardous"> <span><strong><span lang="pt">Hazardous handling.</span><span lang="en">Hazardous handling.</span></strong> <span lang="pt">Material classificado como hazardous (Basel A3210) só é processado se o permit autorizar explicitamente.</span><span lang="en">Material classified as hazardous (Basel A3210) is processed only if the permit explicitly authorises it.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_labour"> <span><strong><span lang="pt">Trabalho digno.</span><span lang="en">Dignified labour.</span></strong> <span lang="pt">Não utilizamos mão-de-obra escrava, análoga à escravidão ou infantil. ILO Fundamental Rights respeitados.</span><span lang="en">We do not use slave, forced or child labour. ILO Fundamental Rights respected.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_training"> <span><strong><span lang="pt">Treinamento e EPI.</span><span lang="en">Training and PPE.</span></strong> <span lang="pt">Treinamento operacional periódico + EPI gratuito com reposição. Documentado.</span><span lang="en">Periodic operational training + free PPE with replacement. Documented.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_microplastic"> <span><strong><span lang="pt">Pellet loss prevention.</span><span lang="en">Pellet loss prevention.</span></strong> <span lang="pt">Procedimento documentado para prevenir vazamento de pellets, flakes e Recycled Output no meio ambiente.</span><span lang="en">Documented procedure to prevent pellet, flake and Recycled Output leakage into the environment.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_reach"> <span><strong>REACH / SVHC / POP.</strong> <span lang="pt">Compliance documentado com REACH SVHC, restrictions e EU Persistent Organic Pollutants Regulation.</span><span lang="en">Documented compliance with REACH SVHC, restrictions and EU Persistent Organic Pollutants Regulation.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_digitisation"> <span><strong><span lang="pt">Digitalização total.</span><span lang="en">Full digitisation.</span></strong> <span lang="pt">Comprometimento com digitalização integral dos processos operacionais, incluindo pesagens, em prazo a combinar.</span><span lang="en">Commitment to full digitisation of operational processes, including weighing, within agreed timeline.</span></span></label>
+
+          <label><input type="checkbox" data-field="decl_data"> <span><strong><span lang="pt">Privacidade de dados.</span><span lang="en">Data privacy.</span></strong> <span lang="pt">GDPR / LGPD respeitados. Data Processing Agreement assinado se atuamos como integrador.</span><span lang="en">GDPR / LGPD respected. Data Processing Agreement signed if acting as integrator.</span></span></label>
+        </div>
+      </div>
+    </form>
+
+    <div class="cad-footer">
+      <a href="documentos.html" class="cad-btn cad-btn-secondary">← <span lang="pt">Voltar</span><span lang="en">Back</span></a>
+      <button type="button" class="cad-btn cad-btn-primary" id="next-btn">
+        <span lang="pt">Continuar</span><span lang="en">Continue</span> →
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="../assets/shared.js"></script>
+<script src="assets/cadastro.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  Cadastro.renderStepper(4);
+
+  const state = Cadastro.getState();
+  const juris = state.juris || 'malta';
+  const modules = state.modules || { pure: true };
+  const langPt = document.documentElement.getAttribute('data-app-lang') === 'pt';
+
+  const jurisLabels = {
+    malta: 'Malta · EU',
+    eu_other: langPt ? 'União Europeia' : 'European Union',
+    brazil: 'Brasil',
+    latam: 'América Latina'
+  };
+
+  // Jurisdiction-specific operational hints
+  const config = {
+    malta: {
+      activity_ph: 'ex: Reciclagem mecânica PET-1 e HDPE-2 em Marsa · capacidade autorizada ERA 8.500 t/ano · cliente CRDC Malta.',
+      wastewater_ph: 'ex: filtragem 5µm + tratamento off-site licenciado pelo ERA · MSWS regulation compliance.',
+      incidents_ph: 'ex: nenhuma autuação ERA · ou descreva ocorrência + processo administrativo aberto',
+      regs: ['Reg EU 2024/1157 (WSR)', 'DIWASS', 'ERA Environmental Permit', 'WFD 2008/98/EC Art. 23', 'EU 2019/904 SUP Directive']
+    },
+    eu_other: {
+      activity_ph: 'ex: Reciclagem mecânica de plástico misto · capacidade autorizada conforme IPPC Permit · operação Member State X.',
+      wastewater_ph: 'ex: tratamento conforme Industrial Emissions Directive 2010/75/EU · descarga licenciada.',
+      incidents_ph: 'ex: nenhuma autuação da autoridade ambiental nacional · ou descreva.',
+      regs: ['Reg EU 2024/1157 (WSR)', 'DIWASS', 'IPPC / IED 2010/75/EU', 'WFD 2008/98/EC', 'PPWR']
+    },
+    brazil: {
+      activity_ph: 'ex: Reciclagem mecânica PET-1 (B3011) com capacidade CETESB de 12.000 t/ano · cliente Resin8 BR.',
+      wastewater_ph: 'ex: tratamento de efluentes conforme CONAMA 430/2011 · ETE própria · análises mensais.',
+      incidents_ph: 'ex: nenhuma autuação IBAMA/CETESB · ou descreva auto + número do processo.',
+      regs: ['PNRS Lei 12.305/2010', 'CONAMA 313/2002', 'CONAMA 430/2011 (efluentes)', 'NBR 10004 (classificação)', 'MTR + CDF (Manifesto + Certificado de Destinação)']
+    },
+    latam: {
+      activity_ph: 'ex: Reciclagem mecánica PET en CRDC Guatemala · capacidade 1.200 kg/h · MARN-aprobada.',
+      wastewater_ph: 'ex: tratamiento conforme Acuerdo Gubernativo 236-2006 (GT) · descarga licenciada por MARN.',
+      incidents_ph: 'ex: ninguna sanción del Ministerio del Ambiente · o describa.',
+      regs: ['Acuerdo Gubernativo 236-2006 (GT)', 'Ley de Gestión Integrada de Residuos Sólidos', 'MARN / MINAE permits', 'Convenio Basilea (Y48 mixed polymer)']
+    }
+  };
+
+  const cfg = config[juris] || config.malta;
+
+  // Update placeholders with jurisdiction-specific examples
+  document.getElementById('op-activity').placeholder = cfg.activity_ph;
+  document.getElementById('op-wastewater').placeholder = cfg.wastewater_ph;
+  document.getElementById('op-incidents').placeholder = cfg.incidents_ph;
+
+  // Banner with regulatory framework summary
+  const headP = document.querySelector('.cad-head p');
+  if (headP) {
+    const banner = document.createElement('div');
+    banner.className = 'cad-banner';
+    banner.style.marginTop = 'var(--space-md)';
+    const activeMods = Object.keys(modules).filter(k => modules[k]).map(k => k.toUpperCase()).join(' · ');
+    banner.innerHTML = `
+      <p><strong>${langPt ? 'Jurisdição' : 'Jurisdiction'}: ${jurisLabels[juris] || juris}.</strong>
+      ${langPt ? 'Frameworks regulatórios relevantes:' : 'Relevant regulatory frameworks:'} ${cfg.regs.join(' · ')}.</p>
+      <p style="margin-top: 6px; font-size: 0.8125rem; color: var(--ink-faint);"><span lang="pt">Módulos ativos</span><span lang="en">Active modules</span>: <strong>${activeMods}</strong></p>
+    `;
+    headP.insertAdjacentElement('afterend', banner);
+  }
+
+  // Adjust declarations: REACH/SVHC/POP only apply to EU; PNRS only BR; etc.
+  const declList = document.querySelector('.decl-list');
+  if (declList && juris === 'brazil') {
+    // Add PNRS-specific declaration
+    const pnrs = document.createElement('label');
+    pnrs.innerHTML = `<input type="checkbox" data-field="decl_pnrs"> <span><strong>PNRS Lei 12.305/2010.</strong> <span lang="pt">Cumprimento integral do Plano Nacional de Resíduos Sólidos e da Política Estadual aplicável.</span><span lang="en">Full compliance with the Brazilian National Solid Waste Policy and applicable State Policy.</span></span>`;
+    declList.insertBefore(pnrs, declList.children[2]);
+    // Hide REACH (EU-specific)
+    const reachLabel = Array.from(declList.querySelectorAll('label')).find(l => l.textContent.includes('REACH'));
+    if (reachLabel) reachLabel.style.display = 'none';
+  }
+  if (declList && juris === 'latam') {
+    // Replace REACH with Basel Convention
+    const reachLabel = Array.from(declList.querySelectorAll('label')).find(l => l.textContent.includes('REACH'));
+    if (reachLabel) {
+      reachLabel.innerHTML = `<input type="checkbox" data-field="decl_basel"> <span><strong>Convenio de Basilea.</strong> <span lang="pt">Compliance com a Convenção de Basileia (Y48 mixed polymer) + acordos regionais latino-americanos aplicáveis.</span><span lang="en">Compliance with the Basel Convention (Y48 mixed polymer) + applicable Latin American regional agreements.</span></span>`;
+    }
+  }
+
+  Cadastro.bindForm('#op-form', 'op');
+  document.getElementById('next-btn').addEventListener('click', () => window.location.href = 'revisao.html');
+});
+</script>
+</body>
+</html>
