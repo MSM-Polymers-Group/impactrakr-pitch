@@ -7,9 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260624-0039">
-<script src="assets/shared.js?v=20260624-0039" defer></script>
-  <script src="assets/logo.js?v=20260624-0039" defer></script>
+<link rel="stylesheet" href="assets/shared.css?v=20260624-0049">
+<script src="assets/shared.js?v=20260624-0049" defer></script>
+  <script src="assets/logo.js?v=20260624-0049" defer></script>
 </head>
 <body data-page="processo">
 
@@ -376,16 +376,15 @@
         <!-- D2 — System Empacota e envia (Lane 5, below gateway) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1367" y="1095" width="155" height="50" style="display:none"/>
 
-        <!-- D5 — System POPULA OS 4 PAINÉIS — FINAL destination card (Lane 5, right side) -->
+        <!-- D5 — System POPULA OS 2 PAINÉIS PÚBLICOS — FINAL destination card (Lane 5, right side) -->
         <rect class="tc tc-final" fill="#1f3f30" stroke="#99d97e" stroke-width="1.5" rx="8" ry="8" x="1547" y="940" width="185" height="170"/>
         <rect class="task-icon-bg final" fill="#182f23" rx="6" ry="6" x="1563" y="956" width="28" height="28"/>
         <g class="task-icon on-dark" transform="translate(1570,962)"><rect x="2" y="2" width="6" height="6" rx="0.7"/><rect x="9" y="2" width="6" height="6" rx="0.7"/><rect x="2" y="9" width="6" height="6" rx="0.7"/><rect x="9" y="9" width="6" height="6" rx="0.7"/></g>
-        <text class="task-title on-dark" x="1601" y="970" style="font-size: 13px;"><tspan lang="pt">Popula os 4 painéis</tspan><tspan lang="en">Populates 4 panels</tspan></text>
-        <text class="task-sub on-dark" x="1601" y="986"><tspan lang="pt">com os dados do crédito</tspan><tspan lang="en">with the credit data</tspan></text>
-        <text class="task-sub on-dark" x="1563" y="1018" style="font-weight: 700; fill: #7fd348;">— Doador</text>
-        <text class="task-sub on-dark" x="1563" y="1036" style="font-weight: 700; fill: #7fd348;">— <tspan lang="pt">Empresa</tspan><tspan lang="en">Company</tspan></text>
-        <text class="task-sub on-dark" x="1563" y="1054" style="font-weight: 700; fill: #7fd348;">— Comprador Resin8</text>
-        <text class="task-sub on-dark" x="1563" y="1072" style="font-weight: 700; fill: #7fd348;">— <tspan lang="pt">Governo</tspan><tspan lang="en">Government</tspan></text>
+        <text class="task-title on-dark" x="1601" y="970" style="font-size: 13px;"><tspan lang="pt">Popula os 2 painéis</tspan><tspan lang="en">Populates 2 panels</tspan></text>
+        <text class="task-sub on-dark" x="1601" y="986"><tspan lang="pt">com dados verificados + DPP</tspan><tspan lang="en">with verified data + DPP</tspan></text>
+        <text class="task-sub on-dark" x="1563" y="1022" style="font-weight: 700; fill: #7fd348;">— <tspan lang="pt">Cliente</tspan><tspan lang="en">Client</tspan></text>
+        <text class="task-sub on-dark" x="1563" y="1044" style="font-weight: 700; fill: #7fd348;">— <tspan lang="pt">Auditor</tspan><tspan lang="en">Auditor</tspan></text>
+        <text class="task-sub on-dark" x="1563" y="1078" style="font-style: italic; font-size: 9px;"><tspan lang="pt">+ painéis no roadmap</tspan><tspan lang="en">+ more panels on roadmap</tspan></text>
         <text class="task-sub on-dark" x="1563" y="1096" style="font-style: italic;"><tspan lang="pt">ciclo da massa fechado</tspan><tspan lang="en">mass lifecycle closed</tspan></text>
 
         <!-- D3 — Carrot Emite crédito (Lane 7, left) -->
@@ -963,29 +962,23 @@
       rules:['integração ADR-061'], next:'D5'
     },
     'D5': {
-      phase:'D', num:'18', title:{pt:'Sistema popula os 4 painéis', en:'System populates the 4 panels'},
+      phase:'D', num:'18', title:{pt:'Sistema popula os 2 painéis públicos', en:'System populates the 2 public panels'},
       actor:{pt:'<strong>Sistema ImpacTrakr</strong> · Dashboards', en:'<strong>ImpacTrakr System</strong> · Dashboards'},
-      what:{pt:'Esse é o passo final: os dados verificados e o ID DPP emitido alimentam os painéis da plataforma. O ciclo da massa fecha. Da lixeira ao DPP unit rastreável — pronto pra ser comprado por brand, anexado a um relatório CSRD, ou registrado como crédito financeiro num registry parceiro.',
-            en:'This is the final step: verified data and the issued DPP ID feed the platform dashboards. The mass lifecycle closes. From bin to traceable DPP unit — ready to be purchased by a brand, attached to a CSRD report, or registered as a financial credit by a partner registry.'},
+      what:{pt:'Esse é o passo final: os dados verificados e o ID DPP emitido alimentam os 2 painéis públicos da plataforma (Cliente + Auditor). O ciclo da massa fecha. Da lixeira ao DPP unit rastreável — pronto pra ser comprado por brand, anexado a um relatório CSRD, ou registrado como crédito financeiro num registry parceiro.',
+            en:'This is the final step: verified data and the issued DPP ID feed the 2 public platform panels (Client + Auditor). The mass lifecycle closes. From bin to traceable DPP unit — ready to be purchased by a brand, attached to a CSRD report, or registered as a financial credit by a partner registry.'},
       docs:[
-        {name:'panel_donor',
-         purpose:{pt:'<strong>Painel Doador</strong> — cidadão / empresa que doou plástico ou financiamento.', en:'<strong>Donor panel</strong> — citizen / company that donated plastic or funding.'},
-         struct:{pt:'kg plástico contribuído · pontos · histórico de contribuições · ranking · certificado pessoal', en:'kg plastic contributed · points · contribution history · ranking · personal certificate'}},
-        {name:'panel_company',
-         purpose:{pt:'<strong>Painel Empresa</strong> — marca pagando offset ESG via créditos PURE.', en:'<strong>Company panel</strong> — brand offsetting ESG via PURE credits.'},
-         struct:{pt:'toneladas offset · doações realizadas · brand units · SKUs cobertos · relatório anual ESG', en:'tonnes offset · donations made · brand units · SKUs covered · annual ESG report'}},
-        {name:'panel_resin8_buyer',
-         purpose:{pt:'<strong>Painel Comprador Resin8</strong> — comprador da resina reciclada.', en:'<strong>Resin8 Buyer panel</strong> — buyer of the recycled resin.'},
-         struct:{pt:'lote linkado · batch traceability · digital passport (DPP) por SKU · QC do lote · ancoragem on-chain', en:'linked batch · batch traceability · digital passport (DPP) per SKU · batch QC · on-chain anchor'}},
-        {name:'panel_government',
-         purpose:{pt:'<strong>Painel Governo</strong> — regulador / município.', en:'<strong>Government panel</strong> — regulator / municipality.'},
-         struct:{pt:'total recuperado · recovery rate % · geoespacial · drill-down por município · alertas de compliance', en:'total recovered · recovery rate % · geospatial · drill-down by municipality · compliance alerts'}}
+        {name:'panel_client',
+         purpose:{pt:'<strong>Painel Cliente</strong> — reciclador / processador que opera a homologação e emite DPP units.', en:'<strong>Client panel</strong> — recycler / processor running homologation and emitting DPP units.'},
+         struct:{pt:'submissão de lotes · status de conformidade regulatória · trilha de evidências documentais · IDs DPP emitidos · gestão de renovações', en:'batch submission · regulatory compliance status · documentary evidence trail · issued DPP IDs · renewal management'}},
+        {name:'panel_auditor',
+         purpose:{pt:'<strong>Painel Auditor</strong> — auditores acreditados (Kiwa, BV, SGS, RecyClass-approved) que verificam a operação.', en:'<strong>Auditor panel</strong> — accredited auditors (Kiwa, BV, SGS, RecyClass-approved) verifying the operation.'},
+         struct:{pt:'dados em real-time · verificações de conformidade · validação de rastreabilidade · pacotes de auditoria automáticos · ancoragem on-chain', en:'real-time data · compliance verifications · traceability validation · automated audit packs · on-chain anchor'}}
       ],
       validation:{
-        phase1:{pt:'Os 4 painéis renderizam em real-time os dados do crédito. Cada painel tem RBAC próprio (Cognito) com escopos diferentes.',
-                en:'The 4 panels render credit data in real-time. Each panel has its own RBAC (Cognito) with different scopes.'},
-        phase2:{pt:'Personalização avançada por usuário, exportação de relatórios em PDF/XLSX, integração API para terceiros.',
-                en:'Advanced per-user personalisation, PDF/XLSX report export, third-party API integration.'}
+        phase1:{pt:'2 painéis públicos (Cliente + Auditor) renderizam em real-time os dados verificados. Cada painel tem RBAC próprio (Cognito) com escopos diferentes. Outros painéis (regulador, registries, governamentais) estão no roadmap futuro.',
+                en:'2 public panels (Client + Auditor) render verified data in real-time. Each panel has its own RBAC (Cognito) with different scopes. Other panels (regulator, registries, governmental) are on the future roadmap.'},
+        phase2:{pt:'Personalização avançada por usuário, exportação de relatórios em PDF/XLSX, integração API para terceiros, painéis adicionais (regulador, integração com registries externos, feeds governamentais).',
+                en:'Advanced per-user personalisation, PDF/XLSX report export, third-party API integration, additional panels (regulator, external registry integration, governmental feeds).'}
       },
       rules:['final destination — no more rule firings'], next:null
     }
