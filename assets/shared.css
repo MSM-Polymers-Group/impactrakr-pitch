@@ -507,6 +507,19 @@ section.modular { padding: var(--space-fluid-section) 0; }
   border-radius: var(--r-md);
   background: var(--bg);
 }
+/* Backbone cards (Módulo 1 + 2) get visual weight over the add-on card.
+   Identified via .mod-badge text — Backbone vs. Camada adicional / Add-on layer. */
+.module-overview-card.backbone {
+  border: 1.5px solid var(--accent);
+  background: var(--surface-raised);
+  box-shadow: 0 1px 0 var(--accent);
+}
+.module-overview-card.backbone .mod-badge { color: var(--accent); }
+.module-overview-card.addon {
+  border-style: dashed;
+  background: var(--bg);
+}
+.module-overview-card.addon .mod-badge { color: var(--ink-mute); }
 .module-overview-card h3 { margin-top: var(--space-2xs); }
 .module-overview-card p {
   font-size: 0.875rem;
