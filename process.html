@@ -7,9 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260624-0250">
-<script src="assets/shared.js?v=20260624-0250" defer></script>
-  <script src="assets/logo.js?v=20260624-0250" defer></script>
+<link rel="stylesheet" href="assets/shared.css?v=20260626-1421">
+<script src="assets/shared.js?v=20260626-1421" defer></script>
+  <script src="assets/logo.js?v=20260626-1421" defer></script>
 </head>
 <body data-page="processo">
 
@@ -929,8 +929,8 @@
     'D3': {
       phase:'D', num:'16', title:{pt:'Carrot emite o crédito', en:'Carrot issues the credit'},
       actor:{pt:'<strong>Carrot Foundation</strong> · Registry destino', en:'<strong>Carrot Foundation</strong> · target Registry'},
-      what:{pt:'Quando o motor retorna 139/139 PASS, o ImpacTrakr empacota as evidências e envia ao Carrot Registry. A Carrot valida internamente o pacote e emite o crédito on-chain (Polygon).',
-            en:'When the engine returns 139/139 PASS, ImpacTrakr packages the evidence and sends to Carrot Registry. Carrot internally validates the package and issues the credit on-chain (Polygon).'},
+      what:{pt:'Quando o motor retorna 139/139 PASS, o ImpacTrakr empacota as evidências e envia ao Carrot Registry. A Carrot valida internamente o pacote e emite o crédito com ancoragem auditável.',
+            en:'When the engine returns 139/139 PASS, ImpacTrakr packages the evidence and sends to Carrot Registry. Carrot internally validates the package and issues the credit with auditable anchoring.'},
       docs:[
         {name:'credit_certificate',
          purpose:{pt:'Comprovante on-chain do crédito gerado, com identificação única e selo de conformidade.', en:'On-chain proof of the issued credit, with unique identification and conformity seal.'},
@@ -947,8 +947,8 @@
     'D4': {
       phase:'D', num:'17', title:{pt:'Carrot retorna metadados', en:'Carrot returns metadata'},
       actor:{pt:'<strong>Carrot Foundation</strong>', en:'<strong>Carrot Foundation</strong>'},
-      what:{pt:'Carrot retorna ao ImpacTrakr o pacote final de metadados: credit ID, status, trilha de evidências consolidada e o âncora on-chain (tx hash do Polygon).',
-            en:'Carrot returns to ImpacTrakr the final metadata package: credit ID, status, consolidated evidence trail and on-chain anchor (Polygon tx hash).'},
+      what:{pt:'Carrot retorna ao ImpacTrakr o pacote final de metadados: credit ID, status, trilha de evidências consolidada e referência de ancoragem auditável.',
+            en:'Carrot returns to ImpacTrakr the final metadata package: credit ID, status, consolidated evidence trail and auditable anchoring reference.'},
       docs:[
         {name:'credit_metadata_payload',
          purpose:{pt:'Payload com tudo que o ImpacTrakr precisa para popular os dashboards.', en:'Payload with everything ImpacTrakr needs to populate the dashboards.'},
