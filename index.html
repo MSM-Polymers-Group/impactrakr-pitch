@@ -1,243 +1,869 @@
 <!DOCTYPE html>
 <html lang="en" data-app-lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ImpacTrakr · Verified traceability + DPP-grade compliance</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ImpacTrakr · Every batch proven. Every batch sellable.</title>
+<meta name="description" content="Verification infrastructure for the circular industrial economy. Unlock premium pricing, EU market access and buyer trust for every recycled batch you sell." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260626-1421">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260707-32">
+<script src="assets/shared.js?v=20260626-1421" defer></script>
+<script src="assets/logo.js?v=20260707-4" defer></script>
 <style>
-  /* === Page-specific: Visão === */
-  .tese-band { background: var(--primary); color: var(--on-dark); padding: 28px 0; margin-top: 24px; border-radius: 12px; }
-  .tese-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 8px 32px; }
-  .tese-item { padding: 0 8px; }
-  .tese-item h4 {
-    margin: 0 0 10px; color: var(--accent); font-family: 'Manrope', sans-serif;
-    font-style: italic; font-weight: 600; font-size: 16px; letter-spacing: 0;
-  }
-  .tese-item p { color: var(--on-dark-soft); margin: 0; font-size: 13.5px; line-height: 1.55; }
-  @media (max-width: 880px) {
-    .tese-grid { grid-template-columns: 1fr; gap: 18px; }
-  }
+  /* =========================================================
+     Home (v5.1) . page-specific overrides
+     Reuses shared.css tokens + adds:
+       - Instrument Serif italic accent (2nd line of headings)
+       - Uppercase micro-eyebrow in accent green
+       - Horizontal 4-step recycler cards
+       - Malta proof block (soft green card + trust chips)
+       - Signup CTA on brand-surface with email capture
+       - Footer with in-page shortcut links
+     ========================================================= */
 
-  /* === "Where we sit" — positioning diagram === */
-  section.where-we-sit { padding: var(--space-fluid-section) 0; }
-  .where-we-sit h2 { margin-bottom: var(--space-md); }
-  .where-we-sit .lede {
-    max-width: var(--max-prose);
-    font-size: 1rem;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: var(--space-2xl);
-  }
-  .positioning-diagram {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: var(--space-md);
-    align-items: stretch;
-    max-width: 1080px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .pd-node {
-    padding: var(--space-md) var(--space-lg);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--bg);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 110px;
-  }
-  .pd-node .pd-role {
-    font-family: 'Manrope', sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--ink-faint);
-    text-transform: none;
-    margin-bottom: var(--space-2xs);
-  }
-  .pd-node .pd-name {
-    font-family: 'Manrope', sans-serif;
-    font-size: 1.0625rem;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-    margin-bottom: var(--space-3xs);
-  }
-  .pd-node .pd-example {
-    font-size: 0.8125rem;
-    color: var(--ink-faint);
-    font-weight: 500;
-    line-height: 1.45;
-  }
-
-  /* The center (us) */
-  .pd-center {
-    background: #1f3f30;
-    border-color: #1f3f30;
-    color: #f4ede0;
-    grid-column: 2;
-    grid-row: 2;
-    box-shadow: 0 12px 32px rgba(15, 33, 39, 0.18);
-  }
-  .pd-center .pd-role { color: #99d97e; }
-  .pd-center .pd-name { color: #f4ede0; font-size: 1.5rem; letter-spacing: -0.025em; }
-  .pd-center .pd-example { color: #c5b89a; font-size: 0.875rem; }
-
-  /* Horizontal flow: upstream → us → downstream */
-  .pd-upstream { grid-column: 1; grid-row: 2; }
-  .pd-downstream { grid-column: 3; grid-row: 2; }
-
-  /* Vertical inputs: methodology + regulation feed into us from above */
-  .pd-methodology { grid-column: 2; grid-row: 1; }
-  .pd-regulation { grid-column: 2; grid-row: 3; }
-
-  /* Connector lines via pseudo-elements */
-  .pd-node.pd-upstream::after,
-  .pd-node.pd-downstream::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: var(--space-md);
-    border-top: 1.5px solid var(--ink-mute);
-    transform: translateY(-50%);
-  }
-  .pd-node.pd-upstream::after { right: -1px; }
-  .pd-node.pd-downstream::before { left: -1px; }
-
-  .pd-methodology::after,
-  .pd-regulation::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    height: var(--space-md);
-    border-left: 1.5px solid var(--ink-mute);
-    transform: translateX(-50%);
-  }
-  .pd-methodology::after { bottom: -1px; }
-  .pd-regulation::before { top: -1px; }
-
-  /* Bottom takeaway */
-  .pd-takeaway {
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--line);
-    max-width: var(--max-prose);
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    color: var(--ink-faint);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-  }
-  .pd-takeaway strong { color: var(--ink); }
-
-  @media (max-width: 880px) {
-    .positioning-diagram {
-      grid-template-columns: 1fr;
-      grid-template-rows: repeat(5, auto);
-      gap: var(--space-sm);
-    }
-    .pd-methodology { grid-column: 1; grid-row: 1; }
-    .pd-upstream    { grid-column: 1; grid-row: 2; }
-    .pd-center      { grid-column: 1; grid-row: 3; }
-    .pd-downstream  { grid-column: 1; grid-row: 4; }
-    .pd-regulation  { grid-column: 1; grid-row: 5; }
-    .pd-node::before, .pd-node::after { display: none; }
-  }
-
-  /* === Manifesto block (declaração de propósito) === */
-  .manifesto {
-    margin: var(--space-2xl) auto 0;
-    max-width: 880px;
-    padding: var(--space-md) 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    text-align: center;
-  }
-  .manifesto p {
-    font-family: 'Manrope', sans-serif;
-    font-size: 1.0625rem;
-    line-height: 1.55;
-    color: var(--ink);
-    font-weight: 500;
+  /* --- Display accent: Instrument Serif italic on the 2nd line --- */
+  .display-italic {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
     letter-spacing: -0.005em;
-    margin: 0 auto;
-    max-width: 56ch;
-  }
-  .manifesto p strong { font-weight: 700; color: var(--ink); }
-  .manifesto p .accent {
     color: var(--accent);
-    font-style: normal;
-    font-weight: 600;
+  }
+  .brand-surface .display-italic,
+  [data-on-dark] .display-italic { color: var(--accent-on-dark); }
+
+  /* .micro.eye agora vive em shared.css como token do design system. */
+
+  /* Hero: reduzir gap entre o nav sticky e o conteudo (override do site) */
+  section.hero {
+    padding-top: clamp(1.5rem, 3vw, 3rem);
+    padding-bottom: clamp(2rem, 4vw, 3.5rem);
   }
 
-  /* === 8 Princípios de design === */
-  section.principles { padding: var(--space-fluid-section) 0; }
-  section.principles h2 { margin-bottom: var(--space-md); }
-  section.principles .lede {
-    max-width: var(--max-prose);
-    font-size: 1rem;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: var(--space-2xl);
+  /* Reduzir espaco vertical entre sections modular / reg-timeline / faq da HOME.
+     Override do padrao do site (que usa var(--space-fluid-section) = ate 144px).
+     Independence-section mantem padding: 0 (ja tem sua propria configuracao). */
+  section.modular:not(.independence-section),
+  section.reg-timeline,
+  section.faq {
+    padding: clamp(2rem, 4vw, 3.5rem) 0;
   }
-  .principles-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    counter-reset: principle;
+
+  /* Por que agora + Enterprise: full-bleed com fundo cinza-azulado sutil (blueprint) */
+  section.reg-timeline#por-que-agora,
+  section.modular#enterprise {
+    background: var(--surface-raised);
   }
-  .principles-list li {
+
+  /* Hero em 2 colunas: copy esq + DPP card dir, centralizados verticalmente */
+  .hero-grid {
     display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: var(--space-md);
-    align-items: baseline;
-    padding: var(--space-md) 0;
-    border-top: 1px solid var(--line);
-    counter-increment: principle;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
   }
-  .principles-list li:last-child { border-bottom: 1px solid var(--line); }
-  .principles-list li::before {
-    content: counter(principle, decimal-leading-zero);
+  @media (max-width: 940px) {
+    .hero-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+  }
+
+  /* --- DPP card (artefato editorial: certificado, nao dashboard) --- */
+  .dpp-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: var(--space-lg);
     font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 1.25rem;
+    max-width: 460px;
+  }
+  @media (max-width: 940px) {
+    .dpp-card { max-width: 100%; margin-top: var(--space-md); }
+  }
+
+  .dpp-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: var(--space-md);
+  }
+  .dpp-head .dpp-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .dpp-head .dpp-issuer {
+    font-size: var(--fs-caption);
     color: var(--ink-mute);
-    letter-spacing: -0.02em;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    letter-spacing: 0;
+  }
+
+  .dpp-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+  .dpp-title .dpp-id {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: var(--fs-body-lg);
+    font-weight: var(--fw-bold);
+    color: var(--ink);
+    letter-spacing: 0;
+  }
+  .dpp-title .dpp-loc {
+    font-size: var(--fs-body-sm);
+    color: var(--ink-faint);
+    font-weight: var(--fw-semibold);
+  }
+
+  .dpp-props {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm) var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: var(--space-md);
+  }
+  .dpp-props .prop { display: flex; flex-direction: column; gap: 2px; }
+  .dpp-props .prop .k {
+    font-size: var(--fs-caption);
+    color: var(--ink-faint);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .dpp-props .prop .v {
+    font-size: var(--fs-body-lg);
+    color: var(--ink);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-body);
     font-feature-settings: 'tnum' on;
   }
-  .principles-list .p-title {
-    font-family: 'Manrope', sans-serif;
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-    margin-bottom: var(--space-3xs);
-    line-height: 1.3;
+
+  .dpp-compliance {
+    display: grid;
+    gap: var(--space-2xs);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: var(--space-md);
   }
-  .principles-list .p-body {
+  .dpp-compliance .row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-size: var(--fs-body);
+    color: var(--ink);
+    padding: 2px 0;
+  }
+  .dpp-compliance .row .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    flex-shrink: 0;
+  }
+  .dpp-compliance .row strong {
+    color: var(--ink);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-body);
+  }
+  .dpp-compliance .row .sub {
+    font-size: var(--fs-caption);
+    color: var(--ink-faint);
+    font-weight: var(--fw-medium);
+  }
+  .dpp-compliance .row .check {
+    margin-left: auto;
+    color: var(--accent-strong);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body-sm);
+  }
+
+  .dpp-anchor {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-sm);
+  }
+  .dpp-anchor .anchor-block {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .dpp-anchor .anchor-block .k {
+    font-size: var(--fs-caption);
+    color: var(--ink-faint);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .dpp-anchor .anchor-block .sha {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: var(--fs-body-sm);
+    color: var(--ink-mute);
+    letter-spacing: 0;
+  }
+  .dpp-anchor .anchor-block .ts {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: var(--fs-body-sm);
+    color: var(--ink-mute);
+    letter-spacing: 0;
+  }
+  .dpp-anchor .verify {
+    align-self: flex-end;
+    font-family: 'Manrope', sans-serif;
+    color: var(--accent-strong);
+    font-weight: var(--fw-bold);
+    text-decoration: none;
+    font-size: var(--fs-body-sm);
+    letter-spacing: var(--ls-body);
+    white-space: nowrap;
+  }
+  .dpp-anchor .verify:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Hero CTA row */
+  .hero-cta {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+    align-items: center;
+  }
+  /* CTA secundario mais discreto pra abrir peso claro entre 1a e 2a acao */
+  .hero-cta .cta-btn.secondary {
+    padding-left: var(--space-xs);
+    padding-right: var(--space-xs);
+    border-color: transparent;
+    background: transparent;
+  }
+  .hero-cta .cta-btn.secondary:hover {
+    background: var(--surface-raised);
+    border-color: var(--line);
+  }
+
+  /* Audience selector — 4 pills apontando para blocos por persona */
+  .audience-picker {
+    display: flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+    margin-top: var(--space-md);
+    align-items: baseline;
+  }
+  .audience-picker .aud-label {
+    font-size: var(--fs-body-sm);
+    color: var(--ink-faint);
+    margin-right: var(--space-xs);
+    font-weight: var(--fw-medium);
+  }
+  .audience-picker a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    letter-spacing: var(--ls-body);
+    text-decoration: none;
+    transition: background var(--d-quick) var(--ease-out),
+                border-color var(--d-quick) var(--ease-out);
+  }
+  .audience-picker a:hover {
+    background: var(--bg);
+    border-color: var(--accent-strong);
+    color: var(--accent-strong);
+  }
+
+  /* Scroll progress bar na base do nav sticky */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--accent-strong);
+    z-index: calc(var(--z-sticky) + 1);
+    transition: width 80ms linear;
+    pointer-events: none;
+  }
+
+  /* Timeline: destacar "Agora" com dot pulsante sutil */
+  .timeline-node.upcoming { border-top-width: 3px; }
+  .timeline-node.upcoming .time-marker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .timeline-node.upcoming .time-marker::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ink);
+    animation: dot-pulse 2s ease-in-out infinite;
+  }
+  @keyframes dot-pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.2); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-node.upcoming .time-marker::before { animation: none; opacity: 1; }
+  }
+
+  /* Chain of custody — manter horizontal com scroll ate 640px, colapsar abaixo */
+  @media (max-width: 1000px) and (min-width: 641px) {
+    .chain-row {
+      grid-template-columns: repeat(5, minmax(180px, 1fr));
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+    .chain-node { scroll-snap-align: start; }
+  }
+  @media (max-width: 640px) {
+    .chain-row { grid-template-columns: 1fr; overflow-x: visible; }
+  }
+
+  /* FAQ agrupado por audiencia com sub-heading */
+  .faq-group-heading {
+    display: block;
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-xs);
+  }
+  .faq-group-heading:first-child { margin-top: 0; }
+
+  /* Signup: select de persona */
+  .signup-form select {
+    padding: 0.875rem 1rem;
+    background: transparent;
+    border: 1px solid var(--brand-line);
+    border-radius: var(--r-md);
+    color: var(--on-dark);
+    font-family: inherit;
+    font-size: var(--fs-base);
+    letter-spacing: var(--ls-body);
+    min-width: 180px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23c5b89a' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    padding-right: 2.5rem;
+  }
+  .signup-form select option { background: var(--brand-surface-deep); color: var(--on-dark); }
+
+  /* Proof card interativo */
+  a.proof-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  a.proof-card-link:hover .proof-card {
+    border-color: var(--accent-strong);
+  }
+
+  /* Independence: banda full-bleed verde escuro (sai do container) */
+  section.independence-section {
+    padding: 0;
+  }
+  .brand-surface.independence-band {
+    border-radius: 0;
+    padding: clamp(2.5rem, 4.5vw, 4rem) 0;
+  }
+  .brand-surface.independence-band > .container {
+    max-width: var(--max-page);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* Built for enterprise — 4 mini-cards (padrão Isometric) */
+  .ent-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+  @media (max-width: 1000px) { .ent-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .ent-grid { grid-template-columns: 1fr; } }
+  .ent-card {
+    padding: var(--space-md);
+    border-top: 2px solid var(--ink);
+  }
+  .ent-card h4 {
+    font-size: var(--fs-body-lg);
+    font-weight: var(--fw-bold);
+    color: var(--ink);
+    letter-spacing: var(--ls-body);
+    margin-bottom: var(--space-2xs);
+  }
+  .ent-card p {
+    font-size: var(--fs-body);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+    max-width: none;
+  }
+
+  /* Accreditation seals band — grid 3 colunas x 2 linhas */
+  .accreds {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    align-items: center;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 940px) {
+    .accreds { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .accreds { grid-template-columns: 1fr; }
+  }
+  .accreds .accred {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-family: 'Manrope', sans-serif;
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    letter-spacing: var(--ls-body);
+    line-height: 1.3;
+    padding: var(--space-2xs) 0;
+    opacity: 0.85;
+    transition: opacity var(--d-quick) var(--ease-out);
+  }
+  .accreds .accred:hover { opacity: 1; }
+  .accreds .accred-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: oklch(97% 0.005 220);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    font-size: 0.625rem;
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    flex-shrink: 0;
+    font-feature-settings: 'tnum' on;
+  }
+  .accreds .accred em {
+    display: block;
+    font-style: normal;
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-caption);
+    color: var(--ink-faint);
+    margin-top: 2px;
+  }
+
+  section.hero h1 { max-width: 22ch; }
+
+  /* --- Chain of custody (5 nodes) inside brand-surface --- */
+  .chain-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+  .chain-node {
+    padding: var(--space-md);
+    border: 1px solid var(--brand-line);
+    border-radius: var(--r-md);
+    background: transparent;
+  }
+  .chain-node .cn-role {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--on-dark-mute);
+    margin-bottom: var(--space-2xs);
+  }
+  .chain-node .cn-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--on-dark);
+    letter-spacing: -0.005em;
+    margin-bottom: var(--space-3xs);
+  }
+  .chain-node .cn-note {
+    font-size: 0.8125rem;
+    color: var(--on-dark-soft);
+    line-height: 1.5;
+  }
+  .chain-node.center {
+    background: var(--brand-surface-deep);
+    border-color: var(--accent-on-dark);
+  }
+  .chain-node.center .cn-role { color: var(--accent-on-dark); }
+  .chain-note {
+    margin-top: var(--space-md);
+    color: var(--on-dark-soft);
+    font-size: 0.9375rem;
+    max-width: 62ch;
+  }
+  @media (max-width: 1000px) { .chain-row { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .chain-row { grid-template-columns: 1fr; } }
+
+  /* --- Two-column reader layout: heading left, sub-lede right --- */
+  .split-2col {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  @media (max-width: 940px) { .split-2col { grid-template-columns: 1fr; gap: var(--space-md); } }
+  .split-2col h2 {
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 20ch;
+  }
+  .split-2col .lede {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+
+  /* --- 4-step horizontal card row (recyclers) --- */
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+  }
+  @media (max-width: 1000px) { .step-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .step-grid { grid-template-columns: 1fr; } }
+  .step-card {
+    padding: var(--space-lg) var(--space-md);
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .step-card .step-mark {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    margin-bottom: var(--space-md);
+    font-feature-settings: 'tnum' on;
+  }
+  .step-card h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin-bottom: var(--space-sm);
+    color: var(--ink);
+  }
+  .step-card p {
     font-size: 0.9375rem;
     color: var(--ink-soft);
     line-height: 1.55;
-    max-width: 80ch;
+    margin: 0;
+    max-width: none;
   }
-  .principles-list .p-body strong { color: var(--ink); font-weight: 600; }
-  @media (max-width: 720px) {
-    .principles-list li { grid-template-columns: 40px 1fr; }
-    .principles-list li::before { font-size: 1rem; }
-    .principles-list .p-title { font-size: 1rem; }
+
+  /* --- Malta proof block: 2 columns equilibradas, tipografia Manrope --- */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    align-items: stretch;
+  }
+  @media (max-width: 940px) { .proof-grid { grid-template-columns: 1fr; } }
+
+  .proof-card {
+    padding: var(--space-lg);
+    /* Off-white + cinza bem sutil, hue 220 (mesma familia fria do site) */
+    background: oklch(97% 0.005 220);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    display: flex;
+    flex-direction: column;
+  }
+  .proof-card .p-eyebrow {
+    color: var(--accent-strong);
+  }
+  .proof-card h3 { color: var(--ink); }
+  .proof-card p { color: var(--ink-soft); }
+  /* Chips verde escuro com letras brancas — batem com brand-surface */
+  .proof-chips .chip {
+    background: var(--brand-surface);
+    border-color: var(--brand-surface);
+    color: var(--on-dark);
+  }
+  .proof-card .p-eyebrow {
+    display: block;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    margin-bottom: var(--space-sm);
+  }
+  .proof-card h3 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-heading);
+    color: var(--ink);
+    letter-spacing: var(--ls-body);
+    margin-bottom: var(--space-sm);
+  }
+  .proof-card p {
+    color: var(--ink-soft);
+    font-size: var(--fs-body);
+    line-height: 1.55;
+    max-width: 52ch;
+    margin: 0 0 var(--space-md);
+    flex: 1;
+  }
+  .proof-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3xs);
+  }
+  .proof-chips .chip {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    background: var(--brand-surface);
+    border: 1px solid var(--brand-surface);
+    border-radius: var(--r-sm);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    color: var(--on-dark);
+    letter-spacing: var(--ls-body);
+  }
+  .proof-mini-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+  .proof-mini {
+    padding: var(--space-md);
+    border-top: 2px solid var(--ink);
+    border-radius: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+  }
+  .proof-mini h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: var(--fs-body-lg);
+    font-weight: var(--fw-bold);
+    color: var(--ink);
+    letter-spacing: var(--ls-body);
+    margin-bottom: var(--space-2xs);
+  }
+  .proof-mini p {
+    font-size: var(--fs-body);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+    max-width: none;
+  }
+
+  /* --- Signup CTA on brand-surface (full-bleed, no container) --- */
+  section.signup {
+    padding: var(--space-fluid-section) 0 0;
+    background: var(--brand-surface);
+    color: var(--on-dark);
+  }
+  .signup-wrap {
+    max-width: var(--max-page);
+    margin: 0 auto;
+    padding: clamp(3rem, 6vw, 5rem) var(--gutter);
+    text-align: center;
+  }
+  .signup-wrap .micro.eye { display: block; margin-bottom: var(--space-md); }
+  .signup-wrap h2 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+    line-height: 1.15;
+    color: var(--on-dark);
+    max-width: 26ch;
+    margin: 0 auto var(--space-md);
+    letter-spacing: -0.02em;
+  }
+  .signup-wrap p.lede {
+    color: var(--on-dark-soft);
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 60ch;
+    margin: 0 auto var(--space-xl);
+  }
+  .signup-form {
+    display: inline-flex;
+    gap: var(--space-2xs);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: var(--space-md);
+  }
+  .signup-form input[type=email] {
+    min-width: 260px;
+    padding: 0.875rem 1rem;
+    background: transparent;
+    border: 1px solid var(--brand-line);
+    border-radius: var(--r-md);
+    color: var(--on-dark);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    letter-spacing: -0.005em;
+  }
+  .signup-form input[type=email]::placeholder { color: var(--on-dark-mute); }
+  .signup-form input[type=email]:focus {
+    outline: none;
+    border-color: var(--accent-on-dark);
+  }
+  /* Signup submit reusa .cta-btn.primary do shared.css (que já está pintado
+     para brand-surface). Só ajustamos altura para alinhar com o input. */
+  .signup-form .signup-submit {
+    padding: 0.875rem 1.25rem;
+  }
+  .signup-fineprint {
+    color: var(--on-dark-mute);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    max-width: 44ch;
+    margin: 0 auto;
+  }
+
+  /* --- Footer --- */
+  footer.site-footer {
+    padding: var(--space-fluid-section) 0 var(--space-xl);
+    border-top: 1px solid var(--line);
+    margin-top: var(--space-fluid-section);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 2fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  @media (max-width: 940px) { .footer-grid { grid-template-columns: 1fr; gap: var(--space-lg); } }
+  .footer-brand .logo { margin-bottom: var(--space-sm); }
+  .footer-brand p {
+    font-size: 0.875rem;
+    color: var(--ink-faint);
+    max-width: 40ch;
+    margin: 0;
+  }
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-lg);
+    align-items: baseline;
+    justify-content: flex-end;
+  }
+  @media (max-width: 940px) { .footer-nav { justify-content: flex-start; } }
+  .footer-nav a {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    text-decoration: none;
+  }
+  .footer-nav a:hover { color: var(--accent); }
+
+  /* --- FAQ layout : title left, list right + accordion collapse --- */
+  .faq-editorial h2 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 22ch;
+    margin-bottom: var(--space-xl);
+  }
+  .faq-grid.editorial { max-width: 100%; }
+
+  /* Accordion (native <details>) */
+  details.faq-item {
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  details.faq-item:last-child { border-bottom: 1px solid var(--line); }
+  details.faq-item[open] { padding-bottom: var(--space-md); }
+  details.faq-item > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+    transition: color var(--d-quick) var(--ease-out);
+  }
+  details.faq-item > summary::-webkit-details-marker { display: none; }
+  details.faq-item > summary::marker { content: ''; }
+  details.faq-item > summary:hover { color: var(--accent); }
+  details.faq-item > summary .faq-toggle {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    position: relative;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  details.faq-item > summary .faq-toggle::before,
+  details.faq-item > summary .faq-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    background: currentColor;
+    transition: transform var(--d-quick) var(--ease-out);
+  }
+  details.faq-item > summary .faq-toggle::before {
+    width: 14px; height: 2px;
+    transform: translate(-50%, -50%);
+  }
+  details.faq-item > summary .faq-toggle::after {
+    width: 2px; height: 14px;
+    transform: translate(-50%, -50%);
+  }
+  details.faq-item[open] > summary .faq-toggle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+  details.faq-item > .faq-answer {
+    padding: 0 0 var(--space-2xs);
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    max-width: 72ch;
+    margin: 0;
   }
 </style>
-  <script src="assets/logo.js?v=20260626-1421" defer></script>
 </head>
-<body data-page="visao">
+<body data-page="landing">
+
+<!-- Progress bar de scroll no topo, movida por JS inline no fim do body -->
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 <header class="top">
   <div class="container top-grid">
@@ -246,13 +872,13 @@
       <span>ImpacTrakr</span>
     </div>
     <div class="top-right">
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button type="button" data-lang="pt">PT</button>
-        <button type="button" data-lang="en">EN</button>
-      </div>
       <div class="top-meta">
         dMRV · TRACEABILITY · COMPLIANCE
         <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
       </div>
     </div>
   </div>
@@ -260,241 +886,294 @@
 
 <nav class="top-nav" aria-label="Chapters">
   <div class="top-nav-inner">
-    <a class="nav-tab" data-target="visao" href="index.html">
-      <span class="nav-num">01</span>
-      <span><span lang="pt">Visão</span><span lang="en">Overview</span></span>
+    <a class="nav-tab active" data-target="landing" href="index.html">
+      <span><span lang="pt">Início</span><span lang="en">Home</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span>
     </a>
     <a class="nav-tab" data-target="processo" href="process.html">
-      <span class="nav-num">02</span>
       <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
     </a>
     <a class="nav-tab" data-target="metodologia" href="methodology.html">
-      <span class="nav-num">03</span>
       <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
     </a>
     <a class="nav-tab" data-target="mercado" href="market.html">
-      <span class="nav-num">04</span>
       <span><span lang="pt">Mercado</span><span lang="en">Market</span></span>
     </a>
   </div>
 </nav>
 
-<section class="hero">
+<!-- ============ HERO ============ -->
+<section class="hero" id="o-que-e">
   <div class="container">
-    <span class="micro">
-      <span lang="pt">Visão geral</span><span lang="en">Overview</span>
+    <div class="hero-grid">
+      <div class="hero-copy">
+    <span class="micro eye">
+      <span lang="pt">Camada de verificação para a economia circular industrial</span><span lang="en">Verification infrastructure for the circular industrial economy</span>
     </span>
     <h1>
-      <span lang="pt">Plataforma de<br><span class="accent">rastreabilidade, dMRV e compliance regulatório.</span></span><span lang="en">Platform for<br><span class="accent">traceability, dMRV and regulatory compliance.</span></span>
+      <span lang="pt">Cada lote provado.<br><span class="display-italic">Cada lote vendável.</span></span><span lang="en">Every batch proven.<br><span class="display-italic">Every batch sellable.</span></span>
     </h1>
     <p class="subtitle">
-      <span lang="pt">Executamos metodologias existentes; não somos seus autores. Integramos com registries parceiros e operamos em múltiplas jurisdições. <strong>Plataforma agnóstica desde o dia 1.</strong></span><span lang="en">We execute existing methodologies; we don't author them. We integrate with partner registries and operate across multiple jurisdictions. <strong>Agnostic platform from day one.</strong></span>
+      <span lang="pt"><strong>Preço premium, acesso ao mercado europeu, confiança do comprador.</strong> Cada lote reciclado vira um Digital Product Passport que compradores, auditores e reguladores verificam por conta própria: sem registry proprietário, sem metodologia trancada, sem lock-in.</span><span lang="en"><strong>Premium pricing, EU market access, buyer trust.</strong> Every recycled batch becomes a Digital Product Passport that buyers, auditors and regulators verify on their own: no proprietary registry, no locked-in methodology, no vendor lock.</span>
     </p>
 
-    <!-- 3 BULLETS DE TESE -->
-    <div class="tese-band">
-      <div class="tese-grid">
-        <div class="tese-item">
-          <h4><span lang="pt">Independente por design</span><span lang="en">Independent by design</span></h4>
-          <p>
-            <span lang="pt">Quem valida o dado não escreve a regra que valida. Esse é o princípio: três responsabilidades, três entidades distintas — quem cria a metodologia, quem valida os dados, quem registra ou monetiza eventuais créditos sobre eles.</span><span lang="en">Whoever validates the data shouldn't author the rule that validates it. That's the principle: three responsibilities, three distinct entities — methodology author, data validator, and registry that may issue or monetise credits on top.</span>
-          </p>
-        </div>
-        <div class="tese-item">
-          <h4><span lang="pt">Plataforma agnóstica</span><span lang="en">Agnostic platform</span></h4>
-          <p>
-            <span lang="pt">Qualquer registry. Qualquer metodologia auditada. Qualquer jurisdição. Modelo de plataforma desde o dia 1, validado em produção sob a regulação EU 2024/1157.</span><span lang="en">Any registry. Any audited methodology. Any jurisdiction. Platform model since day one, validated in production under EU Regulation 2024/1157.</span>
-          </p>
-        </div>
-        <div class="tese-item">
-          <h4><span lang="pt">Onde a regulação aperta</span><span lang="en">Where regulation tightens</span></h4>
-          <p>
-            <span lang="pt">Reg 2024/1157, DIWASS, PPWR, ESPR, DPP — cada lei nova vira módulo plugável. Cada plástico sem destino vira oportunidade comercial. A regulação acelera; a arquitetura absorve.</span><span lang="en">Reg 2024/1157, DIWASS, PPWR, ESPR, DPP — each new law becomes a pluggable module. Each plastic with no destination becomes commercial opportunity. Regulation accelerates; the architecture absorbs.</span>
-          </p>
-        </div>
-      </div>
+    <div class="hero-cta">
+      <!-- TODO Rodrigo: quando tiver Calendly/Cal.com, trocar href="#signup" pelo link real
+           e restaurar copy "Agendar 30 min". Enquanto nao tem, mantemos "Deixar meu email"
+           que descreve exatamente o destino (#signup form). -->
+      <a class="cta-btn on-light primary" href="#signup">
+        <span aria-hidden="true">▶</span>
+        <span><span lang="pt">Falar com a gente</span><span lang="en">Get in touch</span></span>
+      </a>
+      <a class="cta-btn on-light secondary" href="process.html">
+        <span><span lang="pt">Ver o processo</span><span lang="en">See the process</span></span>
+        <span aria-hidden="true">→</span>
+      </a>
     </div>
 
-    <!-- Manifesto / declaração de propósito -->
-    <div class="manifesto">
-      <p>
-        <span lang="pt">A ImpacTrakr é <strong>infraestrutura</strong>, não produto. Existe pra fazer uma coisa só: <span class="accent">gerar dados verificados e IDs DPP rastreáveis</span> sob regras UE 2024/1157 + RecyClass. O que cada parte decide fazer com esses dados — registrar como crédito financeiro num registry parceiro (Carrot, Verra, outros), comprovar compliance regulatório, anexar a um relatório CSRD — é decisão dela, não nossa.</span><span lang="en">ImpacTrakr is <strong>infrastructure</strong>, not a product. It exists to do one thing only: <span class="accent">generate verified data and traceable DPP IDs</span> under EU 2024/1157 + RecyClass rules. What each party decides to do with this data — register it as a financial credit via a partner registry (Carrot, Verra, others), demonstrate regulatory compliance, attach to a CSRD report — is their decision, not ours.</span>
+      </div><!-- /.hero-copy -->
+
+      <aside class="dpp-card" aria-label="Sample Digital Product Passport">
+        <div class="dpp-head">
+          <span class="dpp-label">Digital Product Passport</span>
+          <span class="dpp-issuer">by ImpacTrakr</span>
+        </div>
+
+        <div class="dpp-title">
+          <span class="dpp-id">MID-2026-00478</span>
+          <span class="dpp-loc"><span lang="pt">CRDC Malta · Q4 2026</span><span lang="en">CRDC Malta · Q4 2026</span></span>
+        </div>
+
+        <div class="dpp-props">
+          <div class="prop">
+            <span class="k"><span lang="pt">Massa out</span><span lang="en">Mass out</span></span>
+            <span class="v">412 kg</span>
+          </div>
+          <div class="prop">
+            <span class="k"><span lang="pt">Pós-consumo</span><span lang="en">Post-consumer</span></span>
+            <span class="v">78%</span>
+          </div>
+          <div class="prop">
+            <span class="k"><span lang="pt">Resina</span><span lang="en">Resin</span></span>
+            <span class="v">rPET</span>
+          </div>
+          <div class="prop">
+            <span class="k"><span lang="pt">Ciclo</span><span lang="en">Cycle</span></span>
+            <span class="v">3 <span style="font-size: 0.75em; font-weight: 500; color: var(--ink-faint);">d</span></span>
+          </div>
+        </div>
+
+        <div class="dpp-compliance">
+          <div class="row">
+            <span class="dot" aria-hidden="true"></span>
+            <strong>EU 2024/1157</strong>
+            <span class="sub">+ DIWASS</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </div>
+          <div class="row">
+            <span class="dot" aria-hidden="true"></span>
+            <strong>RecyClass</strong>
+            <span class="sub">Audit V1.1</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </div>
+          <div class="row">
+            <span class="dot" aria-hidden="true"></span>
+            <strong>PURE</strong>
+            <span class="sub">EcoCircle</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </div>
+        </div>
+
+        <div class="dpp-anchor">
+          <div class="anchor-block">
+            <span class="k">SHA-256</span>
+            <span class="sha">f5aa…c027</span>
+          </div>
+          <div class="anchor-block">
+            <span class="k"><span lang="pt">Emitido</span><span lang="en">Issued</span></span>
+            <span class="ts">D3 · 11:05</span>
+          </div>
+          <a class="verify" href="#prova" aria-label="Ver contexto CRDC Malta">
+            <span lang="pt">Verificar</span><span lang="en">Verify</span> →
+          </a>
+        </div>
+      </aside>
+    </div><!-- /.hero-grid -->
+
+  </div>
+</section>
+
+<!-- ============ FOR RECYCLERS - 4-STEP GRID ============ -->
+<section class="modular" id="para-recicladores">
+  <div class="container">
+    <div class="split-2col">
+      <div>
+        <span class="micro eye">
+          <span lang="pt">Para recicladores</span><span lang="en">For recyclers</span>
+        </span>
+        <h2>
+          <span lang="pt">Pronto para auditoria<br><span class="display-italic">no momento em que é produzido.</span></span><span lang="en">Audit-ready at the moment<br><span class="display-italic">it is produced.</span></span>
+        </h2>
+      </div>
+      <p class="lede">
+        <span lang="pt">Hoje suas provas ficam em comprovantes de pesagem, planilhas e PDFs, reconstruídos manualmente uma vez por ano sob pressão. E, frequentemente, você só descobre que um lote não é elegível quando o certificador pergunta. A ImpacTrakr substitui a reconstrução por um registro que se valida sozinho, lote a lote.</span><span lang="en">Today your evidence lives in weighbridge receipts, spreadsheets and PDFs, reconstructed manually once a year under pressure. And often you only discover a batch is ineligible when the certifier asks. ImpacTrakr replaces the reconstruction with a record that validates itself, batch by batch.</span>
       </p>
     </div>
 
+    <div class="step-grid">
+      <div class="step-card">
+        <span class="step-mark">01 · <span lang="pt">Capturar</span><span lang="en">Capture</span></span>
+        <h3><span lang="pt">Uma conexão. Cada lote.</span><span lang="en">One connection. Every batch.</span></h3>
+        <p><span lang="pt">Integre seu ERP e cada lote passa a ter cadeia de custódia completa (peso, tipo de resina, geolocalização, fotos), registrada automaticamente. Sem dupla digitação.</span><span lang="en">Integrate your ERP and every batch carries a full chain of custody (weight, resin type, geolocation, photos), recorded automatically. No double entry.</span></p>
+      </div>
+      <div class="step-card">
+        <span class="step-mark">02 · <span lang="pt">Validar</span><span lang="en">Validate</span></span>
+        <h3><span lang="pt">135 regras. 4 segundos. Sem amostra.</span><span lang="en">135 rules. 4 seconds. No sampling.</span></h3>
+        <p><span lang="pt">Mais de 135 regras rodam sobre cada lote em ~4,2 segundos, cobrindo Regulamento (UE) 2024/1157, RecyClass e a metodologia reconhecida. Continuamente, não em auditoria anual.</span><span lang="en">135+ rules run over every batch in ~4.2 seconds, covering EU Regulation 2024/1157, RecyClass and the recognised methodology. Continuously, not once a year.</span></p>
+      </div>
+      <div class="step-card">
+        <span class="step-mark">03 · <span lang="pt">Provar</span><span lang="en">Prove</span></span>
+        <h3><span lang="pt">Um passaporte. Um lote.</span><span lang="en">One passport. One batch.</span></h3>
+        <p><span lang="pt">Cada lote verificado vira um Digital Product Passport (DPP), com separação pré/pós-consumo documentada e declarações por lote: prova de origem que seu comprador consegue verificar por conta.</span><span lang="en">Each verified batch becomes a Digital Product Passport (DPP), with pre/post-consumer split documented and per-batch declarations: proof of origin your buyer can verify on their own.</span></p>
+      </div>
+      <div class="step-card">
+        <span class="step-mark">04 · <span lang="pt">Entregar</span><span lang="en">Deliver</span></span>
+        <h3><span lang="pt">Pacote pronto. Auditor aprova.</span><span lang="en">Pack ready. Auditor signs off.</span></h3>
+        <p><span lang="pt">Seu verificador terceirizado recebe o pacote completo e pré-validado. A auditoria vira revisão rápida de um registro já verificado, e o auditor aprova o documento.</span><span lang="en">Your third-party verifier gets the full pre-validated pack. The audit becomes a quick review of an already-verified record, and the auditor signs off.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOR AUDITORS / VVBs ============ -->
+<section class="modular" style="border-top: 1px solid var(--line);" id="para-auditores">
+  <div class="container">
+    <div class="split-2col">
+      <div>
+        <span class="micro eye">
+          <span lang="pt">Para auditores e reguladores</span><span lang="en">For auditors and regulators</span>
+        </span>
+        <h2>
+          <span lang="pt">O engine faz o trabalho.<br><span class="display-italic">O auditor faz o julgamento.</span></span><span lang="en">The engine does the work.<br><span class="display-italic">The auditor makes the call.</span></span>
+        </h2>
+      </div>
+      <p class="lede">
+        <span lang="pt">A trilha só cresce. Cada evento é ancorado em hash SHA-256. Cada regra é reproduzível em qualquer ponto da história, sem depender da nossa palavra. A auditoria deixa de ser revisão de fim de ano e vira propriedade estrutural do fluxo.</span><span lang="en">The trail only grows. Every event is anchored in an SHA-256 hash. Every rule is reproducible at any point in history, without depending on our word. Audit stops being a year-end review and becomes a structural property of the flow.</span>
+      </p>
+    </div>
+
+    <div class="context-bar" style="margin-top: var(--space-2xl);">
+      <div class="item">
+        <div class="label"><span lang="pt">Cobertura</span><span lang="en">Coverage</span></div>
+        <div class="value"><span lang="pt">100% dos eventos</span><span lang="en">100% of events</span></div>
+      </div>
+      <div class="item">
+        <div class="label"><span lang="pt">Trilha</span><span lang="en">Trail</span></div>
+        <div class="value"><span lang="pt">Imutável, append-only</span><span lang="en">Immutable, append-only</span></div>
+      </div>
+      <div class="item">
+        <div class="label"><span lang="pt">Ancoragem</span><span lang="en">Anchor</span></div>
+        <div class="value">SHA-256</div>
+      </div>
+      <div class="item">
+        <div class="label"><span lang="pt">Reprodutibilidade</span><span lang="en">Reproducibility</span></div>
+        <div class="value"><span lang="pt">Bit-a-bit</span><span lang="en">Bit-for-bit</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INDEPENDENT BY DESIGN (full-bleed) ============ -->
+<section class="modular independence-section" id="independent">
+  <div class="brand-surface independence-band">
+    <div class="container">
+      <span class="micro eye">
+        <span lang="pt">Independência por design</span><span lang="en">Independent by design</span>
+      </span>
+      <h2>
+        <span lang="pt">Quem valida o dado não escreve<br><span class="display-italic">a regra que valida o dado.</span></span><span lang="en">Whoever validates the data doesn't<br><span class="display-italic">author the rule that validates it.</span></span>
+      </h2>
+      <p style="max-width: 62ch;">
+        <span lang="pt">Três responsabilidades, entidades distintas: quem cria a metodologia, quem valida os dados, quem certifica e quem registra. A ImpacTrakr executa a validação, e cada um dos outros papéis pode ser trocado sem reescrever a plataforma.</span><span lang="en">Three responsibilities, distinct entities: whoever authors the methodology, whoever validates the data, whoever certifies and whoever registers. ImpacTrakr executes the validation, and any of the other roles can be swapped without rewriting the platform.</span>
+      </p>
+
+      <div class="chain-row">
+        <div class="chain-node">
+          <div class="cn-role"><span lang="pt">Autor da regra</span><span lang="en">Rule author</span></div>
+          <div class="cn-name"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></div>
+          <div class="cn-note"><span lang="pt">EcoCircle, DG ENV e futuros autores definem as regras.</span><span lang="en">EcoCircle, DG ENV and future authors define the rules.</span></div>
+        </div>
+        <div class="chain-node">
+          <div class="cn-role"><span lang="pt">Origem dos dados</span><span lang="en">Data origin</span></div>
+          <div class="cn-name"><span lang="pt">Sua operação</span><span lang="en">Your operation</span></div>
+          <div class="cn-note"><span lang="pt">Qualquer ERP, planilha ou plataforma de resíduos alimenta os eventos.</span><span lang="en">Any ERP, spreadsheet or waste platform feeds the events.</span></div>
+        </div>
+        <div class="chain-node center">
+          <div class="cn-role"><span lang="pt">Camada de validação</span><span lang="en">Validation layer</span></div>
+          <div class="cn-name">ImpacTrakr</div>
+          <div class="cn-note"><span lang="pt">Executa as regras, valida cada evento, arquiva na hash chain e emite o DPP.</span><span lang="en">Runs the rules, validates every event, archives on the hash chain and issues the DPP.</span></div>
+        </div>
+        <div class="chain-node">
+          <div class="cn-role"><span lang="pt">Certificação</span><span lang="en">Certification</span></div>
+          <div class="cn-name"><span lang="pt">Seu auditor</span><span lang="en">Your auditor</span></div>
+          <div class="cn-note"><span lang="pt">VVB terceirizado revisa o registro e aprova.</span><span lang="en">Third-party VVB reviews the record and signs off.</span></div>
+        </div>
+        <div class="chain-node">
+          <div class="cn-role"><span lang="pt">Destino</span><span lang="en">Destination</span></div>
+          <div class="cn-name"><span lang="pt">Comprador · registro · relatório</span><span lang="en">Buyer · registry · report</span></div>
+          <div class="cn-note"><span lang="pt">O passaporte acompanha o material aonde a comprovação seja exigida.</span><span lang="en">The passport travels with the material wherever proof is required.</span></div>
+        </div>
+      </div>
+
+      <p class="chain-note">
+        <span lang="pt">Qualquer participante da cadeia pode ser substituído por outra metodologia, registry ou jurisdição, sem reescrever a plataforma.</span><span lang="en">Any participant in the chain can be swapped for a different methodology, registry or jurisdiction, without rewriting the platform.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NUMBERS STRIP (movido do hero) ============ -->
+<section class="modular" aria-label="Métricas">
+  <div class="container">
     <div class="numbers-strip">
       <div class="num-item">
         <div class="num-value">139</div>
         <div class="num-label"><span lang="pt">Regras validadas</span><span lang="en">Rules validated</span></div>
       </div>
       <div class="num-item">
-        <div class="num-value">36</div>
-        <div class="num-label"><span lang="pt">Documentos rastreados</span><span lang="en">Documents tracked</span></div>
-      </div>
-      <div class="num-item">
-        <div class="num-value">17</div>
-        <div class="num-label"><span lang="pt">Estados da massa</span><span lang="en">Mass states</span></div>
-      </div>
-      <div class="num-item">
         <div class="num-value">4,2<sup>s</sup></div>
         <div class="num-label"><span lang="pt">Tempo do engine</span><span lang="en">Engine runtime</span></div>
       </div>
       <div class="num-item">
-        <div class="num-value">3<sup><span lang="pt"> d</span><span lang="en"> d</span></sup></div>
+        <div class="num-value">3<sup> d</sup></div>
         <div class="num-label"><span lang="pt">Ciclo end-to-end</span><span lang="en">End-to-end cycle</span></div>
       </div>
       <div class="num-item">
         <div class="num-value">60</div>
         <div class="num-label"><span lang="pt">ADRs públicos</span><span lang="en">Public ADRs</span></div>
       </div>
-    </div>
-
-    <div class="trust-band">
-      <span class="trust-label"><span lang="pt">Plataforma agnóstica · conectada a</span><span lang="en">Agnostic platform · connected to</span></span>
-      <div class="trust-logos">
-        <span class="partner"><span lang="pt">Registries</span><span lang="en">Registries</span><em><span lang="pt">Carrot ativo · arquitetura pluggable</span><span lang="en">Carrot live · pluggable architecture</span></em></span>
-        <span class="partner"><span lang="pt">Metodologias auditadas</span><span lang="en">Audited methodologies</span><em><span lang="pt">PURE/EcoCircle ativa · outras em pipeline</span><span lang="en">PURE/EcoCircle live · others in pipeline</span></em></span>
-        <span class="partner"><span lang="pt">Frameworks regulatórios</span><span lang="en">Regulatory frameworks</span><em><span lang="pt">EU 2024/1157 ativo · multi-jurisdição</span><span lang="en">EU 2024/1157 live · multi-jurisdiction</span></em></span>
-        <span class="partner"><span lang="pt">Certificações técnicas</span><span lang="en">Technical certifications</span><em><span lang="pt">RecyClass ativa · standards pluggable</span><span lang="en">RecyClass live · pluggable standards</span></em></span>
-      </div>
-      <div class="trust-validated">
-        <span><span lang="pt">Metodologia PURE <strong>validada pela Bureau Veritas</strong> antes da entrada em produção · 60 ADRs públicos · trilha de evidências em hash chain SHA-256</span><span lang="en">PURE methodology <strong>validated by Bureau Veritas</strong> before entering production · 60 public ADRs · evidence trail anchored on SHA-256 hash chain</span></span>
+      <div class="num-item">
+        <div class="num-value">3</div>
+        <div class="num-label"><span lang="pt">Módulos regulatórios ativos</span><span lang="en">Active regulatory modules</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ WHERE WE SIT — positioning diagram ============ -->
-<section class="where-we-sit">
-  <div class="container">
-    <h2>
-      <span lang="pt">Onde nos posicionamos<br><span class="accent">no ecossistema.</span></span><span lang="en">Where we sit<br><span class="accent">in the ecosystem.</span></span>
-    </h2>
-    <p class="lede">
-      <span lang="pt">A ImpacTrakr é a camada que <strong>executa as regras</strong> entre o sistema de gestão de resíduos e o registry que emite o crédito. Quem cria a regra, quem registra o crédito e quem coleta o material são <strong>partes distintas</strong>. É essa separação que torna o crédito auditável.</span><span lang="en">ImpacTrakr is the layer that <strong>executes the rules</strong> between the waste management system and the registry that issues the credit. Who writes the rule, who records the credit, and who collects the material are <strong>distinct parties</strong>. That separation is what makes the credit auditable.</span>
-    </p>
-
-    <div class="positioning-diagram">
-      <div class="pd-node pd-methodology">
-        <div class="pd-role"><span lang="pt">Autor da regra</span><span lang="en">Rule author</span></div>
-        <div class="pd-name"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></div>
-        <div class="pd-example">EcoCircle · DG ENV · futuros</div>
-      </div>
-
-      <div class="pd-node pd-upstream">
-        <div class="pd-role"><span lang="pt">Origem dos dados</span><span lang="en">Data origin</span></div>
-        <div class="pd-name"><span lang="pt">Sistema de gestão</span><span lang="en">Management system</span></div>
-        <div class="pd-example">
-          <span lang="pt">qualquer ERP, planilha,<br>plataforma de resíduos</span><span lang="en">any ERP, spreadsheet,<br>waste platform</span>
-        </div>
-      </div>
-
-      <div class="pd-node pd-center">
-        <div class="pd-role"><span lang="pt">Camada de validação</span><span lang="en">Validation layer</span></div>
-        <div class="pd-name">ImpacTrakr</div>
-        <div class="pd-example">
-          <span lang="pt">executa · valida · arquiva<br>hash chain SHA-256</span><span lang="en">executes · validates · archives<br>SHA-256 hash chain</span>
-        </div>
-      </div>
-
-      <div class="pd-node pd-downstream">
-        <div class="pd-role"><span lang="pt">Destino do crédito</span><span lang="en">Credit destination</span></div>
-        <div class="pd-name">Registry</div>
-        <div class="pd-example">
-          <span lang="pt">Carrot · Verra · Gold<br>· qualquer registry compatível</span><span lang="en">Carrot · Verra · Gold<br>· any compatible registry</span>
-        </div>
-      </div>
-
-      <div class="pd-node pd-regulation">
-        <div class="pd-role"><span lang="pt">Conformidade local</span><span lang="en">Local compliance</span></div>
-        <div class="pd-name"><span lang="pt">Legislação</span><span lang="en">Legislation</span></div>
-        <div class="pd-example">EU 2024/1157 · DIWASS · RecyClass · <span lang="pt">futuros</span><span lang="en">future</span></div>
-      </div>
-    </div>
-
-    <p class="pd-takeaway">
-      <span lang="pt">Esse é o <strong>diferencial estrutural</strong>. A ImpacTrakr não cria metodologia, não opera registry, não coleta material. Executa o papel de validação independente entre os três — e cada um pode ser substituído sem reescrever o produto.</span><span lang="en">This is the <strong>structural advantage</strong>. ImpacTrakr doesn't author methodology, doesn't run a registry, doesn't collect material. It runs the independent validation role between the three — and each one can be swapped without rewriting the product.</span>
-    </p>
-  </div>
-</section>
-
-<!-- ============ PRINCÍPIOS DE DESIGN ============ -->
-<section class="principles">
-  <div class="container">
-    <h2>
-      <span lang="pt">Construída sob<br><span class="accent">oito princípios.</span></span><span lang="en">Built on<br><span class="accent">eight principles.</span></span>
-    </h2>
-    <p class="lede">
-      <span lang="pt">Cada princípio é uma decisão arquitetural irreversível. São eles que sustentam a tese de independência e a capacidade de a plataforma rodar em qualquer mercado regulado, com qualquer metodologia auditada, conectada a qualquer registry.</span><span lang="en">Each principle is an irreversible architectural decision. Together they sustain the independence thesis and the platform's ability to run in any regulated market, with any audited methodology, connected to any registry.</span>
-    </p>
-
-    <ul class="principles-list">
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">Independência arbitral por design</span><span lang="en">Arbitral independence by design</span></div>
-          <div class="p-body"><span lang="pt">Não autoramos metodologia, não operamos registry, não coletamos material. Validamos. <strong>É a separação que torna o crédito auditável.</strong></span><span lang="en">We don't author methodology, don't run a registry, don't collect material. We validate. <strong>This separation is what makes the credit auditable.</strong></span></div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">Imutabilidade absoluta de eventos</span><span lang="en">Absolute event immutability</span></div>
-          <div class="p-body"><span lang="pt">Sem edição. Correção é evento novo, nunca sobreposição. A trilha de evidência só cresce — <strong>nunca é reescrita</strong>.</span><span lang="en">No edits. Corrections are new events, never overwrites. The evidence trail only grows — <strong>never rewritten</strong>.</span></div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">Hash chain SHA-256 por evento</span><span lang="en">Per-event SHA-256 hash chain</span></div>
-          <div class="p-body"><span lang="pt">Toda decisão de regra ancorada criptograficamente. <strong>Reproduzível em qualquer ponto da história</strong>, sem depender da nossa palavra.</span><span lang="en">Every rule decision cryptographically anchored. <strong>Reproducible at any point in history</strong>, without depending on our word.</span></div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">ADRs públicos para toda decisão arquitetural</span><span lang="en">Public ADRs for every architectural decision</span></div>
-          <div class="p-body"><span lang="pt">Sessenta e contando. Contexto, alternativas, consequências — documentados, versionados, datados. <strong>Quem entra no time amanhã lê e entende por que tudo é como é.</strong></span><span lang="en">Sixty and counting. Context, alternatives, consequences — documented, versioned, dated. <strong>Anyone joining tomorrow reads them and understands why everything is the way it is.</strong></span></div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">Validação contínua, não amostral</span><span lang="en">Continuous, not sample-based validation</span></div>
-          <div class="p-body"><span lang="pt">Cada evento dispara 139 regras em paralelo, em ~4,2 segundos. <strong>A auditoria deixa de ser revisão anual e vira propriedade estrutural do fluxo.</strong></span><span lang="en">Each event runs 139 rules in parallel, in ~4.2 seconds. <strong>The audit stops being an annual review and becomes a structural property of the flow.</strong></span></div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">Multi-metodologia plugável</span><span lang="en">Pluggable multi-methodology</span></div>
-          <div class="p-body"><span lang="pt">Um engine único, qualquer metodologia auditada por terceiro. Hoje rodando PURE (plástico). <strong>Próxima em ~6 semanas</strong>, sem reescrever a plataforma.</span><span lang="en">A single engine, any third-party-audited methodology. Today running PURE (plastic). <strong>Next one in ~6 weeks</strong>, without rewriting the platform.</span></div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">Multi-registry plugável</span><span lang="en">Pluggable multi-registry</span></div>
-          <div class="p-body"><span lang="pt">Registry destino é configuração, não dependência. Carrot hoje, Verra, Gold ou qualquer outro compatível amanhã — <strong>sem refazer integração end-to-end</strong>.</span><span lang="en">Target registry is configuration, not dependency. Carrot today, Verra, Gold, or any other compatible tomorrow — <strong>without rebuilding integration end-to-end</strong>.</span></div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <div class="p-title"><span lang="pt">Multi-jurisdição plugável</span><span lang="en">Pluggable multi-jurisdiction</span></div>
-          <div class="p-body"><span lang="pt">Cada framework regulatório é módulo independente. EU 2024/1157 ativa, próximas (LATAM, BR, APAC) sob demanda. <strong>A regulação muda; a arquitetura não precisa mudar com ela.</strong></span><span lang="en">Each regulatory framework is an independent module. EU 2024/1157 active; next (LATAM, BR, APAC) on demand. <strong>Regulation changes; the architecture doesn't need to change with it.</strong></span></div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============ MODULAR ============ -->
+<!-- ============ COMPLIANCE STACK ============ -->
 <section class="modular">
   <div class="container">
-    <span class="micro">
-      <span lang="pt">Modular por design</span><span lang="en">Modular by design</span>
+    <span class="micro eye">
+      <span lang="pt">Como o stack se organiza</span><span lang="en">How the stack is organised</span>
     </span>
-    <div class="modular-intro">
-      <h2>
-        <span lang="pt">Backbone regulatório primeiro,<br><span style="color: var(--highlight); font-style: italic; font-weight: 600;">metodologia depois.</span></span><span lang="en">Regulatory backbone first,<br><span style="color: var(--highlight); font-style: italic; font-weight: 600;">methodology on top.</span></span>
-      </h2>
-      <p>
-        <span lang="pt">A base é regulatória (UE 2024/1157 + RecyClass) — exigência reconhecida no mercado europeu pelos organismos de auditoria acreditados. PURE é a camada adicional que a EcoCircle traz pra qualificar o DPP unit em métricas de impacto. <strong>Você nos diz seu mercado. A gente liga os módulos certos.</strong></span><span lang="en">The base is regulatory (EU 2024/1157 + RecyClass) — a requirement recognised in the European market by accredited audit bodies. PURE is the additional layer EcoCircle brings to qualify the DPP unit on impact metrics. <strong>You tell us your market. We turn on the right modules.</strong></span>
-      </p>
-    </div>
+    <h2>
+      <span lang="pt">A base é regulatória.<br><span class="display-italic">A metodologia entra em cima.</span></span><span lang="en">The floor is regulatory.<br><span class="display-italic">Methodology plugs in on top.</span></span>
+    </h2>
+    <p class="lead" style="max-width: 62ch;">
+      <span lang="pt">Todo cliente começa pela regulação obrigatória do mercado dele. A camada de impacto (PURE) entra quando o comprador exige carbono ou pegada. Nada é imposto, cada mercado configura o que precisa.</span><span lang="en">Every customer starts with the regulation the market requires. The impact layer (PURE) turns on when the buyer requires carbon or footprint. Nothing is imposed, each market configures what it needs.</span>
+    </p>
 
     <div class="modules-overview-grid">
       <div class="module-overview-card backbone">
@@ -502,7 +1181,7 @@
         <h3><span lang="pt">Regulação UE 2024/1157</span><span lang="en">EU Regulation 2024/1157</span></h3>
         <div class="mod-count">27 <span lang="pt">regras</span><span lang="en">rules</span></div>
         <p>
-          <span lang="pt">Conformidade com a Regulação Europeia de Movimentação de Resíduos (WSR) + DIWASS. Em vigor desde 21/mai/2026. Exigida pra qualquer operação dentro ou cross-border na UE.</span><span lang="en">Compliance with the European Waste Shipment Regulation (WSR) + DIWASS. Live since 21/May/2026. Required for any operation within or cross-border in the EU.</span>
+          <span lang="pt">Waste Shipment Regulation + DIWASS. Em vigor desde 21/mai/2026. Exigida em qualquer operação intra ou cross-border na UE.</span><span lang="en">Waste Shipment Regulation + DIWASS. Live since 21/May/2026. Required for any intra- or cross-border operation in the EU.</span>
         </p>
       </div>
       <div class="module-overview-card backbone">
@@ -510,7 +1189,7 @@
         <h3>RecyClass</h3>
         <div class="mod-count">17 <span lang="pt">regras</span><span lang="en">rules</span></div>
         <p>
-          <span lang="pt">Certificação técnica de mercado, ancorada nas normas EN 15343 e ISO 22095. Framework reconhecido pelo mercado europeu e adotado por organismos de auditoria acreditados.</span><span lang="en">Market technical certification, anchored on EN 15343 and ISO 22095 standards. Framework recognised by the European market and adopted by accredited audit bodies.</span>
+          <span lang="pt">Certificação de mercado ancorada em EN 15343 e ISO 22095. Adotada por organismos de auditoria acreditados na Europa.</span><span lang="en">Market certification anchored in EN 15343 and ISO 22095. Adopted by accredited audit bodies across Europe.</span>
         </p>
       </div>
       <div class="module-overview-card addon">
@@ -518,89 +1197,284 @@
         <h3><span lang="pt">Metodologia PURE</span><span lang="en">PURE Methodology</span></h3>
         <div class="mod-count">95 <span lang="pt">regras adicionais</span><span lang="en">additional rules</span></div>
         <p>
-          <span lang="pt">Camada complementar sobre o backbone UE + RecyClass. Autoria EcoCircle Global, executada pela ImpacTrakr, validada pela Bureau Veritas. Qualifica o DPP unit em métricas de impacto.</span><span lang="en">Add-on layer over the EU + RecyClass backbone. Authored by EcoCircle Global, executed by ImpacTrakr, validated by Bureau Veritas. Qualifies the DPP unit on impact metrics.</span>
+          <span lang="pt">Autoria EcoCircle Global. Qualifica o DPP em métricas de impacto quando o comprador exige. Plugável, opcional, sem vendor lock-in.</span><span lang="en">Authored by EcoCircle Global. Qualifies the DPP on impact metrics when the buyer requires it. Pluggable, optional, no vendor lock-in.</span>
         </p>
-      </div>
-    </div>
-
-    <div class="configs-section">
-      <h3>
-        <span lang="pt">Como diferentes clientes configuram</span><span lang="en">How different customers configure it</span>
-      </h3>
-      <div class="configs-grid">
-        <div class="config-card live">
-          <div class="config-name">
-            <span>CRDC Malta</span>
-            <span class="status"><span lang="pt">Em operação</span><span lang="en">Live</span></span>
-          </div>
-          <div class="config-mods">
-            <span class="mod-chip on"><span lang="pt">UE</span><span lang="en">EU</span></span>
-            <span class="mod-chip on">RecyClass</span>
-            <span class="mod-chip on">PURE</span>
-          </div>
-          <p class="config-desc">
-            <span lang="pt">Cenário regulatório completo: rastreabilidade UE 2024/1157 + RecyClass como base, PURE como camada adicional de impacto. Emite IDs DPP rastreáveis.</span><span lang="en">Full regulatory scenario: EU 2024/1157 + RecyClass traceability as base, PURE as additional impact layer. Issues traceable DPP IDs.</span>
-          </p>
-        </div>
-        <div class="config-card upcoming">
-          <div class="config-name">
-            <span>CRDC Guatemala</span>
-            <span class="status">Q3 2026</span>
-          </div>
-          <div class="config-mods">
-            <span class="mod-chip off"><span lang="pt">UE</span><span lang="en">EU</span></span>
-            <span class="mod-chip off">RecyClass</span>
-            <span class="mod-chip on">PURE</span>
-          </div>
-          <p class="config-desc">
-            <span lang="pt">Mercado das Américas. Apenas a metodologia PURE — sem regulação europeia, sem certificação local. Mesma plataforma, configuração diferente.</span><span lang="en">Americas market. PURE methodology only — no European regulation, no local certification. Same platform, different configuration.</span>
-          </p>
-        </div>
-        <div class="config-card future">
-          <div class="config-name">
-            <span><span lang="pt">Próximo cliente</span><span lang="en">Next customer</span></span>
-            <span class="status"><span lang="pt">Configurável</span><span lang="en">Configurable</span></span>
-          </div>
-          <div class="config-mods">
-            <span class="mod-chip toggle">?</span>
-            <span class="mod-chip toggle">?</span>
-            <span class="mod-chip toggle">?</span>
-          </div>
-          <p class="config-desc">
-            <span lang="pt">Reciclador europeu que quer só carbono. Comprador asiático que quer só rastreabilidade. Cooperativa brasileira que quer só PURE. <strong>Mesma arquitetura.</strong></span><span lang="en">European recycler who wants carbon only. Asian buyer who wants only traceability. Brazilian cooperative that wants PURE only. <strong>Same architecture.</strong></span>
-          </p>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ FINAL CTA ============ -->
-<section class="final-cta">
+<!-- ============ WHY NOW ============ -->
+<section class="reg-timeline" id="por-que-agora">
   <div class="container">
-    <div class="cta-band">
-      <div>
-        <h2>
-          <span lang="pt">Quer ver isso rodando ao vivo?</span><span lang="en">Want to see this running live?</span>
-        </h2>
-        <p>
-          <span lang="pt">Demo guiada de 30 minutos sobre o cenário CRDC Malta + amostra de audit pack pra você levar para a reunião.</span><span lang="en">30-minute guided demo on the CRDC Malta scenario + sample audit pack to bring to your meeting.</span>
-        </p>
+    <span class="micro eye">
+      <span lang="pt">Por que agora</span><span lang="en">Why now</span>
+    </span>
+    <h2>
+      <span lang="pt">O calendário regulatório<br><span class="display-italic">já começou.</span></span><span lang="en">The regulatory calendar<br><span class="display-italic">has already started.</span></span>
+    </h2>
+    <p class="lead" style="max-width: 62ch;">
+      <span lang="pt">Três datas mudaram o que um reciclador precisa entregar para vender na Europa. A infraestrutura precisa estar pronta antes, não depois, de cada uma delas.</span><span lang="en">Three dates changed what a recycler needs to deliver to sell in Europe. The infrastructure has to be ready before, not after, each of them.</span>
+    </p>
+
+    <div class="reg-timeline-track">
+      <div class="timeline-node done">
+        <div class="time-marker"><span lang="pt">Em vigor</span><span lang="en">Live</span></div>
+        <div class="time-date">21 <span lang="pt">mai</span><span lang="en">May</span> 2026</div>
+        <div class="time-event">EU Regulation 2024/1157 + DIWASS</div>
+        <div class="time-impact"><span lang="pt">Nova WSR entra em vigor. Movimentação de resíduos passa a exigir documentação eletrônica cross-border.</span><span lang="en">New WSR enters force. Waste movement now requires electronic cross-border documentation.</span></div>
       </div>
-      <div class="cta-actions">
-        <a class="cta-btn primary" href="mailto:info@impactrakr.com?subject=Agendar%20demo%20ImpacTrakr">
-          <span>▶</span>
-          <span><span lang="pt">Agendar demo ao vivo</span><span lang="en">Schedule live demo</span></span>
-        </a>
-        <a class="cta-btn secondary" href="process.html">
-          <span>→</span>
-          <span><span lang="pt">Ver o processo</span><span lang="en">See the process</span></span>
-        </a>
+      <div class="timeline-node upcoming">
+        <div class="time-marker"><span lang="pt">Agora</span><span lang="en">Now</span></div>
+        <div class="time-date">2026</div>
+        <div class="time-event">RecyClass <span lang="pt">como régua de mercado</span><span lang="en">as market ruler</span></div>
+        <div class="time-impact"><span lang="pt">Compradores europeus pedem certificação RecyClass antes de fechar contrato de material reciclado.</span><span lang="en">European buyers request RecyClass certification before closing recycled material contracts.</span></div>
+      </div>
+      <div class="timeline-node future">
+        <div class="time-marker"><span lang="pt">Próximo</span><span lang="en">Next</span></div>
+        <div class="time-date">2027 – 2030</div>
+        <div class="time-event">PPWR · ESPR · DPP</div>
+        <div class="time-impact"><span lang="pt">Passaporte Digital de Produto vira exigência para embalagem e bens de consumo. A base tem que estar em produção antes.</span><span lang="en">Digital Product Passport becomes a requirement for packaging and consumer goods. The base has to be in production before that.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<script src="assets/shared.js?v=20260626-1421"></script>
+<!-- ============ PROOF · CRDC MALTA ============ -->
+<section class="modular" id="prova">
+  <div class="container">
+    <span class="micro eye">
+      <span lang="pt">Prova em produção</span><span lang="en">Proof in production</span>
+    </span>
+    <h2>
+      <span lang="pt">Comprovando isso primeiro na produção,<br><span class="display-italic">sob as regras mais rigorosas do mundo.</span></span><span lang="en">Proving this first in production,<br><span class="display-italic">under the strictest rules in the world.</span></span>
+    </h2>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <span class="p-eyebrow"><span lang="pt">Projeto piloto · Lançamento no 4º trimestre de 2026</span><span lang="en">Pilot project · Q4 2026 launch</span></span>
+        <h3><span lang="pt">CRDC Malta, com a Fundação MARE</span><span lang="en">CRDC Malta, with the MARE Foundation</span></h3>
+        <p><span lang="pt">Nossa primeira implantação: PET-1 com capacidade de aproximadamente 1,2 t/h, previsto para o quarto trimestre de 2026. O projeto foi desenhado para provar conformidade com o Regulamento (UE) 2024/1157, DIWASS e RecyClass antes de qualquer comercialização em outros mercados.</span><span lang="en">Our first deployment: PET-1 with capacity of approximately 1.2 t/h, targeted for Q4 2026. The project was designed to prove compliance with EU Regulation 2024/1157, DIWASS and RecyClass before any commercialisation elsewhere.</span></p>
+        <div class="proof-chips">
+          <span class="chip">PET-1</span>
+          <span class="chip">~1,2 t/h</span>
+          <span class="chip"><span lang="pt">Lançamento Q4 2026</span><span lang="en">Launch Q4 2026</span></span>
+          <span class="chip"><span lang="pt">EU 2024/1157 + RecyClass + PURE</span><span lang="en">EU 2024/1157 + RecyClass + PURE</span></span>
+        </div>
+      </div>
+
+      <div class="proof-mini-list">
+        <div class="proof-mini">
+          <h4><span lang="pt">Metodologia PURE auditada</span><span lang="en">PURE methodology audited</span></h4>
+          <p><span lang="pt">A metodologia foi validada por terceiro independente antes de entrar em produção, não depois.</span><span lang="en">The methodology was validated by an independent third party before entering production, not after.</span></p>
+        </div>
+        <div class="proof-mini">
+          <h4><span lang="pt">60 decisões de arquitetura públicas</span><span lang="en">60 architectural decisions public</span></h4>
+          <p><span lang="pt">Toda decisão irreversível é documentada, versionada e datada. Leia e entenda por que tudo é como é.</span><span lang="en">Every irreversible decision is documented, versioned and dated. Read them and you understand why everything is the way it is.</span></p>
+        </div>
+        <div class="proof-mini">
+          <h4><span lang="pt">Arquitetura registry-agnóstica</span><span lang="en">Registry-agnostic architecture</span></h4>
+          <p><span lang="pt">Registros verificados fluem para o registry parceiro do cliente. A arquitetura foi projetada para múltiplos registries desde o dia 1.</span><span lang="en">Verified records flow to the client's partner registry. The architecture was designed for multiple registries from day one.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUILT FOR ENTERPRISE (padrão Isometric) ============ -->
+<section class="modular" id="enterprise">
+  <div class="container">
+    <span class="micro eye">
+      <span lang="pt">Feita para enterprise</span><span lang="en">Built for enterprise</span>
+    </span>
+    <h2>
+      <span lang="pt">Pronta para o time de compliance<br><span class="display-italic">do seu maior cliente.</span></span><span lang="en">Ready for your biggest customer's<br><span class="display-italic">compliance team.</span></span>
+    </h2>
+
+    <div class="ent-grid">
+      <div class="ent-card">
+        <h4><span lang="pt">Acesso seguro</span><span lang="en">Secure access</span></h4>
+        <p><span lang="pt">Autenticação SSO e permissões por projeto: cada pessoa da conta cliente vê apenas o que precisa ver, no momento em que precisa ver.</span><span lang="en">SSO authentication and per-project permissions: each person on the customer account sees only what they need, when they need it.</span></p>
+      </div>
+      <div class="ent-card">
+        <h4><span lang="pt">Trilha de auditoria</span><span lang="en">Audit trail</span></h4>
+        <p><span lang="pt">Cada evento, decisão de regra e submissão de evidência fica rastreável do drop-off à emissão do DPP. Auditor abre e reproduz.</span><span lang="en">Every event, rule decision and evidence submission is traceable from drop-off to DPP issuance. Auditor opens and reproduces.</span></p>
+      </div>
+      <div class="ent-card">
+        <h4><span lang="pt">Gestão de evidências</span><span lang="en">Evidence management</span></h4>
+        <p><span lang="pt">Toda evidência estruturada num sistema único: fonte da verdade por projeto, versionada, cacheada no hash chain SHA-256.</span><span lang="en">All evidence structured in a single system: source of truth per project, versioned, anchored on the SHA-256 hash chain.</span></p>
+      </div>
+      <div class="ent-card">
+        <h4><span lang="pt">Registros permanentes</span><span lang="en">Permanent records</span></h4>
+        <p><span lang="pt">Emissão, transferência e retirada de DPP capturadas em registro público imutável. Compliance interno usa como fonte oficial.</span><span lang="en">DPP issuance, transfer and retirement captured in an immutable public record. Internal compliance uses it as the official source.</span></p>
+      </div>
+    </div>
+
+    <!-- Selos de conformidade — todos como placeholder tipográfico sobrio
+         (iniciais em círculo bordado) por consistência visual, já que ainda
+         não temos os SVGs oficiais de todos. Copy usa "Aligned with" e
+         "Based on" onde não temos certificação/licenciamento oficial. -->
+    <div class="accreds">
+      <span class="accred">
+        <span class="accred-mark">EU</span>
+        <span>EU Regulation 2024/1157<em><span lang="pt">DIWASS · WFD 2008/98/EC</span><span lang="en">DIWASS · WFD 2008/98/EC</span></em></span>
+      </span>
+      <span class="accred">
+        <span class="accred-mark">RC</span>
+        <span>RecyClass<em><span lang="pt">Aligned with Audit Scheme V1.1</span><span lang="en">Aligned with Audit Scheme V1.1</span></em></span>
+      </span>
+      <span class="accred">
+        <span class="accred-mark">ISO</span>
+        <span>ISO 22095<em><span lang="pt">Based on chain-of-custody standard</span><span lang="en">Based on chain-of-custody standard</span></em></span>
+      </span>
+      <span class="accred">
+        <span class="accred-mark">EN</span>
+        <span>EN 15343:2007<em><span lang="pt">Plastic traceability</span><span lang="en">Plastic traceability</span></em></span>
+      </span>
+      <span class="accred">
+        <span class="accred-mark">BC</span>
+        <span><span lang="pt">Convenção de Basel</span><span lang="en">Basel Convention</span><em><span lang="pt">B3011 · Y48</span><span lang="en">B3011 · Y48</span></em></span>
+      </span>
+      <span class="accred">
+        <span class="accred-mark">GDPR</span>
+        <span>GDPR<em><span lang="pt">Privacidade de dados</span><span lang="en">Data privacy</span></em></span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq faq-editorial">
+  <div class="container">
+    <h2>
+      <span lang="pt">As perguntas que recicladores <span class="display-italic">e auditores</span> fazem.</span><span lang="en">The questions recyclers <span class="display-italic">and auditors</span> ask.</span>
+    </h2>
+    <div class="faq-grid editorial">
+      <details class="faq-item">
+        <summary><span><span lang="pt">Isso é realmente compliance?</span><span lang="en">Is this really compliance?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
+        <p class="faq-answer"><span lang="pt">O backbone do stack é a Regulação (UE) 2024/1157 mais RecyClass. As regras que rodam sobre cada evento são as mesmas que um VVB acreditado usa para julgar o pacote. Sem paralelo, sem interpretação própria.</span><span lang="en">The stack backbone is EU Regulation 2024/1157 plus RecyClass. The rules that run over every event are the same ones an accredited VVB uses to judge the pack. No parallel track, no proprietary interpretation.</span></p>
+      </details>
+      <details class="faq-item">
+        <summary><span><span lang="pt">Precisamos aceitar a palavra da ImpacTrakr como definitiva?</span><span lang="en">Do we have to take ImpacTrakr's word as final?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
+        <p class="faq-answer"><span lang="pt">Não. A palavra final é do seu auditor terceirizado. A ImpacTrakr entrega o registro pré-validado e o hash chain para que o auditor reproduza cada decisão sobre o mesmo payload e chegue no mesmo resultado, bit-a-bit.</span><span lang="en">No. The final word is your third-party auditor's. ImpacTrakr delivers the pre-validated record and the hash chain so the auditor reproduces every decision on the same payload and reaches the same outcome, bit-for-bit.</span></p>
+      </details>
+      <details class="faq-item">
+        <summary><span><span lang="pt">E se os dados forem editados depois?</span><span lang="en">What if the data is edited later?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
+        <p class="faq-answer"><span lang="pt">Não há edição. Correção é um evento novo, ancorado no mesmo hash chain. A trilha só cresce, nunca é reescrita, e a diferença aparece na auditoria.</span><span lang="en">There is no editing. A correction is a new event, anchored on the same hash chain. The trail only grows, never gets rewritten, and the delta shows up in the audit.</span></p>
+      </details>
+      <span class="faq-group-heading"><span lang="pt">Para compradores</span><span lang="en">For buyers</span></span>
+      <details class="faq-item">
+        <summary><span><span lang="pt">Meu comprador precisa de conta para verificar o passaporte?</span><span lang="en">Does my buyer need an account to verify the passport?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
+        <p class="faq-answer"><span lang="pt">Não. Cada DPP tem URL pública verificável pelo comprador sem login. O que exige acesso é o audit pack completo, entregue ao verificador terceirizado.</span><span lang="en">No. Each DPP has a public URL the buyer can verify without login. What requires access is the full audit pack, delivered to the third-party verifier.</span></p>
+      </details>
+      <span class="faq-group-heading"><span lang="pt">Para auditores e certificadores</span><span lang="en">For auditors and certifiers</span></span>
+      <details class="faq-item">
+        <summary><span><span lang="pt">Isso altera meu papel como certificador?</span><span lang="en">Does this change my role as certifier?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
+        <p class="faq-answer"><span lang="pt">Não altera o papel, muda o método. Em vez de reconstruir dossiê no fim do ano, você recebe um registro pré-validado, contínuo, e valida a amostragem que quiser sobre a trilha imutável.</span><span lang="en">The role doesn't change, the method does. Instead of reconstructing a dossier at year-end, you get a continuous pre-validated record and sample whatever you want against the immutable trail.</span></p>
+      </details>
+      <span class="faq-group-heading"><span lang="pt">Para reguladores</span><span lang="en">For regulators</span></span>
+      <details class="faq-item">
+        <summary><span><span lang="pt">Regulador · como isso conversa com DIWASS e DPP?</span><span lang="en">Regulator · how does this speak with DIWASS and DPP?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
+        <p class="faq-answer"><span lang="pt">O backbone regulatório é o Módulo 1 (Reg. 2024/1157 + DIWASS). PPWR, ESPR e DPP entram como módulos adicionais, seguindo o mesmo padrão de regras. Cada framework novo é um módulo, não uma reescrita.</span><span lang="en">The regulatory backbone is Module 1 (Reg. 2024/1157 + DIWASS). PPWR, ESPR and DPP plug in as additional modules following the same rule pattern. Each new framework is a module, not a rewrite.</span></p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNUP CTA (full-bleed) ============ -->
+<!-- TODO Rodrigo: criar formulário em https://formspree.io (grátis, até 50 submits/mês)
+     e trocar YOUR_FORMSPREE_ID abaixo pelo ID que Formspree devolver, formato: xdknpvqe
+     Enquanto não trocar, o submit vai falhar no browser. Alternativas: Netlify Forms, Basin, Getform. -->
+<section class="signup" id="signup">
+  <div class="signup-wrap">
+    <span class="micro eye"><span lang="pt">Primeiros dias</span><span lang="en">Early days</span></span>
+    <h2>
+      <span lang="pt">Estamos construindo isso agora. <span class="display-italic">Venha participar.</span></span><span lang="en">We are building this now. <span class="display-italic">Come along.</span></span>
+    </h2>
+    <p class="lede">
+      <span lang="pt">A ImpacTrakr é a camada de conformidade e rastreabilidade para plástico reciclado, com nossa primeira implantação no CRDC Malta no quarto trimestre de 2026. Deixe seu e-mail e a gente te chama quando houver novidades.</span><span lang="en">ImpacTrakr is the compliance and traceability layer for recycled plastic, with our first deployment at CRDC Malta in Q4 2026. Leave your email and we'll be in touch when there is news.</span>
+    </p>
+    <form class="signup-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+      <input type="hidden" name="_subject" value="ImpacTrakr - novo signup na landing" />
+      <select name="role" aria-label="Perfil" required>
+        <option value="" disabled selected>Sou...</option>
+        <option value="investor">Investidor / Investor</option>
+        <option value="recycler">Reciclador / Recycler</option>
+        <option value="auditor">Auditor / Auditor</option>
+        <option value="regulator">Regulador / Regulator</option>
+        <option value="other">Outro / Other</option>
+      </select>
+      <input type="email" name="email" placeholder="you@company.com" required aria-label="Email" />
+      <button class="cta-btn primary signup-submit" type="submit">
+        <span aria-hidden="true">▶</span>
+        <span><span lang="pt">Mantenha-me informado</span><span lang="en">Keep me posted</span></span>
+      </button>
+    </form>
+    <p class="signup-fineprint">
+      <span lang="pt">Sem spam. Apenas atualizações ocasionais conforme o projeto avança para o lançamento.</span><span lang="en">No spam. Occasional updates as we move toward launch.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER (compartilhado, CSS em shared.css) ============ -->
+<footer class="site-footer">
+  <div class="container">
+
+    <!-- Row 1: Manifesto tipografico -->
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+      </p>
+    </div>
+
+    <!-- Row 2: 4 colunas de links -->
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+        <a href="index.html#prova">CRDC Malta pilot</a>
+        <a href="index.html#independent">MARE Foundation</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Legal</span>
+        <a href="#"><span lang="pt">Termos de uso</span><span lang="en">Terms of use</span></a>
+        <a href="#"><span lang="pt">Política de privacidade</span><span lang="en">Privacy policy</span></a>
+        <a href="#">GDPR</a>
+        <a href="#"><span lang="pt">Cookies</span><span lang="en">Cookies</span></a>
+      </div>
+    </div>
+
+    <!-- Row 3: brand line + versao (assinatura tipografica) -->
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">SHA a4f0&hellip;9c81 &middot; v0.4.7</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
 </body>
 </html>

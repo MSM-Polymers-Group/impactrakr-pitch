@@ -1,0 +1,32 @@
+<svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ImpacTrakr">
+  <title>ImpacTrakr</title>
+
+  <!-- Mark: mesmo desenho de logo-mark.svg, deslocado e escalado dentro do viewBox 520x130 -->
+  <g transform="translate(10 15) scale(1.0)">
+    <!-- 3 arcos concêntricos sage -->
+    <g fill="none" stroke="#7D8F6F" stroke-width="5" stroke-linecap="round">
+      <path d="M 18 58 A 32 32 0 0 1 82 58" />
+      <path d="M 28 58 A 22 22 0 0 1 72 58" />
+      <path d="M 38 58 A 12 12 0 0 1 62 58" />
+    </g>
+    <!-- Check -->
+    <path d="M 42 47 L 48 54 L 61 39"
+          fill="none" stroke="#1F3A2E" stroke-width="5.5"
+          stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Trilha -->
+    <path d="M 45 62 C 40 72, 58 76, 54 84 C 51 92, 74 92, 80 84"
+          fill="none" stroke="#1F3A2E" stroke-width="5.5"
+          stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Wordmark: "ImpacTrakr" em Manrope 800.
+       Se a fonte não estiver disponível no ambiente de renderização,
+       cai para sans-serif geométrica. Para independência total,
+       basta converter este <text> em <path> com um exportador. -->
+  <text x="120" y="88"
+        font-family="'Manrope', 'Inter', 'Helvetica Neue', system-ui, sans-serif"
+        font-weight="800"
+        font-size="70"
+        letter-spacing="-2"
+        fill="#1F3A2E">ImpacTrakr</text>
+</svg>

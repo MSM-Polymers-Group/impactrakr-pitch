@@ -1,0 +1,20 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ImpacTrakr">
+  <title>ImpacTrakr</title>
+
+  <!-- 3 arcos concêntricos sage: "portal" de rastreabilidade aberto embaixo -->
+  <g fill="none" stroke="#7D8F6F" stroke-width="5" stroke-linecap="round">
+    <path d="M 18 58 A 32 32 0 0 1 82 58" />
+    <path d="M 28 58 A 22 22 0 0 1 72 58" />
+    <path d="M 38 58 A 12 12 0 0 1 62 58" />
+  </g>
+
+  <!-- Check verde escuro no centro (validação) -->
+  <path d="M 42 47 L 48 54 L 61 39"
+        fill="none" stroke="#1F3A2E" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Trilha verde escuro (jornada / cadeia de custódia) saindo do portal -->
+  <path d="M 45 62 C 40 72, 58 76, 54 84 C 51 92, 74 92, 80 84"
+        fill="none" stroke="#1F3A2E" stroke-width="5.5"
+        stroke-linecap="round" stroke-linejoin="round" />
+</svg>

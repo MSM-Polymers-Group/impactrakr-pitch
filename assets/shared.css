@@ -35,6 +35,11 @@
   --accent:           oklch(60% 0.16 150);
   --accent-on-dark:   oklch(78% 0.16 145);
 
+  /* Accent-strong: escurecido para uso em texto pequeno (uppercase 11px)
+     — passa WCAG AA (4.5:1) sobre --bg. Usar em .micro.eye, .step-mark,
+     e qualquer eyebrow accent em fundo claro. */
+  --accent-strong:    oklch(42% 0.14 150);
+
   /* Semantic */
   --warning:          oklch(70% 0.16 80);
   --block:            oklch(58% 0.20 25);
@@ -87,6 +92,57 @@
   --highlight:   var(--accent);
   --paper-soft:  var(--surface-raised);
   --primary:     var(--brand-surface);
+
+  /* ---------- Typography scale (adicionado 2026-07-07) ---------- */
+  /* Font-size tokens (fluid onde faz sentido, fixos onde a hierarquia importa) */
+  --fs-eyebrow:   0.6875rem;   /* 11px  — .micro, .micro.eye, .step-mark */
+  --fs-caption:   0.75rem;     /* 12px  — .ts, chips small, footnotes */
+  --fs-body-sm:   0.8125rem;   /* 13px  — .cn-note, .time-impact, chips */
+  --fs-body:      0.875rem;    /* 14px  — table body, .config-desc */
+  --fs-base:      0.9375rem;   /* 15px  — body default do site */
+  --fs-lead:      1rem;        /* 16px  — .lead / .lede */
+  --fs-body-lg:   1.0625rem;   /* 17px  — subtitle, cn-name */
+  --fs-h4:        1rem;        /* 16px  — .proof-mini h4 */
+  --fs-h3:        clamp(1.125rem, 2vw, 1.375rem);
+  --fs-h2:        clamp(1.5rem, 3vw, 2.25rem);
+  --fs-h1:        clamp(2.25rem, 4.8vw, 4rem);
+  --fs-display:   clamp(1.75rem, 3.8vw, 2.5rem);
+
+  /* Font-weight tokens */
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-heavy:     800;
+
+  /* Line-height tokens */
+  --lh-tight:     1.1;
+  --lh-heading:   1.15;
+  --lh-normal:    1.5;
+  --lh-relaxed:   1.6;
+
+  /* Letter-spacing tokens (headings usam ligeiro negativo, eyebrow usa positivo) */
+  --ls-heading:   -0.02em;
+  --ls-body:      -0.005em;
+  --ls-eyebrow:   0.14em;
+
+  /* Proof-card palette removida em 2026-07-07: apos refactor, o proof-card
+     passou a usar tokens genericos (--bg, --line, --ink, --ink-soft) +
+     --brand-surface para os chips. Os 8 tokens dedicados viraram orfaos
+     e foram deletados. Se precisar de "surface warm/soft" no futuro,
+     considere um novo par explicito no design system. */
+}
+
+/* ---------- Focus visible global (WCAG 2.1 SC 2.4.7) ---------- */
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+/* Em brand-surface (fundo verde escuro) o outline muda para o accent claro */
+.brand-surface :where(a, button, summary, input, [tabindex]):focus-visible,
+.signup :where(a, button, summary, input, [tabindex]):focus-visible {
+  outline-color: var(--accent-on-dark);
 }
 
 /* ---------- Reset / base ---------- */
@@ -105,6 +161,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'ss01' on, 'cv11' on;  /* Manrope stylistic sets */
   text-wrap: pretty;
+  position: relative;
+}
+
+/* Hero-only ambient — grid tecnico de linhas finas (blueprint/CAD-style)
+   + radial gradient verde muito lavado no canto sup direito, atras do card.
+   Fade suave da metade inferior para nao competir com o proximo bloco.
+   Scoped so na hero — o resto do site fica limpo, como era antes. */
+section.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+section.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    /* Radial ambient de accent no canto superior direito, atras do DPP card */
+    radial-gradient(ellipse 70vw 55vh at 92% 8%,
+      oklch(75% 0.09 150 / 0.20), transparent 60%),
+    /* Grid vertical de linhas finas */
+    linear-gradient(to right, oklch(45% 0.02 220 / 0.10) 1px, transparent 1px),
+    /* Grid horizontal de linhas finas */
+    linear-gradient(to bottom, oklch(45% 0.02 220 / 0.10) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    56px 56px,
+    56px 56px;
+  background-position: 0 0;
+  mask-image: linear-gradient(to bottom, black 35%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 35%, transparent 96%);
 }
 
 [data-app-lang="pt"] [lang="en"],
@@ -212,16 +301,28 @@ a:hover { text-decoration-color: var(--accent); }
 }
 .micro::before { display: none; }   /* kill the AI-default dash prefix */
 
+/* Uppercase accent eyebrow — usado quando o eyebrow precisa mais peso visual
+   (landing/pitch home). Sobre fundo claro usa --accent-strong (passa WCAG AA);
+   sobre .brand-surface usa --accent-on-dark. */
+.micro.eye {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-strong);
+  font-weight: 700;
+  font-size: 0.6875rem;
+}
+.brand-surface .micro.eye { color: var(--accent-on-dark); }
+
 /* ---------- Header ---------- */
 header.top {
-  padding: var(--space-lg) 0 var(--space-md);
+  padding: var(--space-sm) 0;
   border-bottom: 1px solid var(--line);
   background: var(--bg);
 }
 .top-grid {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-md);
 }
 .logo {
@@ -234,26 +335,34 @@ header.top {
   color: var(--ink);
   letter-spacing: -0.02em;
 }
-/* Continuous Loop infinity mark — transparent, SVG injetado por assets/logo.js */
+/* Portal + check + trail mark — PNG oficial do cliente, injetado por assets/logo.js.
+   Source 359x397 (portrait), renderizado numa caixa quadrada com object-fit contain. */
 .logo-mark {
-  width: 46px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   flex-shrink: 0;
 }
-.logo-mark svg { width: 100%; height: 100%; display: block; }
+.logo-mark img,
+.logo-mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
 .top-right {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-2xs);
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-md);
 }
 .top-meta {
   text-align: right;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
+  line-height: 1.25;
   letter-spacing: 0.04em;
   color: var(--ink-faint);
   font-weight: 600;
@@ -261,12 +370,16 @@ header.top {
 }
 .top-meta em {
   display: block;
-  margin-top: var(--space-3xs);
+  margin-top: 1px;
   font-style: normal;
   letter-spacing: 0;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
+  line-height: 1.25;
   color: var(--ink-mute);
   font-weight: 400;
+}
+@media (max-width: 720px) {
+  .top-meta { display: none; }
 }
 
 /* Language toggle */
@@ -715,6 +828,25 @@ section.final-cta {
   border-color: var(--brand-line);
 }
 .cta-btn.secondary:hover { background: var(--brand-surface-deep); }
+
+/* Variantes de fundo claro — para hero, para-recicladores, e qualquer bloco
+   fora do brand-surface. Pareia com .cta-btn.on-light.primary/secondary. */
+.cta-btn.on-light.primary {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.cta-btn.on-light.primary:hover { background: #000; border-color: #000; }
+.cta-btn.on-light.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.cta-btn.on-light.secondary:hover {
+  background: var(--surface-raised);
+  border-color: var(--ink-mute);
+}
+
 @media (max-width: 720px) {
   .cta-band { grid-template-columns: 1fr; }
 }
@@ -1035,6 +1167,124 @@ section.final-cta {
   .pmap rect.task-card.demoing { animation: none; }
 }
 
+/* ---------- Site footer (compartilhado nas 5 paginas) ---------- */
+footer.site-footer {
+  background: oklch(96% 0.005 220);
+  border-top: 1px solid var(--line);
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 var(--space-lg);
+  margin-top: var(--space-fluid-section);
+  color: var(--ink);
+}
+
+footer.site-footer .container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+/* Row 1: Manifesto tipografico grande */
+.footer-manifest {
+  max-width: 34ch;
+}
+.footer-manifest p {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin: 0;
+  max-width: none;
+}
+.footer-manifest .display-italic {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--accent-strong);
+  letter-spacing: -0.005em;
+}
+
+/* Row 2: 4 colunas de links */
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+@media (max-width: 940px) {
+  .footer-cols { grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+}
+@media (max-width: 560px) {
+  .footer-cols { grid-template-columns: 1fr; }
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+.footer-col-heading {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin-bottom: var(--space-2xs);
+}
+.footer-col a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+  padding: 2px 0;
+  transition: color var(--d-quick) var(--ease-out);
+}
+.footer-col a:hover { color: var(--accent-strong); }
+
+/* Row 3: brand + versao (assinatura tipografica) */
+.footer-brandline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--line);
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+.footer-mark {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.footer-mark .logo-mark {
+  width: 28px;
+  height: 28px;
+}
+.footer-meta {
+  display: flex;
+  gap: var(--space-md);
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.footer-meta .footer-hash {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.6875rem;
+  color: var(--ink-mute);
+  letter-spacing: 0;
+}
+@media (max-width: 640px) {
+  .footer-brandline { justify-content: flex-start; }
+}
+
 /* ---------- Print ---------- */
 @media print {
   body { background: white; }
@@ -1139,7 +1389,10 @@ section.final-cta {
   max-width: none;
 }
 
-/* Document cards */
+/* Document cards — família única .doc-card / .doc-name / .doc-purpose / .doc-struct
+   (a variante `.drawer-doc-card` e as classes `.ddc-*` continuam funcionando como
+   aliases estruturais abaixo, mas o padrão novo é .doc-card em qualquer contexto). */
+.doc-card,
 .drawer-doc-card {
   background: #fafbfd;
   border: 1px solid #e8eaee;
@@ -1147,7 +1400,9 @@ section.final-cta {
   padding: 14px 16px;
   margin-bottom: 10px;
 }
+.doc-card:last-child,
 .drawer-doc-card:last-child { margin-bottom: 0; }
+.doc-card .doc-name,
 .drawer-doc-card .ddc-name {
   font-family: 'Manrope', sans-serif;
   font-size: 14px;
@@ -1155,7 +1410,9 @@ section.final-cta {
   color: #1a2127;
   letter-spacing: -0.01em;
   margin-bottom: 4px;
+  display: block;
 }
+.doc-card .doc-purpose,
 .drawer-doc-card .ddc-purpose {
   font-size: 13px;
   color: #4a5560;
@@ -1163,6 +1420,7 @@ section.final-cta {
   margin-bottom: 10px;
   line-height: 1.5;
 }
+.doc-card .doc-struct,
 .drawer-doc-card .ddc-struct {
   font-size: 12.5px;
   color: #6a7682;
@@ -1170,6 +1428,7 @@ section.final-cta {
   padding-top: 10px;
   border-top: 1px dashed #d6d9dd;
 }
+.doc-card .doc-struct strong,
 .drawer-doc-card .ddc-struct strong { color: #2d4034; font-weight: 600; }
 
 /* Validation phase blocks */

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260626-1421">
+<link rel="stylesheet" href="assets/shared.css?v=20260707-31">
 <style>
   body { background: var(--bg); }
   .doc-wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
@@ -46,7 +46,7 @@
   .doc-content table.doc-table th { font-weight: 700; color: var(--ink); background: var(--surface-raised); }
   .doc-content table.doc-table td { color: var(--ink-soft); }
 </style>
-  <script src="assets/logo.js?v=20260626-1421" defer></script>
+  <script src="assets/logo.js?v=20260707-4" defer></script>
 </head>
 <body data-page="metodologia">
 
@@ -57,13 +57,13 @@
       <span>ImpacTrakr</span>
     </div>
     <div class="top-right">
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button type="button" data-lang="pt">PT</button>
-        <button type="button" data-lang="en">EN</button>
-      </div>
       <div class="top-meta">
         dMRV · TRACEABILITY · COMPLIANCE
         <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="en">EN</button>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
 
 <nav class="top-nav" aria-label="Chapters">
   <div class="top-nav-inner">
-    <a class="nav-tab" data-target="visao" href="index.html"><span><span lang="pt">Visão</span><span lang="en">Overview</span></span></a>
+    <a class="nav-tab" data-target="visao" href="overview.html"><span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span></a>
     <a class="nav-tab" data-target="processo" href="process.html"><span><span lang="pt">Processo</span><span lang="en">Process</span></span></a>
     <a class="nav-tab" data-target="metodologia" href="methodology.html"><span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span></a>
     <a class="nav-tab" data-target="mercado" href="market.html"><span><span lang="pt">Mercado</span><span lang="en">Market</span></span></a>
@@ -87,15 +87,15 @@
     <p class="doc-subtitle">A recycling credit designed to accelerate the transition to a resource-efficient, low-carbon, and inclusive circular economy.</p>
     <div class="doc-meta">
       <span><strong><span lang="pt">Autor:</span><span lang="en">Author:</span></strong> EcoCircle Global</span>
-      <span><strong><span lang="pt">Validador independente:</span><span lang="en">Independent validator:</span></strong> Bureau Veritas</span>
+      <span><strong><span lang="pt">Validador independente:</span><span lang="en">Independent validator:</span></strong> terceiro credenciado</span>
       <span><strong><span lang="pt">Executor:</span><span lang="en">Executor:</span></strong> ImpacTrakr</span>
       <span><strong><span lang="pt">Versão:</span><span lang="en">Version:</span></strong> <span lang="pt">1.0 · Junho 2025</span><span lang="en">1.0 · June 2025</span></span>
     </div>
     <p class="doc-banner">
       <span lang="pt">
-        <strong>Sobre este documento.</strong> Especificação técnica integral da metodologia PURE, escrita pela <strong>EcoCircle Global</strong> e validada pela <strong>Bureau Veritas</strong> antes da entrada em produção. A <strong>ImpacTrakr</strong> executa a metodologia como camada independente de validação — não autora, não opera registry, não coleta material. Esta página reproduz o documento original com referências a redes específicas de registry generalizadas (a plataforma é registry-agnóstica).
+        <strong>Sobre este documento.</strong> Especificação técnica integral da metodologia PURE, escrita pela <strong>EcoCircle Global</strong> e validada pela <strong><span lang="pt">terceiro credenciado</span><span lang="en">a credentialed third party</span></strong> antes da entrada em produção. A <strong>ImpacTrakr</strong> executa a metodologia como camada independente de validação, não autora, não opera registry, não coleta material. Esta página reproduz o documento original com referências a redes específicas de registry generalizadas (a plataforma é registry-agnóstica).
       </span><span lang="en">
-        <strong>About this document.</strong> Full technical specification of the PURE methodology, authored by <strong>EcoCircle Global</strong> and validated by <strong>Bureau Veritas</strong> before entering production. <strong>ImpacTrakr</strong> executes the methodology as an independent validation layer — does not author, does not operate the registry, does not collect material. This page reproduces the original document with references to specific registry networks generalised (the platform is registry-agnostic).
+        <strong>About this document.</strong> Full technical specification of the PURE methodology, authored by <strong>EcoCircle Global</strong> and validated by <strong><span lang="pt">terceiro credenciado</span><span lang="en">a credentialed third party</span></strong> before entering production. <strong>ImpacTrakr</strong> executes the methodology as an independent validation layer, does not author, does not operate the registry, does not collect material. This page reproduces the original document with references to specific registry networks generalised (the platform is registry-agnostic).
       </span>
     </p>
   </header>
@@ -562,7 +562,7 @@ Secondary (co-benefit considerations):
 <h3 id="93-recertification">9.3 Recertification</h3>
 <p>the registry does not apply a “recertification” process as is commonly practiced in the carbon credit markets. Instead, the registry requires that Processors and Recyclers renew their homologation “certification” every 24 months. For more information, see the section on renewal.</p>
 <h2 id="10-issuing-pure-credits-distributing-rewards">10. ISSUING PURE CREDITS &amp; DISTRIBUTING REWARDS</h2>
-<p>Code-audited MassIDs are packaged into PURE Plastic credits that contain the social, economic, and environmental value that was created by the collective work of the Participants. MassIDs and PURE Plastic Credit IDs can be looked up in the registry’s public registry at [link to public registry — depends on deployment].</p>
+<p>Code-audited MassIDs are packaged into PURE Plastic credits that contain the social, economic, and environmental value that was created by the collective work of the Participants. MassIDs and PURE Plastic Credit IDs can be looked up in the registry’s public registry at [link to public registry, depends on deployment].</p>
 <h3 id="101-credits-and-tokenization">10.1 Credits and Tokenization</h3>
 <p>A PURE Plastic Credit is a Tokenized Recycling Credit (TRC) as defined in the the registry White Paper. A TRC contains a uniquely identified waste mass (MassID), measured in kg, that arrived at a homologated plastic waste recycling facility and was tokenized into a non-fungible token (NFT) using the ERC-721 standard.</p>
 <p>TRCs will be sold over the counter to individual buyers (i.e., not on the open market initially).</p>
@@ -570,7 +570,7 @@ Secondary (co-benefit considerations):
 <p>Proceeds from the purchase of each TRC will be distributed in the form of stable coins (e.g., USDC) to each Participant wallet over the blockchain to ensure transparency in the distribution of rewards.</p>
 <h3 id="102-rewards-distribution-model">10.2 Rewards Distribution Model</h3>
 <p>Rewards are distributed in accordance with the contribution weight of each MassID within each credit (TRC) and the participant allocations within each MassID.</p>
-<p>The smart contract for the PURE methodology calculates reward amounts based on the Rewards Distribution Policy and distributes tokens that were used to purchase each NFT to contributor’s wallets based on the policy at the time of the sale. Rewards distribution percentages can be found at: [link to rewards distribution policy — depends on deployment]</p>
+<p>The smart contract for the PURE methodology calculates reward amounts based on the Rewards Distribution Policy and distributes tokens that were used to purchase each NFT to contributor’s wallets based on the policy at the time of the sale. Rewards distribution percentages can be found at: [link to rewards distribution policy, depends on deployment]</p>
 <p>Participant categories include:</p>
 <table class="doc-table"><tbody>
 <tr><th>G</th><th>Waste Generator</th></tr>

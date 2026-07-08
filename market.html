@@ -7,14 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260626-1421">
+<link rel="stylesheet" href="assets/shared.css?v=20260707-32">
 <style>
   /* === Page-specific: Mercado === */
 
   section.intro { padding: var(--space-fluid-section) 0 var(--space-fluid-block); }
   .intro .lede { font-size: 1.0625rem; line-height: 1.55; color: var(--ink-soft); max-width: var(--max-prose); margin-top: var(--space-md); }
 
-  /* "Por que plástico primeiro" — 3 razões em prose, não cards */
+  /* "Por que plástico primeiro", 3 razões em prose, não cards */
   section.why-plastic { padding: var(--space-fluid-block) 0; border-top: 1px solid var(--line); }
   .why-plastic h2 { margin-bottom: var(--space-md); }
   .reasons {
@@ -51,7 +51,7 @@
     .reasons { grid-template-columns: 1fr; gap: var(--space-lg); }
   }
 
-  /* "Tamanho da oportunidade" — large numbers in committed dark surface */
+  /* "Tamanho da oportunidade", large numbers in committed dark surface */
   section.tam {
     margin: var(--space-fluid-section) 0;
     padding: 0;
@@ -120,7 +120,7 @@
     .tam-surface { padding: var(--space-xl) var(--space-lg); }
   }
 
-  /* "Por que Malta" — narrative + sidebar of context */
+  /* "Por que Malta", narrative + sidebar of context */
   section.why-malta { padding: var(--space-fluid-section) 0; }
   .why-malta h2 { margin-bottom: var(--space-md); }
   .malta-layout {
@@ -167,7 +167,7 @@
     .malta-layout { grid-template-columns: 1fr; gap: var(--space-xl); }
   }
 
-  /* "Roadmap geográfico" — quarterly table */
+  /* "Roadmap geográfico", quarterly table */
   section.geo { padding: var(--space-fluid-section) 0; background: var(--surface-raised); }
   .geo-table {
     width: 100%;
@@ -224,7 +224,7 @@
   .geo-table tbody tr.live td.when { color: var(--accent); }
   .geo-table tbody tr.future td.when { color: var(--ink-mute); }
 
-  /* "Onde nos posicionamos" — competitive matrix */
+  /* "Onde nos posicionamos", competitive matrix */
   section.position { padding: var(--space-fluid-section) 0; }
   section.position .lede { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
   .position-table {
@@ -268,7 +268,7 @@
     .position-table tbody td { padding: var(--space-sm); }
   }
 
-  /* "Quem ganha quando a plataforma roda" — stakeholders network */
+  /* "Quem ganha quando a plataforma roda", stakeholders network */
   section.stakeholders { padding: var(--space-fluid-section) 0; }
   section.stakeholders h2 { margin-bottom: var(--space-md); }
   section.stakeholders .lede { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
@@ -312,10 +312,43 @@
   .reg-intro { max-width: var(--max-prose); margin-bottom: var(--space-xl); }
   .reg-intro p { font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
 
-  /* FAQ — keep minimal */
+  /* FAQ, keep minimal */
   section.faq { padding: var(--space-fluid-section) 0; }
+
+
+  /* === Ritmo de bandas (mesma regra do index) ===
+     - Verde escuro full-bleed em .tam (momento committed: mostrar tamanho do mercado)
+     - Cinza-azulado em .reg-timeline (contexto regulatorio institucional) */
+  section.tam {
+    background: var(--brand-surface);
+    color: var(--on-dark);
+  }
+  /* Dissolve o .tam-surface interno: como a section ja e verde escuro,
+     o card interno vira transparente e o conteudo apoia direto sobre o fundo. */
+  section.tam .tam-surface {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    border: none;
+  }
+  section.reg-timeline {
+    background: var(--surface-raised);
+  }
+  section.intro,
+  section.why-plastic,
+  section.tam,
+  section.why-malta,
+  section.geo,
+  section.stakeholders,
+  section.reg-timeline,
+  section.position,
+  section.faq {
+    padding-top: clamp(2.5rem, 4.5vw, 4rem);
+    padding-bottom: clamp(2.5rem, 4.5vw, 4rem);
+  }
 </style>
-  <script src="assets/logo.js?v=20260626-1421" defer></script>
+  <script src="assets/logo.js?v=20260707-4" defer></script>
 </head>
 <body data-page="mercado">
 
@@ -326,13 +359,13 @@
       <span>ImpacTrakr</span>
     </div>
     <div class="top-right">
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button type="button" data-lang="pt">PT</button>
-        <button type="button" data-lang="en">EN</button>
-      </div>
       <div class="top-meta">
         dMRV · TRACEABILITY · COMPLIANCE
         <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
       </div>
     </div>
   </div>
@@ -340,10 +373,11 @@
 
 <nav class="top-nav" aria-label="Chapters">
   <div class="top-nav-inner">
-    <a class="nav-tab" data-target="visao" href="index.html"><span><span lang="pt">Visão</span><span lang="en">Overview</span></span></a>
+    <a class="nav-tab" data-target="landing" href="index.html"><span><span lang="pt">Início</span><span lang="en">Home</span></span></a>
+    <a class="nav-tab" data-target="visao" href="overview.html"><span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span></a>
     <a class="nav-tab" data-target="processo" href="process.html"><span><span lang="pt">Processo</span><span lang="en">Process</span></span></a>
     <a class="nav-tab" data-target="metodologia" href="methodology.html"><span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span></a>
-    <a class="nav-tab" data-target="mercado" href="market.html"><span><span lang="pt">Mercado</span><span lang="en">Market</span></span></a>
+    <a class="nav-tab active" data-target="mercado" href="market.html"><span><span lang="pt">Mercado</span><span lang="en">Market</span></span></a>
   </div>
 </nav>
 
@@ -354,7 +388,7 @@
       <span lang="pt">Por que agora.<br><span class="accent">Onde estamos rodando hoje.</span></span><span lang="en">Why now.<br><span class="accent">Where we run today.</span></span>
     </h1>
     <p class="lede">
-      <span lang="pt">A regulação europeia que torna o processo digital obrigatório já entrou em vigor. As datas que se seguem aplicam restrições adicionais ao plástico — exportação, conteúdo reciclado, passaporte digital. <strong>Operar com planilha deixa de ser viável conforme essas datas chegam.</strong></span><span lang="en">The European regulation that makes this digital process mandatory is already in force. The dates ahead bring additional restrictions on plastic — exports, recycled content, digital passport. <strong>Spreadsheet-based operations stop being viable as those dates arrive.</strong></span>
+      <span lang="pt">A regulação europeia que torna o processo digital obrigatório já entrou em vigor. As datas que se seguem aplicam restrições adicionais ao plástico, exportação, conteúdo reciclado, passaporte digital. <strong>Operar com planilha deixa de ser viável conforme essas datas chegam.</strong></span><span lang="en">The European regulation that makes this digital process mandatory is already in force. The dates ahead bring additional restrictions on plastic, exports, recycled content, digital passport. <strong>Spreadsheet-based operations stop being viable as those dates arrive.</strong></span>
     </p>
   </div>
 </section>
@@ -393,7 +427,7 @@
         <span lang="pt">Tamanho da<br><em>oportunidade.</em></span><span lang="en">Size of the<br><em>opportunity.</em></span>
       </h2>
       <p class="tam-lede">
-        <span lang="pt">Três medidas relevantes — não somáveis. Cada uma define um mercado endereçável distinto onde a plataforma se conecta.</span><span lang="en">Three relevant measures — not additive. Each defines a distinct addressable market the platform plugs into.</span>
+        <span lang="pt">Três medidas relevantes, não somáveis. Cada uma define um mercado endereçável distinto onde a plataforma se conecta.</span><span lang="en">Three relevant measures, not additive. Each defines a distinct addressable market the platform plugs into.</span>
       </p>
       <div class="tam-grid">
         <div class="tam-item">
@@ -431,14 +465,14 @@
     <div class="malta-layout">
       <div class="malta-main">
         <p>
-          <span lang="pt">Hoje rodamos em produção em <strong>Malta</strong>. A operação local é conduzida pela <strong>MARE Foundation</strong> — primeira cliente da plataforma e off-taker dos primeiros DPP units emitidos. O cenário é útil pra demonstrar a arquitetura sob regulação ativa (Reg 2024/1157, DIWASS, RecyClass), mas a plataforma é <strong>desenhada pra ser jurisdição-independente</strong> — Malta é onde começou a rodar, não o que a define.</span><span lang="en">Today we run in production in <strong>Malta</strong>. The local operation is run by the <strong>MARE Foundation</strong> — first customer of the platform and off-taker of the initial DPP units. The scenario is useful for demonstrating the architecture under live regulation (Reg 2024/1157, DIWASS, RecyClass), but the platform is <strong>designed to be jurisdiction-independent</strong> — Malta is where it started running, not what defines it.</span>
+          <span lang="pt">Hoje rodamos em produção em <strong>Malta</strong>. A operação local é conduzida pela <strong>MARE Foundation</strong>, primeira cliente da plataforma e off-taker dos primeiros DPP units emitidos. O cenário é útil pra demonstrar a arquitetura sob regulação ativa (Reg 2024/1157, DIWASS, RecyClass), mas a plataforma é <strong>desenhada pra ser jurisdição-independente</strong>, Malta é onde começou a rodar, não o que a define.</span><span lang="en">Today we run in production in <strong>Malta</strong>. The local operation is run by the <strong>MARE Foundation</strong>, first customer of the platform and off-taker of the initial DPP units. The scenario is useful for demonstrating the architecture under live regulation (Reg 2024/1157, DIWASS, RecyClass), but the platform is <strong>designed to be jurisdiction-independent</strong>, Malta is where it started running, not what defines it.</span>
         </p>
         <p>
-          <span lang="pt">A arquitetura é <strong>global por design</strong> — registry-agnóstica, metodologia-plugável, multi-jurisdição. Em Q3 2026 entra o CRDC Guatemala (mercado das Américas, sem regulação UE, sem RecyClass — mesma plataforma, configuração diferente). Em 2027, deployments arm's-length na Europa continental e LATAM. O diferencial não é Malta — é que a mesma plataforma roda <strong>em qualquer jurisdição com exigência regulatória</strong>.</span><span lang="en">The architecture is <strong>global by design</strong> — registry-agnostic, methodology-pluggable, multi-jurisdiction. Q3 2026 brings CRDC Guatemala live (Americas market, no EU regulation, no RecyClass — same platform, different config). In 2027, arm's-length deployments in continental Europe and LATAM. The differentiator isn't Malta — it's that the same platform runs <strong>in any jurisdiction with regulatory demands</strong>.</span>
+          <span lang="pt">A arquitetura é <strong>global por design</strong>, registry-agnóstica, metodologia-plugável, multi-jurisdição. Em Q3 2026 entra o CRDC Guatemala (mercado das Américas, sem regulação UE, sem RecyClass, mesma plataforma, configuração diferente). Em 2027, deployments arm's-length na Europa continental e LATAM. O diferencial não é Malta, é que a mesma plataforma roda <strong>em qualquer jurisdição com exigência regulatória</strong>.</span><span lang="en">The architecture is <strong>global by design</strong>, registry-agnostic, methodology-pluggable, multi-jurisdiction. Q3 2026 brings CRDC Guatemala live (Americas market, no EU regulation, no RecyClass, same platform, different config). In 2027, arm's-length deployments in continental Europe and LATAM. The differentiator isn't Malta, it's that the same platform runs <strong>in any jurisdiction with regulatory demands</strong>.</span>
         </p>
       </div>
       <div class="malta-aside">
-        <h3><span lang="pt">Pilot CRDC Malta — em números</span><span lang="en">CRDC Malta Pilot — in numbers</span></h3>
+        <h3><span lang="pt">Pilot CRDC Malta, em números</span><span lang="en">CRDC Malta Pilot, in numbers</span></h3>
         <ul>
           <li><span><span lang="pt">Em operação desde</span><span lang="en">Live since</span></span><span>2026</span></li>
           <li><span><span lang="pt">Capacidade</span><span lang="en">Capacity</span></span><span>~1,2 t/h</span></li>
@@ -459,7 +493,7 @@
       <span lang="pt">Roadmap geográfico</span><span lang="en">Geographic roadmap</span>
     </h2>
     <p class="lede" style="max-width: var(--max-prose); margin-top: var(--space-md);">
-      <span lang="pt">Cada nova jurisdição é uma nova configuração — não um novo produto. A arquitetura suporta jurisdições simultâneas; o que muda é o conjunto de módulos ativados. <strong>Em conversa hoje:</strong> auditores tier-1 EU, CRDCs nas Américas, recicladores europeus.</span><span lang="en">Each new jurisdiction is a new configuration — not a new product. The architecture supports simultaneous jurisdictions; what changes is the set of activated modules. <strong>In conversation today:</strong> tier-1 EU auditors, CRDCs in the Americas, European recyclers.</span>
+      <span lang="pt">Cada nova jurisdição é uma nova configuração, não um novo produto. A arquitetura suporta jurisdições simultâneas; o que muda é o conjunto de módulos ativados. <strong>Em conversa hoje:</strong> auditores tier-1 EU, CRDCs nas Américas, recicladores europeus.</span><span lang="en">Each new jurisdiction is a new configuration, not a new product. The architecture supports simultaneous jurisdictions; what changes is the set of activated modules. <strong>In conversation today:</strong> tier-1 EU auditors, CRDCs in the Americas, European recyclers.</span>
     </p>
     <table class="geo-table">
       <thead>
@@ -483,7 +517,7 @@
           <td class="where">Guatemala · LATAM</td>
           <td class="config">
             <span lang="pt">Apenas PURE. Mercado das Américas. Custo de infra coberto pelo CRDC Guatemala.</span><span lang="en">PURE only. Americas market. Infrastructure cost covered by CRDC Guatemala.</span>
-            <div class="mods"><span class="on">PURE</span><span>—</span><span>—</span></div>
+            <div class="mods"><span class="on">PURE</span><span>,</span><span>,</span></div>
           </td>
         </tr>
         <tr>
@@ -499,7 +533,7 @@
           <td class="where">Brasil · APAC</td>
           <td class="config">
             <span lang="pt">PURE + framework regulatório local (CONAMA · normas APAC). Sem dependência de regulação europeia.</span><span lang="en">PURE + local regulatory framework (CONAMA · APAC standards). No dependency on European regulation.</span>
-            <div class="mods"><span class="on">PURE+</span><span>+local</span><span>—</span></div>
+            <div class="mods"><span class="on">PURE+</span><span>+local</span><span>,</span></div>
           </td>
         </tr>
       </tbody>
@@ -514,7 +548,7 @@
       <span lang="pt">Quem ganha quando<br><span class="accent">a plataforma roda.</span></span><span lang="en">Who wins when<br><span class="accent">the platform runs.</span></span>
     </h2>
     <p class="lede">
-      <span lang="pt">A independência arbitral não é só princípio — é gerador de valor pra cada lado da cadeia. Cada stakeholder captura algo distinto. O ecossistema cresce em <strong>oito direções simultâneas</strong>, não em uma.</span><span lang="en">Arbitral independence isn't just a principle — it generates value for every side of the chain. Each stakeholder captures something distinct. The ecosystem grows in <strong>eight simultaneous directions</strong>, not one.</span>
+      <span lang="pt">A independência arbitral não é só princípio, é gerador de valor pra cada lado da cadeia. Cada stakeholder captura algo distinto. O ecossistema cresce em <strong>oito direções simultâneas</strong>, não em uma.</span><span lang="en">Arbitral independence isn't just a principle, it generates value for every side of the chain. Each stakeholder captures something distinct. The ecosystem grows in <strong>eight simultaneous directions</strong>, not one.</span>
     </p>
 
     <ul class="stakeholders-list">
@@ -533,7 +567,7 @@
           <em><span lang="pt">responsável legal pelo movimento</span><span lang="en">legally responsible for the move</span></em>
         </div>
         <div class="s-gain">
-          <span lang="pt">Opera dentro da regulação com <strong>processo digital direto</strong>. Annex VII submetido via DIWASS pela plataforma, prazos legais automatizados, cadeia de assinaturas registrada — em vez de planilha, correio físico e o risco de multa que vem junto.</span><span lang="en">Operates within regulation with a <strong>direct digital process</strong>. Annex VII submitted via DIWASS through the platform, legal deadlines automated, signature chain recorded — instead of spreadsheet, postal mail and the fine risk that comes with them.</span>
+          <span lang="pt">Opera dentro da regulação com <strong>processo digital direto</strong>. Annex VII submetido via DIWASS pela plataforma, prazos legais automatizados, cadeia de assinaturas registrada, em vez de planilha, correio físico e o risco de multa que vem junto.</span><span lang="en">Operates within regulation with a <strong>direct digital process</strong>. Annex VII submitted via DIWASS through the platform, legal deadlines automated, signature chain recorded, instead of spreadsheet, postal mail and the fine risk that comes with them.</span>
         </div>
       </li>
       <li>
@@ -542,7 +576,7 @@
           <em><span lang="pt">produz o resíduo qualificado</span><span lang="en">produces the qualifying waste</span></em>
         </div>
         <div class="s-gain">
-          <span lang="pt">Cumpre obrigações regulatórias <strong>com rastreabilidade nativa</strong>, em vez de declaração afiançada. Restaurantes, marinas e hospitais entregam massa e acompanham o destino no mesmo sistema — o reciclador entrega prova, não promessa.</span><span lang="en">Meets regulatory obligations <strong>with native traceability</strong>, instead of self-declarations. Restaurants, marinas and hospitals hand off mass and follow the destination in the same system — the recycler delivers proof, not promise.</span>
+          <span lang="pt">Cumpre obrigações regulatórias <strong>com rastreabilidade nativa</strong>, em vez de declaração afiançada. Restaurantes, marinas e hospitais entregam massa e acompanham o destino no mesmo sistema, o reciclador entrega prova, não promessa.</span><span lang="en">Meets regulatory obligations <strong>with native traceability</strong>, instead of self-declarations. Restaurants, marinas and hospitals hand off mass and follow the destination in the same system, the recycler delivers proof, not promise.</span>
         </div>
       </li>
       <li>
@@ -551,7 +585,7 @@
           <em><span lang="pt">marca · ESG officer · CSRD</span><span lang="en">brand · ESG officer · CSRD</span></em>
         </div>
         <div class="s-gain">
-          <span lang="pt">Adquire <strong>DPP units validados em due diligence</strong> — claims verificados de conteúdo reciclado respaldados por ID DPP único por lote. Trilha auditável ponta-a-ponta, certificação técnica RecyClass + EU 2024/1157. Marcas como Unilever, Coca-Cola e L'Oréal precisam comprovar origem reciclada pra PPWR — esse dado serve como evidência, com hash chain. Crédito financeiro, se houver, é emitido por registries terceiros sobre o mesmo dado.</span><span lang="en">Acquires <strong>DPP units validated in due diligence</strong> — verified recycled-content claims backed by a unique DPP ID per batch. End-to-end auditable trail, RecyClass + EU 2024/1157 technical certification. Brands like Unilever, Coca-Cola and L'Oréal need to prove recycled origin for PPWR — this data serves as evidence, with hash chain. Financial credit, if any, is issued by third-party registries over the same data.</span>
+          <span lang="pt">Adquire <strong>DPP units validados em due diligence</strong>, claims verificados de conteúdo reciclado respaldados por ID DPP único por lote. Trilha auditável ponta-a-ponta, certificação técnica RecyClass + EU 2024/1157. Marcas como Unilever, Coca-Cola e L'Oréal precisam comprovar origem reciclada pra PPWR, esse dado serve como evidência, com hash chain. Crédito financeiro, se houver, é emitido por registries terceiros sobre o mesmo dado.</span><span lang="en">Acquires <strong>DPP units validated in due diligence</strong>, verified recycled-content claims backed by a unique DPP ID per batch. End-to-end auditable trail, RecyClass + EU 2024/1157 technical certification. Brands like Unilever, Coca-Cola and L'Oréal need to prove recycled origin for PPWR, this data serves as evidence, with hash chain. Financial credit, if any, is issued by third-party registries over the same data.</span>
         </div>
       </li>
       <li>
@@ -587,7 +621,7 @@
           <em>DG ENV · <span lang="pt">autoridades nacionais</span><span lang="en">national authorities</span></em>
         </div>
         <div class="s-gain">
-          <span lang="pt">Ganha <strong>visibilidade contínua do fluxo regulado</strong>. Conformidade não é mais auto-declarada e revisada depois — é demonstrada por evento. DIWASS recebe direto, sem dependência de relatório anual.</span><span lang="en">Gains <strong>continuous visibility of the regulated flow</strong>. Compliance is no longer self-declared and reviewed later — it's demonstrated per event. DIWASS receives directly, with no dependency on annual reporting.</span>
+          <span lang="pt">Ganha <strong>visibilidade contínua do fluxo regulado</strong>. Conformidade não é mais auto-declarada e revisada depois, é demonstrada por evento. DIWASS recebe direto, sem dependência de relatório anual.</span><span lang="en">Gains <strong>continuous visibility of the regulated flow</strong>. Compliance is no longer self-declared and reviewed later, it's demonstrated per event. DIWASS receives directly, with no dependency on annual reporting.</span>
         </div>
       </li>
     </ul>
@@ -637,7 +671,7 @@
   <div class="container">
     <h2><span lang="pt">Onde nos posicionamos</span><span lang="en">Where we stand</span></h2>
     <p class="lede">
-      <span lang="pt">Não competimos com registries — somos a camada que os alimenta. Não competimos com metodologias — somos quem as executa. Não competimos com auditoras tradicionais — somos a versão contínua e digital do que elas fazem manualmente uma vez por ano. <strong>Competimos com a planilha.</strong></span><span lang="en">We don't compete with registries — we are the layer that feeds them. We don't compete with methodologies — we are who executes them. We don't compete with traditional auditors — we are the continuous, digital version of what they do manually once a year. <strong>We compete with the spreadsheet.</strong></span>
+      <span lang="pt">Não competimos com registries, somos a camada que os alimenta. Não competimos com metodologias, somos quem as executa. Não competimos com auditoras tradicionais, somos a versão contínua e digital do que elas fazem manualmente uma vez por ano. <strong>Competimos com a planilha.</strong></span><span lang="en">We don't compete with registries, we are the layer that feeds them. We don't compete with methodologies, we are who executes them. We don't compete with traditional auditors, we are the continuous, digital version of what they do manually once a year. <strong>We compete with the spreadsheet.</strong></span>
     </p>
 
     <table class="position-table">
@@ -654,7 +688,7 @@
         <tr>
           <td class="dim"><span lang="pt">Validação</span><span lang="en">Validation</span></td>
           <td class="them"><span lang="pt">1× ao ano, amostral</span><span lang="en">Once a year, sampling</span></td>
-          <td class="them"><span lang="pt">Não valida — só registra</span><span lang="en">Doesn't validate — just records</span></td>
+          <td class="them"><span lang="pt">Não valida, só registra</span><span lang="en">Doesn't validate, just records</span></td>
           <td class="them"><span lang="pt">Por lote, manual</span><span lang="en">Per batch, manual</span></td>
           <td class="us"><strong><span lang="pt">Contínua, automática, 4,2s</span><span lang="en">Continuous, automated, 4.2s</span></strong></td>
         </tr>
@@ -698,24 +732,24 @@
     <div class="faq-grid">
       <div class="faq-item">
         <h3><span lang="pt">E se uma regra falhar?</span><span lang="en">What if a rule fails?</span></h3>
-        <p><span lang="pt"><strong>BLOCK</strong> impede o avanço e notifica o Compliance Officer + o participante responsável. <strong>FLAG</strong> segue no fluxo com alerta no metadado, para investigação posterior. Cada decisão fica registrada com timestamp, IP e responsável — auditável para sempre.</span><span lang="en"><strong>BLOCK</strong> stops the flow and notifies the Compliance Officer + responsible participant. <strong>FLAG</strong> proceeds with metadata warning for later investigation. Every decision is recorded with timestamp, IP and responsible party — auditable forever.</span></p>
+        <p><span lang="pt"><strong>BLOCK</strong> impede o avanço e notifica o Compliance Officer + o participante responsável. <strong>FLAG</strong> segue no fluxo com alerta no metadado, para investigação posterior. Cada decisão fica registrada com timestamp, IP e responsável, auditável para sempre.</span><span lang="en"><strong>BLOCK</strong> stops the flow and notifies the Compliance Officer + responsible participant. <strong>FLAG</strong> proceeds with metadata warning for later investigation. Every decision is recorded with timestamp, IP and responsible party, auditable forever.</span></p>
       </div>
       <div class="faq-item">
         <h3><span lang="pt">Em quanto tempo eu opero?</span><span lang="en">How fast do I get operational?</span></h3>
-        <p><span lang="pt">A homologação dos 3 participantes (Gerador, Carrier e Consignee) leva <strong>até 48h em Fase 1</strong> (revisão manual). Após status ACTIVE, o primeiro ciclo completo é demonstrado em 3 dias — exatamente o cenário CRDC Malta.</span><span lang="en">Homologation of the 3 participants (Producer, Carrier, Consignee) takes <strong>up to 48h in Phase 1</strong> (manual review). Once ACTIVE, the first complete cycle is demonstrated in 3 days — the exact CRDC Malta scenario.</span></p>
+        <p><span lang="pt">A homologação dos 3 participantes (Gerador, Carrier e Consignee) leva <strong>até 48h em Fase 1</strong> (revisão manual). Após status ACTIVE, o primeiro ciclo completo é demonstrado em 3 dias, exatamente o cenário CRDC Malta.</span><span lang="en">Homologation of the 3 participants (Producer, Carrier, Consignee) takes <strong>up to 48h in Phase 1</strong> (manual review). Once ACTIVE, the first complete cycle is demonstrated in 3 days, the exact CRDC Malta scenario.</span></p>
       </div>
       <div class="faq-item">
         <h3><span lang="pt">É realmente compliant?</span><span lang="en">Is it actually compliant?</span></h3>
-        <p><span lang="pt">Metodologia PURE <strong>validada pela Bureau Veritas</strong> antes da entrada em produção. <strong>60 ADRs</strong> de arquitetura publicados. <strong>Hash chain SHA-256</strong> ancora a trilha de evidências do início ao fim. DIWASS retorna comprovações eletrônicas oficiais com força legal.</span><span lang="en">PURE methodology <strong>validated by Bureau Veritas</strong> before entering production. <strong>60 architecture ADRs</strong> published. <strong>SHA-256 hash chain</strong> anchors the evidence trail end-to-end. DIWASS returns legally binding electronic confirmations.</span></p>
+        <p><span lang="pt">Metodologia PURE <strong>validada por terceiro independente</strong> antes da entrada em produção. <strong>60 ADRs</strong> de arquitetura publicados. <strong>Hash chain SHA-256</strong> ancora a trilha de evidências do início ao fim. DIWASS retorna comprovações eletrônicas oficiais com força legal.</span><span lang="en">PURE methodology <strong>validated by an independent third party</strong> before entering production. <strong>60 architecture ADRs</strong> published. <strong>SHA-256 hash chain</strong> anchors the evidence trail end-to-end. DIWASS returns legally binding electronic confirmations.</span></p>
       </div>
       <div class="faq-item">
         <h3><span lang="pt">Quem é legalmente responsável?</span><span lang="en">Who is legally responsible?</span></h3>
-        <p><span lang="pt">O <strong>Carrier autorizado atua como Notifier</strong> (Art. 3 da Regulation EU 2024/1157), responsável pelo movimento do resíduo perante a autoridade. Cadeia de custódia formal em cada handover. A ImpacTrakr é a <strong>plataforma</strong> — orquestra, valida e arquiva, mas não assume responsabilidade legal pelo material.</span><span lang="en">The <strong>licensed Carrier acts as Notifier</strong> (Art. 3 of Regulation EU 2024/1157), legally responsible for the waste movement before the authority. Formal chain of custody at each handover. ImpacTrakr is the <strong>platform</strong> — orchestrates, validates and archives, but does not assume legal responsibility for the material.</span></p>
+        <p><span lang="pt">O <strong>Carrier autorizado atua como Notifier</strong> (Art. 3 da Regulation EU 2024/1157), responsável pelo movimento do resíduo perante a autoridade. Cadeia de custódia formal em cada handover. A ImpacTrakr é a <strong>plataforma</strong>, orquestra, valida e arquiva, mas não assume responsabilidade legal pelo material.</span><span lang="en">The <strong>licensed Carrier acts as Notifier</strong> (Art. 3 of Regulation EU 2024/1157), legally responsible for the waste movement before the authority. Formal chain of custody at each handover. ImpacTrakr is the <strong>platform</strong>, orchestrates, validates and archives, but does not assume legal responsibility for the material.</span></p>
       </div>
 
       <div class="faq-item">
         <h3><span lang="pt">E se um dado for editado depois?</span><span lang="en">What if data is edited later?</span></h3>
-        <p><span lang="pt">Não pode. <strong>Eventos são imutáveis por design.</strong> Se uma informação precisa ser corrigida, o evento original permanece registrado (com motivo), e um novo evento é criado. A trilha de evidência só cresce — nunca é reescrita. É exatamente isso que torna o crédito auditável: o auditor pode reproduzir qualquer cálculo, em qualquer momento, e ver toda a história.</span><span lang="en">It can't. <strong>Events are immutable by design.</strong> If information needs to be corrected, the original event stays on record (with reason), and a new event is created. The evidence trail only grows — it's never rewritten. That's precisely what makes the credit auditable: an auditor can reproduce any calculation, at any time, and see the entire history.</span></p>
+        <p><span lang="pt">Não pode. <strong>Eventos são imutáveis por design.</strong> Se uma informação precisa ser corrigida, o evento original permanece registrado (com motivo), e um novo evento é criado. A trilha de evidência só cresce, nunca é reescrita. É exatamente isso que torna o crédito auditável: o auditor pode reproduzir qualquer cálculo, em qualquer momento, e ver toda a história.</span><span lang="en">It can't. <strong>Events are immutable by design.</strong> If information needs to be corrected, the original event stays on record (with reason), and a new event is created. The evidence trail only grows, it's never rewritten. That's precisely what makes the credit auditable: an auditor can reproduce any calculation, at any time, and see the entire history.</span></p>
       </div>
     </div>
   </div>
@@ -742,5 +776,65 @@
 </section>
 
 <script src="assets/shared.js?v=20260626-1421"></script>
+<!-- ============ FOOTER (compartilhado, CSS em shared.css) ============ -->
+<footer class="site-footer">
+  <div class="container">
+
+    <!-- Row 1: Manifesto tipografico -->
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+      </p>
+    </div>
+
+    <!-- Row 2: 4 colunas de links -->
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+        <a href="index.html#prova">CRDC Malta pilot</a>
+        <a href="index.html#independent">MARE Foundation</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Legal</span>
+        <a href="#"><span lang="pt">Termos de uso</span><span lang="en">Terms of use</span></a>
+        <a href="#"><span lang="pt">Política de privacidade</span><span lang="en">Privacy policy</span></a>
+        <a href="#">GDPR</a>
+        <a href="#"><span lang="pt">Cookies</span><span lang="en">Cookies</span></a>
+      </div>
+    </div>
+
+    <!-- Row 3: brand line + versao (assinatura tipografica) -->
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">SHA a4f0&hellip;9c81 &middot; v0.4.7</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
 </body>
 </html>

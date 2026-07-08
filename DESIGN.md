@@ -203,3 +203,52 @@ Locked in (do not reintroduce regardless of pressure):
 ## What this DESIGN.md governs
 
 Every CSS token in `/pitch/assets/shared.css` and every inline style in the 4 pitch pages must derive from this file. Visual choices that contradict the tokens, the typography rules, or the absolute bans must either change the choice or change this file (with explicit reason). Drift between DESIGN.md and the shipped pages is a bug.
+
+---
+
+## Onda 5 — 2026-07-07 (landing home v5.1)
+
+The landing home (`index.html`) shipped after this Onda uses the same tokens as the rest of the pitch, plus the additions below. Two prior absolute bans were **explicitly reverted** by product decision:
+
+### Revised bans
+
+- **Instrument Serif is now allowed** as a display accent, used only inside `<span class="display-italic">` on the second line of an `h1`/`h2` (e.g., `Every batch proven. *Every batch sellable.*`). No body copy, no button labels, no eyebrows. One serif italic word/phrase per section maximum.
+- **Uppercase micro eyebrows are now allowed** via `<span class="micro eye">` (uppercase, `letter-spacing: var(--ls-eyebrow)`, `--accent-strong` color). Kept sparingly — one eyebrow per section, no "01 · CAPTURE / 02 · VALIDATE" scaffolding on top of everything.
+
+### New tokens (added to `:root` in `shared.css`)
+
+| Category | Token | Value | Purpose |
+|---|---|---|---|
+| Color | `--accent-strong` | `oklch(42% 0.14 150)` | Accent green darkened to pass WCAG AA on small uppercase text (`.micro.eye`, `.step-mark`, `.p-eyebrow`) |
+| Proof card | `--surface-proof-bg / -line / -chip-bg / -chip-line` | Soft-green surface palette | Malta proof card background family |
+| Proof card | `--ink-proof-eyebrow / -body / -heading / -chip` | Dark green ink palette | Text hierarchy inside proof card |
+| Type | `--fs-eyebrow` (11px) to `--fs-h1` (clamp) | 12 fluid/fixed sizes | Formalizes the previously-inline `font-size` clamps |
+| Type | `--fw-regular` to `--fw-heavy` | 400 to 800 | Manrope weight tokens |
+| Type | `--lh-tight` (1.1) / `--lh-heading` (1.15) / `--lh-normal` (1.5) / `--lh-relaxed` (1.6) | Line-height scale | Named line-heights |
+| Type | `--ls-heading` (-0.02em) / `--ls-body` (-0.005em) / `--ls-eyebrow` (0.14em) | Letter-spacing | Named tracking |
+
+### New components (documented in `shared.css`)
+
+| Component | Purpose | Variants |
+|---|---|---|
+| `.hero-cta` | Row of `.cta-btn` below hero subtitle | -- |
+| `.cta-btn.on-light.primary/secondary` | CTA button variants for light-background sections | primary (dark fill) / secondary (transparent + border) |
+| `.split-2col` | Heading-left + lede-right split layout | -- (breakpoint 940px) |
+| `.step-grid` / `.step-card` | 4-step horizontal card row (`For recyclers`) | -- |
+| `.proof-grid` / `.proof-card` / `.proof-mini` / `.proof-chips` | Malta proof block (soft-green card + trust chips + mini cards) | -- |
+| `.chain-row` / `.chain-node` | 5-node horizontal chain of custody inside `.brand-surface` | `.center` (validation layer highlight) |
+| `.signup-wrap` / `.signup-form` / `.signup-fineprint` | Full-bleed signup CTA on `.brand-surface` | -- |
+| `.footer-grid` / `.footer-nav` | Site footer (logo + tagline left, shortcut nav right) | -- |
+| `details.faq-item` + `.faq-toggle` | Native accordion for FAQ (zero JS, keyboard/screen-reader native) | `[open]` state rotates `+` to `-` |
+
+### Document card domain (consolidated)
+
+The `.doc-card / .doc-name / .doc-purpose / .doc-struct` family is now the canonical naming for document cards in any context. The previous `.ddc-*` and `.drawer-doc-card` classes remain functional as aliases in `shared.css` for backwards compatibility with existing `process.html` drawer markup. Any new HTML should use `.doc-*` directly.
+
+### New accessibility guarantee
+
+- **Focus visible global** in `shared.css`: `:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible` receives a 2px outline in `--accent-strong` (on-light) or `--accent-on-dark` (inside `.brand-surface` / `.signup`). Satisfies WCAG 2.1 SC 2.4.7.
+
+### What still applies from the original bans
+
+Everything under `## Absolute bans` above **remains locked in** except the two reverted items listed here. Specifically: no Inter/Fraunces/etc., no other cream/paper tokens, no numbered scaffolding, no hero-metric-strip default. `.numbers-strip` is used once in the hero as an intentional exception, not as a template.

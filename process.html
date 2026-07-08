@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ImpacTrakr — Process Map · CRDC Malta</title>
+<title>ImpacTrakr, Process Map · CRDC Malta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260626-1421">
+<link rel="stylesheet" href="assets/shared.css?v=20260707-32">
 <script src="assets/shared.js?v=20260626-1421" defer></script>
-  <script src="assets/logo.js?v=20260626-1421" defer></script>
+  <script src="assets/logo.js?v=20260707-4" defer></script>
 </head>
 <body data-page="processo">
 
@@ -20,13 +20,13 @@
       <span>ImpacTrakr</span>
     </div>
     <div class="top-right">
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button type="button" data-lang="pt">PT</a>
-        <button type="button" data-lang="en">EN</a>
-      </div>
       <div class="top-meta">
         dMRV · TRACEABILITY · COMPLIANCE
         <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</a>
+        <button type="button" data-lang="pt">PT</a>
       </div>
     </div>
   </div>
@@ -34,11 +34,15 @@
 
 <nav class="top-nav" aria-label="Chapters">
   <div class="top-nav-inner">
-    <a class="nav-tab" data-target="visao" href="index.html">
-      <span class="nav-num">01</span>
-      <span><span lang="pt">Visão</span><span lang="en">Overview</span></span>
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span class="nav-num">00</span>
+      <span><span lang="pt">Início</span><span lang="en">Home</span></span>
     </a>
-    <a class="nav-tab" data-target="processo" href="process.html">
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span class="nav-num">01</span>
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span>
+    </a>
+    <a class="nav-tab active" data-target="processo" href="process.html">
       <span class="nav-num">02</span>
       <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
     </a>
@@ -55,12 +59,12 @@
 
 <section class="hero" style="padding-bottom: 0;">
   <div class="container">
-    <span class="micro"><span lang="pt">Processo · cenário CRDC Malta</span><span lang="en">Process · CRDC Malta scenario</span></span>
+    <span class="micro eye"><span lang="pt">Processo · cenário CRDC Malta</span><span lang="en">Process · CRDC Malta scenario</span></span>
     <h1 style="max-width: 880px;">
       <span lang="pt">Do resíduo ao DPP unit verificado<br><span class="accent">em três dias.</span></span><span lang="en">From waste to a verified DPP unit<br><span class="accent">in three days.</span></span>
     </h1>
     <p class="subtitle">
-      <span lang="pt">139 regras. 36 documentos. 4,2 segundos de validação. Diagrama operacional do cenário de referência — clique em qualquer task para abrir os detalhes.</span><span lang="en">139 rules. 36 documents. 4.2 seconds of validation. Operational diagram of the reference scenario — click any task to open details.</span>
+      <span lang="pt">139 regras. 36 documentos. 4,2 segundos de validação. Diagrama operacional do cenário de referência, clique em qualquer task para abrir os detalhes.</span><span lang="en">139 rules. 36 documents. 4.2 seconds of validation. Operational diagram of the reference scenario, click any task to open details.</span>
     </p>
   </div>
 </section>
@@ -182,7 +186,7 @@
              PHASE A · HOMOLOGATION  (x range 160-555)
              ============================================================ -->
 
-        <!-- A1 — Producer Envia documentação (Lane 1, cell 160-555 × 120-320) -->
+        <!-- A1, Producer Envia documentação (Lane 1, cell 160-555 × 120-320) -->
         <!-- task 240x90 at (238, 175) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="238" y="175" width="240" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="252" y="187" width="28" height="28"/>
@@ -192,7 +196,7 @@
         <text class="task-sub" x="290" y="234"><tspan lang="pt">Contrato · Termo de Uso</tspan><tspan lang="en">Contract · Terms of Service</tspan></text>
         <text class="task-sub" x="290" y="250"><tspan lang="pt">assinado · captura de IP</tspan><tspan lang="en">signed · IP capture</tspan></text>
 
-        <!-- A2 — Carrier Envia documentação (Lane 2, cell 160-555 × 320-520) -->
+        <!-- A2, Carrier Envia documentação (Lane 2, cell 160-555 × 320-520) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="238" y="375" width="240" height="110"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="252" y="387" width="28" height="28"/>
         <g class="task-icon" transform="translate(259,393)"><path d="M2 14 L2 9 L5 9 L7 6 L11 6 L11 14 Z"/><circle cx="5" cy="14" r="1.4"/><circle cx="9" cy="14" r="1.4"/></g>
@@ -202,7 +206,7 @@
         <text class="task-sub" x="290" y="452"><tspan lang="pt">+ Licença de transporte</tspan><tspan lang="en">+ Haulage licence</tspan></text>
         <text class="task-sub" x="290" y="468"><tspan lang="pt">+ Frota autorizada</tspan><tspan lang="en">+ Authorised fleet</tspan></text>
 
-        <!-- A3 — Consignee Envia documentação (Lane 3, cell 520-720) -->
+        <!-- A3, Consignee Envia documentação (Lane 3, cell 520-720) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="238" y="575" width="240" height="100"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="252" y="587" width="28" height="28"/>
         <g class="task-icon" transform="translate(259,593)"><path d="M2 14 L2 4 L8 4 L8 2 L14 2 L14 14 Z"/><line x1="2" y1="9" x2="14" y2="9"/></g>
@@ -212,7 +216,7 @@
         <text class="task-sub" x="290" y="652"><tspan lang="pt">+ Permit reciclagem</tspan><tspan lang="en">+ Recycling permit</tspan></text>
         <text class="task-sub" x="290" y="668"><tspan lang="pt">(escopo EWC)</tspan><tspan lang="en">(EWC scope)</tspan></text>
 
-        <!-- A4 — Operator Analisa documentação (Lane 4, cell 720-920) -->
+        <!-- A4, Operator Analisa documentação (Lane 4, cell 720-920) -->
         <rect class="tc tc-accent" fill="#ffffff" stroke="#5aa844" stroke-width="1.5" rx="8" ry="8" x="238" y="775" width="240" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="252" y="787" width="28" height="28"/>
         <g class="task-icon" transform="translate(259,793)"><path d="M2 8 L5 11 L14 3"/><path d="M2 14 L14 14"/></g>
@@ -234,7 +238,7 @@
              PHASE B · PICKUP + TRANSPORT  (x range 555-950)
              ============================================================ -->
 
-        <!-- B1 — Producer Separa material (Lane 1, cell 555-950 × 120-320) -->
+        <!-- B1, Producer Separa material (Lane 1, cell 555-950 × 120-320) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="633" y="175" width="240" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="647" y="187" width="28" height="28"/>
         <g class="task-icon" transform="translate(654,193)"><rect x="2" y="3" width="12" height="11" rx="1"/><path d="M5 3 L5 1 L11 1 L11 3"/><line x1="8" y1="6" x2="8" y2="11"/></g>
@@ -243,7 +247,7 @@
         <text class="task-sub" x="685" y="234"><tspan lang="pt">solicita coleta pela</tspan><tspan lang="en">requests pickup via</tspan></text>
         <text class="task-sub" x="685" y="250"><tspan lang="pt">plataforma</tspan><tspan lang="en">the platform</tspan></text>
 
-        <!-- B2 — Carrier Prepara classificação (Lane 2, cell 555-950, left sub-task) -->
+        <!-- B2, Carrier Prepara classificação (Lane 2, cell 555-950, left sub-task) -->
         <!-- 2 sub-tasks 175w side-by-side: B2 at (574,375), B3 at (756,375), each 175x110 -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="574" y="375" width="175" height="110"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="586" y="387" width="26" height="26"/>
@@ -255,7 +259,7 @@
         <text class="task-sub compact" x="586" y="462"><tspan lang="pt">composição</tspan><tspan lang="en">composition</tspan></text>
         <text class="task-sub compact" x="586" y="476"><tspan lang="pt">peso · rota</tspan><tspan lang="en">weight · route</tspan></text>
 
-        <!-- B3 — Carrier Submete Annex VII (Lane 2, right sub-task) -->
+        <!-- B3, Carrier Submete Annex VII (Lane 2, right sub-task) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="756" y="375" width="175" height="110"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="768" y="387" width="26" height="26"/>
         <g class="task-icon" transform="translate(774,392)"><path d="M2 11 L8 5 L11 8 L14 4"/><path d="M2 14 L14 14"/></g>
@@ -270,7 +274,7 @@
         <rect class="pill" fill="#5aa844" rx="8" ry="8" x="845" y="334" width="92" height="18"/>
         <text class="pill-text" x="891" y="347" style="font-size: 8px;"><tspan lang="pt">EM TRÂNSITO</tspan><tspan lang="en">IN TRANSIT</tspan></text>
 
-        <!-- B4 — System Cria identificador (Lane 5, cell 555-950 × 920-1120) -->
+        <!-- B4, System Cria identificador (Lane 5, cell 555-950 × 920-1120) -->
         <g data-tech-only="1">
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="633" y="975" width="240" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="647" y="987" width="28" height="28"/>
@@ -281,7 +285,7 @@
         <text class="task-sub" x="685" y="1050"><tspan lang="pt">+ referência DIWASS</tspan><tspan lang="en">+ DIWASS reference</tspan></text>
         </g>
 
-        <!-- B5 — DIWASS Registra Annex VII (Lane 6, cell 555-950 × 1120-1320) -->
+        <!-- B5, DIWASS Registra Annex VII (Lane 6, cell 555-950 × 1120-1320) -->
         <g data-tech-only="1">
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="633" y="1175" width="240" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="647" y="1187" width="28" height="28"/>
@@ -296,7 +300,7 @@
              PHASE C · RECEIVING + PROCESSING  (x range 950-1345)
              ============================================================ -->
 
-        <!-- C0 — Carrier Transporta (Lane 2, cell 950-1345) -->
+        <!-- C0, Carrier Transporta (Lane 2, cell 950-1345) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1028" y="375" width="240" height="110"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1042" y="387" width="28" height="28"/>
         <g class="task-icon" transform="translate(1049,393)"><path d="M2 12 L2 7 L4 5 L8 5 L8 3 L13 3 L13 12 Z"/><circle cx="5" cy="12" r="1.4"/><circle cx="11" cy="12" r="1.4"/></g>
@@ -306,9 +310,9 @@
         <text class="task-sub" x="1080" y="450"><tspan lang="pt">cadeia de custódia</tspan><tspan lang="en">chain of custody</tspan></text>
         <text class="task-sub" x="1080" y="468"><tspan lang="pt">entrega ao Consignee</tspan><tspan lang="en">delivers to Consignee</tspan></text>
 
-        <!-- Consignee phase C — 3 tasks: row 1 (C1+C2 side-by-side) + row 2 (C3 wide) -->
+        <!-- Consignee phase C, 3 tasks: row 1 (C1+C2 side-by-side) + row 2 (C3 wide) -->
 
-        <!-- C1 — Recebe na portaria (Lane 3 phase C, row 1 left) -->
+        <!-- C1, Recebe na portaria (Lane 3 phase C, row 1 left) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="969" y="540" width="175" height="80"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="981" y="552" width="26" height="26"/>
         <g class="task-icon" transform="translate(987,557)"><path d="M2 12 L2 5 L8 2 L14 5 L14 12 Z"/><path d="M6 12 L6 8 L10 8 L10 12"/></g>
@@ -317,7 +321,7 @@
         <text class="task-sub compact" x="981" y="598"><tspan lang="pt">pesa entrada</tspan><tspan lang="en">weighs intake</tspan></text>
         <text class="task-sub compact" x="981" y="612"><tspan lang="pt">foto · confirma qtd.</tspan><tspan lang="en">photo · confirms qty</tspan></text>
 
-        <!-- C2 — Processa material (Lane 3 phase C, row 1 right) -->
+        <!-- C2, Processa material (Lane 3 phase C, row 1 right) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1151" y="540" width="175" height="80"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1163" y="552" width="26" height="26"/>
         <g class="task-icon" transform="translate(1169,557)"><path d="M3 9 A6 6 0 1 1 9 14"/><path d="M9 14 L11 12 M9 14 L11 16"/></g>
@@ -330,7 +334,7 @@
         <rect class="pill" fill="#5aa844" rx="8" ry="8" x="1236" y="530" width="90" height="18"/>
         <text class="pill-text" x="1281" y="543" style="font-size: 8px;"><tspan lang="pt">RECICLADO</tspan><tspan lang="en">RECYCLED</tspan></text>
 
-        <!-- C3 — Emite Certificado de Conclusão (Lane 3 phase C, row 2 wide) -->
+        <!-- C3, Emite Certificado de Conclusão (Lane 3 phase C, row 2 wide) -->
         <rect class="tc tc-accent" fill="#ffffff" stroke="#5aa844" stroke-width="1.5" rx="8" ry="8" x="968" y="635" width="360" height="80"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="982" y="647" width="28" height="28"/>
         <g class="task-icon" transform="translate(989,653)"><path d="M2 2 L11 2 L15 6 L15 14 L2 14 Z"/><line x1="11" y1="2" x2="11" y2="6"/><line x1="11" y1="6" x2="15" y2="6"/><circle cx="11" cy="10" r="2"/><path d="M9 11 L10 13 L13 9"/></g>
@@ -339,7 +343,7 @@
         <text class="task-sub" x="1020" y="694"><tspan lang="pt">até 30 dias após o processo</tspan><tspan lang="en">within 30 days of operation</tspan></text>
         <text class="task-sub" x="1020" y="710"><tspan lang="pt">submete via DIWASS · arquivamento oficial</tspan><tspan lang="en">submits via DIWASS · official filing</tspan></text>
 
-        <!-- C4 — DIWASS Registra Certificado (Lane 6, cell 950-1345) -->
+        <!-- C4, DIWASS Registra Certificado (Lane 6, cell 950-1345) -->
         <g data-tech-only="1">
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1028" y="1175" width="240" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1042" y="1187" width="28" height="28"/>
@@ -354,7 +358,7 @@
              PHASE D · VALIDATION + EMISSION  (x range 1345-1740)
              ============================================================ -->
 
-        <!-- D1 — System Dispara validação (Lane 5, left compact) -->
+        <!-- D1, System Dispara validação (Lane 5, left compact) -->
         <g data-tech-only="1">
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1367" y="950" width="155" height="64"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1379" y="960" width="26" height="26"/>
@@ -373,21 +377,21 @@
         <text class="pill-text" x="1488" y="1089" style="font-size: 8px;"><tspan lang="pt">VALIDADO</tspan><tspan lang="en">VALIDATED</tspan></text>
         </g>
 
-        <!-- D2 — System Empacota e envia (Lane 5, below gateway) -->
+        <!-- D2, System Empacota e envia (Lane 5, below gateway) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1367" y="1095" width="155" height="50" style="display:none"/>
 
-        <!-- D5 — System POPULA OS 2 PAINÉIS PÚBLICOS — FINAL destination card (Lane 5, right side) -->
+        <!-- D5, System POPULA OS 2 PAINÉIS PÚBLICOS, FINAL destination card (Lane 5, right side) -->
         <rect class="tc tc-final" fill="#1f3f30" stroke="#99d97e" stroke-width="1.5" rx="8" ry="8" x="1547" y="940" width="185" height="170"/>
         <rect class="task-icon-bg final" fill="#182f23" rx="6" ry="6" x="1563" y="956" width="28" height="28"/>
         <g class="task-icon on-dark" transform="translate(1570,962)"><rect x="2" y="2" width="6" height="6" rx="0.7"/><rect x="9" y="2" width="6" height="6" rx="0.7"/><rect x="2" y="9" width="6" height="6" rx="0.7"/><rect x="9" y="9" width="6" height="6" rx="0.7"/></g>
         <text class="task-title on-dark" x="1601" y="970" style="font-size: 13px;"><tspan lang="pt">Popula os 2 painéis</tspan><tspan lang="en">Populates 2 panels</tspan></text>
         <text class="task-sub on-dark" x="1601" y="986"><tspan lang="pt">com dados verificados + DPP</tspan><tspan lang="en">with verified data + DPP</tspan></text>
-        <text class="task-sub on-dark" x="1563" y="1022" style="font-weight: 700; fill: #7fd348;">— <tspan lang="pt">Cliente</tspan><tspan lang="en">Client</tspan></text>
-        <text class="task-sub on-dark" x="1563" y="1044" style="font-weight: 700; fill: #7fd348;">— <tspan lang="pt">Auditor</tspan><tspan lang="en">Auditor</tspan></text>
+        <text class="task-sub on-dark" x="1563" y="1022" style="font-weight: 700; fill: #7fd348;">, <tspan lang="pt">Cliente</tspan><tspan lang="en">Client</tspan></text>
+        <text class="task-sub on-dark" x="1563" y="1044" style="font-weight: 700; fill: #7fd348;">, <tspan lang="pt">Auditor</tspan><tspan lang="en">Auditor</tspan></text>
         <text class="task-sub on-dark" x="1563" y="1078" style="font-style: italic; font-size: 9px;"><tspan lang="pt">+ painéis no roadmap</tspan><tspan lang="en">+ more panels on roadmap</tspan></text>
         <text class="task-sub on-dark" x="1563" y="1096" style="font-style: italic;"><tspan lang="pt">ciclo da massa fechado</tspan><tspan lang="en">mass lifecycle closed</tspan></text>
 
-        <!-- D3 — Carrot Emite crédito (Lane 7, left) -->
+        <!-- D3, Carrot Emite crédito (Lane 7, left) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1367" y="1375" width="175" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1381" y="1387" width="26" height="26"/>
         <g class="task-icon" transform="translate(1387,1393)"><circle cx="8" cy="6" r="5"/><path d="M6 10 L5 15 L8 13 L11 15 L10 10"/></g>
@@ -396,7 +400,7 @@
         <text class="task-sub compact" x="1415" y="1434">41,8 kg PET-r</text>
         <text class="task-sub compact" x="1415" y="1450"><tspan lang="pt">selo PURE+UE+RecyClass</tspan><tspan lang="en">PURE+EU+RecyClass seal</tspan></text>
 
-        <!-- D4 — Carrot Retorna metadados (Lane 7, right) -->
+        <!-- D4, Carrot Retorna metadados (Lane 7, right) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1557" y="1375" width="175" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1571" y="1387" width="26" height="26"/>
         <g class="task-icon" transform="translate(1577,1393)"><path d="M2 8 L10 8"/><path d="M5 5 L2 8 L5 11"/><rect x="11" y="3" width="3" height="10"/></g>
@@ -590,16 +594,16 @@
   const T = {
     'A1': {
       phase:'A', num:'01', title:{pt:'Gerador envia documentação', en:'Producer submits documentation'},
-      actor:{pt:'<strong>Gerador</strong> · comércio, marina, restaurante — quem produz o resíduo plástico.', en:'<strong>Producer</strong> · retail, marina, restaurant — whoever generates the plastic waste.'},
-      what:{pt:'O participante envia os documentos da sua empresa para entrar no programa. Antes disso, nenhum quilo de massa pode ser registrado no sistema — é a porta de entrada da plataforma. A ImpacTrakr revisa cada documento manualmente em até 48 horas; uma vez aprovada, a empresa fica habilitada por 12 meses.',
-            en:'The participant submits their company documentation to enter the program. Before this, no kilogram of mass can be registered in the system — it is the platform\'s entry gate. ImpacTrakr reviews each document manually within 48 hours; once approved, the company is enabled for 12 months.'},
+      actor:{pt:'<strong>Gerador</strong> · comércio, marina, restaurante, quem produz o resíduo plástico.', en:'<strong>Producer</strong> · retail, marina, restaurant, whoever generates the plastic waste.'},
+      what:{pt:'O participante envia os documentos da sua empresa para entrar no programa. Antes disso, nenhum quilo de massa pode ser registrado no sistema, é a porta de entrada da plataforma. A ImpacTrakr revisa cada documento manualmente em até 48 horas; uma vez aprovada, a empresa fica habilitada por 12 meses.',
+            en:'The participant submits their company documentation to enter the program. Before this, no kilogram of mass can be registered in the system, it is the platform\'s entry gate. ImpacTrakr reviews each document manually within 48 hours; once approved, the company is enabled for 12 months.'},
       docs:[
         {name:{pt:'Documento societário', en:'Corporate documentation'},
          purpose:{pt:'Prova quem é a empresa.', en:'Proves who the company is.'},
          struct:{pt:'Cartão CNPJ ou certificado de inscrição da pessoa jurídica · razão social · endereço da sede · documento de identidade do representante legal · identificação dos sócios e do beneficiário final (UBO, se empresa). Validade da homologação: 12 meses.',
                  en:'Corporate registration certificate · legal name · registered address · ID of the legal representative · partners and ultimate beneficial owner (UBO, if company). Homologation validity: 12 months.'}},
         {name:{pt:'Termo de uso e exclusividade', en:'Terms of use and exclusivity'},
-         purpose:{pt:'Compromisso formal de que cada lote enviado à plataforma não será reportado em outro programa de crédito — protege contra dupla contagem.', en:'Formal commitment that each batch submitted will not be reported to another credit program — protects against double-counting.'},
+         purpose:{pt:'Compromisso formal de que cada lote enviado à plataforma não será reportado em outro programa de crédito, protege contra dupla contagem.', en:'Formal commitment that each batch submitted will not be reported to another credit program, protects against double-counting.'},
          struct:{pt:'Aceite eletrônico do termo (PDF assinado digitalmente) com captura de IP, data e versão do documento. Se houver alteração maior no termo, o participante precisa aceitar novamente.',
                  en:'Electronic acceptance of the terms (digitally signed PDF) with IP capture, date and document version. Major changes to the terms require re-acceptance.'}},
         {name:{pt:'Contrato comercial', en:'Commercial contract'},
@@ -622,11 +626,11 @@
             en:'Beyond universal documents, the carrier must prove waste haulage authorisation and have its fleet registered.'},
       docs:[
         {name:'kyc_kyb_record + contract_exclusivity_ack + contract',
-         purpose:{pt:'Universais — idênticos à etapa A1.', en:'Universal documents — same as A1.'},
+         purpose:{pt:'Universais, idênticos à etapa A1.', en:'Universal documents, same as A1.'},
          struct:{pt:'Ver detalhes em A1.', en:'See details in A1.'}},
         {name:'carrier_licence',
-         purpose:{pt:'Licença oficial de transporte de resíduos emitida pela autoridade local (em Malta: ERA — Environment and Resources Authority).',
-                  en:'Official waste haulage licence issued by local authority (in Malta: ERA — Environment and Resources Authority).'},
+         purpose:{pt:'Licença oficial de transporte de resíduos emitida pela autoridade local (em Malta: ERA, Environment and Resources Authority).',
+                  en:'Official waste haulage licence issued by local authority (in Malta: ERA, Environment and Resources Authority).'},
          struct:{pt:'<strong>licenceNumber</strong> · <strong>issuingAuthority</strong> · <strong>scope</strong> (códigos EWC autorizados) · <strong>validFrom</strong> · <strong>validUntil</strong>',
                  en:'<strong>licenceNumber</strong> · <strong>issuingAuthority</strong> · <strong>scope</strong> (authorised EWC codes) · <strong>validFrom</strong> · <strong>validUntil</strong>'}},
         {name:'authorized_vehicle_register',
@@ -704,7 +708,7 @@
             en:'The producer sets aside the plastic mass for recycling, weighs locally, packages, takes a load photo and requests pickup via the app. This is the moment the mass "is born" as traceable evidence.'},
       docs:[
         {name:'load_photo',
-         purpose:{pt:'Evidência visual do material antes da coleta — usada em auditoria e ML futuro para detecção de contaminantes.', en:'Visual evidence of the material before pickup — used in audits and future ML for contaminant detection.'},
+         purpose:{pt:'Evidência visual do material antes da coleta, usada em auditoria e ML futuro para detecção de contaminantes.', en:'Visual evidence of the material before pickup, used in audits and future ML for contaminant detection.'},
          struct:{pt:'Foto da carga (JPEG/PNG) · <strong>timestamp</strong> · <strong>geoLocation</strong> · <strong>estimatedWeightKg</strong>',
                  en:'Load photo (JPEG/PNG) · <strong>timestamp</strong> · <strong>geoLocation</strong> · <strong>estimatedWeightKg</strong>'}}
       ],
@@ -727,7 +731,7 @@
          struct:{pt:'<strong>baselCode</strong> (B3011 para plástico limpo) · <strong>euLowCode</strong> (ex: 02 01 04) · <strong>description</strong> · <strong>physicalCharacteristics</strong> · <strong>quantityKg</strong> (estimado) · <strong>packagingType</strong>',
                  en:'<strong>baselCode</strong> (B3011 for clean plastic) · <strong>euLowCode</strong> (e.g., 02 01 04) · <strong>description</strong> · <strong>physicalCharacteristics</strong> · <strong>quantityKg</strong> (estimated) · <strong>packagingType</strong>'}},
         {name:'composition_analysis',
-         purpose:{pt:'Análise da composição do material — suporta a classificação como B3011 (single polymer, não contaminado).', en:'Composition analysis — supports classification as B3011 (single polymer, non-contaminated).'},
+         purpose:{pt:'Análise da composição do material, suporta a classificação como B3011 (single polymer, não contaminado).', en:'Composition analysis, supports classification as B3011 (single polymer, non-contaminated).'},
          struct:{pt:'<strong>polymerBreakdownPct</strong> (% por tipo) · <strong>contaminationLevelPct</strong> · <strong>moistureLevelPct</strong> · <strong>analysisMethod</strong> (visual / lab) · <strong>analystSignature</strong>',
                  en:'<strong>polymerBreakdownPct</strong> (% by type) · <strong>contaminationLevelPct</strong> · <strong>moistureLevelPct</strong> · <strong>analysisMethod</strong> (visual / lab) · <strong>analystSignature</strong>'}}
       ],
@@ -742,8 +746,8 @@
     'B3': {
       phase:'B', num:'07', title:{pt:'Carrier submete Annex VII via DIWASS', en:'Carrier submits Annex VII via DIWASS'},
       actor:{pt:'<strong>Transportador (Notifier)</strong> · responsável legal pelo shipment', en:'<strong>Carrier (Notifier)</strong> · legally responsible for the shipment'},
-      what:{pt:'O Carrier submete o Annex VII no sistema DIWASS da União Europeia ao menos 2 dias úteis antes do início do trecho. É a parte regulatória inescapável — sem isso, o trecho é ilegal sob a Regulation (EU) 2024/1157.',
-            en:'The Carrier submits Annex VII in the EU DIWASS system at least 2 working days before the leg starts. Inescapable regulatory step — without it, the leg is illegal under Regulation (EU) 2024/1157.'},
+      what:{pt:'O Carrier submete o Annex VII no sistema DIWASS da União Europeia ao menos 2 dias úteis antes do início do trecho. É a parte regulatória inescapável, sem isso, o trecho é ilegal sob a Regulation (EU) 2024/1157.',
+            en:'The Carrier submits Annex VII in the EU DIWASS system at least 2 working days before the leg starts. Inescapable regulatory step, without it, the leg is illegal under Regulation (EU) 2024/1157.'},
       docs:[
         {name:'annex_vii_submission',
          purpose:{pt:'Documento eletrônico de transporte exigido por Art. 18 da Regulation (EU) 2024/1157 para shipments intra-EU de resíduo green-listed.', en:'Electronic transport document required by Art. 18 of Regulation (EU) 2024/1157 for intra-EU green-listed waste shipments.'},
@@ -753,15 +757,15 @@
       validation:{
         phase1:{pt:'O sistema ImpacTrakr monta o Annex VII a partir dos dados já existentes (homologações, classificação, rota), submete via API DIWASS e aguarda confirmação.',
                 en:'ImpacTrakr system builds the Annex VII from existing data (homologations, classification, route), submits via DIWASS API and awaits confirmation.'},
-        phase2:{pt:'Igual à Fase 1 — DIWASS já é totalmente eletrônico desde 21-mai-2026.', en:'Same as Phase 1 — DIWASS has been fully electronic since 21-May-2026.'}
+        phase2:{pt:'Igual à Fase 1, DIWASS já é totalmente eletrônico desde 21-mai-2026.', en:'Same as Phase 1, DIWASS has been fully electronic since 21-May-2026.'}
       },
       rules:['EU-07','EU-08','EU-09','EU-20','EU-22'], next:'B5'
     },
     'B4': {
       phase:'B', num:'08', title:{pt:'Sistema cria o identificador da massa', en:'System creates the mass identifier'},
       actor:{pt:'<strong>Sistema ImpacTrakr</strong>', en:'<strong>ImpacTrakr System</strong>'},
-      what:{pt:'Após DIWASS retornar o número de submissão, o ImpacTrakr cria o identificador definitivo da massa (MID) — momento em que toda a evidência se cristaliza em um registro único e imutável.',
-            en:'After DIWASS returns the submission number, ImpacTrakr creates the definitive mass identifier (MID) — the moment all evidence crystallises into a single immutable record.'},
+      what:{pt:'Após DIWASS retornar o número de submissão, o ImpacTrakr cria o identificador definitivo da massa (MID), momento em que toda a evidência se cristaliza em um registro único e imutável.',
+            en:'After DIWASS returns the submission number, ImpacTrakr creates the definitive mass identifier (MID), the moment all evidence crystallises into a single immutable record.'},
       docs:[
         {name:'massid_record',
          purpose:{pt:'Identificador único e imutável da massa, com vínculos para todos os atores e referência DIWASS.', en:'Unique and immutable mass identifier, with bindings to all actors and DIWASS reference.'},
@@ -771,7 +775,7 @@
       validation:{
         phase1:{pt:'Sistema valida em pre-ingest: P-02 (homologação ativa), P-03 (KYC ativo), P-05 (exclusivity válida) para os 3 participantes. Hash chain SHA-256 ancora a massa.',
                 en:'System validates pre-ingest: P-02 (active homologation), P-03 (active KYC), P-05 (valid exclusivity) for all 3 participants. SHA-256 hash chain anchors the mass.'},
-        phase2:{pt:'Igual à Fase 1 — automação completa desde o MVP.', en:'Same as Phase 1 — fully automated since MVP.'}
+        phase2:{pt:'Igual à Fase 1, automação completa desde o MVP.', en:'Same as Phase 1, fully automated since MVP.'}
       },
       rules:['P-01','P-02','P-03','P-05'], next:'C0'
     },
@@ -800,7 +804,7 @@
             en:'The mass is moved from the producer (or Bin Custodian) to the Consignee. Annex VII rides along physically/electronically. Each leg records vehicle, driver, route and formal custody handover.'},
       docs:[
         {name:'transport_leg_record',
-         purpose:{pt:'Registro do trecho — evidência da cadeia de custódia.', en:'Leg record — chain-of-custody evidence.'},
+         purpose:{pt:'Registro do trecho, evidência da cadeia de custódia.', en:'Leg record, chain-of-custody evidence.'},
          struct:{pt:'<strong>vehiclePlate</strong> · <strong>driverId</strong> · <strong>departureGeoPoint</strong> · <strong>arrivalGeoPoint</strong> · <strong>route</strong> · <strong>departureAt</strong> · <strong>arrivalAt</strong>',
                  en:'<strong>vehiclePlate</strong> · <strong>driverId</strong> · <strong>departureGeoPoint</strong> · <strong>arrivalGeoPoint</strong> · <strong>route</strong> · <strong>departureAt</strong> · <strong>arrivalAt</strong>'}}
       ],
@@ -822,13 +826,13 @@
          struct:{pt:'<strong>massId</strong> · <strong>intakeWeightKg</strong> · <strong>annexViiWeightKg</strong> · <strong>varianceKg</strong> · <strong>variancePct</strong> · <strong>intakeAt</strong> · <strong>receivedBy</strong> · <strong>gateDecision</strong> (accepted / rejected)',
                  en:'<strong>massId</strong> · <strong>intakeWeightKg</strong> · <strong>annexViiWeightKg</strong> · <strong>varianceKg</strong> · <strong>variancePct</strong> · <strong>intakeAt</strong> · <strong>receivedBy</strong> · <strong>gateDecision</strong> (accepted / rejected)'}},
         {name:'gate_photo',
-         purpose:{pt:'Foto da carga no momento da entrada — evidência visual e insumo para futura validação por ML.', en:'Load photo at intake — visual evidence and input for future ML validation.'},
+         purpose:{pt:'Foto da carga no momento da entrada, evidência visual e insumo para futura validação por ML.', en:'Load photo at intake, visual evidence and input for future ML validation.'},
          struct:{pt:'Imagem (JPEG/PNG) · timestamp · geo.', en:'Image (JPEG/PNG) · timestamp · geo.'}}
       ],
       criteria:[
         {pt:'<strong>Pesagem em balança calibrada</strong> com certificado de calibração válido (PG-26)', en:'<strong>Weighing on calibrated scale</strong> with valid calibration certificate (PG-26)'},
         {pt:'<strong>Foto obrigatória da carga</strong> antes do descarregamento', en:'<strong>Mandatory load photo</strong> before unloading'},
-        {pt:'<strong>Tolerância de variação:</strong> &le; 2% entre intake real e declarado no Annex VII (sugestão ImpacTrakr — criterio do CRDC a confirmar)', en:'<strong>Variance tolerance:</strong> &le; 2% between actual intake and Annex VII declaration (ImpacTrakr suggestion — CRDC criterion to confirm)'},
+        {pt:'<strong>Tolerância de variação:</strong> &le; 2% entre intake real e declarado no Annex VII (sugestão ImpacTrakr, criterio do CRDC a confirmar)', en:'<strong>Variance tolerance:</strong> &le; 2% between actual intake and Annex VII declaration (ImpacTrakr suggestion, CRDC criterion to confirm)'},
         {pt:'<strong>Verificação visual</strong> de composição (aspecto B3011 sem contaminação aparente)', en:'<strong>Visual verification</strong> of composition (B3011 appearance with no apparent contamination)'},
         {pt:'<strong>Aceite ou rejeição formal:</strong> timestamp + responsável; rejeição exige motivo + foto', en:'<strong>Formal acceptance or rejection:</strong> timestamp + responsible; rejection requires reason + photo'}
       ],
@@ -847,7 +851,7 @@
             en:'The mass goes through polymer sorting → calibrated weighing → extrusion (mechanical recycling R3) → output resin QC. Each internal step generates evidence bound to the same MID.'},
       docs:[
         {name:'sorting_report',
-         purpose:{pt:'Relatório da triagem por linha — rendimentos, contaminação rejeitada.', en:'Per-line sorting report — yields, rejected contamination.'},
+         purpose:{pt:'Relatório da triagem por linha, rendimentos, contaminação rejeitada.', en:'Per-line sorting report, yields, rejected contamination.'},
          struct:{pt:'<strong>sortingLineId</strong> · <strong>inputWeightKg</strong> · <strong>sortedPolymerWeightKg</strong> · <strong>contaminationWeightKg</strong> · <strong>yieldPct</strong>',
                  en:'<strong>sortingLineId</strong> · <strong>inputWeightKg</strong> · <strong>sortedPolymerWeightKg</strong> · <strong>contaminationWeightKg</strong> · <strong>yieldPct</strong>'}},
         {name:'calibrated_weighing_ticket',
@@ -898,7 +902,7 @@
             en:'DIWASS receives the Completion Certificate, validates format, files officially and makes it available to the competent authority (Malta ERA + transit/destination authorities).'},
       docs:[
         {name:'diwass_completion_filing',
-         purpose:{pt:'Comprovante de arquivamento — fecha o ciclo regulatório do shipment.', en:'Filing proof — closes the shipment regulatory cycle.'},
+         purpose:{pt:'Comprovante de arquivamento, fecha o ciclo regulatório do shipment.', en:'Filing proof, closes the shipment regulatory cycle.'},
          struct:{pt:'<strong>filingRef</strong> · <strong>filedAt</strong> · <strong>diwassSignature</strong>', en:'<strong>filingRef</strong> · <strong>filedAt</strong> · <strong>diwassSignature</strong>'}}
       ],
       validation:{
@@ -910,8 +914,8 @@
     'D1': {
       phase:'D', num:'15', title:{pt:'Sistema dispara o Validation Engine', en:'System triggers the Validation Engine'},
       actor:{pt:'<strong>Sistema ImpacTrakr</strong> · Validation Engine', en:'<strong>ImpacTrakr System</strong> · Validation Engine'},
-      what:{pt:'Quando o ciclo regulatório fecha (DIWASS arquiva o Completion Certificate), o ImpacTrakr dispara o motor de validação em três módulos paralelos: PURE (95 regras), UE (27 regras), RecyClass (17 regras) — total 139 regras avaliadas em ~4,2 segundos.',
-            en:'When the regulatory cycle closes (DIWASS files the Completion Certificate), ImpacTrakr triggers the validation engine in three parallel modules: PURE (95 rules), EU (27 rules), RecyClass (17 rules) — total 139 rules evaluated in ~4.2 seconds.'},
+      what:{pt:'Quando o ciclo regulatório fecha (DIWASS arquiva o Completion Certificate), o ImpacTrakr dispara o motor de validação em três módulos paralelos: PURE (95 regras), UE (27 regras), RecyClass (17 regras), total 139 regras avaliadas em ~4,2 segundos.',
+            en:'When the regulatory cycle closes (DIWASS files the Completion Certificate), ImpacTrakr triggers the validation engine in three parallel modules: PURE (95 rules), EU (27 rules), RecyClass (17 rules), total 139 rules evaluated in ~4.2 seconds.'},
       docs:[
         {name:'validation_execution_log',
          purpose:{pt:'Log determinístico e reproduzível da execução de cada uma das 139 regras.', en:'Deterministic and reproducible log of execution of each of the 139 rules.'},
@@ -964,14 +968,14 @@
     'D5': {
       phase:'D', num:'18', title:{pt:'Sistema popula os 2 painéis públicos', en:'System populates the 2 public panels'},
       actor:{pt:'<strong>Sistema ImpacTrakr</strong> · Dashboards', en:'<strong>ImpacTrakr System</strong> · Dashboards'},
-      what:{pt:'Esse é o passo final: os dados verificados e o ID DPP emitido alimentam os 2 painéis públicos da plataforma (Cliente + Auditor). O ciclo da massa fecha. Do ponto de coleta ao DPP unit rastreável — pronto pra ser adquirido por uma brand, anexado a um relatório CSRD ou registrado como crédito financeiro num registry parceiro.',
-            en:'This is the final step: verified data and the issued DPP ID feed the 2 public platform panels (Client + Auditor). The mass lifecycle closes. From collection point to traceable DPP unit — ready to be acquired by a brand, attached to a CSRD report, or registered as a financial credit by a partner registry.'},
+      what:{pt:'Esse é o passo final: os dados verificados e o ID DPP emitido alimentam os 2 painéis públicos da plataforma (Cliente + Auditor). O ciclo da massa fecha. Do ponto de coleta ao DPP unit rastreável, pronto pra ser adquirido por uma brand, anexado a um relatório CSRD ou registrado como crédito financeiro num registry parceiro.',
+            en:'This is the final step: verified data and the issued DPP ID feed the 2 public platform panels (Client + Auditor). The mass lifecycle closes. From collection point to traceable DPP unit, ready to be acquired by a brand, attached to a CSRD report, or registered as a financial credit by a partner registry.'},
       docs:[
         {name:'panel_client',
-         purpose:{pt:'<strong>Painel Cliente</strong> — reciclador / processador que opera a homologação e emite DPP units.', en:'<strong>Client panel</strong> — recycler / processor running homologation and emitting DPP units.'},
+         purpose:{pt:'<strong>Painel Cliente</strong>, reciclador / processador que opera a homologação e emite DPP units.', en:'<strong>Client panel</strong>, recycler / processor running homologation and emitting DPP units.'},
          struct:{pt:'submissão de lotes · status de conformidade regulatória · trilha de evidências documentais · IDs DPP emitidos · gestão de renovações', en:'batch submission · regulatory compliance status · documentary evidence trail · issued DPP IDs · renewal management'}},
         {name:'panel_auditor',
-         purpose:{pt:'<strong>Painel Auditor</strong> — organismos acreditados em RecyClass ou equivalente que verificam a operação.', en:'<strong>Auditor panel</strong> — RecyClass-accredited bodies (or equivalent) verifying the operation.'},
+         purpose:{pt:'<strong>Painel Auditor</strong>, organismos acreditados em RecyClass ou equivalente que verificam a operação.', en:'<strong>Auditor panel</strong>, RecyClass-accredited bodies (or equivalent) verifying the operation.'},
          struct:{pt:'dados em real-time · verificações de conformidade · validação de rastreabilidade · pacotes de auditoria automáticos · ancoragem on-chain', en:'real-time data · compliance verifications · traceability validation · automated audit packs · on-chain anchor'}}
       ],
       validation:{
@@ -980,7 +984,7 @@
         phase2:{pt:'Personalização avançada por usuário, exportação de relatórios em PDF/XLSX, integração API para terceiros, painéis adicionais (regulador, integração com registries externos, feeds governamentais).',
                 en:'Advanced per-user personalisation, PDF/XLSX report export, third-party API integration, additional panels (regulator, external registry integration, governmental feeds).'}
       },
-      rules:['final destination — no more rule firings'], next:null
+      rules:['final destination, no more rule firings'], next:null
     }
   };
 
@@ -1163,7 +1167,7 @@
       return elX >= rx - s && elX <= rx + rw + s && elY >= ry - s && elY <= ry + rh + s;
     }
 
-    // 1) Tasks B4, B5, C4, D1, D2 — by known coords
+    // 1) Tasks B4, B5, C4, D1, D2, by known coords
     const TECH_TASK_RECTS = [
       { x: 633, y: 975, w: 240, h: 90, id: 'B4' },
       { x: 633, y: 1175, w: 240, h: 90, id: 'B5' },
@@ -1213,7 +1217,7 @@
     svgEl.querySelectorAll('text.gw-text, text.gw-label').forEach(function (t) {
       const x = parseFloat(t.getAttribute('x') || '0');
       const y = parseFloat(t.getAttribute('y') || '0');
-      // Gateway D "?" at (1422, 1058) and "139/139" at (1485, 1056). Gateway A "?" at (524, 826) — leave alone.
+      // Gateway D "?" at (1422, 1058) and "139/139" at (1485, 1056). Gateway A "?" at (524, 826), leave alone.
       if (y >= 1040 && y <= 1080 && x >= 1400 && x <= 1520) mark(t);
     });
 
@@ -1241,7 +1245,7 @@
       if (y === 1120) mark(bg);
     });
 
-    // 7) Tech-only flow paths — by path-d substring (whitespace-normalized)
+    // 7) Tech-only flow paths, by path-d substring (whitespace-normalized)
     //    Real paths in this SVG:
     //      B3 → B5: 'M 931 480 L 940 480 L 940 1220 L 873 1220'
     //      C3 → C4: 'M 1148 715 L 1148 1175'
@@ -1373,6 +1377,66 @@
   });
 })();
 </script>
+
+<!-- ============ FOOTER (compartilhado, CSS em shared.css) ============ -->
+<footer class="site-footer">
+  <div class="container">
+
+    <!-- Row 1: Manifesto tipografico -->
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+      </p>
+    </div>
+
+    <!-- Row 2: 4 colunas de links -->
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+        <a href="index.html#prova">CRDC Malta pilot</a>
+        <a href="index.html#independent">MARE Foundation</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Legal</span>
+        <a href="#"><span lang="pt">Termos de uso</span><span lang="en">Terms of use</span></a>
+        <a href="#"><span lang="pt">Política de privacidade</span><span lang="en">Privacy policy</span></a>
+        <a href="#">GDPR</a>
+        <a href="#"><span lang="pt">Cookies</span><span lang="en">Cookies</span></a>
+      </div>
+    </div>
+
+    <!-- Row 3: brand line + versao (assinatura tipografica) -->
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">SHA a4f0&hellip;9c81 &middot; v0.4.7</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
 
 </body>
 </html>
