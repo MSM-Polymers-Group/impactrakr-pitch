@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ImpacTrakr · Dashboards · live intelligence for recyclers and certifiers</title>
+<meta name="description" content="The same verified data that proves every batch becomes a live dashboard: an operational cockpit for recyclers and continuous portfolio oversight for auditors and certifiers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260707-47">
+<script src="assets/shared.js?v=20260626-1421" defer></script>
+<script src="assets/logo.js?v=20260707-4" defer></script>
+<style>
+  /* ==============================================================
+     Dashboards page · adapta o rascunho do Gian ao nosso design.
+     Reusa tokens do shared.css. Nao redeclara .split-2col, .hero-cta,
+     .cta-btn, .dash-chips (reusa .proof-chips visualmente equivalente).
+     Ritmo de cores segue index.html:
+       - hero + recycler : off-white (padrao)
+       - auditor          : cinza-azulado full-bleed (contexto institucional)
+       - side-by-side     : off-white
+     ============================================================== */
+
+  /* Layout helpers exclusivos desta pagina */
+  .split-2col {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+  @media (max-width: 940px) {
+    .split-2col { grid-template-columns: 1fr; gap: var(--space-md); }
+  }
+  .split-2col h2 {
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-heading);
+    max-width: 20ch;
+  }
+  .split-2col .lede {
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+
+  /* Hero da pagina */
+  section.hero.dash-hero {
+    padding-top: clamp(1.5rem, 3vw, 3rem);
+    padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  }
+  .dash-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    max-width: 24ch;
+    margin: var(--space-sm) 0 var(--space-md);
+  }
+  .dash-hero .subtitle {
+    max-width: 60ch;
+    color: var(--ink-soft);
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+
+  /* Audience jump chips (link para blocos abaixo) */
+  .audience-jump {
+    display: flex; flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-top: var(--space-lg);
+  }
+  .audience-jump a {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    text-decoration: none;
+    transition: background var(--d-quick) var(--ease-out),
+                border-color var(--d-quick) var(--ease-out),
+                color var(--d-quick) var(--ease-out);
+  }
+  .audience-jump a:hover {
+    background: var(--brand-surface);
+    border-color: var(--brand-surface);
+    color: var(--on-dark);
+  }
+
+  /* Lista de pontos narrativa */
+  .dash-points { list-style: none; padding: 0; margin: var(--space-md) 0 0; }
+  .dash-points li {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-bottom: var(--space-sm);
+    color: var(--ink-soft);
+    font-size: var(--fs-body);
+    line-height: 1.55;
+  }
+  .dash-points li strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .dash-points li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 7px; height: 7px;
+    border-radius: 2px;
+    background: var(--accent-strong);
+  }
+  /* Bullets sobre fundo escuro (dentro do auditor-band) */
+  .brand-surface .dash-points li { color: var(--on-dark-soft); }
+  .brand-surface .dash-points li strong { color: var(--on-dark); }
+  .brand-surface .dash-points li::before { background: var(--accent-on-dark); }
+
+  /* Chips (reusa visual dos proof-chips: verde escuro + branco) */
+  .dash-chips { display: flex; flex-wrap: wrap; gap: var(--space-3xs); margin-top: var(--space-md); }
+  .dash-chips .chip {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    background: var(--brand-surface);
+    border: 1px solid var(--brand-surface);
+    border-radius: var(--r-sm);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    color: var(--on-dark);
+    letter-spacing: var(--ls-body);
+  }
+  /* Sobre fundo escuro: inverte (fundo claro + texto escuro) */
+  .brand-surface .dash-chips .chip {
+    background: var(--on-dark);
+    border-color: var(--on-dark);
+    color: var(--brand-surface);
+  }
+
+  /* Painel mockup */
+  .dash-panel {
+    background: oklch(97% 0.005 220);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: var(--space-md);
+  }
+  /* Sobre brand-surface: painel fica com fundo levemente diferenciado */
+  .brand-surface .dash-panel {
+    background: var(--brand-surface-deep);
+    border-color: var(--brand-line);
+  }
+
+  .dash-panel-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+  .dash-panel-top .who {
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-caption);
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+  }
+  .dash-panel-top .who span.sub {
+    display: block;
+    font-weight: var(--fw-medium);
+    color: var(--ink-faint);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: var(--fs-caption);
+    margin-top: 2px;
+  }
+  .brand-surface .dash-panel-top .who { color: var(--on-dark); }
+  .brand-surface .dash-panel-top .who span.sub { color: var(--on-dark-mute); }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    padding: 0.28rem 0.6rem;
+    border-radius: 999px;
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    background: var(--accent-strong);
+    color: var(--on-dark);
+    white-space: nowrap;
+  }
+  .pill.amber { background: var(--warning); color: var(--brand-surface-deep); }
+  .brand-surface .pill { background: var(--accent-on-dark); color: var(--brand-surface-deep); }
+  .brand-surface .pill.amber { background: var(--warning); color: var(--brand-surface-deep); }
+
+  /* Metricas grid */
+  .dash-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xs);
+  }
+  .dash-metric {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: var(--space-sm);
+  }
+  .brand-surface .dash-metric {
+    background: var(--brand-surface);
+    border-color: var(--brand-line);
+  }
+  .dm-val {
+    font-family: 'Manrope', sans-serif;
+    font-weight: var(--fw-bold);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--ink);
+    font-feature-settings: 'tnum' on;
+  }
+  .brand-surface .dm-val { color: var(--on-dark); }
+  .dm-lab {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: var(--fs-caption);
+    color: var(--ink-faint);
+    line-height: 1.3;
+  }
+  .brand-surface .dm-lab { color: var(--on-dark-mute); }
+  .dm-delta {
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    color: var(--accent-strong);
+    margin-left: 0.35rem;
+  }
+  .brand-surface .dm-delta { color: var(--accent-on-dark); }
+
+  .panel-sub {
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+    color: var(--ink-faint);
+    margin: var(--space-md) 0 var(--space-2xs);
+  }
+  .brand-surface .panel-sub { color: var(--on-dark-mute); }
+
+  /* Flag rows (linhas de exceção com dot colorido) */
+  .flag-row {
+    display: flex; align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--fs-caption);
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .flag-row:last-child { border-bottom: none; }
+  .brand-surface .flag-row { border-color: var(--brand-line); color: var(--on-dark-soft); }
+  .flag-row strong { color: var(--ink); font-weight: var(--fw-semibold); }
+  .brand-surface .flag-row strong { color: var(--on-dark); }
+  .flag-row .fdot {
+    flex: none;
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    margin-top: 0.32em;
+  }
+  .fdot.red   { background: var(--block); }
+  .fdot.amber { background: var(--warning); }
+  .fdot.green { background: var(--accent-strong); }
+  .brand-surface .fdot.green { background: var(--accent-on-dark); }
+  .flag-row .fwhen {
+    margin-left: auto;
+    flex: none;
+    color: var(--ink-faint);
+    padding-left: 0.5rem;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  .brand-surface .flag-row .fwhen { color: var(--on-dark-mute); }
+
+  /* Ready rows (barras de prontidão regulatória) */
+  .ready-row {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr 2.6rem;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0;
+    font-size: var(--fs-caption);
+    color: var(--ink-soft);
+  }
+  .brand-surface .ready-row { color: var(--on-dark-soft); }
+  .ready-row .rlab { font-weight: var(--fw-semibold); color: var(--ink); }
+  .brand-surface .ready-row .rlab { color: var(--on-dark); }
+  .bar {
+    height: 7px;
+    border-radius: 999px;
+    background: oklch(90% 0.01 220);
+    overflow: hidden;
+  }
+  .brand-surface .bar { background: var(--brand-line); }
+  .bar > i {
+    display: block; height: 100%;
+    border-radius: 999px;
+    background: var(--accent-strong);
+  }
+  .brand-surface .bar > i { background: var(--accent-on-dark); }
+  .ready-row .rval {
+    text-align: right;
+    font-weight: var(--fw-semibold);
+    color: var(--ink);
+    font-feature-settings: 'tnum' on;
+  }
+  .brand-surface .ready-row .rval { color: var(--on-dark); }
+
+  /* Auditor band full-bleed cinza-azul (padrao index) */
+  section.modular#auditor {
+    padding: 0;
+  }
+  section.modular#auditor > .brand-surface {
+    border-radius: 0;
+    padding: clamp(2.5rem, 4.5vw, 4rem) 0;
+  }
+  section.modular#auditor > .brand-surface > .container {
+    max-width: var(--max-page);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* Ritmo apertado padrao index */
+  section.modular {
+    padding: clamp(2rem, 4vw, 3.5rem) 0;
+  }
+
+  /* Comparison strip (side-by-side) */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+  @media (max-width: 760px) { .vs-grid { grid-template-columns: 1fr; } }
+  .vs-card {
+    border: 1.5px solid var(--accent);
+    border-radius: var(--r-md);
+    padding: var(--space-lg);
+    background: oklch(98% 0.004 220);
+    box-shadow: 0 1px 0 var(--accent);
+    position: relative;
+  }
+  /* Barra fina verde no topo pra dar peso sem invadir o layout */
+  .vs-card::before {
+    content: '';
+    position: absolute;
+    top: -1.5px;
+    left: -1.5px;
+    right: -1.5px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: var(--r-md) var(--r-md) 0 0;
+  }
+  .vs-card h3 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-body-lg);
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .vs-card dl { margin: 0; }
+  .vs-card dt {
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+    color: var(--ink-faint);
+    margin-top: var(--space-sm);
+  }
+  .vs-card dd {
+    margin: 0.15rem 0 0;
+    font-size: var(--fs-body);
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* Hero CTA sob fundo claro (padrao index) */
+  .hero-cta {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-2xl);
+    align-items: center;
+  }
+</style>
+</head>
+<body data-page="paineis">
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span><span lang="pt">Início</span><span lang="en">Home</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
+    </a>
+    <a class="nav-tab active" data-target="paineis" href="dashboards.html">
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero dash-hero" id="paineis-top">
+  <div class="container">
+    <span class="micro eye">
+      <span lang="pt">Inteligência ao vivo</span><span lang="en">Live intelligence</span>
+    </span>
+    <h1>
+      <span lang="pt">A prova vira<br><span class="display-italic">painel.</span></span><span lang="en">Proof becomes a<br><span class="display-italic">dashboard.</span></span>
+    </h1>
+    <p class="subtitle">
+      <span lang="pt">Cada MassID que você registra faz trabalho duplo: prova a conformidade do lote e alimenta uma visão em tempo real da operação. É o mesmo dado, servido de dois jeitos, para dois públicos distintos.</span><span lang="en">Every MassID you log does double duty: it proves the batch is compliant, and it feeds a real-time view of the operation. Same data, served two ways, for two very different audiences.</span>
+    </p>
+    <div class="audience-jump">
+      <a href="#recycler"><span lang="pt">↓ Painel do reciclador</span><span lang="en">↓ Recycler dashboard</span></a>
+      <a href="#auditor"><span lang="pt">↓ Painel do auditor / certificador</span><span lang="en">↓ Auditor / certifier dashboard</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECYCLER DASHBOARD (off-white) ============ -->
+<section class="modular" id="recycler" style="border-top: 1px solid var(--line);">
+  <div class="container">
+    <div class="split-2col">
+      <div>
+        <span class="micro eye">
+          <span lang="pt">Para o reciclador</span><span lang="en">For the recycler</span>
+        </span>
+        <h2>
+          <span lang="pt">Um cockpit<br><span class="display-italic">para a sua planta.</span></span><span lang="en">A cockpit<br><span class="display-italic">for your plant.</span></span>
+        </h2>
+        <p class="lede">
+          <span lang="pt">A visão de um operador sobre uma única operação. Você sabe exatamente onde está antes de o auditor chegar, e exatamente o que corrigir enquanto ainda dá tempo.</span><span lang="en">An operator's view of a single operation. You know exactly where you stand before the auditor arrives, and exactly what to fix while there's still time.</span>
+        </p>
+        <ul class="dash-points">
+          <li><span lang="pt"><strong>Saúde de certificação, ao vivo.</strong> O engine roda enquanto você registra material: quantas regras passam, o que está em observação, o que precisa resolver.</span><span lang="en"><strong>Certification health, live.</strong> The engine runs as you log material: how many rules pass, what's on watch, what needs resolving.</span></li>
+          <li><span lang="pt"><strong>Mass balance e rendimento.</strong> Entrada versus saída reconciliadas por mês, com o split pré/pós-consumo verificado.</span><span lang="en"><strong>Mass balance and yield.</strong> Input against output, reconciled monthly, with the pre/post-consumer split verified.</span></li>
+          <li><span lang="pt"><strong>Cadeia de custódia dos fornecedores.</strong> Quem já entregou KYC e documentação, e onde um documento vencendo vira um furo no seu certificado.</span><span lang="en"><strong>Your suppliers' chain of custody.</strong> Who has provided KYC and docs, and where an expiring document becomes a hole in your certificate.</span></li>
+          <li><span lang="pt"><strong>O que fazer a seguir.</strong> Uma lista curta e priorizada, não um relatório de 40 páginas.</span><span lang="en"><strong>What to act on.</strong> A short, prioritised list, not a 40-page report.</span></li>
+        </ul>
+        <div class="dash-chips">
+          <span class="chip">WSR 2024/1157</span>
+          <span class="chip">RecyClass RC-01..06</span>
+          <span class="chip">PURE</span>
+        </div>
+      </div>
+
+      <!-- Mock panel: single-plant operator view -->
+      <div class="dash-panel" role="img" aria-label="Recycler dashboard preview">
+        <div class="dash-panel-top">
+          <div class="who"><span lang="pt">Reciclador</span><span lang="en">Recycler</span><span class="sub"><span lang="pt">operação única · ao vivo</span><span lang="en">single facility · live</span></span></div>
+          <span class="pill">91% ready</span>
+        </div>
+        <div class="dash-metrics">
+          <div class="dash-metric">
+            <span class="dm-val">126<span class="dm-delta">/129</span></span>
+            <span class="dm-lab"><span lang="pt">Regras passando · 2 em observação</span><span lang="en">Rules passing · 2 on watch</span></span>
+          </div>
+          <div class="dash-metric">
+            <span class="dm-val">182 t<span class="dm-delta">+8%</span></span>
+            <span class="dm-lab"><span lang="pt">Massa processada (mês)</span><span lang="en">Mass processed (mo)</span></span>
+          </div>
+          <div class="dash-metric">
+            <span class="dm-val">79%<span class="dm-delta">+1.9</span></span>
+            <span class="dm-lab"><span lang="pt">Rendimento (mass balance)</span><span lang="en">Output yield (mass balance)</span></span>
+          </div>
+          <div class="dash-metric">
+            <span class="dm-val">71%</span>
+            <span class="dm-lab"><span lang="pt">Conteúdo pós-consumo · RC-04</span><span lang="en">Post-consumer content · RC-04</span></span>
+          </div>
+        </div>
+        <div class="panel-sub"><span lang="pt">O que fazer a seguir</span><span lang="en">What to act on</span></div>
+        <div class="flag-row">
+          <span class="fdot amber" aria-hidden="true"></span>
+          <span><strong>RC-02 license watch</strong> · <span lang="pt">renovar antes do vencimento</span><span lang="en">renew before expiry</span></span>
+        </div>
+        <div class="flag-row">
+          <span class="fdot amber" aria-hidden="true"></span>
+          <span><span lang="pt"><strong>Transportador</strong> · documentação vencendo</span><span lang="en"><strong>A hauler</strong> · documentation expiring</span></span>
+        </div>
+        <div class="flag-row">
+          <span class="fdot green" aria-hidden="true"></span>
+          <span><span lang="pt"><strong>Pacote de auditoria</strong> montado e ancorado em SHA-256</span><span lang="en"><strong>Audit pack</strong> assembled and SHA-256 anchored</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUDITOR DASHBOARD (verde escuro full-bleed) ============ -->
+<section class="modular" id="auditor">
+  <div class="brand-surface">
+    <div class="container">
+      <div class="split-2col">
+        <div>
+          <span class="micro eye">
+            <span lang="pt">Para o auditor / certificador</span><span lang="en">For the auditor / certifier</span>
+          </span>
+          <h2>
+            <span lang="pt">Toda a carteira,<br><span class="display-italic">continuamente.</span></span><span lang="en">Your whole book,<br><span class="display-italic">continuously.</span></span>
+          </h2>
+          <p class="lede" style="color: var(--on-dark-soft);">
+            <span lang="pt">A visão de um organismo de certificação sobre toda a sua carteira. Em vez de amostrar dez arquivos entre dez mil, você vê os dez mil, e os padrões que só aparecem na rede.</span><span lang="en">A certification body's view across the entire portfolio. Instead of sampling ten files out of ten thousand, you see all ten thousand, plus the patterns you can only spot across the network.</span>
+          </p>
+          <ul class="dash-points">
+            <li><span lang="pt"><strong>Ledger de integridade.</strong> Checagens contínuas em todos os clientes. As exceções aparecem aqui antes de chegarem a uma auditoria.</span><span lang="en"><strong>Integrity ledger.</strong> Continuous checks across every client. Exceptions surface here before they ever reach an audit.</span></li>
+            <li><span lang="pt"><strong>Padrões só visíveis na rede.</strong> Um MassID reivindicado por dois detentores de certificado. Uma tendência de contaminação subindo. Um desvio de mass balance. Coisas que nenhum arquivo isolado revela.</span><span lang="en"><strong>Network-only patterns.</strong> A MassID claimed by two certificate holders. A contamination trend rising. A mass-balance drift. Things no single file reveals.</span></li>
+            <li><span lang="pt"><strong>Prontidão regulatória por cliente.</strong> Quem está pronto para PPWR, DPP e ESPR, e quanto trabalho de remediação isso representa.</span><span lang="en"><strong>Regulatory readiness, per client.</strong> Who's ready for PPWR, DPP and ESPR, and how much remediation work that represents.</span></li>
+            <li><span lang="pt"><strong>Trabalho quantificado.</strong> Cada lacuna vira um pipeline de serviço pré-qualificado, não uma surpresa de fim de ano.</span><span lang="en"><strong>Quantified work.</strong> Every gap becomes a pre-qualified service pipeline, not a year-end surprise.</span></li>
+          </ul>
+          <div class="dash-chips">
+            <span class="chip"><span lang="pt">Só na rede</span><span lang="en">Network-wide</span></span>
+            <span class="chip"><span lang="pt">139 regras WSR + RecyClass</span><span lang="en">139 WSR + RecyClass rules</span></span>
+          </div>
+        </div>
+
+        <!-- Mock panel: portfolio oversight view -->
+        <div class="dash-panel" role="img" aria-label="Certifier portfolio dashboard preview">
+          <div class="dash-panel-top">
+            <div class="who"><span lang="pt">Auditor</span><span lang="en">Auditor</span><span class="sub"><span lang="pt">carteira · contínuo</span><span lang="en">portfolio · continuous</span></span></div>
+            <span class="pill amber">3 flags</span>
+          </div>
+          <div class="dash-metrics">
+            <div class="dash-metric">
+              <span class="dm-val">48<span class="dm-delta">+6</span></span>
+              <span class="dm-lab"><span lang="pt">Certificados ativos</span><span lang="en">Active certificates</span></span>
+            </div>
+            <div class="dash-metric">
+              <span class="dm-val">41/48</span>
+              <span class="dm-lab"><span lang="pt">Limpos &amp; prontos para auditoria</span><span lang="en">Clean &amp; audit-ready</span></span>
+            </div>
+            <div class="dash-metric">
+              <span class="dm-val">3</span>
+              <span class="dm-lab"><span lang="pt">Flags de integridade · 1 cross-client</span><span lang="en">Integrity flags · 1 cross-client</span></span>
+            </div>
+            <div class="dash-metric">
+              <span class="dm-val">€312k</span>
+              <span class="dm-lab"><span lang="pt">Pipeline identificado · 19 oport.</span><span lang="en">Identified pipeline · 19 opps</span></span>
+            </div>
+          </div>
+          <div class="panel-sub"><span lang="pt">Ledger de integridade</span><span lang="en">Integrity ledger</span></div>
+          <div class="flag-row">
+            <span class="fdot red" aria-hidden="true"></span>
+            <span><span lang="pt"><strong>Possível duplo uso</strong> · MassID reivindicado por dois detentores</span><span lang="en"><strong>Possible double-count</strong> · MassID claimed by two holders</span></span>
+            <span class="fwhen">12 min</span>
+          </div>
+          <div class="flag-row">
+            <span class="fdot amber" aria-hidden="true"></span>
+            <span><span lang="pt"><strong>Contaminação subindo</strong> · breach de limite em ~6 sem.</span><span lang="en"><strong>Contamination rising</strong> · threshold breach in ~6 wks</span></span>
+            <span class="fwhen">2 h</span>
+          </div>
+          <div class="flag-row">
+            <span class="fdot amber" aria-hidden="true"></span>
+            <span><span lang="pt"><strong>Desvio de mass balance</strong> · saída excede entrada em 2,1%</span><span lang="en"><strong>Mass-balance drift</strong> · output exceeds input by 2.1%</span></span>
+            <span class="fwhen">5 h</span>
+          </div>
+          <div class="panel-sub"><span lang="pt">Prontidão regulatória</span><span lang="en">Regulatory readiness</span></div>
+          <div class="ready-row">
+            <span class="rlab">PPWR</span>
+            <span class="bar"><i style="width:71%"></i></span>
+            <span class="rval">71%</span>
+          </div>
+          <div class="ready-row">
+            <span class="rlab">DPP</span>
+            <span class="bar"><i style="width:52%"></i></span>
+            <span class="rval">52%</span>
+          </div>
+          <div class="ready-row">
+            <span class="rlab">ESPR</span>
+            <span class="bar"><i style="width:38%"></i></span>
+            <span class="rval">38%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIDE BY SIDE (off-white) ============ -->
+<section class="modular" id="compare" style="border-top: 1px solid var(--line);">
+  <div class="container">
+    <span class="micro eye">
+      <span lang="pt">Dois públicos, uma fonte</span><span lang="en">Two audiences, one source</span>
+    </span>
+    <h2>
+      <span lang="pt">Mesma verdade.<br><span class="display-italic">Alturas diferentes.</span></span><span lang="en">Same truth.<br><span class="display-italic">Different altitude.</span></span>
+    </h2>
+    <div class="vs-grid">
+      <div class="vs-card">
+        <h3><span lang="pt">Painel do reciclador</span><span lang="en">Recycler dashboard</span></h3>
+        <dl>
+          <dt><span lang="pt">Escopo</span><span lang="en">Scope</span></dt>
+          <dd><span lang="pt">Uma operação · do lote ao mês.</span><span lang="en">A single operation · batch to month.</span></dd>
+          <dt><span lang="pt">Pergunta que responde</span><span lang="en">Question it answers</span></dt>
+          <dd><span lang="pt">"Onde estou, e o que corrijo antes do auditor?"</span><span lang="en">"Where do I stand, and what do I fix before the auditor?"</span></dd>
+          <dt><span lang="pt">Foco</span><span lang="en">Focus</span></dt>
+          <dd><span lang="pt">Rodar a planta e vender material verificado.</span><span lang="en">Run the plant and sell verified material.</span></dd>
+        </dl>
+      </div>
+      <div class="vs-card">
+        <h3><span lang="pt">Painel do auditor / certificador</span><span lang="en">Auditor / certifier dashboard</span></h3>
+        <dl>
+          <dt><span lang="pt">Escopo</span><span lang="en">Scope</span></dt>
+          <dd><span lang="pt">Uma carteira inteira · do cliente à rede.</span><span lang="en">An entire portfolio · client to network.</span></dd>
+          <dt><span lang="pt">Pergunta que responde</span><span lang="en">Question it answers</span></dt>
+          <dd><span lang="pt">"Quem está em risco, e onde estão os padrões da rede?"</span><span lang="en">"Who's at risk, and where are the network patterns?"</span></dd>
+          <dt><span lang="pt">Foco</span><span lang="en">Focus</span></dt>
+          <dd><span lang="pt">Supervisionar continuamente e substituir amostragem por cobertura total.</span><span lang="en">Supervise continuously and replace sampling with full coverage.</span></dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a class="cta-btn on-light primary" href="index.html#signup">
+        <span aria-hidden="true">▶</span>
+        <span><span lang="pt">Ver um painel ao vivo</span><span lang="en">See a live dashboard</span></span>
+      </a>
+      <a class="cta-btn on-light secondary" href="process.html">
+        <span><span lang="pt">Ver o processo</span><span lang="en">See the process</span></span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER (compartilhado via shared.css) ============ -->
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+      </p>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
+        <a href="dashboards.html"><span lang="pt">Painéis</span><span lang="en">Dashboards</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+      </div>
+    </div>
+
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">SHA a4f0&hellip;9c81 &middot; v0.4.7</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

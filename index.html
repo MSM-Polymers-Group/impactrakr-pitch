@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260707-32">
+<link rel="stylesheet" href="assets/shared.css?v=20260707-47">
 <script src="assets/shared.js?v=20260626-1421" defer></script>
 <script src="assets/logo.js?v=20260707-4" defer></script>
 <style>
@@ -23,22 +23,10 @@
        - Footer with in-page shortcut links
      ========================================================= */
 
-  /* --- Display accent: Instrument Serif italic on the 2nd line --- */
-  .display-italic {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: -0.005em;
-    color: var(--accent);
-  }
-  .brand-surface .display-italic,
-  [data-on-dark] .display-italic { color: var(--accent-on-dark); }
-
-  /* .micro.eye agora vive em shared.css como token do design system. */
+  /* .display-italic + .micro.eye vivem em shared.css como tokens do design system. */
 
   /* Hero: reduzir gap entre o nav sticky e o conteudo (override do site) */
   section.hero {
-    padding-top: clamp(1.5rem, 3vw, 3rem);
     padding-bottom: clamp(2rem, 4vw, 3.5rem);
   }
 
@@ -470,7 +458,14 @@
     margin-top: 2px;
   }
 
-  section.hero h1 { max-width: 22ch; }
+  section.hero h1 {
+    max-width: none;
+    white-space: nowrap;
+  }
+  /* Em telas estreitas, permite quebra pra nao overflow */
+  @media (max-width: 720px) {
+    section.hero h1 { white-space: normal; max-width: 22ch; }
+  }
 
   /* --- Chain of custody (5 nodes) inside brand-surface --- */
   .chain-row {
@@ -895,6 +890,9 @@
     <a class="nav-tab" data-target="processo" href="process.html">
       <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
     </a>
+    <a class="nav-tab" data-target="paineis" href="dashboards.html">
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span></span>
+    </a>
     <a class="nav-tab" data-target="metodologia" href="methodology.html">
       <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
     </a>
@@ -905,7 +903,7 @@
 </nav>
 
 <!-- ============ HERO ============ -->
-<section class="hero" id="o-que-e">
+<section class="hero hero-with-grid" id="o-que-e">
   <div class="container">
     <div class="hero-grid">
       <div class="hero-copy">
@@ -913,7 +911,7 @@
       <span lang="pt">Camada de verificação para a economia circular industrial</span><span lang="en">Verification infrastructure for the circular industrial economy</span>
     </span>
     <h1>
-      <span lang="pt">Cada lote provado.<br><span class="display-italic">Cada lote vendável.</span></span><span lang="en">Every batch proven.<br><span class="display-italic">Every batch sellable.</span></span>
+      <span lang="pt">Cada lote provado.<br>Cada lote auditável.<br><span class="display-italic">Cada métrica visível.</span></span><span lang="en">Every batch proven.<br>Every batch auditable.<br><span class="display-italic">Every metric visible.</span></span>
     </h1>
     <p class="subtitle">
       <span lang="pt"><strong>Preço premium, acesso ao mercado europeu, confiança do comprador.</strong> Cada lote reciclado vira um Digital Product Passport que compradores, auditores e reguladores verificam por conta própria: sem registry proprietário, sem metodologia trancada, sem lock-in.</span><span lang="en"><strong>Premium pricing, EU market access, buyer trust.</strong> Every recycled batch becomes a Digital Product Passport that buyers, auditors and regulators verify on their own: no proprietary registry, no locked-in methodology, no vendor lock.</span>
@@ -1031,7 +1029,7 @@
       <div class="step-card">
         <span class="step-mark">02 · <span lang="pt">Validar</span><span lang="en">Validate</span></span>
         <h3><span lang="pt">135 regras. 4 segundos. Sem amostra.</span><span lang="en">135 rules. 4 seconds. No sampling.</span></h3>
-        <p><span lang="pt">Mais de 135 regras rodam sobre cada lote em ~4,2 segundos, cobrindo Regulamento (UE) 2024/1157, RecyClass e a metodologia reconhecida. Continuamente, não em auditoria anual.</span><span lang="en">135+ rules run over every batch in ~4.2 seconds, covering EU Regulation 2024/1157, RecyClass and the recognised methodology. Continuously, not once a year.</span></p>
+        <p><span lang="pt">Mais de 135 regras rodam sobre cada lote em ~4,2 segundos, cobrindo Regulamento (UE) 2024/1157, RecyClass e a metodologia reconhecida. Continuamente, não em auditoria anual.</span><span lang="en">135+ rules run over every batch in ~4.2 seconds, covering EU Regulation 2024/1157, RecyClass and the recognised industry methodology. Continuously, not once a year.</span></p>
       </div>
       <div class="step-card">
         <span class="step-mark">03 · <span lang="pt">Provar</span><span lang="en">Prove</span></span>
@@ -1060,7 +1058,7 @@
         </h2>
       </div>
       <p class="lede">
-        <span lang="pt">A trilha só cresce. Cada evento é ancorado em hash SHA-256. Cada regra é reproduzível em qualquer ponto da história, sem depender da nossa palavra. A auditoria deixa de ser revisão de fim de ano e vira propriedade estrutural do fluxo.</span><span lang="en">The trail only grows. Every event is anchored in an SHA-256 hash. Every rule is reproducible at any point in history, without depending on our word. Audit stops being a year-end review and becomes a structural property of the flow.</span>
+        <span lang="pt">A trilha só cresce. Cada evento é ancorado em hash SHA-256. Cada regra é reproduzível em qualquer ponto da história, sem depender da nossa palavra. A auditoria deixa de ser revisão de fim de ano e vira propriedade estrutural do fluxo.</span><span lang="en">The trail only grows. Every event is anchored to an SHA-256 hash. Every rule is reproducible at any point in history, no need to take our word for it. Audit stops being a year-end review and becomes built into the workflow itself.</span>
       </p>
     </div>
 
@@ -1096,7 +1094,7 @@
         <span lang="pt">Quem valida o dado não escreve<br><span class="display-italic">a regra que valida o dado.</span></span><span lang="en">Whoever validates the data doesn't<br><span class="display-italic">author the rule that validates it.</span></span>
       </h2>
       <p style="max-width: 62ch;">
-        <span lang="pt">Três responsabilidades, entidades distintas: quem cria a metodologia, quem valida os dados, quem certifica e quem registra. A ImpacTrakr executa a validação, e cada um dos outros papéis pode ser trocado sem reescrever a plataforma.</span><span lang="en">Three responsibilities, distinct entities: whoever authors the methodology, whoever validates the data, whoever certifies and whoever registers. ImpacTrakr executes the validation, and any of the other roles can be swapped without rewriting the platform.</span>
+        <span lang="pt">Três responsabilidades, entidades distintas: quem cria a metodologia, quem valida os dados, quem certifica e quem registra. A ImpacTrakr executa a validação, e cada um dos outros papéis pode ser trocado sem reescrever a plataforma.</span><span lang="en">Three responsibilities, distinct entities: who authors the methodology, who validates the data, who certifies it, and who registers it. ImpacTrakr runs the validation, and any of the other roles can be swapped without rewriting the platform.</span>
       </p>
 
       <div class="chain-row">
@@ -1108,7 +1106,7 @@
         <div class="chain-node">
           <div class="cn-role"><span lang="pt">Origem dos dados</span><span lang="en">Data origin</span></div>
           <div class="cn-name"><span lang="pt">Sua operação</span><span lang="en">Your operation</span></div>
-          <div class="cn-note"><span lang="pt">Qualquer ERP, planilha ou plataforma de resíduos alimenta os eventos.</span><span lang="en">Any ERP, spreadsheet or waste platform feeds the events.</span></div>
+          <div class="cn-note"><span lang="pt">Qualquer ERP, planilha ou plataforma de resíduos alimenta os eventos.</span><span lang="en">Any ERP, spreadsheet or waste platform feeds the data.</span></div>
         </div>
         <div class="chain-node center">
           <div class="cn-role"><span lang="pt">Camada de validação</span><span lang="en">Validation layer</span></div>
@@ -1172,7 +1170,7 @@
       <span lang="pt">A base é regulatória.<br><span class="display-italic">A metodologia entra em cima.</span></span><span lang="en">The floor is regulatory.<br><span class="display-italic">Methodology plugs in on top.</span></span>
     </h2>
     <p class="lead" style="max-width: 62ch;">
-      <span lang="pt">Todo cliente começa pela regulação obrigatória do mercado dele. A camada de impacto (PURE) entra quando o comprador exige carbono ou pegada. Nada é imposto, cada mercado configura o que precisa.</span><span lang="en">Every customer starts with the regulation the market requires. The impact layer (PURE) turns on when the buyer requires carbon or footprint. Nothing is imposed, each market configures what it needs.</span>
+      <span lang="pt">Todo cliente começa pela regulação obrigatória do mercado dele. A camada de impacto (PURE) entra quando o comprador exige carbono ou pegada. Nada é imposto, cada mercado configura o que precisa.</span><span lang="en">Every customer starts with the regulation the market requires. The impact layer (PURE) turns on when the buyer requires carbon or footprint. Nothing is forced. Each market configures what it needs.</span>
     </p>
 
     <div class="modules-overview-grid">
@@ -1181,7 +1179,7 @@
         <h3><span lang="pt">Regulação UE 2024/1157</span><span lang="en">EU Regulation 2024/1157</span></h3>
         <div class="mod-count">27 <span lang="pt">regras</span><span lang="en">rules</span></div>
         <p>
-          <span lang="pt">Waste Shipment Regulation + DIWASS. Em vigor desde 21/mai/2026. Exigida em qualquer operação intra ou cross-border na UE.</span><span lang="en">Waste Shipment Regulation + DIWASS. Live since 21/May/2026. Required for any intra- or cross-border operation in the EU.</span>
+          <span lang="pt">Waste Shipment Regulation + DIWASS. Em vigor desde 21/mai/2026. Exigida em qualquer operação intra ou cross-border na UE.</span><span lang="en">Waste Shipment Regulation + DIWASS. In force since 21 May 2026. Required for any intra- or cross-border operation in the EU.</span>
         </p>
       </div>
       <div class="module-overview-card backbone">
@@ -1228,13 +1226,13 @@
         <div class="time-marker"><span lang="pt">Agora</span><span lang="en">Now</span></div>
         <div class="time-date">2026</div>
         <div class="time-event">RecyClass <span lang="pt">como régua de mercado</span><span lang="en">as market ruler</span></div>
-        <div class="time-impact"><span lang="pt">Compradores europeus pedem certificação RecyClass antes de fechar contrato de material reciclado.</span><span lang="en">European buyers request RecyClass certification before closing recycled material contracts.</span></div>
+        <div class="time-impact"><span lang="pt">Compradores europeus pedem certificação RecyClass antes de fechar contrato de material reciclado.</span><span lang="en">European buyers request RecyClass certification before signing contracts for recycled material.</span></div>
       </div>
       <div class="timeline-node future">
         <div class="time-marker"><span lang="pt">Próximo</span><span lang="en">Next</span></div>
         <div class="time-date">2027 – 2030</div>
         <div class="time-event">PPWR · ESPR · DPP</div>
-        <div class="time-impact"><span lang="pt">Passaporte Digital de Produto vira exigência para embalagem e bens de consumo. A base tem que estar em produção antes.</span><span lang="en">Digital Product Passport becomes a requirement for packaging and consumer goods. The base has to be in production before that.</span></div>
+        <div class="time-impact"><span lang="pt">Passaporte Digital de Produto vira exigência para embalagem e bens de consumo. A base tem que estar em produção antes.</span><span lang="en">Digital Product Passport becomes a requirement for packaging and consumer goods. The foundation has to be in production before that.</span></div>
       </div>
     </div>
   </div>
@@ -1254,7 +1252,7 @@
       <div class="proof-card">
         <span class="p-eyebrow"><span lang="pt">Projeto piloto · Lançamento no 4º trimestre de 2026</span><span lang="en">Pilot project · Q4 2026 launch</span></span>
         <h3><span lang="pt">CRDC Malta, com a Fundação MARE</span><span lang="en">CRDC Malta, with the MARE Foundation</span></h3>
-        <p><span lang="pt">Nossa primeira implantação: PET-1 com capacidade de aproximadamente 1,2 t/h, previsto para o quarto trimestre de 2026. O projeto foi desenhado para provar conformidade com o Regulamento (UE) 2024/1157, DIWASS e RecyClass antes de qualquer comercialização em outros mercados.</span><span lang="en">Our first deployment: PET-1 with capacity of approximately 1.2 t/h, targeted for Q4 2026. The project was designed to prove compliance with EU Regulation 2024/1157, DIWASS and RecyClass before any commercialisation elsewhere.</span></p>
+        <p><span lang="pt">Nossa primeira implantação: PET-1 com capacidade de aproximadamente 1,2 t/h, previsto para o quarto trimestre de 2026. O projeto foi desenhado para provar conformidade com o Regulamento (UE) 2024/1157, DIWASS e RecyClass antes de qualquer comercialização em outros mercados.</span><span lang="en">Our first deployment: PET-1 with capacity of approximately 1.2 t/h, targeted for Q4 2026. The project was designed to prove compliance with EU Regulation 2024/1157, DIWASS and RecyClass before scaling it anywhere else.</span></p>
         <div class="proof-chips">
           <span class="chip">PET-1</span>
           <span class="chip">~1,2 t/h</span>
@@ -1269,8 +1267,8 @@
           <p><span lang="pt">A metodologia foi validada por terceiro independente antes de entrar em produção, não depois.</span><span lang="en">The methodology was validated by an independent third party before entering production, not after.</span></p>
         </div>
         <div class="proof-mini">
-          <h4><span lang="pt">60 decisões de arquitetura públicas</span><span lang="en">60 architectural decisions public</span></h4>
-          <p><span lang="pt">Toda decisão irreversível é documentada, versionada e datada. Leia e entenda por que tudo é como é.</span><span lang="en">Every irreversible decision is documented, versioned and dated. Read them and you understand why everything is the way it is.</span></p>
+          <h4><span lang="pt">60 decisões de arquitetura públicas</span><span lang="en">60 public architectural decisions</span></h4>
+          <p><span lang="pt">Toda decisão irreversível é documentada, versionada e datada. Leia e entenda por que tudo é como é.</span><span lang="en">Every irreversible decision is documented, versioned and dated. Read them and you'll see why every choice was made.</span></p>
         </div>
         <div class="proof-mini">
           <h4><span lang="pt">Arquitetura registry-agnóstica</span><span lang="en">Registry-agnostic architecture</span></h4>
@@ -1298,7 +1296,7 @@
       </div>
       <div class="ent-card">
         <h4><span lang="pt">Trilha de auditoria</span><span lang="en">Audit trail</span></h4>
-        <p><span lang="pt">Cada evento, decisão de regra e submissão de evidência fica rastreável do drop-off à emissão do DPP. Auditor abre e reproduz.</span><span lang="en">Every event, rule decision and evidence submission is traceable from drop-off to DPP issuance. Auditor opens and reproduces.</span></p>
+        <p><span lang="pt">Cada evento, decisão de regra e submissão de evidência fica rastreável do drop-off à emissão do DPP. Auditor abre e reproduz.</span><span lang="en">Every event, rule decision and evidence submission is traceable from drop-off to DPP issuance. The auditor can open it and reproduce every step.</span></p>
       </div>
       <div class="ent-card">
         <h4><span lang="pt">Gestão de evidências</span><span lang="en">Evidence management</span></h4>
@@ -1306,7 +1304,7 @@
       </div>
       <div class="ent-card">
         <h4><span lang="pt">Registros permanentes</span><span lang="en">Permanent records</span></h4>
-        <p><span lang="pt">Emissão, transferência e retirada de DPP capturadas em registro público imutável. Compliance interno usa como fonte oficial.</span><span lang="en">DPP issuance, transfer and retirement captured in an immutable public record. Internal compliance uses it as the official source.</span></p>
+        <p><span lang="pt">Emissão, transferência e retirada de DPP capturadas em registro público imutável. Compliance interno usa como fonte oficial.</span><span lang="en">DPP issuance, transfer and retirement captured in an immutable public record. Your compliance team uses it as the official record.</span></p>
       </div>
     </div>
 
@@ -1355,8 +1353,8 @@
         <p class="faq-answer"><span lang="pt">O backbone do stack é a Regulação (UE) 2024/1157 mais RecyClass. As regras que rodam sobre cada evento são as mesmas que um VVB acreditado usa para julgar o pacote. Sem paralelo, sem interpretação própria.</span><span lang="en">The stack backbone is EU Regulation 2024/1157 plus RecyClass. The rules that run over every event are the same ones an accredited VVB uses to judge the pack. No parallel track, no proprietary interpretation.</span></p>
       </details>
       <details class="faq-item">
-        <summary><span><span lang="pt">Precisamos aceitar a palavra da ImpacTrakr como definitiva?</span><span lang="en">Do we have to take ImpacTrakr's word as final?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
-        <p class="faq-answer"><span lang="pt">Não. A palavra final é do seu auditor terceirizado. A ImpacTrakr entrega o registro pré-validado e o hash chain para que o auditor reproduza cada decisão sobre o mesmo payload e chegue no mesmo resultado, bit-a-bit.</span><span lang="en">No. The final word is your third-party auditor's. ImpacTrakr delivers the pre-validated record and the hash chain so the auditor reproduces every decision on the same payload and reaches the same outcome, bit-for-bit.</span></p>
+        <summary><span><span lang="pt">Precisamos aceitar a palavra da ImpacTrakr como definitiva?</span><span lang="en">Do we have to take ImpacTrakr's word for it?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
+        <p class="faq-answer"><span lang="pt">Não. A palavra final é do seu auditor terceirizado. A ImpacTrakr entrega o registro pré-validado e o hash chain para que o auditor reproduza cada decisão sobre o mesmo payload e chegue no mesmo resultado, bit-a-bit.</span><span lang="en">No. The final word is your third-party auditor's. ImpacTrakr delivers the pre-validated record and the hash chain, so the auditor can reproduce every decision on the same payload and reaches the same outcome, bit-for-bit.</span></p>
       </details>
       <details class="faq-item">
         <summary><span><span lang="pt">E se os dados forem editados depois?</span><span lang="en">What if the data is edited later?</span></span><span class="faq-toggle" aria-hidden="true"></span></summary>
@@ -1449,15 +1447,6 @@
         <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
         <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
         <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
-        <a href="index.html#prova">CRDC Malta pilot</a>
-        <a href="index.html#independent">MARE Foundation</a>
-      </div>
-      <div class="footer-col">
-        <span class="footer-col-heading">Legal</span>
-        <a href="#"><span lang="pt">Termos de uso</span><span lang="en">Terms of use</span></a>
-        <a href="#"><span lang="pt">Política de privacidade</span><span lang="en">Privacy policy</span></a>
-        <a href="#">GDPR</a>
-        <a href="#"><span lang="pt">Cookies</span><span lang="en">Cookies</span></a>
       </div>
     </div>
 

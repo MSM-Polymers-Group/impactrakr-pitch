@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260707-32">
+<link rel="stylesheet" href="assets/shared.css?v=20260707-47">
 <style>
   /* === Page-specific: Mercado === */
 
-  section.intro { padding: var(--space-fluid-section) 0 var(--space-fluid-block); }
+  section.intro { padding: clamp(1.5rem, 3vw, 3rem) 0 var(--space-fluid-block); }
   .intro .lede { font-size: 1.0625rem; line-height: 1.55; color: var(--ink-soft); max-width: var(--max-prose); margin-top: var(--space-md); }
 
   /* "Por que plástico primeiro", 3 razões em prose, não cards */
@@ -376,16 +376,17 @@
     <a class="nav-tab" data-target="landing" href="index.html"><span><span lang="pt">Início</span><span lang="en">Home</span></span></a>
     <a class="nav-tab" data-target="visao" href="overview.html"><span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span></a>
     <a class="nav-tab" data-target="processo" href="process.html"><span><span lang="pt">Processo</span><span lang="en">Process</span></span></a>
+    <a class="nav-tab" data-target="paineis" href="dashboards.html"><span><span lang="pt">Painéis</span><span lang="en">Dashboards</span></span></a>
     <a class="nav-tab" data-target="metodologia" href="methodology.html"><span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span></a>
     <a class="nav-tab active" data-target="mercado" href="market.html"><span><span lang="pt">Mercado</span><span lang="en">Market</span></span></a>
   </div>
 </nav>
 
 <!-- ============ INTRO ============ -->
-<section class="intro">
+<section class="hero intro">
   <div class="container">
     <h1>
-      <span lang="pt">Por que agora.<br><span class="accent">Onde estamos rodando hoje.</span></span><span lang="en">Why now.<br><span class="accent">Where we run today.</span></span>
+      <span lang="pt">Por que agora.<br><span class="display-italic">Onde estamos rodando hoje.</span></span><span lang="en">Why now.<br><span class="display-italic">Where we run today.</span></span>
     </h1>
     <p class="lede">
       <span lang="pt">A regulação europeia que torna o processo digital obrigatório já entrou em vigor. As datas que se seguem aplicam restrições adicionais ao plástico, exportação, conteúdo reciclado, passaporte digital. <strong>Operar com planilha deixa de ser viável conforme essas datas chegam.</strong></span><span lang="en">The European regulation that makes this digital process mandatory is already in force. The dates ahead bring additional restrictions on plastic, exports, recycled content, digital passport. <strong>Spreadsheet-based operations stop being viable as those dates arrive.</strong></span>
@@ -413,7 +414,7 @@
       <div class="reason">
         <div class="reason-anchor">03</div>
         <h3><span lang="pt">Os plásticos sem destino são o problema mais lucrativo</span><span lang="en">Plastics with no destination are the most valuable problem</span></h3>
-        <p><span lang="pt">Mixed polymer (Basel Y48), filmes contaminados, multicamadas: hoje incinerados ou aterrados. A regulação fecha esse escape. Quem rastrear e validar a reciclagem desses materiais captura o maior delta de valor por tonelada.</span><span lang="en">Mixed polymer (Basel Y48), contaminated films, multi-layers: today incinerated or landfilled. Regulation closes that escape valve. Whoever traces and validates the recycling of these materials captures the largest value delta per tonne.</span></p>
+        <p><span lang="pt">Mixed polymer (Basel Y48), filmes contaminados, multicamadas: hoje incinerados ou aterrados. A regulação fecha esse escape. Quem rastrear e validar a reciclagem desses materiais captura o maior delta de valor por tonelada.</span><span lang="en">Mixed polymer (Basel Y48), contaminated films, multi-layers: today incinerated or landfilled. Regulation closes that escape valve. Whoever traces and validates the recycling of these materials captures the biggest value uplift per tonne.</span></p>
       </div>
     </div>
   </div>
@@ -433,7 +434,7 @@
         <div class="tam-item">
           <div class="tam-value">€60 <sup>bn</sup></div>
           <div class="tam-label">
-            <span lang="pt">Mercado europeu de plástico reciclado em 2030, com targets PPWR obrigatórios.</span><span lang="en">European recycled-plastic market by 2030, with mandatory PPWR targets.</span>
+            <span lang="pt">Mercado europeu de plástico reciclado em 2030, com targets PPWR obrigatórios.</span><span lang="en">European recycled-plastic market by 2030, under mandatory PPWR targets.</span>
           </div>
           <span class="tam-source">Source · Eurostat · McKinsey Plastics Recycling 2024</span>
         </div>
@@ -634,7 +635,7 @@
     <h2><span lang="pt">Cronograma regulatório</span><span lang="en">Regulatory timeline</span></h2>
     <div class="reg-intro">
       <p>
-        <span lang="pt">Cada data abaixo aperta o cerco contra fluxos não rastreados. Cada uma é nova receita endereçável para uma plataforma que já roda em produção.</span><span lang="en">Each date below tightens the noose on untracked flows. Each one is new addressable revenue for a platform that already runs in production.</span>
+        <span lang="pt">Cada data abaixo aperta o cerco contra fluxos não rastreados. Cada uma é nova receita endereçável para uma plataforma que já roda em produção.</span><span lang="en">Each date below tightens the screws on untracked flows, and each one opens new addressable revenue for a platform already running in production.</span>
       </p>
     </div>
     <div class="reg-timeline-track">
@@ -648,13 +649,13 @@
         <div class="time-marker"><span lang="pt">Próxima</span><span lang="en">Upcoming</span></div>
         <div class="time-date">21 nov 2026</div>
         <div class="time-event"><span lang="pt">Proibição B3011 → non-OECD</span><span lang="en">B3011 export ban → non-OECD</span></div>
-        <div class="time-impact"><span lang="pt">Exportação de plástico limpo para fora da OCDE proibida por 2,5 anos no mínimo. Reciclagem precisa fechar dentro da Europa.</span><span lang="en">Clean plastic export outside OECD banned for at least 2.5 years. Recycling must close within Europe.</span></div>
+        <div class="time-impact"><span lang="pt">Exportação de plástico limpo para fora da OCDE proibida por 2,5 anos no mínimo. Reciclagem precisa fechar dentro da Europa.</span><span lang="en">Clean plastic exports to non-OECD countries banned for at least 2.5 years. Recycling must close within Europe.</span></div>
       </div>
       <div class="timeline-node future">
         <div class="time-marker"><span lang="pt">Roteiro</span><span lang="en">Roadmap</span></div>
         <div class="time-date">2027</div>
         <div class="time-event">DPP rollout (ESPR)</div>
-        <div class="time-impact"><span lang="pt">Digital Product Passport por SKU começa a ser exigido. Cada produto carrega trilha de origem do material.</span><span lang="en">Digital Product Passport per SKU starts being required. Each product carries material origin trail.</span></div>
+        <div class="time-impact"><span lang="pt">Digital Product Passport por SKU começa a ser exigido. Cada produto carrega trilha de origem do material.</span><span lang="en">Digital Product Passport per SKU becomes mandatory. Each product carries material origin trail.</span></div>
       </div>
       <div class="timeline-node future">
         <div class="time-marker"><span lang="pt">Roteiro</span><span lang="en">Roadmap</span></div>
@@ -809,15 +810,6 @@
         <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
         <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
         <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
-        <a href="index.html#prova">CRDC Malta pilot</a>
-        <a href="index.html#independent">MARE Foundation</a>
-      </div>
-      <div class="footer-col">
-        <span class="footer-col-heading">Legal</span>
-        <a href="#"><span lang="pt">Termos de uso</span><span lang="en">Terms of use</span></a>
-        <a href="#"><span lang="pt">Política de privacidade</span><span lang="en">Privacy policy</span></a>
-        <a href="#">GDPR</a>
-        <a href="#"><span lang="pt">Cookies</span><span lang="en">Cookies</span></a>
       </div>
     </div>
 

@@ -164,6 +164,18 @@ body {
   position: relative;
 }
 
+/* Display accent: Instrument Serif italic on the highlighted headline line.
+   Vive aqui pra funcionar em qualquer page (nao mais so index). */
+.display-italic {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.005em;
+  color: var(--accent);
+}
+.brand-surface .display-italic,
+[data-on-dark] .display-italic { color: var(--accent-on-dark); }
+
 /* Hero-only ambient — grid tecnico de linhas finas (blueprint/CAD-style)
    + radial gradient verde muito lavado no canto sup direito, atras do card.
    Fade suave da metade inferior para nao competir com o proximo bloco.
@@ -183,11 +195,15 @@ section.hero::before {
     /* Radial ambient de accent no canto superior direito, atras do DPP card */
     radial-gradient(ellipse 70vw 55vh at 92% 8%,
       oklch(75% 0.09 150 / 0.20), transparent 60%),
+    /* Espelho mais sutil no canto superior esquerdo, pra dar equilibrio visual */
+    radial-gradient(ellipse 55vw 45vh at 6% 12%,
+      oklch(75% 0.09 150 / 0.14), transparent 62%),
     /* Grid vertical de linhas finas */
     linear-gradient(to right, oklch(45% 0.02 220 / 0.10) 1px, transparent 1px),
     /* Grid horizontal de linhas finas */
     linear-gradient(to bottom, oklch(45% 0.02 220 / 0.10) 1px, transparent 1px);
   background-size:
+    100% 100%,
     100% 100%,
     56px 56px,
     56px 56px;
@@ -462,8 +478,12 @@ header.top {
 }
 
 /* ---------- Hero ---------- */
+/* Padding-top compacto em TODAS as pages — bater com o padrao da home.
+   Menu -> pequeno breathing -> eyebrow -> h1. Se home tem texto mais
+   pra baixo, e por causa do .hero-grid + align-items: center (card DPP
+   alto empurra o texto), NAO por causa de padding. */
 section.hero {
-  padding: var(--space-fluid-section) 0 var(--space-fluid-block);
+  padding: clamp(1.5rem, 3vw, 3rem) 0 var(--space-fluid-block);
 }
 .hero h1 {
   max-width: var(--max-display);
@@ -620,14 +640,18 @@ section.modular { padding: var(--space-fluid-section) 0; }
   border-radius: var(--r-md);
   background: var(--bg);
 }
-/* Backbone cards (Módulo 1 + 2) get visual weight over the add-on card.
-   Identified via .mod-badge text — Backbone vs. Camada adicional / Add-on layer. */
+/* Backbone cards (Módulo 1 + 2) get visual weight over the add-on card via
+   verde-escuro treatment — same rhythm as the .brand-surface ImpacTrakr card. */
 .module-overview-card.backbone {
-  border: 1.5px solid var(--accent);
-  background: var(--surface-raised);
-  box-shadow: 0 1px 0 var(--accent);
+  border: 1px solid var(--brand-line);
+  background: var(--brand-surface);
+  box-shadow: none;
+  color: var(--bg);
 }
-.module-overview-card.backbone .mod-badge { color: var(--accent); }
+.module-overview-card.backbone .mod-badge { color: var(--accent-on-dark); }
+.module-overview-card.backbone h3,
+.module-overview-card.backbone .mod-count { color: var(--bg); }
+.module-overview-card.backbone p { color: oklch(88% 0.010 155); }
 .module-overview-card.addon {
   border-style: dashed;
   background: var(--bg);
@@ -798,6 +822,8 @@ section.final-cta {
 }
 .cta-band h2 { color: var(--on-dark); max-width: 22ch; }
 .cta-band p { color: var(--on-dark-soft); max-width: 56ch; margin: var(--space-2xs) 0 0; }
+/* strong dentro do banner escuro precisa contrastar — verde claro em vez de preto */
+.cta-band p strong { color: var(--accent-on-dark); font-weight: 600; }
 .cta-actions {
   display: flex;
   gap: var(--space-2xs);
@@ -1172,7 +1198,7 @@ footer.site-footer {
   background: oklch(96% 0.005 220);
   border-top: 1px solid var(--line);
   padding: clamp(2.5rem, 5vw, 4.5rem) 0 var(--space-lg);
-  margin-top: var(--space-fluid-section);
+  margin-top: 0;
   color: var(--ink);
 }
 
@@ -1207,7 +1233,7 @@ footer.site-footer .container {
 /* Row 2: 4 colunas de links */
 .footer-cols {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-lg);
 }
 @media (max-width: 940px) {
