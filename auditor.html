@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ImpacTrakr · Auditor dashboard · Kiwa portfolio · live sample</title>
+<meta name="description" content="A live sample of the auditor / certifier dashboard: live portfolio activity, client triage, exception feed, and field audit checklist across a portfolio of certified recyclers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260710-16">
+<link rel="stylesheet" href="assets/dash-interactions.css?v=20260710-19">
+<script src="assets/shared.js?v=20260626-1421" defer></script>
+<script src="assets/logo.js?v=20260707-4" defer></script>
+<script src="assets/dash-interactions.js?v=20260710-19" defer></script>
+<style>
+  /* Sub-nav do auditor dashboard */
+  .dash-subnav { background: var(--surface-raised); border-bottom: 1px solid var(--line); }
+  .dash-subnav-inner {
+    display: flex; align-items: center; gap: var(--space-md);
+    padding: 0 var(--gutter); max-width: var(--max-wide);
+    margin: 0 auto; overflow-x: auto; scrollbar-width: none;
+  }
+  .dash-subnav-inner::-webkit-scrollbar { display: none; }
+  .dash-subnav-role {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent-strong);
+    padding: 0.6rem 0.9rem 0.6rem 0; white-space: nowrap;
+    border-right: 1px solid var(--line);
+  }
+  .dash-subnav-tab {
+    padding: 0.7rem 0.6rem; color: var(--ink-soft); text-decoration: none;
+    font-weight: 600; font-size: 0.8125rem; letter-spacing: -0.005em;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+    transition: color var(--d-quick) var(--ease-out), border-color var(--d-quick) var(--ease-out);
+  }
+  .dash-subnav-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+  .dash-subnav-tab:hover { color: var(--ink); text-decoration: none; }
+
+  /* Hero */
+  section.hero.au-hero {
+    padding: clamp(2rem, 4vw, 4rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .au-hero .eyebrow-full {
+    display: inline-block; font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--accent-strong); margin-bottom: var(--space-sm);
+  }
+  /* Demo view badge (amber pill ao lado da eyebrow-full) */
+  .demo-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.55rem;
+    background: var(--warning);
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+
+  .au-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.08;
+    letter-spacing: -0.02em; max-width: 24ch;
+    margin: 0 0 var(--space-sm);
+  }
+  .au-hero .subtitle {
+    max-width: 72ch; color: var(--ink-soft);
+    font-size: 1rem; line-height: 1.55; margin: 0 0 var(--space-md);
+  }
+  .au-hero .netpill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    background: var(--surface-raised); border: 1px solid var(--line);
+    border-radius: 999px; font-size: 0.8125rem; color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .au-hero .netpill .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 3px oklch(60% 0.16 150 / 0.15);
+  }
+  .au-hero .netpill strong { color: var(--ink); font-weight: 700; }
+  .au-hero .datemeta {
+    display: block; margin-top: var(--space-sm);
+    font-size: 0.75rem; color: var(--ink-faint);
+  }
+  .au-hero .datemeta strong { color: var(--ink-soft); font-weight: 600; }
+
+  /* Card genérico */
+  .au-card {
+    background: #ffffff; border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: var(--space-md);
+    box-shadow: 0 1px 0 var(--line-soft);
+  }
+  .au-card + .au-card { margin-top: var(--space-sm); }
+  .au-card-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: var(--space-md); margin-bottom: var(--space-sm);
+  }
+  .au-card-head h2 {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 1.0625rem; line-height: 1.25; letter-spacing: -0.01em;
+    color: var(--ink); margin: 0 0 0.25rem; max-width: none;
+  }
+  .au-card-head p {
+    margin: 0; color: var(--ink-soft);
+    font-size: 0.875rem; line-height: 1.5; max-width: 72ch;
+  }
+  .au-tag {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.25rem 0.55rem; border-radius: 999px;
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; background: var(--surface-raised);
+    color: var(--ink-soft); border: 1px solid var(--line);
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* KPI strip */
+  .au-kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm); margin-top: var(--space-md);
+  }
+  @media (max-width: 940px) { .au-kpis { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .au-kpis { grid-template-columns: 1fr; } }
+  .au-kpi {
+    background: #ffffff; border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: var(--space-md) var(--space-sm);
+    box-shadow: 0 1px 0 var(--line-soft);
+  }
+  .au-kpi .lab {
+    font-size: 0.75rem; color: var(--ink-faint);
+    font-weight: 600; margin-bottom: 0.4rem;
+  }
+  .au-kpi .val {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 2rem; line-height: 1; letter-spacing: -0.025em;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+    display: flex; align-items: baseline; gap: 0.15rem;
+  }
+  .au-kpi .val small {
+    font-size: 1.125rem; font-weight: 700; color: var(--ink-soft);
+  }
+  .au-kpi .delta {
+    display: block; margin-top: 0.5rem;
+    font-size: 0.75rem; color: var(--ink-faint);
+  }
+  .au-kpi .delta.up   { color: var(--accent-strong); font-weight: 700; }
+  .au-kpi .delta.warn { color: var(--warning); font-weight: 700; }
+  .au-kpi .delta.err  { color: var(--block); font-weight: 700; }
+
+  /* Client triage table */
+  .au-triage { margin-top: var(--space-sm); }
+  .au-triage-head, .au-triage-row {
+    display: grid;
+    grid-template-columns: 1.6fr 1.1fr 1.2fr 1.5fr 1fr 110px;
+    align-items: center; gap: var(--space-sm);
+    padding: 0.75rem 0.75rem;
+  }
+  .au-triage-head {
+    background: var(--surface-raised);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+  .au-triage-row {
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .au-triage-row:last-child { border-bottom: 0; }
+  @media (max-width: 900px) {
+    .au-triage-head { display: none; }
+    .au-triage-row {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xs);
+    }
+    .au-triage-row .col-action { grid-column: 1 / -1; }
+  }
+  .au-triage-row .col-name strong {
+    font-weight: 700; color: var(--ink); font-size: 0.9375rem;
+    display: block;
+  }
+  .au-triage-row .col-name .aside {
+    display: block; margin-top: 0.15rem;
+    font-weight: 400; color: var(--ink-faint); font-size: 0.75rem;
+  }
+  /* Status pill (dot + text) */
+  .au-rag {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.8125rem; font-weight: 600;
+  }
+  .au-rag .d {
+    width: 9px; height: 9px; border-radius: 50%;
+    display: inline-block; flex-shrink: 0;
+  }
+  .au-rag.red   .d { background: var(--block); }
+  .au-rag.amber .d { background: var(--warning); }
+  .au-rag.green .d { background: var(--accent); }
+  .au-rag.red   { color: var(--block); }
+  .au-rag.amber { color: oklch(45% 0.16 80); }
+  .au-rag.green { color: var(--accent-strong); }
+
+  /* Rule pass rate — bar + % */
+  .au-passrate {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 0.5rem; align-items: center;
+  }
+  .au-barmini {
+    height: 8px; background: var(--surface-raised);
+    border-radius: 999px; overflow: hidden;
+  }
+  .au-barmini i {
+    display: block; height: 100%;
+    border-radius: 999px;
+  }
+  .au-barmini i.red   { background: var(--block); }
+  .au-barmini i.amber { background: var(--warning); }
+  .au-barmini i.green { background: var(--accent-strong); }
+  .au-passrate .pct {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 0.9375rem; color: var(--ink);
+    font-feature-settings: 'tnum' on;
+  }
+
+  /* Open items col */
+  .au-open {
+    font-size: 0.8125rem; color: var(--ink-soft);
+  }
+  .au-open strong { color: var(--ink); font-weight: 700; }
+
+  /* Next cert date */
+  .au-nextcert {
+    font-size: 0.8125rem; color: var(--ink);
+    font-feature-settings: 'tnum' on;
+  }
+  .au-nextcert.rolling { color: var(--ink-faint); font-style: italic; }
+
+  .au-btn {
+    padding: 0.45rem 0.75rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--ink); background: var(--surface-raised);
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+    cursor: pointer; text-align: center;
+    transition: background var(--d-quick) var(--ease-out),
+                border-color var(--d-quick) var(--ease-out);
+  }
+  .au-btn:hover { background: #ffffff; border-color: var(--accent); }
+  .au-btn.primary {
+    color: #ffffff; background: var(--brand-surface);
+    border-color: var(--brand-surface);
+  }
+  .au-btn.primary:hover {
+    background: var(--brand-surface-deep);
+    border-color: var(--brand-surface-deep);
+  }
+
+  /* Exception feed */
+  .au-exceptions .au-exc {
+    display: grid; grid-template-columns: 24px 1fr 100px;
+    gap: var(--space-sm); align-items: flex-start;
+    padding: 0.85rem 0.75rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .au-exc:last-child { border-bottom: 0; }
+  .au-exc .fdot {
+    width: 10px; height: 10px; border-radius: 50%;
+    margin-top: 0.4rem;
+  }
+  .au-exc .fdot.red   { background: var(--block); }
+  .au-exc .fdot.amber { background: var(--warning); }
+  .au-exc .body {
+    color: var(--ink-soft); font-size: 0.875rem; line-height: 1.45;
+  }
+  .au-exc .body strong { color: var(--ink); font-weight: 700; }
+  .au-exc .body .who {
+    display: block; margin-top: 0.15rem;
+    font-size: 0.75rem; color: var(--ink-faint);
+    letter-spacing: 0.005em;
+  }
+  .au-exc .when {
+    font-size: 0.75rem; color: var(--ink-faint);
+    letter-spacing: 0.005em; text-align: right;
+    font-feature-settings: 'tnum' on;
+  }
+
+  /* Field audit checklist */
+  .au-check {
+    margin-top: var(--space-2xs);
+  }
+  .au-check-row {
+    display: grid; grid-template-columns: 22px 1fr 56px;
+    gap: 0.6rem; align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .au-check-row:last-child { border-bottom: 0; }
+  .au-checkbox {
+    width: 18px; height: 18px; border-radius: 3px;
+    border: 1.5px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.6875rem;
+  }
+  .au-checkbox.done {
+    background: var(--accent); border-color: var(--accent);
+    color: #ffffff;
+  }
+  .au-checkbox.pending {
+    background: var(--surface-raised);
+  }
+  .au-check-label {
+    color: var(--ink); font-size: 0.8125rem;
+    font-weight: 500; line-height: 1.35;
+  }
+  .au-check-label.done { color: var(--ink-mute); text-decoration: line-through; text-decoration-color: var(--ink-mute); }
+  .au-check-status {
+    font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em;
+    font-weight: 700; text-align: right;
+  }
+  .au-check-status.done { color: var(--accent-strong); }
+  .au-check-status.pending { color: var(--warning); }
+
+  .au-wrap { padding: var(--space-md) 0 var(--space-2xl); }
+
+  /* Live portfolio activity */
+  .au-live {
+    display: grid; grid-template-columns: 1fr 220px;
+    gap: var(--space-md); align-items: stretch;
+    margin-top: var(--space-sm);
+  }
+  @media (max-width: 720px) { .au-live { grid-template-columns: 1fr; } }
+  .au-live-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+  }
+  @media (max-width: 720px) { .au-live-grid { grid-template-columns: repeat(2, 1fr); } }
+  .au-live-cell {
+    padding: var(--space-sm);
+    border: 1px solid var(--line-soft); border-radius: var(--r-sm);
+    background: var(--surface-raised);
+  }
+  .au-live-cell .n {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 1.75rem; line-height: 1; letter-spacing: -0.025em;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+  }
+  .au-live-cell .l {
+    margin-top: 0.4rem; font-size: 0.75rem;
+    color: var(--ink-faint); line-height: 1.4;
+  }
+  .au-live-side {
+    padding: var(--space-sm);
+    background: var(--brand-surface); color: var(--on-dark);
+    border-radius: var(--r-sm);
+    display: flex; flex-direction: column; gap: 0.25rem;
+  }
+  .au-live-side .lab {
+    font-size: 0.6875rem; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--on-dark-mute);
+    font-weight: 700;
+  }
+  .au-live-side .big {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 1.5rem; letter-spacing: -0.02em;
+    color: var(--accent-on-dark); margin-top: 0.2rem;
+  }
+  .au-live-side .sm {
+    font-size: 0.75rem; color: var(--on-dark-soft);
+    line-height: 1.45; margin-top: 0.4rem;
+  }
+
+  /* Rule compliance matrix */
+  .au-rcmatrix { margin-top: var(--space-sm); }
+  .au-rc-row {
+    display: grid; grid-template-columns: 60px 1fr 180px;
+    gap: var(--space-sm); align-items: center;
+    padding: 0.7rem 0.5rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .au-rc-row:last-child { border-bottom: 0; }
+  @media (max-width: 720px) { .au-rc-row { grid-template-columns: 60px 1fr; } .au-rc-row .stat { grid-column: 1 / -1; } }
+  .au-rc-row .id {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 0.8125rem; color: var(--accent-strong);
+    letter-spacing: 0.03em;
+  }
+  .au-rc-row .desc { font-size: 0.875rem; color: var(--ink-soft); }
+  .au-rc-row .desc strong { color: var(--ink); font-weight: 700; }
+  .au-rc-row .stat {
+    display: grid; grid-template-columns: 1fr 60px;
+    gap: var(--space-2xs); align-items: center;
+  }
+  .au-rc-row .track {
+    height: 8px; background: var(--surface-raised);
+    border-radius: 999px; overflow: hidden;
+  }
+  .au-rc-row .track i { display: block; height: 100%; }
+  .au-rc-row .cnt {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 0.8125rem; text-align: right;
+    font-feature-settings: 'tnum' on;
+  }
+  .au-rc-row .cnt.ok  { color: var(--accent-strong); }
+  .au-rc-row .cnt.bad { color: var(--block); }
+
+  /* Field audit — auto/field labels & source line */
+  .au-checkbox.err {
+    background: var(--block); border-color: var(--block); color: #ffffff;
+  }
+  .au-check-label .chk-src {
+    display: block; margin-top: 0.1rem;
+    font-size: 0.6875rem; color: var(--ink-faint); font-weight: 400;
+    line-height: 1.3;
+  }
+  .au-lab {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.5625rem; font-weight: 800;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 3px;
+  }
+  .au-lab.au-lab-auto  { background: oklch(96% 0.03 150); color: var(--accent-strong); }
+  .au-lab.au-lab-field { background: oklch(94% 0.08 80); color: oklch(45% 0.16 80); }
+  .au-check-status.err { color: var(--block); }
+
+  /* Evidence & audit pack */
+  .au-ev-strip {
+    display: grid; grid-template-columns: 44px 1fr;
+    gap: var(--space-sm); align-items: center;
+    padding: var(--space-sm);
+    background: var(--brand-surface); color: var(--on-dark);
+    border-radius: var(--r-sm);
+    margin-top: var(--space-sm);
+  }
+  .au-ev-strip .ico {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--brand-surface-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+  }
+  .au-ev-strip strong {
+    display: block; color: var(--on-dark); font-weight: 700;
+  }
+  .au-ev-strip span {
+    display: block; margin-top: 0.2rem;
+    font-size: 0.8125rem; color: var(--on-dark-soft); line-height: 1.4;
+  }
+  .au-ev-rows { margin-top: var(--space-sm); }
+  .au-ev-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--line-soft);
+    font-size: 0.875rem;
+  }
+  .au-ev-row:last-child { border-bottom: 0; }
+  .au-ev-row > span { color: var(--ink-soft); }
+  .au-ev-row strong { color: var(--ink); font-weight: 700; }
+  .au-ev-row strong.mono {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+  }
+
+  /* Grid 2 col wrapper — Exception + Rule compliance | Field + Audit pack */
+  .au-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    align-items: stretch;
+  }
+  @media (max-width: 940px) {
+    .au-row2 { grid-template-columns: 1fr; }
+  }
+  .au-row2 .au-card {
+    margin-top: 0 !important;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Empurra a nota final (au-note) pro rodape do card pra equalizar altura */
+  .au-row2 .au-card .au-note {
+    margin-top: auto;
+    padding-top: var(--space-sm);
+  }
+
+  /* Cross-client intelligence 2x2 */
+  .au-cross {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm); margin-top: var(--space-sm);
+  }
+  @media (max-width: 720px) { .au-cross { grid-template-columns: 1fr; } }
+  .au-cross-cell {
+    display: grid; grid-template-columns: 40px 1fr;
+    gap: var(--space-sm); align-items: flex-start;
+    padding: var(--space-sm);
+    border: 1px solid var(--line-soft); border-radius: var(--r-sm);
+    background: var(--surface-raised);
+  }
+  .au-cross-cell .ic {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: oklch(45% 0.12 265); color: #ffffff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.125rem; font-weight: 800;
+  }
+  .au-cross-cell strong { color: var(--ink); font-weight: 700; display: block; }
+  .au-cross-cell span {
+    display: block; margin-top: 0.25rem;
+    font-size: 0.8125rem; color: var(--ink-soft); line-height: 1.45;
+  }
+
+  /* Note */
+  .au-note {
+    margin-top: var(--space-sm); font-size: 0.8125rem;
+    color: var(--ink-soft); line-height: 1.5;
+    max-width: 78ch;
+  }
+  .au-note strong { color: var(--ink); font-weight: 700; }
+  @media (min-width: 1200px) {
+    .au-wrap .container { max-width: 1160px; }
+  }
+</style>
+</head>
+<body data-page="paineis">
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span><span lang="pt">Início</span><span lang="en">Home</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
+    </a>
+    <a class="nav-tab active" data-target="paineis" href="dashboards.html">
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- (sub-nav removed) -->
+
+<!-- HERO -->
+<section class="hero au-hero" id="overview">
+  <div class="container">
+    <span class="eyebrow-full">
+      <span lang="pt">Kiwa — carteira de recicladores certificados · ao vivo</span><span lang="en">Kiwa — certified recycler portfolio · live</span>
+      <span class="demo-badge"><span lang="pt">Amostra · vista de demonstração</span><span lang="en">Sample data · demo view</span></span>
+    </span>
+    <h1>
+      <span lang="pt">Sua carteira,<br><span class="display-italic">em uma vista.</span></span><span lang="en">Your portfolio,<br><span class="display-italic">at a glance.</span></span>
+    </h1>
+    <p class="subtitle">
+      <span lang="pt">Em vez de amostrar dez arquivos entre dez mil, você vê a rede inteira. Cada exceção aparece aqui antes de virar um problema de auditoria, e cada cliente tem um score contínuo — não só uma foto anual.</span><span lang="en">Instead of sampling ten files out of ten thousand, you see the whole network. Every exception surfaces here before it becomes an audit problem, and every client carries a continuous score — not just an annual snapshot.</span>
+    </p>
+    <span class="netpill">
+      <span class="dot" aria-hidden="true"></span>
+      <strong>Carrot Network</strong>
+      <span lang="pt">· evidência hash-ancorada · 24 clientes certificados ao vivo</span><span lang="en">· evidence hash-anchored · 24 certified clients live</span>
+    </span>
+    <span class="datemeta">
+      <strong><span lang="pt">Terça, 30 de junho de 2026</span><span lang="en">Tuesday, 30 June 2026</span></strong>
+      <span lang="pt">· última sincronização há 3 min</span><span lang="en">· last sync 3 min ago</span>
+    </span>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="au-wrap">
+  <div class="container">
+
+    <!-- 1 · LIVE PORTFOLIO ACTIVITY -->
+    <div class="au-card" id="live">
+      <div class="au-card-head">
+        <div>
+          <h2><span lang="pt">Atividade do portfólio ao vivo</span><span lang="en">Live portfolio activity</span></h2>
+          <p><span lang="pt">O que está atravessando a rede agora. Cada MassID é hash-anchored no momento em que é registrado — você vê validado em tempo real, não numa amostra anual.</span><span lang="en">What's moving through the network right now. Every MassID is hash-anchored the moment it's logged — you see it validated in real time, not on an annual sample.</span></p>
+        </div>
+        <span class="au-tag"><span lang="pt">24 clientes ao vivo</span><span lang="en">24 clients live</span></span>
+      </div>
+
+      <div class="au-live">
+        <div class="au-live-grid">
+          <div class="au-live-cell">
+            <div class="n">21 400</div>
+            <div class="l"><span lang="pt">MassIDs verificados este mês</span><span lang="en">MassIDs verified this month</span></div>
+          </div>
+          <div class="au-live-cell">
+            <div class="n">184</div>
+            <div class="l"><span lang="pt">verificados hoje</span><span lang="en">verified today</span></div>
+          </div>
+          <div class="au-live-cell">
+            <div class="n">12</div>
+            <div class="l"><span lang="pt">aguardando revisão</span><span lang="en">awaiting review</span></div>
+          </div>
+          <div class="au-live-cell">
+            <div class="n" style="color: var(--block);">3</div>
+            <div class="l"><span lang="pt">flagados — precisam de você</span><span lang="en">flagged — need you</span></div>
+          </div>
+        </div>
+        <div class="au-live-side">
+          <div class="lab"><span lang="pt">Último evento</span><span lang="en">Last event</span></div>
+          <div class="big">4 min ago</div>
+          <div class="sm">MS-2026-000512 · Nordic Repro<br><span lang="pt">ancorado &amp; passando</span><span lang="en">anchored &amp; passing</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 · KPI STRIP -->
+    <div class="au-kpis">
+      <div class="au-kpi">
+        <div class="lab"><span lang="pt">Clientes certificados</span><span lang="en">Certified clients</span></div>
+        <div class="val">24</div>
+        <div class="delta up">+3 <span lang="pt">este trimestre</span><span lang="en">this quarter</span></div>
+      </div>
+      <div class="au-kpi">
+        <div class="lab"><span lang="pt">Limpos &amp; prontos para auditoria</span><span lang="en">Clients clean / audit-ready</span></div>
+        <div class="val">20<small>/24</small></div>
+        <div class="delta up">83% <span lang="pt">verde — light-touch</span><span lang="en">green — light-touch</span></div>
+      </div>
+      <div class="au-kpi">
+        <div class="lab"><span lang="pt">Exceções abertas</span><span lang="en">Open exceptions</span></div>
+        <div class="val" style="color: var(--block);">7</div>
+        <div class="delta err"><span lang="pt">em 4 clientes</span><span lang="en">across 4 clients</span></div>
+      </div>
+      <div class="au-kpi">
+        <div class="lab"><span lang="pt">Tempo médio de prep de auditoria</span><span lang="en">Avg audit prep time</span></div>
+        <div class="val">2<small>h</small></div>
+        <div class="delta up"><span lang="pt">pacote auto-montado</span><span lang="en">pack auto-assembled</span></div>
+      </div>
+    </div>
+
+    <!-- 3 · CLIENT TRIAGE -->
+    <div class="au-card" id="triage" style="margin-top: var(--space-md);">
+      <div class="au-card-head">
+        <div>
+          <h2><span lang="pt">Triagem — onde olhar primeiro</span><span lang="en">Client triage — where to look first</span></h2>
+          <p>
+            <span lang="pt">Cada reciclador certificado ranqueado por risco. Verde = limpo, light-touch. Vermelho = precisa de você agora. Suas horas seguem a cor.</span><span lang="en">Every certified recycler ranked by risk. Green = clean, light-touch. Red = needs you now. Your hours follow the colour.</span>
+          </p>
+        </div>
+        <span class="au-tag" style="background: oklch(94% 0.05 25); color: var(--block); border-color: oklch(88% 0.06 25);"><span lang="pt">Ranqueado por risco</span><span lang="en">Risk-ranked</span></span>
+      </div>
+
+      <div class="au-triage">
+        <div class="au-triage-head">
+          <div class="col-name"><span lang="pt">Reciclador</span><span lang="en">Recycler</span></div>
+          <div class="col-status">Status</div>
+          <div class="col-rate"><span lang="pt">Rule pass rate</span><span lang="en">Rule pass rate</span></div>
+          <div class="col-open"><span lang="pt">Itens abertos</span><span lang="en">Open items</span></div>
+          <div class="col-date"><span lang="pt">Próxima cert.</span><span lang="en">Next cert date</span></div>
+          <div class="col-action"></div>
+        </div>
+
+        <div class="au-triage-row">
+          <div class="col-name">
+            <strong>Adriatic Polymers</strong>
+            <span class="aside">PET · Rijeka, HR</span>
+          </div>
+          <div class="col-status">
+            <span class="au-rag red"><span class="d"></span><span lang="pt">Precisa revisão</span><span lang="en">Needs review</span></span>
+          </div>
+          <div class="col-rate">
+            <div class="au-passrate">
+              <div class="au-barmini"><i class="red" style="width:86%;"></i></div>
+              <span class="pct">86%</span>
+            </div>
+          </div>
+          <div class="col-open">
+            <span class="au-open"><strong>3</strong> · <span lang="pt">incl. mass-balance drift</span><span lang="en">incl. mass-balance drift</span></span>
+          </div>
+          <div class="col-date"><span class="au-nextcert">12 Aug 2026</span></div>
+          <div class="col-action">
+            <button type="button" class="au-btn primary" style="width: 100%;"><span lang="pt">Abrir caso</span><span lang="en">Open case</span></button>
+          </div>
+        </div>
+
+        <div class="au-triage-row">
+          <div class="col-name">
+            <strong>Aegean PET Recycling</strong>
+            <span class="aside">PET · Patras, GR</span>
+          </div>
+          <div class="col-status">
+            <span class="au-rag amber"><span class="d"></span><span lang="pt">Observação</span><span lang="en">Watch</span></span>
+          </div>
+          <div class="col-rate">
+            <div class="au-passrate">
+              <div class="au-barmini"><i class="amber" style="width:96%;"></i></div>
+              <span class="pct">96%</span>
+            </div>
+          </div>
+          <div class="col-open">
+            <span class="au-open"><strong>2</strong> · <span lang="pt">documentação</span><span lang="en">documentation</span></span>
+          </div>
+          <div class="col-date"><span class="au-nextcert">03 Sep 2026</span></div>
+          <div class="col-action">
+            <button type="button" class="au-btn" style="width: 100%;"><span lang="pt">Revisar</span><span lang="en">Review</span></button>
+          </div>
+        </div>
+
+        <div class="au-triage-row">
+          <div class="col-name">
+            <strong>Iberia Recikla</strong>
+            <span class="aside">HDPE/PET · Valencia, ES</span>
+          </div>
+          <div class="col-status">
+            <span class="au-rag amber"><span class="d"></span><span lang="pt">Observação</span><span lang="en">Watch</span></span>
+          </div>
+          <div class="col-rate">
+            <div class="au-passrate">
+              <div class="au-barmini"><i class="amber" style="width:94%;"></i></div>
+              <span class="pct">94%</span>
+            </div>
+          </div>
+          <div class="col-open">
+            <span class="au-open"><strong>2</strong> · RC-06 <span lang="pt">subcontratado</span><span lang="en">subcontractor</span></span>
+          </div>
+          <div class="col-date"><span class="au-nextcert">20 Sep 2026</span></div>
+          <div class="col-action">
+            <button type="button" class="au-btn" style="width: 100%;"><span lang="pt">Revisar</span><span lang="en">Review</span></button>
+          </div>
+        </div>
+
+        <div class="au-triage-row">
+          <div class="col-name">
+            <strong>Nordic Repro</strong>
+            <span class="aside">PP · Malmö, SE</span>
+          </div>
+          <div class="col-status">
+            <span class="au-rag green"><span class="d"></span><span lang="pt">Limpo</span><span lang="en">Clean</span></span>
+          </div>
+          <div class="col-rate">
+            <div class="au-passrate">
+              <div class="au-barmini"><i class="green" style="width:100%;"></i></div>
+              <span class="pct">100%</span>
+            </div>
+          </div>
+          <div class="col-open">
+            <span class="au-open">—</span>
+          </div>
+          <div class="col-date"><span class="au-nextcert">28 Sep 2026</span></div>
+          <div class="col-action">
+            <button type="button" class="au-btn" style="width: 100%;"><span lang="pt">Light-touch</span><span lang="en">Light-touch</span></button>
+          </div>
+        </div>
+
+        <div class="au-triage-row">
+          <div class="col-name">
+            <strong>+ 20 <span lang="pt">outros clientes</span><span lang="en">more clients</span></strong>
+            <span class="aside">19 <span lang="pt">limpos</span><span lang="en">clean</span> · 1 <span lang="pt">observação</span><span lang="en">watch</span></span>
+          </div>
+          <div class="col-status">
+            <span class="au-rag green"><span class="d"></span><span lang="pt">Maioria limpa</span><span lang="en">Mostly clean</span></span>
+          </div>
+          <div class="col-rate">
+            <div class="au-passrate">
+              <div class="au-barmini"><i class="green" style="width:99%;"></i></div>
+              <span class="pct">99%</span>
+            </div>
+          </div>
+          <div class="col-open">
+            <span class="au-open"><strong>1</strong></span>
+          </div>
+          <div class="col-date"><span class="au-nextcert rolling"><span lang="pt">rolling</span><span lang="en">rolling</span></span></div>
+          <div class="col-action">
+            <button type="button" class="au-btn" style="width: 100%;"><span lang="pt">Ver todos</span><span lang="en">View all</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 · EXCEPTION FEED + RULE COMPLIANCE (row 2×) -->
+    <div class="au-row2">
+
+    <div class="au-card" id="exceptions">
+      <div class="au-card-head">
+        <div>
+          <h2><span lang="pt">Feed de exceções — o que a rede só revela ao portfólio</span><span lang="en">Exception feed — what only the portfolio view reveals</span></h2>
+          <p>
+            <span lang="pt">Padrões que arquivo isolado nunca mostra: um MassID reivindicado por dois detentores, contaminação subindo em três clientes ao mesmo tempo, desvio de mass balance. Isso é o valor de ver a rede inteira, não a amostra.</span><span lang="en">Patterns no single file reveals: a MassID claimed by two holders, contamination rising at three clients at once, mass-balance drift. This is the value of seeing the whole network, not just a sample.</span>
+          </p>
+        </div>
+        <span class="au-tag"><span lang="pt">Só na rede</span><span lang="en">Network-only</span></span>
+      </div>
+
+      <div class="au-exceptions">
+        <div class="au-exc">
+          <span class="fdot red"></span>
+          <div class="body">
+            <strong><span lang="pt">Desvio de mass balance — Adriatic Polymers</span><span lang="en">Mass-balance drift — Adriatic Polymers</span></strong>
+            <span> — <span lang="pt">saída excede entrada em 2,1% em MS-…318 · reconciliação RC-03 falha · inexplicado</span><span lang="en">output exceeds input by 2.1% on MS-…318 · RC-03 reconciliation fails · unexplained</span></span>
+          </div>
+          <div class="when">12 min</div>
+        </div>
+        <div class="au-exc">
+          <span class="fdot red"></span>
+          <div class="body">
+            <strong><span lang="pt">Possível duplo uso cross-client</span><span lang="en">Possible double-count across clients</span></strong>
+            <span> — MassID <em>MS-2026-000451</em> <span lang="pt">referenciado por dois detentores de certificado · só a visão cross-client captura isso</span><span lang="en">referenced by two certificate holders · only cross-client view catches this</span></span>
+          </div>
+          <div class="when">1 h</div>
+        </div>
+        <div class="au-exc">
+          <span class="fdot amber"></span>
+          <div class="body">
+            <strong><span lang="pt">Subcontratado não certificado — Iberia Recikla</span><span lang="en">Subcontractor not certified — Iberia Recikla</span></strong>
+            <span> — <span lang="pt">RC-06: lote roteado para instalação sem prova RecyClass/EuCertPlast no arquivo</span><span lang="en">RC-06: batch routed to a facility with no RecyClass/EuCertPlast proof on file</span></span>
+          </div>
+          <div class="when">3 h</div>
+        </div>
+        <div class="au-exc">
+          <span class="fdot amber"></span>
+          <div class="body">
+            <strong><span lang="pt">Confirmação de recepção em atraso — Aegean PET</span><span lang="en">Reception confirmation overdue — Aegean PET</span></strong>
+            <span> — <span lang="pt">Art. 15 (WSR): &gt;2 dias úteis desde a chegada no cross-border MS-…454</span><span lang="en">Art. 15 (WSR): &gt;2 working days since arrival on cross-border MS-…454</span></span>
+          </div>
+          <div class="when">5 h</div>
+        </div>
+      </div>
+      <p class="au-note">
+        <span lang="pt">Cada exceção linka ao MassID exato, seus documentos e seu histórico hash-ancorado — você revisa a evidência, não reconstrói ela.</span><span lang="en">Each exception links to the exact MassID, its documents, and its hash-anchored history — you review the evidence, you don't reconstruct it.</span>
+      </p>
+    </div>
+
+    <div class="au-card" id="rule-compliance">
+      <div class="au-card-head">
+        <div>
+          <h2><span lang="pt">Compliance por regra — portfólio</span><span lang="en">Rule compliance — portfolio</span></h2>
+          <p><span lang="pt">Como cada cliente está indo contra cada regra do processo RecyClass, em uma vista só. As duas falhas suaves (RC-03, RC-06) mapeiam direto para o feed de exceções.</span><span lang="en">How every client is doing against each RecyClass process rule, at a glance. The two soft failures (RC-03, RC-06) map straight to the exception feed.</span></p>
+        </div>
+        <span class="au-tag">RC-01..06</span>
+      </div>
+
+      <div class="au-rcmatrix">
+        <div class="au-rc-row">
+          <div class="id">RC-01</div>
+          <div class="desc"><strong><span lang="pt">Licença de resíduos válida</span><span lang="en">Valid waste permit</span></strong> · <span lang="pt">em toda ingestão</span><span lang="en">at every ingestion</span></div>
+          <div class="stat"><div class="track"><i style="width:100%; background: var(--accent);"></i></div><span class="cnt ok">24/24</span></div>
+        </div>
+        <div class="au-rc-row">
+          <div class="id">RC-02</div>
+          <div class="desc"><strong><span lang="pt">Dentro da capacidade licenciada</span><span lang="en">Within permitted throughput</span></strong> · <span lang="pt">12 meses</span><span lang="en">12-mo</span></div>
+          <div class="stat"><div class="track"><i style="width:96%; background: var(--warning);"></i></div><span class="cnt ok">23/24</span></div>
+        </div>
+        <div class="au-rc-row">
+          <div class="id">RC-03</div>
+          <div class="desc"><strong><span lang="pt">Reconciliação de volume</span><span lang="en">Volume reconciliation</span></strong> · <span lang="pt">5 categorias</span><span lang="en">5 categories</span></div>
+          <div class="stat"><div class="track"><i style="width:96%; background: var(--block);"></i></div><span class="cnt bad">23/24</span></div>
+        </div>
+        <div class="au-rc-row">
+          <div class="id">RC-04</div>
+          <div class="desc"><strong><span lang="pt">Split pré/pós-consumo</span><span lang="en">Pre/post-consumer split</span></strong> <span lang="pt">documentado</span><span lang="en">documented</span></div>
+          <div class="stat"><div class="track"><i style="width:100%; background: var(--accent);"></i></div><span class="cnt ok">24/24</span></div>
+        </div>
+        <div class="au-rc-row">
+          <div class="id">RC-05</div>
+          <div class="desc"><strong><span lang="pt">Nível de rastreabilidade ↔ claim</span><span lang="en">Traceability level ↔ claim</span></strong> · <span lang="pt">granularidade</span><span lang="en">granularity</span></div>
+          <div class="stat"><div class="track"><i style="width:100%; background: var(--accent);"></i></div><span class="cnt ok">24/24</span></div>
+        </div>
+        <div class="au-rc-row">
+          <div class="id">RC-06</div>
+          <div class="desc"><strong><span lang="pt">Subcontratados certificados</span><span lang="en">Subcontractors certified</span></strong> · RecyClass/EuCertPlast</div>
+          <div class="stat"><div class="track"><i style="width:92%; background: var(--warning);"></i></div><span class="cnt bad">22/24</span></div>
+        </div>
+      </div>
+      <p class="au-note">
+        <span lang="pt">Verde em toda a linha em 24 clientes é evidência que você pode defender. As duas falhas suaves em RC-03 e RC-06 já são casos abertos com plano de remediação.</span><span lang="en">Green across the board in 24 clients is evidence you can stand behind. The two soft failures on RC-03 and RC-06 are already open cases with a remediation plan.</span>
+      </p>
+    </div>
+
+    </div><!-- /au-row2 · Exception feed + Rule compliance -->
+
+    <!-- 5 · FIELD AUDIT + AUDIT PACK (row 2×) -->
+    <div class="au-row2">
+
+    <div class="au-card" id="field">
+      <div class="au-card-head">
+        <div>
+          <h2><span lang="pt">Checklist de auditoria em campo · Adriatic Polymers</span><span lang="en">Field audit checklist · Adriatic Polymers</span></h2>
+          <p>
+            <span lang="pt">85% já validado pela plataforma. Falta apenas o que exige olho no lugar — separação física, calibração do estoque, batidas visuais. Marque, faça upload da evidência aqui mesmo, e o pacote de auditoria fecha automaticamente.</span><span lang="en">85% already validated by the platform. What's left needs eyes on the ground — bay separation, stock calibration, visual counts. Tick it off, upload evidence right here, and the audit pack closes automatically.</span>
+          </p>
+        </div>
+        <span class="au-tag"><span lang="pt">85% digital · 15% em campo</span><span lang="en">85% digital · 15% in field</span></span>
+      </div>
+
+      <div class="au-check">
+        <div class="au-check-row">
+          <div class="au-checkbox done">✓</div>
+          <div class="au-check-label done"><strong>RC-01</strong> · <span lang="pt">Licença de resíduos válida &amp; cobre país da planta</span><span lang="en">Waste permit valid &amp; covers site country</span><span class="chk-src"><span lang="pt">verificado da licença enviada, em dia</span><span lang="en">verified from uploaded permit, in date</span></span></div>
+          <div class="au-check-status done"><span class="au-lab au-lab-auto">auto</span></div>
+        </div>
+        <div class="au-check-row">
+          <div class="au-checkbox done">✓</div>
+          <div class="au-check-label done"><strong>RC-02</strong> · <span lang="pt">Throughput dos últimos 12 meses dentro da licença</span><span lang="en">12-month throughput within license</span><span class="chk-src"><span lang="pt">computado dos inputs MassID</span><span lang="en">computed from MassID inputs</span></span></div>
+          <div class="au-check-status done"><span class="au-lab au-lab-auto">auto</span></div>
+        </div>
+        <div class="au-check-row">
+          <div class="au-checkbox err">!</div>
+          <div class="au-check-label"><strong>RC-03</strong> · <span lang="pt">Reconciliar a discrepância de 2,1% de mass balance</span><span lang="en">Reconcile the 2.1% mass-balance discrepancy</span><span class="chk-src" style="color: var(--block);"><span lang="pt">flagado — exige explicação do operador em campo</span><span lang="en">flagged — requires operator explanation on site</span></span></div>
+          <div class="au-check-status err"><span class="au-lab au-lab-field">field</span></div>
+        </div>
+        <div class="au-check-row">
+          <div class="au-checkbox done">✓</div>
+          <div class="au-check-label done"><strong>RC-04</strong> · <span lang="pt">Evidência do split de conteúdo reciclado presente</span><span lang="en">Recycled-content split evidence present</span><span class="chk-src"><span lang="pt">pré/pós documentado por lote</span><span lang="en">pre/post documented per batch</span></span></div>
+          <div class="au-check-status done"><span class="au-lab au-lab-auto">auto</span></div>
+        </div>
+        <div class="au-check-row">
+          <div class="au-checkbox pending"></div>
+          <div class="au-check-label"><strong>RC-05</strong> · <span lang="pt">Separação física de bay &amp; esvaziamento</span><span lang="en">Physical bay separation &amp; bay-emptying</span><span class="chk-src"><span lang="pt">confirmar no chão de fábrica pra claims L2</span><span lang="en">confirm on the floor for L2 claims</span></span></div>
+          <div class="au-check-status pending"><span class="au-lab au-lab-field">field</span></div>
+        </div>
+        <div class="au-check-row">
+          <div class="au-checkbox pending"></div>
+          <div class="au-check-label"><strong><span lang="pt">Housekeeping &amp; qualidade de input</span><span lang="en">Housekeeping &amp; input quality</span></strong> · <span lang="pt">spot check visual</span><span lang="en">spot check</span><span class="chk-src"><span lang="pt">visual — não sensível remotamente</span><span lang="en">visual — not sensable remotely</span></span></div>
+          <div class="au-check-status pending"><span class="au-lab au-lab-field">field</span></div>
+        </div>
+      </div>
+      <p class="au-note">
+        <span lang="pt">Metade do checklist já está satisfeita a partir do dado antes de você sair do escritório. A visita foca nos 3 itens físicos que realmente precisam de olho no local.</span><span lang="en">Half the checklist is already satisfied from data before you leave the office. The visit focuses on the 3 physical items that genuinely need eyes on site.</span>
+      </p>
+    </div>
+
+    <div class="au-card" id="pack">
+      <div class="au-card-head">
+        <div>
+          <h2><span lang="pt">Pacote de auditoria &amp; evidência</span><span lang="en">Evidence &amp; audit pack</span></h2>
+          <p>
+            <span lang="pt">Cada evento vem com a citação regulatória, a regra que validou, a política de evidência e o hash reproduzível. Você recebe o pacote pré-montado — assina, entrega, arquiva.</span><span lang="en">Every event ships with the regulatory quote, the rule that validated it, the evidence policy and a reproducible hash. You get the pack pre-assembled — sign, deliver, archive.</span>
+          </p>
+        </div>
+        <span class="au-tag"><span lang="pt">SHA-256 ancorado</span><span lang="en">SHA-256 anchored</span></span>
+      </div>
+      <div class="au-ev-strip">
+        <div class="ico" aria-hidden="true">🔒</div>
+        <div>
+          <strong><span lang="pt">Hash chain SHA-256 · ancorado na Carrot Network</span><span lang="en">SHA-256 hash chain · anchored on Carrot Network</span></strong>
+          <span><span lang="pt">Todo evento de MassID linkado prev→next · nenhum registro alterado desde a ancoragem</span><span lang="en">Every MassID event linked prev→next · no record altered since anchoring</span></span>
+        </div>
+      </div>
+      <div class="au-ev-rows">
+        <div class="au-ev-row"><span><span lang="pt">Eventos ancorados (este cliente)</span><span lang="en">Events anchored (this client)</span></span><strong>1 284</strong></div>
+        <div class="au-ev-row"><span><span lang="pt">Integridade da cadeia</span><span lang="en">Chain integrity</span></span><strong style="color: var(--accent-strong);"><span lang="pt">intacta · 0 quebras</span><span lang="en">intact · 0 breaks</span></strong></div>
+        <div class="au-ev-row"><span><span lang="pt">Documentos no arquivo</span><span lang="en">Documents on file</span></span><strong>36 <span lang="pt">tipos · todos versionados</span><span lang="en">types · all versioned</span></strong></div>
+        <div class="au-ev-row"><span><span lang="pt">Última âncora</span><span lang="en">Last anchor</span></span><strong class="mono">0x7b…a2f9 · block 62 184 097</strong></div>
+      </div>
+      <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-md);">
+        <button type="button" class="au-btn primary">↓ <span lang="pt">Exportar pacote de auditoria (PDF + CSV)</span><span lang="en">Export audit pack (PDF + CSV)</span></button>
+        <button type="button" class="au-btn">🔗 <span lang="pt">Link verificável (blockchain)</span><span lang="en">Verifiable link (blockchain)</span></button>
+      </div>
+      <p class="au-note">
+        <span lang="pt">Porque você certifica com base nessa evidência, você pode defender qualquer certificado que emitir — e mostrar ao seu próprio credenciador exatamente por quê.</span><span lang="en">Because you certified on this evidence, you can defend any certificate you issue — and show your own accreditor exactly why.</span>
+      </p>
+    </div>
+
+    </div><!-- /au-row2 · Field audit + Audit pack -->
+
+    <!-- 7 · CROSS-CLIENT INTELLIGENCE -->
+    <div class="au-card" id="cross-client" style="margin-top: var(--space-md);">
+      <div class="au-card-head">
+        <div>
+          <h2><span lang="pt">O que só a visão de portfólio revela</span><span lang="en">What only the portfolio view reveals</span></h2>
+          <p><span lang="pt">Padrões que nenhuma auditoria in loco individual poderia surgir — o valor que cresce com cada cliente novo na plataforma.</span><span lang="en">Patterns no single on-site audit could ever surface — the value that grows with every client you bring onto the platform.</span></p>
+        </div>
+        <span class="au-tag" style="background: oklch(96% 0.04 265); color: oklch(45% 0.12 265); border-color: oklch(88% 0.05 265);"><span lang="pt">Só na rede</span><span lang="en">Network only</span></span>
+      </div>
+
+      <div class="au-cross">
+        <div class="au-cross-cell">
+          <span class="ic">⇄</span>
+          <div>
+            <strong><span lang="pt">Detecção cross-client de duplo uso</span><span lang="en">Cross-client double-count detection</span></strong>
+            <span><span lang="pt">O mesmo lote não pode ser reivindicado por dois detentores. Só você, vendo a rede inteira, captura isso. Protege todo certificado que você emite.</span><span lang="en">The same batch can't be claimed by two certificate holders — only you, seeing across clients, can catch it. Protects every certificate you issue.</span></span>
+          </div>
+        </div>
+        <div class="au-cross-cell">
+          <span class="ic">⚠</span>
+          <div>
+            <strong><span lang="pt">Propagação de risco por fornecedor compartilhado</span><span lang="en">Shared-supplier risk propagation</span></strong>
+            <span><span lang="pt">Uma fonte contaminada ou não-certificada flagada instantaneamente em todo cliente que puxa dela.</span><span lang="en">One contaminated or uncertified source flagged instantly across every client that draws from it.</span></span>
+          </div>
+        </div>
+        <div class="au-cross-cell">
+          <span class="ic">↗</span>
+          <div>
+            <strong><span lang="pt">Score de prontidão regulatória</span><span lang="en">Regulatory-readiness scoring</span></strong>
+            <span><span lang="pt">Veja quem no seu portfólio está pronto para obrigações PPWR / DPP — e quantifique o trabalho de remediação à frente.</span><span lang="en">See who across your book is ready for PPWR / DPP obligations — and quantify the remediation work ahead.</span></span>
+          </div>
+        </div>
+        <div class="au-cross-cell">
+          <span class="ic">◉</span>
+          <div>
+            <strong><span lang="pt">Cross-sell por gap de cobertura</span><span lang="en">Coverage-gap cross-sell</span></strong>
+            <span><span lang="pt">Grupos certificados em um site mas não em outro, com fluxos idênticos — expansão pré-qualificada, evidência já em mãos.</span><span lang="en">Groups certified at one site but not another, with identical flows — pre-qualified expansion, evidence already in hand.</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+
+    <!-- Row 1: Manifesto tipografico -->
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+      </p>
+    </div>
+
+    <!-- Row 2: 3 colunas de links -->
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+      </div>
+    </div>
+
+    <!-- Row 3: brand line + versao (assinatura tipografica) -->
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">SHA a4f0&hellip;9c81 &middot; v0.4.7</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

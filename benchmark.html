@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ImpacTrakr · Recovery Index benchmark · European PET recycler segment</title>
+<meta name="description" content="A live sample of the Recovery Index benchmark: composite performance index, headline metrics, You vs. segment average, diversion trend and segment leaderboard for a European recycler." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260710-16">
+<link rel="stylesheet" href="assets/dash-interactions.css?v=20260710-19">
+<script src="assets/shared.js?v=20260626-1421" defer></script>
+<script src="assets/logo.js?v=20260707-4" defer></script>
+<script src="assets/dash-interactions.js?v=20260710-19" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+<style>
+  /* Sub-nav */
+  .dash-subnav { background: var(--surface-raised); border-bottom: 1px solid var(--line); }
+  .dash-subnav-inner {
+    display: flex; align-items: center; gap: var(--space-md);
+    padding: 0 var(--gutter); max-width: var(--max-wide);
+    margin: 0 auto; overflow-x: auto; scrollbar-width: none;
+  }
+  .dash-subnav-inner::-webkit-scrollbar { display: none; }
+  .dash-subnav-role {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent-strong);
+    padding: 0.6rem 0.9rem 0.6rem 0; white-space: nowrap;
+    border-right: 1px solid var(--line);
+  }
+  .dash-subnav-tab {
+    padding: 0.7rem 0.6rem; color: var(--ink-soft); text-decoration: none;
+    font-weight: 600; font-size: 0.8125rem;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+    transition: color var(--d-quick) var(--ease-out), border-color var(--d-quick) var(--ease-out);
+  }
+  .dash-subnav-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+  .dash-subnav-tab:hover { color: var(--ink); text-decoration: none; }
+  .dash-subnav-tab.premium {
+    color: var(--accent-strong);
+    padding-right: 0;
+  }
+  .dash-subnav-tab.premium::after {
+    content: 'PREMIUM';
+    margin-left: 0.4rem;
+    padding: 0.1rem 0.4rem;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 0.5625rem;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+    font-weight: 800;
+  }
+
+  /* Hero */
+  section.hero.bn-hero {
+    padding: clamp(2rem, 4vw, 4rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .bn-hero .eyebrow-full {
+    display: inline-block; font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--accent-strong); margin-bottom: var(--space-sm);
+  }
+  /* Demo view badge (amber pill ao lado da eyebrow-full) */
+  .demo-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.55rem;
+    background: var(--warning);
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+
+  .bn-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.08;
+    letter-spacing: -0.02em; max-width: 24ch;
+    margin: 0 0 var(--space-sm);
+  }
+  .bn-hero .subtitle {
+    max-width: 72ch; color: var(--ink-soft);
+    font-size: 1rem; line-height: 1.55; margin: 0 0 var(--space-md);
+  }
+  .bn-hero .netpill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    background: var(--surface-raised); border: 1px solid var(--line);
+    border-radius: 999px; font-size: 0.8125rem; color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .bn-hero .netpill .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 3px oklch(60% 0.16 150 / 0.15);
+  }
+  .bn-hero .netpill strong { color: var(--ink); font-weight: 700; }
+
+  /* Filters row */
+  .bn-filters {
+    display: flex; gap: var(--space-sm); align-items: center;
+    flex-wrap: wrap; margin: var(--space-md) 0;
+  }
+  .bn-filter-group {
+    display: inline-flex; align-items: center; gap: 0.15rem;
+    padding: 3px; background: var(--surface-raised);
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+  }
+  .bn-filter-group button {
+    padding: 0.4rem 0.75rem; background: transparent;
+    border: none; color: var(--ink-soft);
+    font-family: 'Manrope', sans-serif; font-size: 0.75rem;
+    font-weight: 700; letter-spacing: 0.005em;
+    cursor: pointer; border-radius: 3px;
+  }
+  .bn-filter-group button.on {
+    background: var(--brand-surface); color: var(--on-dark);
+  }
+
+  /* Score composite hero card — verde escuro */
+  .bn-score {
+    background: var(--brand-surface); color: var(--on-dark);
+    border-radius: var(--r-md); padding: var(--space-lg) var(--space-md);
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: var(--space-md); align-items: center;
+  }
+  @media (max-width: 720px) { .bn-score { grid-template-columns: 1fr; } }
+  .bn-score-num {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: clamp(3.5rem, 8vw, 5rem); line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--accent-on-dark);
+    font-feature-settings: 'tnum' on;
+    display: flex; align-items: baseline; gap: 0.35rem;
+  }
+  .bn-score-num small {
+    font-size: 0.9375rem; font-weight: 700;
+    color: var(--on-dark-mute); letter-spacing: 0.005em;
+    text-transform: uppercase;
+  }
+  .bn-score-body h2 {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 1.375rem; letter-spacing: -0.015em;
+    color: var(--on-dark); margin: 0 0 0.4rem;
+    max-width: none;
+  }
+  .bn-score-body p {
+    color: var(--on-dark-soft); font-size: 0.9375rem;
+    line-height: 1.55; margin: 0; max-width: 62ch;
+  }
+  .bn-score-body strong { color: var(--on-dark); font-weight: 700; }
+  .bn-score-body em {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic; font-weight: 400;
+    color: var(--accent-on-dark);
+  }
+
+  /* KPI strip */
+  .bn-kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm); margin-top: var(--space-md);
+  }
+  @media (max-width: 940px) { .bn-kpis { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .bn-kpis { grid-template-columns: 1fr; } }
+  .bn-kpi {
+    background: #ffffff; border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: var(--space-md) var(--space-sm);
+    box-shadow: 0 1px 0 var(--line-soft);
+  }
+  .bn-kpi .lab {
+    font-size: 0.75rem; color: var(--ink-faint);
+    font-weight: 600; margin-bottom: 0.4rem;
+  }
+  .bn-kpi .val {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 2rem; line-height: 1; letter-spacing: -0.025em;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+    display: flex; align-items: baseline; gap: 0.15rem;
+  }
+  .bn-kpi .val small {
+    font-size: 1.125rem; font-weight: 700; color: var(--ink-soft);
+  }
+  .bn-kpi .delta {
+    display: block; margin-top: 0.5rem;
+    font-size: 0.75rem;
+  }
+  .bn-kpi .delta.up   { color: var(--accent-strong); font-weight: 700; }
+  .bn-kpi .delta.down { color: var(--block); font-weight: 700; }
+
+  /* Card generic */
+  .bn-card {
+    background: #ffffff; border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: var(--space-md);
+    box-shadow: 0 1px 0 var(--line-soft);
+  }
+  .bn-card + .bn-card { margin-top: var(--space-sm); }
+  .bn-card-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: var(--space-md); margin-bottom: var(--space-sm);
+  }
+  .bn-card-head h2 {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 1.0625rem; line-height: 1.25; letter-spacing: -0.01em;
+    color: var(--ink); margin: 0 0 0.25rem; max-width: none;
+  }
+  .bn-card-head p {
+    margin: 0; color: var(--ink-soft);
+    font-size: 0.875rem; line-height: 1.5; max-width: 72ch;
+  }
+  .bn-tag {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.25rem 0.55rem; border-radius: 999px;
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; background: var(--surface-raised);
+    color: var(--ink-soft); border: 1px solid var(--line);
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* You vs segment average bars */
+  .bn-vs {
+    display: grid; grid-template-columns: 130px 1fr 60px 60px;
+    gap: var(--space-sm); align-items: center;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .bn-vs:last-child { border-bottom: 0; }
+  .bn-vs .lab { font-weight: 600; color: var(--ink); font-size: 0.9375rem; }
+  .bn-vs .bar {
+    position: relative; height: 22px;
+    background: var(--surface-raised); border-radius: var(--r-sm);
+    overflow: hidden;
+  }
+  .bn-vs .bar .you {
+    position: absolute; top: 0; left: 0; height: 100%;
+    background: var(--accent);
+  }
+  .bn-vs .bar .avg {
+    position: absolute; top: 0; height: 100%; width: 3px;
+    background: var(--brand-surface-deep);
+  }
+  .bn-vs .val { text-align: right; }
+  .bn-vs .val.you { color: var(--accent-strong); font-weight: 800; font-family: 'Manrope', sans-serif; }
+  .bn-vs .val.avg { color: var(--ink-mute); font-weight: 600; }
+  .bn-vs .val small {
+    display: block; font-size: 0.5625rem;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    font-weight: 700; color: var(--ink-faint);
+  }
+
+  /* Leaderboard */
+  .bn-lb {
+    width: 100%; border-collapse: collapse; font-size: 0.875rem;
+    margin-top: var(--space-sm);
+  }
+  .bn-lb th, .bn-lb td {
+    padding: 0.7rem 0.75rem; text-align: left;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .bn-lb th {
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--ink-faint);
+    background: var(--surface-raised); border-bottom-color: var(--line);
+    cursor: pointer;
+  }
+  .bn-lb th.right, .bn-lb td.right { text-align: right; font-variant-numeric: tabular-nums; }
+  .bn-lb tr.you-row {
+    background: oklch(97% 0.03 150);
+    font-weight: 600;
+  }
+  .bn-lb tr.you-row td { color: var(--ink); border-bottom-color: oklch(88% 0.05 150); }
+  .bn-lb .rank {
+    display: inline-block; width: 24px; height: 24px;
+    background: var(--brand-surface); color: var(--on-dark);
+    border-radius: 50%; text-align: center; font-weight: 800;
+    font-size: 0.75rem; line-height: 24px;
+    font-family: 'Manrope', sans-serif;
+  }
+  .bn-lb tr.you-row .rank { background: var(--accent); }
+  .bn-lb .you-tag {
+    display: inline-block; padding: 0.1rem 0.4rem;
+    background: var(--accent); color: #ffffff;
+    font-size: 0.5625rem; letter-spacing: 0.1em;
+    font-weight: 800; border-radius: 3px;
+    margin-left: 0.35rem;
+  }
+  .bn-lb-note {
+    font-size: 0.75rem; color: var(--ink-faint);
+    margin-top: 0.75rem; line-height: 1.5;
+    font-style: italic;
+  }
+
+  .bn-wrap { padding: var(--space-md) 0 var(--space-2xl); }
+
+  /* Hero grid — Composite score card + Headline metrics panel */
+  .bn-hero-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    align-items: stretch;
+  }
+  @media (max-width: 900px) { .bn-hero-grid { grid-template-columns: 1fr; } }
+
+  /* Composite Recovery Performance Index — big verde escuro card */
+  .bn-score {
+    background: var(--brand-surface); color: var(--on-dark);
+    border-radius: var(--r-md);
+    padding: var(--space-lg) var(--space-md);
+    display: flex; flex-direction: column;
+    gap: var(--space-2xs);
+  }
+  .bn-score-eye {
+    font-size: 0.6875rem; text-transform: uppercase;
+    letter-spacing: 0.14em; font-weight: 700;
+    color: var(--accent-on-dark);
+  }
+  .bn-score-row { display: flex; align-items: baseline; gap: 0.4rem; }
+  .bn-score-num {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: clamp(4rem, 8vw, 6rem); line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--accent-on-dark);
+    font-feature-settings: 'tnum' on;
+  }
+  .bn-score-scale {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 1.125rem; color: var(--on-dark-mute);
+    letter-spacing: 0.005em;
+  }
+  .bn-score-desc {
+    font-size: 0.9375rem; color: var(--on-dark-soft);
+    line-height: 1.55; max-width: 62ch;
+    margin-top: 0.5rem;
+  }
+  .bn-score-desc strong { color: var(--on-dark); font-weight: 700; }
+  .bn-score-desc em {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic; font-weight: 400;
+    color: var(--accent-on-dark);
+  }
+  .bn-pct-track {
+    position: relative; margin-top: var(--space-sm);
+    height: 6px; background: var(--brand-line);
+    border-radius: 999px; overflow: visible;
+  }
+  .bn-pct-fill {
+    height: 100%; background: var(--accent-on-dark);
+    border-radius: 999px;
+  }
+  .bn-pct-marker {
+    position: absolute; top: -22px; transform: translateX(-50%);
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 0.6875rem; letter-spacing: 0.06em;
+    color: var(--accent-on-dark);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .bn-pct-axis {
+    display: flex; justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.6875rem;
+    color: var(--on-dark-mute);
+    letter-spacing: 0.005em;
+  }
+  .bn-verify-chip {
+    margin-top: var(--space-sm);
+    padding: 0.4rem 0.7rem;
+    background: var(--brand-surface-deep);
+    border-radius: var(--r-sm);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    color: var(--on-dark-soft);
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    align-self: flex-start;
+  }
+  .bn-verify-chip .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-on-dark);
+  }
+
+  /* Headline metrics panel */
+  .bn-headline {
+    background: #ffffff; border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: var(--space-md);
+    box-shadow: 0 1px 0 var(--line-soft);
+    display: flex; flex-direction: column;
+    gap: var(--space-2xs);
+  }
+  .bn-headline-eye {
+    font-size: 0.6875rem; text-transform: uppercase;
+    letter-spacing: 0.14em; font-weight: 700;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+  }
+  .bn-headline-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .bn-headline-row:last-child { border-bottom: 0; }
+  .bn-headline-row .lab {
+    font-size: 0.8125rem; color: var(--ink-soft);
+  }
+  .bn-headline-row .val {
+    display: inline-flex; align-items: baseline; gap: 0.5rem;
+  }
+  .bn-headline-row .n {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 1.25rem; color: var(--ink);
+    font-feature-settings: 'tnum' on;
+  }
+  .bn-headline-row .delta {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.6875rem; letter-spacing: 0.005em;
+    font-weight: 700;
+  }
+  .bn-headline-row .delta.up   { color: var(--accent-strong); }
+  .bn-headline-row .delta.down { color: var(--block); }
+
+  /* KPI cards row (4 verify cards) */
+  .bn-kpi-cards {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm); margin-bottom: var(--space-md);
+  }
+  @media (max-width: 940px) { .bn-kpi-cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .bn-kpi-cards { grid-template-columns: 1fr; } }
+  .bn-kcard {
+    background: #ffffff; border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: var(--space-md);
+    box-shadow: 0 1px 0 var(--line-soft);
+    display: flex; flex-direction: column; gap: var(--space-2xs);
+  }
+  .bn-kcard .eye {
+    font-size: 0.6875rem; text-transform: uppercase;
+    letter-spacing: 0.14em; font-weight: 700;
+    color: var(--ink-faint);
+  }
+  .bn-kcard .val {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 2.25rem; line-height: 1; letter-spacing: -0.03em;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+    display: flex; align-items: baseline; gap: 0.2rem;
+  }
+  .bn-kcard .val .scale {
+    font-size: 0.875rem; font-weight: 700;
+    color: var(--ink-soft); letter-spacing: 0;
+  }
+  .bn-kcard .stamp {
+    font-size: 0.6875rem; color: var(--ink-faint);
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    letter-spacing: 0.005em;
+  }
+  .bn-kcard .hash {
+    color: var(--accent-strong); font-weight: 800;
+  }
+
+  /* Chart row + wrap */
+  .bn-chart-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm); margin-bottom: var(--space-md);
+    align-items: stretch;
+  }
+  @media (max-width: 940px) { .bn-chart-row { grid-template-columns: 1fr; } }
+  .bn-chart-row .bn-card { margin-top: 0 !important; display: flex; flex-direction: column; }
+  .bn-chart-wrap {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-top: var(--space-sm);
+  }
+
+  /* Disclaimer footer */
+  .bn-disclaimer {
+    display: grid; grid-template-columns: 24px 1fr;
+    gap: var(--space-sm); align-items: flex-start;
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--surface-raised);
+    border-radius: var(--r-sm);
+    border-left: 3px solid var(--accent);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+  .bn-disclaimer .ic { font-size: 1rem; }
+
+  /* Leaderboard th clickable + sort indicator */
+  .bn-lb th[data-key] {
+    cursor: pointer; user-select: none;
+    transition: color var(--d-quick) var(--ease-out);
+  }
+  .bn-lb th[data-key]:hover { color: var(--ink); }
+  .bn-lb th[data-key].sort-asc::after  { content: ' ↑'; color: var(--accent-strong); }
+  .bn-lb th[data-key].sort-desc::after { content: ' ↓'; color: var(--accent-strong); }
+  @media (min-width: 1200px) {
+    .bn-wrap .container { max-width: 1160px; }
+  }
+</style>
+</head>
+<body data-page="paineis">
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span><span lang="pt">Início</span><span lang="en">Home</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
+    </a>
+    <a class="nav-tab active" data-target="paineis" href="dashboards.html">
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- (sub-nav removed) -->
+
+<!-- HERO -->
+<section class="hero bn-hero" id="overview">
+  <div class="container">
+    <span class="eyebrow-full">
+      <span lang="pt">Cascade Materials Recovery — segmento MRFs nacionais · ao vivo</span><span lang="en">Cascade Materials Recovery — national MRF segment · live</span>
+      <span class="demo-badge"><span lang="pt">Amostra · vista de demonstração</span><span lang="en">Sample data · demo view</span></span>
+    </span>
+    <h1>
+      <span lang="pt">Como você mede<br><span class="display-italic">contra a rede.</span></span><span lang="en">How you measure<br><span class="display-italic">against the network.</span></span>
+    </h1>
+    <p class="subtitle">
+      <span lang="pt">Cada MassID que atravessa a camada de validação vira, na rede inteira, o mercado que se mede. Você se compara com pares anonimizados do mesmo segmento em quatro dimensões verificadas — e vê onde lidera, onde fica atrás.</span><span lang="en">Every MassID that moves through the validation layer becomes, across the network, the market that measures itself. You benchmark against anonymised peers in the same segment, in four verified dimensions — and see where you lead and where you trail.</span>
+    </p>
+    <span class="netpill">
+      <span class="dot" aria-hidden="true"></span>
+      <strong>Carrot Network</strong>
+      <span lang="pt">· 27 recicladores no segmento · identidades mascaradas</span><span lang="en">· 27 recyclers in segment · identities masked</span>
+    </span>
+
+    <!-- Filters -->
+    <div class="bn-filters">
+      <div class="bn-filter-group" id="segmentFilter">
+        <button type="button" class="on" data-seg="large"><span lang="pt">Large Processors (seu segmento)</span><span lang="en">Large Processors (your segment)</span></button>
+        <button type="button" data-seg="all"><span lang="pt">Todos os segmentos</span><span lang="en">All peer segments</span></button>
+        <button type="button" data-seg="regional"><span lang="pt">Coleta regional</span><span lang="en">Regional Collector Networks</span></button>
+        <button type="button" data-seg="national"><span lang="pt">MRFs nacionais</span><span lang="en">National MRF Networks</span></button>
+      </div>
+      <div class="bn-filter-group" id="periodFilter">
+        <button type="button" class="on" data-period="6m"><span lang="pt">Últimos 6 meses</span><span lang="en">Last 6 months</span></button>
+        <button type="button" data-period="12m"><span lang="pt">12 meses</span><span lang="en">Last 12 months</span></button>
+        <button type="button" data-period="ytd">YTD</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bn-wrap">
+  <div class="container">
+
+    <!-- COMPOSITE SCORE + HEADLINE METRICS (grid 2 col) -->
+    <div class="bn-hero-grid">
+
+      <div class="bn-score">
+        <span class="bn-score-eye"><span lang="pt">Índice de Recuperação Composto</span><span lang="en">Composite Recovery Performance Index</span></span>
+        <div class="bn-score-row">
+          <span class="bn-score-num" id="indexNumber">78</span>
+          <span class="bn-score-scale">/ 100</span>
+        </div>
+        <div class="bn-score-desc">
+          <strong>Cascade Materials Recovery</strong>
+          <span lang="pt">está no <strong><em id="indexPctPT">84º percentil</em></strong> entre pares Large Processor no índice blended — ponderado 55% volume &amp; fluxo de material, 25% qualidade do dado, 20% verificação de chain-of-custody.</span><span lang="en">ranks in the <strong><em id="indexPct">84th percentile</em></strong> among Large Processor peers on the blended index — weighted 55% material volume &amp; flow, 25% data quality, 20% chain-of-custody verification.</span>
+        </div>
+        <div class="bn-pct-track">
+          <div class="bn-pct-marker" id="pctMarker" style="left:84%">▲ <span lang="pt">você</span><span lang="en">you</span></div>
+          <div class="bn-pct-fill" id="pctFill" style="width:84%"></div>
+        </div>
+        <div class="bn-pct-axis"><span>0th pct</span><span>50th pct</span><span>100th pct</span></div>
+        <div class="bn-verify-chip"><span class="dot" aria-hidden="true"></span> ledger 0x9f2c71a…e83 · <span lang="pt">auditado 8 jul 2026</span><span lang="en">last audited Jul 8, 2026</span></div>
+      </div>
+
+      <div class="bn-headline">
+        <span class="bn-headline-eye"><span lang="pt">Suas métricas headline</span><span lang="en">Your headline metrics</span></span>
+        <div class="bn-headline-row">
+          <span class="lab"><span lang="pt">Toneladas processadas / mês</span><span lang="en">Tons processed / mo</span></span>
+          <span class="val"><span class="n" id="hlTons">4 820</span> <span class="delta up">▲ 6.2%</span></span>
+        </div>
+        <div class="bn-headline-row">
+          <span class="lab"><span lang="pt">Taxa de aproveitamento</span><span lang="en">Diversion rate</span></span>
+          <span class="val"><span class="n" id="hlDiv">71%</span> <span class="delta up">▲ 2.1 pts</span></span>
+        </div>
+        <div class="bn-headline-row">
+          <span class="lab"><span lang="pt">Nota de qualidade do dado</span><span lang="en">Data quality score</span></span>
+          <span class="val"><span class="n" id="hlQual">92</span> <span class="delta up">▲ 3</span></span>
+        </div>
+        <div class="bn-headline-row">
+          <span class="lab"><span lang="pt">Chain-of-custody verificada</span><span lang="en">Chain-of-custody verified</span></span>
+          <span class="val"><span class="n" id="hlTrace">88%</span> <span class="delta down">▼ 1.4 pts</span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- KPI CARDS (4 cards com verify stamp) -->
+    <div class="bn-kpi-cards" id="headline">
+      <div class="bn-kcard">
+        <span class="eye"><span lang="pt">Toneladas processadas</span><span lang="en">Tons processed</span></span>
+        <div class="val" id="kcTons">4 820</div>
+        <div class="stamp"><span class="hash">✓</span> <span lang="pt">verificado por lote · 312 cargas</span><span lang="en">lot-verified · 312 loads</span></div>
+      </div>
+      <div class="bn-kcard">
+        <span class="eye"><span lang="pt">Taxa de aproveitamento</span><span lang="en">Diversion rate</span></span>
+        <div class="val" id="kcDiv">71%</div>
+        <div class="stamp"><span class="hash">✓</span> <span lang="pt">auditado 8 jul 2026</span><span lang="en">audited Jul 8, 2026</span></div>
+      </div>
+      <div class="bn-kcard">
+        <span class="eye"><span lang="pt">Nota de qualidade do dado</span><span lang="en">Data quality score</span></span>
+        <div class="val"><span id="kcQual">92</span><span class="scale">/100</span></div>
+        <div class="stamp"><span class="hash">✓</span> <span lang="pt">completude + precisão</span><span lang="en">completeness + accuracy</span></div>
+      </div>
+      <div class="bn-kcard">
+        <span class="eye">Chain-of-custody</span>
+        <div class="val" id="kcTrace">88%</div>
+        <div class="stamp"><span class="hash">✓</span> 0x9f2c71a…e83</div>
+      </div>
+    </div>
+
+    <!-- CHART ROW: VOLUME | RADAR -->
+    <div class="bn-chart-row" id="vs">
+      <div class="bn-card">
+        <div class="bn-card-head">
+          <div>
+            <h2><span lang="pt">Toneladas processadas, por par (média mensal)</span><span lang="en">Tons processed, by peer (monthly avg)</span></h2>
+            <p><span lang="pt">Cliente destacado vs. pares anonimizados no segmento selecionado.</span><span lang="en">Customer highlighted vs. anonymized peers in selected segment.</span></p>
+          </div>
+        </div>
+        <div class="bn-chart-wrap"><canvas id="volumeChart"></canvas></div>
+      </div>
+      <div class="bn-card">
+        <div class="bn-card-head">
+          <div>
+            <h2><span lang="pt">Decomposição do índice composto</span><span lang="en">Composite index breakdown</span></h2>
+            <p><span lang="pt">Você vs. média do segmento, em quatro dimensões verificadas.</span><span lang="en">You vs. segment average, across four verified dimensions.</span></p>
+          </div>
+        </div>
+        <div class="bn-chart-wrap"><canvas id="radarChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- TREND CHART full-width -->
+    <div class="bn-card" style="margin-top: var(--space-md);">
+      <div class="bn-card-head">
+        <div>
+          <h2><span lang="pt">Tendência da taxa de aproveitamento</span><span lang="en">Diversion rate trend</span></h2>
+          <p><span lang="pt">Sua taxa (linha destacada) contra a faixa dos pares (banda sombreada) no segmento selecionado.</span><span lang="en">Your diversion rate (bold) against the peer range (shaded band) for the selected segment.</span></p>
+        </div>
+      </div>
+      <div class="bn-chart-wrap" style="height: 260px;"><canvas id="trendChart"></canvas></div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="bn-card" id="leaderboard" style="margin-top: var(--space-md);">
+      <div class="bn-card-head">
+        <div>
+          <h2><span lang="pt">Ranking do segmento — MRFs nacionais</span><span lang="en">Segment leaderboard — national MRFs</span></h2>
+          <p>
+            <span lang="pt">Os 5 primeiros do segmento e sua posição. Identidades dos concorrentes ficam mascaradas — o benchmark trabalha em dado verificado, não em quem é quem.</span><span lang="en">The top 5 of the segment and where you rank. Competitor identities stay masked — the benchmark works on verified data, not on names.</span>
+          </p>
+        </div>
+        <span class="bn-tag"><span lang="pt">Pares anonimizados</span><span lang="en">Peers masked</span></span>
+      </div>
+
+      <table class="bn-lb">
+        <thead>
+          <tr>
+            <th data-key="label"><span lang="pt">Par</span><span lang="en">Peer</span></th>
+            <th data-key="tons" class="right"><span lang="pt">Ton / mês</span><span lang="en">Tons / mo</span></th>
+            <th data-key="diversion" class="right">Diversion %</th>
+            <th data-key="quality" class="right"><span lang="pt">Qualidade</span><span lang="en">Data quality</span></th>
+            <th data-key="trace" class="right">Chain-of-custody</th>
+            <th data-key="percentile" class="right"><span lang="pt">Percentil</span><span lang="en">Index percentile</span></th>
+          </tr>
+        </thead>
+        <tbody id="lbBody"></tbody>
+      </table>
+
+      <div class="bn-lb-note">
+        <span lang="pt">Clique numa coluna para ordenar · identidades de concorrentes mascaradas para proteger dado proprietário.</span><span lang="en">Click a column to sort · peer identities are masked to protect proprietary data.</span>
+      </div>
+    </div>
+
+    <!-- FOOTER DISCLAIMER (anonymization) -->
+    <div class="bn-disclaimer">
+      <span class="ic" aria-hidden="true">🔒</span>
+      <span><span lang="pt">Concorrentes nunca são nomeados nesta vista. Cada linha reflete dado verificado e anonimizado indexado por segmento de mercado; nenhum número proprietário é atribuído a um terceiro nomeado em ponto algum da experiência do cliente.</span><span lang="en">Peer companies are never named in this view. Each row reflects verified, anonymized data indexed by market segment; no proprietary figures are attributed to a named third party at any point in the customer experience.</span></span>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+
+    <!-- Row 1: Manifesto tipografico -->
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+      </p>
+    </div>
+
+    <!-- Row 2: 3 colunas de links -->
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+      </div>
+    </div>
+
+    <!-- Row 3: brand line + versao (assinatura tipografica) -->
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">SHA a4f0&hellip;9c81 &middot; v0.4.7</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+// Recovery Index benchmark — reactivo aos filtros de segment + period
+window.addEventListener('load', function(){
+  if (typeof Chart === 'undefined') return;
+
+  var ACCENT       = '#22a052';
+  var ACCENT_STRG  = '#1a7a3d';
+  var INK_FAINT    = '#6b7580';
+  var LINE_SOFT    = '#e2e7e9';
+  var PEER         = '#8a939b';
+  var PEER_FILL    = 'rgba(138, 147, 155, 0.15)';
+  var MANROPE      = "'Manrope', sans-serif";
+  var MONO         = "'IBM Plex Mono', ui-monospace, monospace";
+  Chart.defaults.font.family = MANROPE;
+  Chart.defaults.color = INK_FAINT;
+
+  // Data model — 3 segments com you + peers + trend por período
+  var youBase = { label: 'Cascade Materials Recovery (you)', tons: 4820, diversion: 71, quality: 92, trace: 88 };
+  var segments = {
+    large: {
+      name: 'Large Processors',
+      you: Object.assign({}, youBase, { percentile: 84 }),
+      peers: [
+        { label: 'Peer 1 · Large Processor', tons: 5210, diversion: 68, quality: 85, trace: 74, percentile: 79 },
+        { label: 'Peer 2 · Large Processor', tons: 4390, diversion: 63, quality: 79, trace: 81, percentile: 61 },
+        { label: 'Peer 3 · Large Processor', tons: 3980, diversion: 74, quality: 88, trace: 69, percentile: 70 },
+        { label: 'Peer 4 · Large Processor', tons: 4610, diversion: 59, quality: 71, trace: 65, percentile: 44 },
+        { label: 'Peer 5 · Large Processor', tons: 3510, diversion: 66, quality: 82, trace: 77, percentile: 58 }
+      ]
+    },
+    regional: {
+      name: 'Regional Collector Networks',
+      you: Object.assign({}, youBase, { percentile: 91 }),
+      peers: [
+        { label: 'Peer 1 · Regional Collector', tons: 2100, diversion: 55, quality: 68, trace: 52, percentile: 38 },
+        { label: 'Peer 2 · Regional Collector', tons: 1870, diversion: 60, quality: 74, trace: 60, percentile: 49 },
+        { label: 'Peer 3 · Regional Collector', tons: 2450, diversion: 57, quality: 70, trace: 55, percentile: 41 },
+        { label: 'Peer 4 · Regional Collector', tons: 1650, diversion: 52, quality: 63, trace: 48, percentile: 30 }
+      ]
+    },
+    national: {
+      name: 'National MRF Networks',
+      you: Object.assign({}, youBase, { percentile: 66 }),
+      peers: [
+        { label: 'Peer 1 · National Network', tons: 9800,  diversion: 70, quality: 90, trace: 84, percentile: 74 },
+        { label: 'Peer 2 · National Network', tons: 11200, diversion: 73, quality: 94, trace: 90, percentile: 88 },
+        { label: 'Peer 3 · National Network', tons: 8700,  diversion: 66, quality: 86, trace: 79, percentile: 61 }
+      ]
+    }
+  };
+  segments.all = {
+    name: 'All segments',
+    you: segments.large.you,
+    peers: segments.large.peers.concat(segments.regional.peers, segments.national.peers)
+  };
+
+  // Trend data por (segment, period)
+  var trendData = {
+    large:    { '6m':  { months:['Feb','Mar','Apr','May','Jun','Jul'], you:[64,66,67,69,70,71], peerMin:[55,56,57,58,59,58], peerMax:[70,71,72,73,72,74] },
+                '12m': { months:['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul'], you:[58,59,60,62,63,63,64,66,67,69,70,71], peerMin:[50,51,52,53,54,54,55,56,57,58,59,58], peerMax:[65,66,67,68,69,69,70,71,72,73,72,74] },
+                'ytd': { months:['Jan','Feb','Mar','Apr','May','Jun','Jul'], you:[63,64,66,67,69,70,71], peerMin:[54,55,56,57,58,59,58], peerMax:[69,70,71,72,73,72,74] } },
+    regional: { '6m':  { months:['Feb','Mar','Apr','May','Jun','Jul'], you:[64,66,67,69,70,71], peerMin:[46,47,48,49,49,50], peerMax:[58,59,60,61,60,61] },
+                '12m': { months:['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul'], you:[58,59,60,62,63,63,64,66,67,69,70,71], peerMin:[42,43,44,45,46,46,46,47,48,49,49,50], peerMax:[54,55,56,57,58,58,58,59,60,61,60,61] },
+                'ytd': { months:['Jan','Feb','Mar','Apr','May','Jun','Jul'], you:[63,64,66,67,69,70,71], peerMin:[45,46,47,48,49,49,50], peerMax:[57,58,59,60,61,60,61] } },
+    national: { '6m':  { months:['Feb','Mar','Apr','May','Jun','Jul'], you:[64,66,67,69,70,71], peerMin:[62,63,64,65,66,66], peerMax:[71,72,73,74,74,75] },
+                '12m': { months:['Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul'], you:[58,59,60,62,63,63,64,66,67,69,70,71], peerMin:[57,58,59,60,61,61,62,63,64,65,66,66], peerMax:[66,67,68,69,70,70,71,72,73,74,74,75] },
+                'ytd': { months:['Jan','Feb','Mar','Apr','May','Jun','Jul'], you:[63,64,66,67,69,70,71], peerMin:[61,62,63,64,65,66,66], peerMax:[70,71,72,73,74,74,75] } }
+  };
+  trendData.all = trendData.large;
+
+  // State
+  var currentSegment = 'large';
+  var currentPeriod  = '6m';
+  var sortKey = 'percentile', sortDir = -1;
+  var volumeChart, radarChart, trendChart;
+
+  function ordinal(n){ var s=['th','st','nd','rd'], v=n%100; return n + (s[(v-20)%10] || s[v] || s[0]); }
+  function avg(arr){ return arr.reduce(function(a,b){return a+b;},0) / arr.length; }
+  function fmt(n){ return n.toLocaleString('en-US').replace(/,/g, ' '); }
+
+  function renderScore(seg){
+    var pct = seg.you.percentile;
+    // headline number segue o próprio percentile pra segmento (raw usa cap 84)
+    document.getElementById('indexNumber').textContent = pct >= 90 ? 84 : pct;
+    document.getElementById('indexPct').textContent   = ordinal(pct) + ' percentile';
+    document.getElementById('indexPctPT').textContent = pct + 'º percentil';
+    document.getElementById('pctMarker').style.left   = pct + '%';
+    document.getElementById('pctFill').style.width    = pct + '%';
+  }
+
+  function renderKPIs(seg){
+    var y = seg.you;
+    document.getElementById('hlTons').textContent  = fmt(y.tons);
+    document.getElementById('hlDiv').textContent   = y.diversion + '%';
+    document.getElementById('hlQual').textContent  = y.quality;
+    document.getElementById('hlTrace').textContent = y.trace + '%';
+    document.getElementById('kcTons').textContent  = fmt(y.tons);
+    document.getElementById('kcDiv').textContent   = y.diversion + '%';
+    document.getElementById('kcQual').textContent  = y.quality;
+    document.getElementById('kcTrace').textContent = y.trace + '%';
+  }
+
+  function renderVolume(seg){
+    var labels = ['You'].concat(seg.peers.map(function(_,i){ return 'Peer ' + (i+1); }));
+    var data   = [seg.you.tons].concat(seg.peers.map(function(p){ return p.tons; }));
+    var colors = [ACCENT].concat(seg.peers.map(function(){ return PEER; }));
+    if (volumeChart) volumeChart.destroy();
+    volumeChart = new Chart(document.getElementById('volumeChart'), {
+      type: 'bar',
+      data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderRadius: 5, maxBarThickness: 34 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: function(ctx){ return ctx.raw.toLocaleString() + ' tons/mo'; } } } },
+        scales: {
+          x: { ticks: { font: { family: MONO, size: 10 } }, grid: { display: false } },
+          y: { grid: { color: LINE_SOFT }, ticks: { font: { family: MONO, size: 10 } } }
+        }
+      }
+    });
+  }
+
+  function renderRadar(seg){
+    var a = { tons: avg(seg.peers.map(function(p){return p.tons;})),
+              diversion: avg(seg.peers.map(function(p){return p.diversion;})),
+              quality: avg(seg.peers.map(function(p){return p.quality;})),
+              trace: avg(seg.peers.map(function(p){return p.trace;})) };
+    var maxTons = Math.max(seg.you.tons, a.tons) * 1.15;
+    if (radarChart) radarChart.destroy();
+    radarChart = new Chart(document.getElementById('radarChart'), {
+      type: 'radar',
+      data: {
+        labels: ['Volume index','Diversion rate','Data quality','Chain-of-custody'],
+        datasets: [
+          { label: 'You', data: [ (seg.you.tons/maxTons)*100, seg.you.diversion, seg.you.quality, seg.you.trace ],
+            backgroundColor: 'rgba(34, 160, 82, 0.22)', borderColor: ACCENT_STRG, pointBackgroundColor: ACCENT_STRG, borderWidth: 2 },
+          { label: 'Segment average', data: [ (a.tons/maxTons)*100, a.diversion, a.quality, a.trace ],
+            backgroundColor: PEER_FILL, borderColor: PEER, pointBackgroundColor: PEER, borderWidth: 2 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { family: MANROPE, size: 11 } } } },
+        scales: { r: { suggestedMin: 0, suggestedMax: 100, grid: { color: LINE_SOFT },
+          angleLines: { color: LINE_SOFT }, pointLabels: { font: { family: MONO, size: 10 } }, ticks: { display: false } } }
+      }
+    });
+  }
+
+  function renderTrend(){
+    var t = trendData[currentSegment][currentPeriod];
+    if (trendChart) trendChart.destroy();
+    trendChart = new Chart(document.getElementById('trendChart'), {
+      type: 'line',
+      data: { labels: t.months, datasets: [
+        { label: 'Peer max', data: t.peerMax, borderColor: 'transparent', backgroundColor: PEER_FILL, pointRadius: 0, fill: '+1' },
+        { label: 'Peer min', data: t.peerMin, borderColor: 'transparent', backgroundColor: PEER_FILL, pointRadius: 0, fill: false },
+        { label: 'You', data: t.you, borderColor: ACCENT_STRG, backgroundColor: ACCENT_STRG, borderWidth: 3, pointRadius: 3, tension: 0.3 }
+      ] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { filter: function(item){ return item.text === 'You'; }, font: { family: MANROPE } } } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { family: MONO, size: 10 } } },
+          y: { grid: { color: LINE_SOFT }, ticks: { callback: function(v){ return v + '%'; }, font: { family: MONO, size: 10 } } }
+        }
+      }
+    });
+  }
+
+  function renderTable(seg){
+    var rows = [{ label: 'Cascade Materials Recovery', tons: seg.you.tons, diversion: seg.you.diversion, quality: seg.you.quality, trace: seg.you.trace, percentile: seg.you.percentile, isYou: true }]
+      .concat(seg.peers.map(function(p){ return Object.assign({}, p, { isYou: false }); }));
+    rows.sort(function(a,b){
+      if (sortKey === 'label') return a.label.localeCompare(b.label) * sortDir;
+      return (a[sortKey] - b[sortKey]) * sortDir;
+    });
+    document.getElementById('lbBody').innerHTML = rows.map(function(r){
+      return '<tr class="' + (r.isYou ? 'you-row' : '') + '">' +
+        '<td>' + (r.isYou
+                    ? 'Cascade Materials Recovery <span class="you-tag">YOU</span>'
+                    : r.label + ' · masked') + '</td>' +
+        '<td class="right">' + fmt(r.tons) + '</td>' +
+        '<td class="right">' + r.diversion + '%</td>' +
+        '<td class="right">' + r.quality + '</td>' +
+        '<td class="right">' + r.trace + '%</td>' +
+        '<td class="right"><strong>' + ordinal(r.percentile) + '</strong></td>' +
+      '</tr>';
+    }).join('');
+    // sort indicator
+    document.querySelectorAll('.bn-lb th[data-key]').forEach(function(th){
+      th.classList.remove('sort-asc','sort-desc');
+      if (th.dataset.key === sortKey) th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    });
+  }
+
+  function renderAll(){
+    var seg = segments[currentSegment];
+    renderScore(seg);
+    renderKPIs(seg);
+    renderVolume(seg);
+    renderRadar(seg);
+    renderTrend();
+    renderTable(seg);
+  }
+
+  // Filter clicks
+  document.querySelectorAll('#segmentFilter button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#segmentFilter button').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      currentSegment = btn.dataset.seg;
+      renderAll();
+    });
+  });
+  document.querySelectorAll('#periodFilter button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#periodFilter button').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      currentPeriod = btn.dataset.period;
+      renderTrend();
+    });
+  });
+
+  // Sortable columns
+  document.querySelectorAll('.bn-lb th[data-key]').forEach(function(th){
+    th.addEventListener('click', function(){
+      var key = th.dataset.key;
+      if (key === sortKey) sortDir *= -1; else { sortKey = key; sortDir = -1; }
+      renderTable(segments[currentSegment]);
+    });
+  });
+
+  renderAll();
+});
+</script>
+
+</body>
+</html>

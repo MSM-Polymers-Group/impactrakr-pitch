@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ImpacTrakr · Recycler dashboard · Aegean PET Recycling · live sample</title>
+<meta name="description" content="A live sample of the recycler dashboard: certification health, throughput, traceability ecosystem and Digital Product Passport for a European PET recycler." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260710-16">
+<link rel="stylesheet" href="assets/dash-interactions.css?v=20260710-19">
+<script src="assets/shared.js?v=20260626-1421" defer></script>
+<script src="assets/logo.js?v=20260707-4" defer></script>
+<script src="assets/dash-interactions.js?v=20260710-19" defer></script>
+<style>
+  /* ==============================================================
+     recycler.html · design system harmonization of the recycler
+     dashboard raw mock. Reuses shared.css tokens (Manrope + verde
+     escuro + off-white cool). 15 sections rewritten as .rc-*.
+     ============================================================== */
+
+  /* Sub-nav específico do dashboard (herda do padrão .top-nav visual) */
+  .dash-subnav {
+    background: var(--surface-raised);
+    border-bottom: 1px solid var(--line);
+  }
+  .dash-subnav-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: 0 var(--gutter);
+    max-width: var(--max-wide);
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .dash-subnav-inner::-webkit-scrollbar { display: none; }
+  .dash-subnav-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-strong);
+    padding: 0.6rem 0.9rem 0.6rem 0;
+    white-space: nowrap;
+    border-right: 1px solid var(--line);
+  }
+  .dash-subnav-tab {
+    padding: 0.7rem 0.6rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: -0.005em;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color var(--d-quick) var(--ease-out),
+                border-color var(--d-quick) var(--ease-out);
+  }
+  .dash-subnav-tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+  .dash-subnav-tab:hover {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .dash-subnav-tab.soon {
+    color: var(--ink-mute);
+    font-style: normal;
+  }
+
+  /* ===== Hero (recycler) — off-white with quiet ambient ===== */
+  section.hero.rc-hero {
+    padding: clamp(2rem, 4vw, 4rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .rc-hero .eyebrow-full {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--accent-strong);
+    margin-bottom: var(--space-sm);
+  }
+  /* Demo view badge (amber pill ao lado da eyebrow-full) */
+  .demo-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.55rem;
+    background: var(--warning);
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+
+  .rc-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    max-width: 24ch;
+    margin: 0 0 var(--space-sm);
+  }
+  .rc-hero .subtitle {
+    max-width: 72ch;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.55;
+    margin: 0 0 var(--space-md);
+  }
+  .rc-hero .netpill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .rc-hero .netpill .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px oklch(60% 0.16 150 / 0.15);
+  }
+  .rc-hero .netpill strong { color: var(--ink); font-weight: 700; }
+  .rc-hero .datemeta {
+    display: block;
+    margin-top: var(--space-sm);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.01em;
+  }
+  .rc-hero .datemeta strong { color: var(--ink-soft); font-weight: 600; }
+
+  /* ===== Card genérico rc-card ===== */
+  .rc-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: var(--space-md);
+    box-shadow: 0 1px 0 var(--line-soft);
+  }
+  .rc-card + .rc-card { margin-top: var(--space-sm); }
+  .rc-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+  .rc-card-head h2 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 0.25rem;
+    max-width: none;
+  }
+  .rc-card-head p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    max-width: 72ch;
+  }
+  .rc-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--surface-raised);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .rc-tag.rc-you { background: oklch(96% 0.02 220); color: var(--ink-soft); }
+  .rc-tag.rc-rc  { background: oklch(96% 0.03 150); color: var(--accent-strong); border-color: oklch(88% 0.05 150); }
+
+  /* ===== 1 · CERTIFICATION HEALTH ===== */
+  .rc-health {
+    display: grid;
+    grid-template-columns: 132px 1fr 240px;
+    gap: var(--space-md);
+    align-items: start;
+    padding: var(--space-md) var(--space-md) calc(var(--space-md) + 0.25rem);
+  }
+  @media (max-width: 900px) {
+    .rc-health { grid-template-columns: 1fr; }
+  }
+  .rc-ring {
+    position: relative;
+    width: 108px;
+    height: 108px;
+  }
+  .rc-ring svg { display: block; }
+  .rc-ring .num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .rc-ring .num b {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.75rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-feature-settings: 'tnum' on;
+  }
+  .rc-ring .num span {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .rc-health-body h2 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.4rem;
+    color: var(--ink);
+    max-width: none;
+  }
+  .rc-health-body p {
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0 0 var(--space-sm);
+    max-width: 62ch;
+  }
+  .rc-rules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-2xs);
+  }
+  .rc-rules div {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.005em;
+  }
+  .rc-rules div b {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    font-feature-settings: 'tnum' on;
+  }
+  .rc-rules div.ok b   { color: var(--accent-strong); }
+  .rc-rules div.warn b { color: var(--warning); }
+  .rc-rules div.err b  { color: var(--block); }
+  .rc-health-side {
+    background: var(--surface-raised);
+    border-radius: var(--r-md);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--line-soft);
+  }
+  .rc-health-side .lab {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+  .rc-health-side .std-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .rc-std-pill {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: var(--brand-surface);
+    color: var(--on-dark);
+    border-radius: var(--r-sm);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.005em;
+  }
+  .rc-health-side .big {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.375rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-top: var(--space-sm);
+  }
+  .rc-health-side .small {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    line-height: 1.4;
+    margin-top: 0.25rem;
+  }
+
+  /* ===== 2 · KPI STRIP ===== */
+  .rc-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+  @media (max-width: 940px) { .rc-kpis { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .rc-kpis { grid-template-columns: 1fr; } }
+  .rc-kpi {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: var(--space-md) var(--space-sm);
+    box-shadow: 0 1px 0 var(--line-soft);
+  }
+  .rc-kpi .lab {
+    font-size: 0.75rem;
+    text-transform: none;
+    letter-spacing: 0.005em;
+    color: var(--ink-faint);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .rc-kpi .val {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-feature-settings: 'tnum' on;
+    display: flex;
+    align-items: baseline;
+    gap: 0.15rem;
+  }
+  .rc-kpi .val small {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
+  .rc-kpi .delta {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.005em;
+    color: var(--ink-faint);
+  }
+  .rc-kpi .delta.up   { color: var(--accent-strong); font-weight: 700; }
+  .rc-kpi .delta.down { color: var(--block); font-weight: 700; }
+  .rc-kpi .delta.flat { color: var(--ink-mute); }
+
+  /* ===== 3 · TRACEABILITY ECOSYSTEM (chain + table) ===== */
+  .rc-chain {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin: var(--space-md) 0;
+    padding: var(--space-md) 0;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r-md);
+    background: linear-gradient(0deg, var(--surface-raised) 0%, transparent 40%);
+    position: relative;
+  }
+  @media (max-width: 900px) {
+    .rc-chain { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); background: none; }
+  }
+  @media (max-width: 560px) {
+    .rc-chain { grid-template-columns: repeat(2, 1fr); }
+  }
+  .rc-node {
+    position: relative;
+    padding: 0 var(--space-2xs);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .rc-node .conn {
+    position: absolute;
+    left: 50%;
+    top: 34px;
+    width: 100%;
+    height: 2px;
+    background: var(--line);
+    z-index: 0;
+  }
+  .rc-node:last-child .conn { display: none; }
+  @media (max-width: 900px) { .rc-node .conn { display: none; } }
+  .rc-node .ic {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1.5px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    z-index: 1;
+    position: relative;
+  }
+  .rc-node.you .ic {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px oklch(60% 0.16 150 / 0.12);
+  }
+  .rc-node .you-tag {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.5625rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    z-index: 2;
+  }
+  .rc-node .role {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .rc-node .who {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    line-height: 1.3;
+  }
+  .rc-node .badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 3px;
+    margin-top: 0.15rem;
+  }
+  .rc-node .badge.bg-ok   { background: oklch(94% 0.05 150); color: var(--accent-strong); }
+  .rc-node .badge.bg-part { background: oklch(94% 0.08 80); color: oklch(45% 0.16 80); }
+  .rc-node .badge.bg-new  { background: oklch(94% 0.04 265); color: oklch(45% 0.12 265); }
+  .rc-node .badge.bg-miss { background: oklch(94% 0.05 25); color: var(--block); }
+
+  /* Stakeholder table */
+  .rc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    margin-top: var(--space-sm);
+  }
+  .rc-table th, .rc-table td {
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .rc-table th {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    background: var(--surface-raised);
+    border-bottom-color: var(--line);
+  }
+  .rc-table .client {
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .rc-table .client .aside {
+    font-weight: 400;
+    color: oklch(45% 0.12 265);
+    font-size: 0.75rem;
+    margin-left: 0.35rem;
+  }
+  .rc-doc-yes { color: var(--accent-strong); font-weight: 800; }
+  .rc-doc-no  { color: var(--block); font-weight: 800; }
+  .rc-doc-na  { color: var(--ink-mute); font-weight: 800; }
+  .rc-st-pill {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 3px;
+  }
+  .rc-stp-ok   { background: oklch(94% 0.05 150); color: var(--accent-strong); }
+  .rc-stp-part { background: oklch(94% 0.08 80); color: oklch(45% 0.16 80); }
+  .rc-stp-new  { background: oklch(94% 0.04 265); color: oklch(45% 0.12 265); }
+  .rc-stp-miss { background: oklch(94% 0.05 25); color: var(--block); }
+  .rc-fixbtn {
+    padding: 0.4rem 0.7rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: background var(--d-quick) var(--ease-out),
+                border-color var(--d-quick) var(--ease-out);
+  }
+  .rc-fixbtn:hover { background: #ffffff; border-color: var(--accent); }
+  .rc-fixbtn.red {
+    color: #ffffff;
+    background: var(--block);
+    border-color: var(--block);
+  }
+  .rc-fixbtn.red:hover {
+    background: oklch(48% 0.20 25);
+    border-color: oklch(48% 0.20 25);
+  }
+
+  .rc-flagline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: var(--space-sm);
+    padding: 0.75rem;
+    background: oklch(97% 0.03 80);
+    border: 1px solid oklch(88% 0.05 80);
+    border-radius: var(--r-sm);
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .rc-flagline .x {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--warning);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.8125rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+  .rc-flagline strong { color: var(--ink); font-weight: 700; }
+
+  /* Layout do container do dashboard */
+  .rc-wrap { padding: var(--space-md) 0 var(--space-2xl); }
+  @media (min-width: 1200px) {
+    .rc-wrap .container { max-width: 1160px; }
+  }
+
+  /* ===== 4 · Throughput toggle W/M/Y ===== */
+  .rc-seg {
+    display: inline-flex; padding: 3px;
+    background: var(--surface-raised); border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+  }
+  .rc-seg button {
+    padding: 0.35rem 0.7rem; background: transparent; border: none;
+    color: var(--ink-soft); font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.005em;
+    cursor: pointer; border-radius: 3px;
+  }
+  .rc-seg button.on { background: var(--brand-surface); color: var(--on-dark); }
+  .rc-tp-view { display: none; margin-top: var(--space-sm); }
+  .rc-tp-view.on { display: block; }
+  .rc-tp-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    margin-top: var(--space-2xs);
+  }
+  .rc-tp-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .rc-tp-big {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 2rem; letter-spacing: -0.025em;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+  }
+  .rc-tp-unit { color: var(--ink-soft); font-size: 0.875rem; }
+  .rc-tp-legend {
+    display: flex; gap: var(--space-md); flex-wrap: wrap;
+    margin: 0.5rem 0; font-size: 0.75rem; color: var(--ink-soft);
+  }
+  .rc-tp-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .rc-tp-legend .sw {
+    width: 12px; height: 12px; border-radius: 2px;
+    display: inline-block;
+  }
+  .rc-tp-legend .sw.band { background: oklch(60% 0.16 150 / 0.15); border: 1px solid oklch(60% 0.16 150 / 0.3); }
+  .rc-tp-legend .sw.cap  { background: transparent; border-top: 2px dashed var(--block); border-radius: 0; height: 0; margin-top: 5px; }
+  .rc-axis { display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--ink-faint); margin-top: 0.4rem; }
+
+  /* ===== 5 · Volume reconciliation ===== */
+  .rc-recon-row {
+    display: grid; grid-template-columns: 130px 1fr 80px;
+    gap: var(--space-sm); align-items: center;
+    padding: 0.55rem 0;
+  }
+  .rc-recon-row .nm { font-size: 0.875rem; color: var(--ink); font-weight: 500; }
+  .rc-recon-row .track {
+    height: 22px; background: var(--surface-raised);
+    border-radius: var(--r-sm); overflow: hidden; position: relative;
+  }
+  .rc-recon-row .track i { display: block; height: 100%; }
+  .rc-recon-row .vv {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 0.9375rem; color: var(--ink); text-align: right;
+    font-feature-settings: 'tnum' on;
+  }
+  .rc-recon-check {
+    margin-top: var(--space-sm); padding: 0.6rem 0.85rem;
+    background: oklch(96% 0.03 150); color: var(--accent-strong);
+    border: 1px solid oklch(88% 0.05 150); border-radius: var(--r-sm);
+    font-size: 0.8125rem; font-weight: 600;
+  }
+
+  /* ===== 6 · Split bar (recycled content) ===== */
+  .rc-split {
+    display: flex; height: 40px;
+    border-radius: var(--r-sm); overflow: hidden;
+    margin: var(--space-sm) 0;
+  }
+  .rc-split i {
+    display: flex; align-items: center; justify-content: center;
+    color: #ffffff; font-size: 0.75rem; font-weight: 700;
+    padding: 0 0.6rem;
+  }
+  .rc-split-legend {
+    display: flex; gap: var(--space-md); flex-wrap: wrap;
+    margin-bottom: var(--space-sm); font-size: 0.75rem;
+    color: var(--ink-soft);
+  }
+  .rc-split-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .rc-split-legend .sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+
+  /* ===== 7 · Traceability level ===== */
+  .rc-tl {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm); margin: var(--space-sm) 0;
+  }
+  .rc-lvl {
+    padding: var(--space-md); text-align: center;
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+  }
+  .rc-lvl b {
+    display: block; font-family: 'Manrope', sans-serif;
+    font-weight: 800; font-size: 1.5rem;
+    letter-spacing: -0.025em; color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+  .rc-lvl span {
+    font-size: 0.75rem; color: var(--ink-soft); line-height: 1.35;
+    display: block;
+  }
+  .rc-lvl.on {
+    background: var(--brand-surface); border-color: var(--brand-surface);
+  }
+  .rc-lvl.on b { color: var(--on-dark); }
+  .rc-lvl.on span { color: var(--on-dark-soft); }
+
+  /* ===== 8 · Intake composition (stack) ===== */
+  .rc-stack {
+    display: flex; height: 34px;
+    border-radius: var(--r-sm); overflow: hidden;
+    margin: var(--space-sm) 0;
+  }
+  .rc-stack i { display: block; height: 100%; }
+  .rc-lg {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-2xs) var(--space-sm);
+    font-size: 0.8125rem; color: var(--ink-soft);
+  }
+  .rc-lg span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .rc-lg .sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+  .rc-lg strong { color: var(--ink); font-weight: 700; margin-left: auto; }
+
+  /* ===== 9 · MassID table ===== */
+  .rc-table .mid {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+  }
+  .rc-cdot {
+    display: inline-block; width: 10px; height: 10px;
+    border-radius: 50%; margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+
+  /* ===== 10 · Movements (ship) ===== */
+  .rc-ship {
+    display: grid; grid-template-columns: 8px 1fr 130px;
+    gap: var(--space-sm); align-items: center;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .rc-ship:last-of-type { border-bottom: 0; }
+  .rc-ship .st {
+    width: 8px; height: 40px; border-radius: 4px;
+  }
+  .rc-ship-on .st    { background: var(--accent); }
+  .rc-ship-late .st  { background: var(--warning); }
+  .rc-ship-stuck .st { background: var(--block); }
+  .rc-ship .nm strong { color: var(--ink); font-weight: 700; display: block; }
+  .rc-ship .nm span {
+    display: block; margin-top: 0.15rem;
+    font-size: 0.75rem; color: var(--ink-faint);
+    line-height: 1.4;
+  }
+  .rc-ship .eta {
+    text-align: right; font-size: 0.75rem;
+    color: var(--ink-faint);
+  }
+  .rc-ship .eta strong {
+    display: block; font-family: 'Manrope', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    color: var(--ink); letter-spacing: -0.015em;
+  }
+  .rc-ship-late .eta strong  { color: var(--warning); }
+  .rc-ship-stuck .eta strong { color: var(--block); }
+
+  /* ===== 11 · Calendar ===== */
+  .rc-cal-row {
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: var(--space-sm); align-items: start;
+    padding: 0.7rem 0.5rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .rc-cal-row:last-of-type { border-bottom: 0; }
+  .rc-cal-row .dt {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.02em;
+    color: var(--accent-strong); text-transform: uppercase;
+  }
+  .rc-cal-row.warn .dt { color: var(--warning); }
+  .rc-cal-row .ev strong { color: var(--ink); font-weight: 700; }
+  .rc-cal-row .ev span {
+    display: block; margin-top: 0.15rem;
+    font-size: 0.8125rem; color: var(--ink-soft); line-height: 1.45;
+  }
+
+  /* ===== 12 · Passport ===== */
+  .rc-passport {
+    display: grid; grid-template-columns: 68px 1fr;
+    gap: var(--space-sm); align-items: center;
+    padding: var(--space-sm); background: var(--surface-raised);
+    border: 1px solid var(--line-soft); border-radius: var(--r-sm);
+    margin: var(--space-sm) 0;
+  }
+  .rc-qr {
+    width: 68px; height: 68px; border-radius: var(--r-sm);
+    background: var(--brand-surface); color: var(--on-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 0.6875rem; text-align: center; line-height: 1.15;
+    letter-spacing: 0.02em;
+  }
+  .rc-pp strong { color: var(--ink); font-weight: 700; display: block; }
+  .rc-pp span {
+    display: block; margin-top: 0.2rem;
+    font-size: 0.8125rem; color: var(--ink-soft); line-height: 1.4;
+  }
+  .rc-pp .rc-hash {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.6875rem; color: var(--ink-faint);
+    margin-top: 0.4rem;
+  }
+  .rc-pp-rows { margin-top: var(--space-sm); }
+  .rc-pp-row {
+    display: flex; justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 0.8125rem;
+  }
+  .rc-pp-row:last-child { border-bottom: 0; }
+  .rc-pp-row span { color: var(--ink-soft); }
+  .rc-pp-row strong { color: var(--ink); font-weight: 700; }
+  .rc-soon {
+    display: inline-block; margin-left: 0.35rem;
+    padding: 0.1rem 0.35rem;
+    background: var(--warning); color: #ffffff;
+    font-size: 0.5625rem; font-weight: 800;
+    letter-spacing: 0.1em; border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ===== 13 · GasID ===== */
+  .rc-gasid {
+    display: grid; grid-template-columns: 68px 1fr;
+    gap: var(--space-sm); align-items: center;
+    padding: var(--space-sm); background: var(--surface-raised);
+    border: 1px solid var(--line-soft); border-radius: var(--r-sm);
+    margin: var(--space-sm) 0;
+  }
+  .rc-gtag {
+    width: 68px; height: 68px; border-radius: var(--r-sm);
+    background: var(--warning); color: #ffffff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 0.6875rem; text-align: center; line-height: 1.15;
+    letter-spacing: 0.05em;
+  }
+  .rc-gasid strong { color: var(--ink); font-weight: 700; display: block; }
+  .rc-gasid span {
+    display: block; margin-top: 0.2rem;
+    font-size: 0.8125rem; color: var(--ink-soft); line-height: 1.4;
+  }
+  .rc-cbar {
+    display: flex; height: 34px;
+    border-radius: var(--r-sm); overflow: hidden;
+    margin: var(--space-sm) 0;
+  }
+  .rc-cbar i { display: block; height: 100%; }
+  .rc-cleg {
+    display: flex; gap: var(--space-md); flex-wrap: wrap;
+    font-size: 0.75rem; color: var(--ink-soft);
+    margin-bottom: var(--space-sm);
+  }
+  .rc-cleg span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .rc-cleg .sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+  .rc-cleg strong { color: var(--ink); font-weight: 700; }
+
+  /* ===== 14 · Buyer public verification ===== */
+  .rc-verify {
+    padding: var(--space-sm); background: var(--surface-raised);
+    border: 1px solid var(--line-soft); border-radius: var(--r-sm);
+    margin: var(--space-sm) 0;
+  }
+  .rc-verify-head {
+    display: grid; grid-template-columns: 42px 1fr;
+    gap: var(--space-sm); align-items: center;
+    margin-bottom: var(--space-2xs);
+  }
+  .rc-vlock {
+    width: 42px; height: 42px; border-radius: var(--r-sm);
+    background: var(--brand-surface); color: var(--on-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+  }
+  .rc-verify-head strong { color: var(--ink); font-weight: 700; display: block; }
+  .rc-verify-head span {
+    display: block; margin-top: 0.15rem;
+    font-size: 0.75rem; color: var(--ink-faint); line-height: 1.4;
+  }
+  .rc-chainstrip {
+    margin-top: var(--space-2xs); padding: 0.5rem 0.75rem;
+    background: #ffffff; border-radius: var(--r-sm);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.6875rem; color: var(--ink-soft);
+  }
+  .rc-chainstrip .cdotv {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--accent);
+    margin-right: 0.4rem; vertical-align: middle;
+  }
+  .rc-chainstrip strong { color: var(--ink); }
+  .rc-vrows { margin-top: var(--space-sm); }
+  .rc-vrow {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--line-soft);
+    font-size: 0.8125rem;
+  }
+  .rc-vrow:last-child { border-bottom: 0; }
+  .rc-vrow .vk { color: var(--ink-soft); }
+  .rc-vrow .vv { color: var(--ink); font-weight: 600; text-align: right; }
+  .rc-pub {
+    display: inline-block; margin-left: 0.35rem;
+    padding: 0.1rem 0.35rem;
+    background: oklch(96% 0.03 150); color: var(--accent-strong);
+    font-size: 0.5625rem; font-weight: 800;
+    letter-spacing: 0.1em; border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .rc-enc {
+    display: inline-block; padding: 0.1rem 0.5rem;
+    background: var(--surface-raised); color: var(--ink-mute);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.6875rem; border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== 15 · Buyer purchase history ===== */
+  .rc-buyer {
+    padding: var(--space-md);
+    border: 1px solid var(--line-soft); border-radius: var(--r-sm);
+    margin-bottom: var(--space-sm);
+    background: var(--surface-raised);
+  }
+  .rc-buyer:last-child { margin-bottom: 0; }
+  .rc-buyer-top {
+    display: grid; grid-template-columns: 44px 1fr auto;
+    gap: var(--space-sm); align-items: center;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: var(--space-sm);
+  }
+  .rc-buyer-top .bav {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #ffffff; border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+  }
+  .rc-buyer-top .bnm strong { color: var(--ink); font-weight: 700; display: block; }
+  .rc-buyer-top .bnm span {
+    display: block; margin-top: 0.15rem;
+    font-size: 0.75rem; color: var(--ink-faint); line-height: 1.4;
+  }
+  .rc-buyer-top .bstat { text-align: right; }
+  .rc-buyer-top .tot {
+    font-family: 'Manrope', sans-serif; font-weight: 800;
+    font-size: 1.125rem; letter-spacing: -0.02em;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+  }
+  .rc-buyer-top .lab { font-size: 0.6875rem; color: var(--ink-faint); }
+  .rc-order-row {
+    display: grid; grid-template-columns: 200px 1fr 100px 90px;
+    gap: var(--space-sm); align-items: center;
+    padding: 0.4rem 0; font-size: 0.8125rem;
+  }
+  .rc-order-row .oid {
+    font-family: 'Manrope', sans-serif; font-weight: 700;
+    color: var(--ink); font-feature-settings: 'tnum' on;
+  }
+  .rc-order-row .odesc { color: var(--ink-soft); }
+  .rc-order-row .odate { color: var(--ink-faint); font-size: 0.75rem; }
+  .rc-order-row .omass {
+    text-align: right; color: var(--ink);
+    font-weight: 700; font-feature-settings: 'tnum' on;
+  }
+  .rc-buyer-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: var(--space-sm); margin-top: var(--space-2xs);
+    border-top: 1px solid var(--line-soft);
+    font-size: 0.75rem; color: var(--ink-faint);
+  }
+
+  /* ===== 16 · Alerts (what to act on) ===== */
+  .rc-alerts {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm); margin-top: var(--space-sm);
+  }
+  @media (max-width: 720px) { .rc-alerts { grid-template-columns: 1fr; } }
+  .rc-alert {
+    display: grid; grid-template-columns: 36px 1fr;
+    gap: var(--space-sm); align-items: flex-start;
+    padding: var(--space-sm);
+    border: 1px solid var(--line-soft); border-radius: var(--r-sm);
+    background: var(--surface-raised);
+  }
+  .rc-alert .ic {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: #ffffff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 800;
+  }
+  .rc-alert strong { color: var(--ink); font-weight: 700; display: block; }
+  .rc-alert span {
+    display: block; margin-top: 0.25rem;
+    font-size: 0.8125rem; color: var(--ink-soft); line-height: 1.45;
+  }
+
+  /* ===== Generic note ===== */
+  .rc-note {
+    margin-top: var(--space-sm); font-size: 0.8125rem;
+    color: var(--ink-soft); line-height: 1.5;
+    max-width: 78ch;
+  }
+  .rc-note strong { color: var(--ink); font-weight: 700; }
+</style>
+</head>
+<body data-page="paineis">
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV · TRACEABILITY · COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span><span lang="pt">Início</span><span lang="en">Home</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
+    </a>
+    <a class="nav-tab active" data-target="paineis" href="dashboards.html">
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- (sub-nav removed) -->
+
+<!-- ============ HERO ============ -->
+<section class="hero rc-hero" id="overview">
+  <div class="container">
+    <span class="eyebrow-full">
+      <span lang="pt">Aegean PET Recycling — garrafa a flake · ao vivo</span><span lang="en">Aegean PET Recycling — bottle-to-flake · live</span>
+      <span class="demo-badge"><span lang="pt">Amostra · vista de demonstração</span><span lang="en">Sample data · demo view</span></span>
+    </span>
+    <h1>
+      <span lang="pt">Certificado, rastreável e<br><span class="display-italic">pronto para vender.</span></span><span lang="en">Certified, traceable, and<br><span class="display-italic">ready to sell.</span></span>
+    </h1>
+    <p class="subtitle">
+      <span lang="pt">Cada MassID que você registra faz trabalho duplo: mantém você continuamente certificado contra WSR + RecyClass e transforma cada lote num produto verificado, pronto para virar passaporte, no qual seus compradores podem confiar.</span><span lang="en">Every MassID you register does double duty: it keeps you continuously certified against WSR + RecyClass, and turns each batch into a verified, passport-ready product your buyers can trust.</span>
+    </p>
+    <span class="netpill">
+      <span class="dot" aria-hidden="true"></span>
+      <strong>Carrot Network</strong>
+      <span lang="pt">· pré-validação ativa — pacote de auditoria montado por lote</span><span lang="en">· pre-validation active — audit pack assembled per batch</span>
+    </span>
+    <span class="datemeta">
+      <strong><span lang="pt">Terça, 30 de junho de 2026</span><span lang="en">Tuesday, 30 June 2026</span></strong>
+      <span lang="pt">· última sincronização há 2 min</span><span lang="en">· last sync 2 min ago</span>
+    </span>
+  </div>
+</section>
+
+<!-- ============ RECYCLER DASHBOARD BODY ============ -->
+<div class="rc-wrap">
+  <div class="container">
+
+    <!-- ===== 1 · CERTIFICATION HEALTH ===== -->
+    <div class="rc-card" id="health">
+      <div class="rc-health">
+        <div class="rc-ring" aria-label="91% ready">
+          <svg width="108" height="108" viewBox="0 0 108 108" role="img">
+            <circle cx="54" cy="54" r="47" fill="none" stroke="oklch(92% 0.005 220)" stroke-width="11"/>
+            <circle cx="54" cy="54" r="47" fill="none"
+                    stroke="oklch(60% 0.16 150)" stroke-width="11"
+                    stroke-linecap="round" stroke-dasharray="295" stroke-dashoffset="27"
+                    transform="rotate(-90 54 54)"/>
+          </svg>
+          <div class="num"><b>91%</b><span><span lang="pt">pronto</span><span lang="en">ready</span></span></div>
+        </div>
+        <div class="rc-health-body">
+          <h2>
+            <span lang="pt">Saúde de certificação — a caminho da aprovação</span><span lang="en">Certification health — on track to pass</span>
+          </h2>
+          <p>
+            <span lang="pt">Status ao vivo em todo o engine de validação enquanto você registra material: metodologia, compliance regional e as regras de processo da RecyClass. Você sempre sabe onde está — e exatamente o que corrigir antes do auditor chegar.</span><span lang="en">Live status across the validation engine as you log material: methodology, regional compliance and the RecyClass process rules. You always know where you stand — and exactly what to fix before the auditor arrives.</span>
+          </p>
+          <div class="rc-rules">
+            <div class="ok"><b>126</b><span><span lang="pt">regras passando</span><span lang="en">rules passing</span></span></div>
+            <div class="warn"><b>2</b><span><span lang="pt">itens em observação</span><span lang="en">watch items</span></span></div>
+            <div class="err"><b>1</b><span><span lang="pt">a resolver</span><span lang="en">to resolve</span></span></div>
+            <div><b>RC-02</b><span><span lang="pt">licença em observação</span><span lang="en">license watch</span></span></div>
+          </div>
+        </div>
+        <div class="rc-health-side">
+          <div class="lab"><span lang="pt">Cobertura</span><span lang="en">Coverage</span></div>
+          <div class="std-pills">
+            <span class="rc-std-pill">WSR 2024/1157</span>
+            <span class="rc-std-pill">RecyClass RC-01..06</span>
+            <span class="rc-std-pill">PURE</span>
+          </div>
+          <div class="big"><span lang="pt">Sem surpresas</span><span lang="en">No surprises</span></div>
+          <div class="small">
+            <span lang="pt">pacote de auditoria montado automaticamente<br>&amp; ancorado em SHA-256</span><span lang="en">audit pack auto-assembled<br>&amp; SHA-256 anchored</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 2 · KPI STRIP ===== -->
+    <div class="rc-kpis">
+      <div class="rc-kpi">
+        <div class="lab"><span lang="pt">Massa processada (mês)</span><span lang="en">Mass processed (mo)</span></div>
+        <div class="val">182<small>t</small></div>
+        <div class="delta up">
+          <span lang="pt">+8% vs mês anterior</span><span lang="en">+8% vs last mo</span>
+        </div>
+      </div>
+      <div class="rc-kpi">
+        <div class="lab"><span lang="pt">Rendimento de saída (mass balance)</span><span lang="en">Output yield (mass balance)</span></div>
+        <div class="val">79<small>%</small></div>
+        <div class="delta up">+1.9 <span lang="pt">pts</span><span lang="en">pts</span></div>
+      </div>
+      <div class="rc-kpi">
+        <div class="lab"><span lang="pt">Conteúdo pós-consumo</span><span lang="en">Post-consumer content</span></div>
+        <div class="val">71<small>%</small></div>
+        <div class="delta up">
+          <span lang="pt">RC-04 · divisão verificada</span><span lang="en">RC-04 verified split</span>
+        </div>
+      </div>
+      <div class="rc-kpi">
+        <div class="lab"><span lang="pt">Nível de rastreabilidade</span><span lang="en">Traceability level</span></div>
+        <div class="val">L2</div>
+        <div class="delta flat">
+          <span lang="pt">claims por lote destravados</span><span lang="en">per-output claims unlocked</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3 · TRACEABILITY ECOSYSTEM ===== -->
+    <div class="rc-card" id="ecosystem" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">O seu ecossistema de rastreabilidade</span><span lang="en">Your traceability ecosystem</span></h2>
+          <p><span lang="pt">Todos os elos da sua cadeia de custódia — e se cada um já entregou a documentação e o KYC que você precisa para seguir certificado. Buracos a montante viram buracos no seu certificado.</span><span lang="en">Everyone in your chain of custody — and whether each has provided the documentation and KYC you need to stay certified. Gaps upstream become gaps in your certificate.</span></p>
+        </div>
+        <span class="rc-tag rc-you"><span lang="pt">Cadeia de custódia</span><span lang="en">Chain of custody</span></span>
+      </div>
+
+      <div class="rc-chain">
+        <div class="rc-node">
+          <div class="conn" aria-hidden="true"></div>
+          <div class="ic" aria-hidden="true">🏭</div>
+          <div class="role"><span lang="pt">Gerador</span><span lang="en">Generator</span></div>
+          <div class="who"><span lang="pt">Hotéis &amp; F&amp;B, Atenas</span><span lang="en">Hotels &amp; F&amp;B, Athens</span></div>
+          <div class="badge bg-ok"><span lang="pt">Docs OK</span><span lang="en">Docs OK</span></div>
+        </div>
+        <div class="rc-node">
+          <div class="conn" aria-hidden="true"></div>
+          <div class="ic" aria-hidden="true">🗑️</div>
+          <div class="role"><span lang="pt">Custódia de bin</span><span lang="en">Bin Custodian</span></div>
+          <div class="who">Athens MRF</div>
+          <div class="badge bg-ok"><span lang="pt">Docs OK</span><span lang="en">Docs OK</span></div>
+        </div>
+        <div class="rc-node">
+          <div class="conn" aria-hidden="true"></div>
+          <div class="ic" aria-hidden="true">🚛</div>
+          <div class="role"><span lang="pt">Transporte</span><span lang="en">Hauler</span></div>
+          <div class="who">HelleniLog Ltd</div>
+          <div class="badge bg-part"><span lang="pt">Vencendo</span><span lang="en">Expiring</span></div>
+        </div>
+        <div class="rc-node">
+          <div class="conn" aria-hidden="true"></div>
+          <div class="ic" aria-hidden="true">⚙️</div>
+          <div class="role"><span lang="pt">Processador</span><span lang="en">Processor</span></div>
+          <div class="who">Ionian Sort Co.</div>
+          <div class="badge bg-new"><span lang="pt">Novo</span><span lang="en">New</span></div>
+        </div>
+        <div class="rc-node you">
+          <div class="conn" aria-hidden="true"></div>
+          <div class="you-tag"><span lang="pt">VOCÊ</span><span lang="en">YOU</span></div>
+          <div class="ic" aria-hidden="true">♻️</div>
+          <div class="role"><span lang="pt">Reciclador</span><span lang="en">Recycler</span></div>
+          <div class="who">Aegean PET</div>
+          <div class="badge bg-ok"><span lang="pt">Verificado</span><span lang="en">Verified</span></div>
+        </div>
+        <div class="rc-node">
+          <div class="ic" aria-hidden="true">🏭</div>
+          <div class="role"><span lang="pt">Comprador</span><span lang="en">Buyer</span></div>
+          <div class="who">EuroPreform S.A.</div>
+          <div class="badge bg-miss"><span lang="pt">Docs em falta</span><span lang="en">Docs missing</span></div>
+        </div>
+      </div>
+
+      <table class="rc-table">
+        <thead>
+          <tr>
+            <th><span lang="pt">Stakeholder</span><span lang="en">Stakeholder</span></th>
+            <th><span lang="pt">Papel</span><span lang="en">Role</span></th>
+            <th><span lang="pt">Docs de rastreabilidade</span><span lang="en">Traceability docs</span></th>
+            <th><span lang="pt">KYC / onboarding</span><span lang="en">KYC / onboarding</span></th>
+            <th><span lang="pt">Status</span><span lang="en">Status</span></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="client"><span lang="pt">Pool de Hotéis &amp; F&amp;B de Atenas</span><span lang="en">Athens Hotels &amp; F&amp;B pool</span></td>
+            <td><span lang="pt">Gerador</span><span lang="en">Generator</span></td>
+            <td><span class="rc-doc-yes">✓</span> <span lang="pt">Declaração de resíduos</span><span lang="en">Waste declaration</span></td>
+            <td><span class="rc-doc-yes">✓</span> <span lang="pt">Verificado</span><span lang="en">Verified</span></td>
+            <td><span class="rc-st-pill rc-stp-ok"><span lang="pt">Completo</span><span lang="en">Complete</span></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="client">Athens MRF</td>
+            <td><span lang="pt">Custódia de bin</span><span lang="en">Bin Custodian</span></td>
+            <td><span class="rc-doc-yes">✓</span> <span lang="pt">Notas de transferência, licença</span><span lang="en">Transfer notes, permit</span></td>
+            <td><span class="rc-doc-yes">✓</span> <span lang="pt">Verificado</span><span lang="en">Verified</span></td>
+            <td><span class="rc-st-pill rc-stp-ok"><span lang="pt">Completo</span><span lang="en">Complete</span></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="client">HelleniLog Ltd</td>
+            <td><span lang="pt">Transporte</span><span lang="en">Hauler</span></td>
+            <td><span class="rc-doc-no">!</span> <span lang="pt">Licença de transportador vence em 14 jul</span><span lang="en">Carrier licence expires 14 Jul</span></td>
+            <td><span class="rc-doc-yes">✓</span> <span lang="pt">Verificado</span><span lang="en">Verified</span></td>
+            <td><span class="rc-st-pill rc-stp-part"><span lang="pt">Renovar em breve</span><span lang="en">Renew soon</span></span></td>
+            <td><button class="rc-fixbtn" type="button"><span lang="pt">Solicitar renovação</span><span lang="en">Request renewal</span></button></td>
+          </tr>
+          <tr>
+            <td class="client">Ionian Sort Co. <span class="aside">· <span lang="pt">adicionado há 2 dias</span><span lang="en">added 2 days ago</span></span></td>
+            <td><span lang="pt">Processador</span><span lang="en">Processor</span></td>
+            <td><span class="rc-doc-no">!</span> <span lang="pt">Licença de operação, relatório de sorting</span><span lang="en">Operating permit, sorting report</span></td>
+            <td><span class="rc-doc-no">!</span> <span lang="pt">KYC não iniciado</span><span lang="en">KYC not started</span></td>
+            <td><span class="rc-st-pill rc-stp-new"><span lang="pt">Novo — ação necessária</span><span lang="en">New — action needed</span></span></td>
+            <td><button class="rc-fixbtn red" type="button"><span lang="pt">Coletar documentos</span><span lang="en">Collect documents</span></button></td>
+          </tr>
+          <tr>
+            <td class="client">Aegean PET Recycling</td>
+            <td><span lang="pt">Reciclador (você)</span><span lang="en">Recycler (you)</span></td>
+            <td><span class="rc-doc-yes">✓</span> <span lang="pt">Licença, licença RecyClass</span><span lang="en">Permit, RecyClass licence</span></td>
+            <td><span class="rc-doc-yes">✓</span> <span lang="pt">Verificado</span><span lang="en">Verified</span></td>
+            <td><span class="rc-st-pill rc-stp-ok"><span lang="pt">Completo</span><span lang="en">Complete</span></span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="client">EuroPreform S.A.</td>
+            <td><span lang="pt">Comprador</span><span lang="en">Buyer</span></td>
+            <td><span class="rc-doc-no">!</span> <span lang="pt">Declaração de compra, uso final</span><span lang="en">Purchase declaration, end-use</span></td>
+            <td><span class="rc-doc-na">—</span> <span lang="pt">Convite pendente</span><span lang="en">Pending invite</span></td>
+            <td><span class="rc-st-pill rc-stp-miss"><span lang="pt">Docs em falta</span><span lang="en">Docs missing</span></span></td>
+            <td><button class="rc-fixbtn red" type="button"><span lang="pt">Convidar &amp; solicitar</span><span lang="en">Invite &amp; request</span></button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="rc-flagline">
+        <span class="x" aria-hidden="true">!</span>
+        <span>
+          <span lang="pt"><strong>Ionian Sort Co.</strong> foi adicionada à sua cadeia há 2 dias e ainda não tem documentos nem KYC — lotes que passem por ela não podem ser certificados até isto ser resolvido (RC-06). A licença de transportador da <strong>HelleniLog</strong> vence em 2 semanas. Resolver os dois mantém sua cadeia totalmente rastreável.</span><span lang="en"><strong>Ionian Sort Co.</strong> was added to your chain 2 days ago and has no documents or KYC yet — batches routed through it can't be certified until this is resolved (RC-06). <strong>HelleniLog's</strong> carrier licence expires in 2 weeks. Clearing both keeps your chain fully traceable.</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- ===== 4 · EFFECTIVE THROUGHPUT (W/M/Y toggle) ===== -->
+    <div class="rc-card" id="throughput" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Rendimento efetivo</span><span lang="en">Effective throughput</span></h2>
+          <p><span lang="pt">Massa processada por unidade de tempo — sua taxa real entregue, incluindo downtime. Capacidade licenciada aparece como teto.</span><span lang="en">Mass processed per unit of calendar time — your real delivered rate, downtime included. Permitted capacity shown as a ceiling.</span></p>
+        </div>
+        <div class="rc-seg" id="tpSeg">
+          <button type="button" class="on" data-tp="week"><span lang="pt">Semana</span><span lang="en">Week</span></button>
+          <button type="button" data-tp="month"><span lang="pt">Mês</span><span lang="en">Month</span></button>
+          <button type="button" data-tp="year"><span lang="pt">Ano</span><span lang="en">Year</span></button>
+        </div>
+      </div>
+
+      <div class="rc-tp-view on" id="rc-tp-week">
+        <div class="rc-tp-head">
+          <span class="rc-tp-big">6.4</span>
+          <span class="rc-tp-unit"><span lang="pt">t / dia (média da semana)</span><span lang="en">t / day (this week avg)</span></span>
+          <span class="rc-tag rc-you">↑ 8% <span lang="pt">vs semana passada</span><span lang="en">vs last wk</span></span>
+        </div>
+        <div class="rc-tp-legend">
+          <span><i class="sw" style="background: var(--accent);"></i> <span lang="pt">Saída diária</span><span lang="en">Daily output</span></span>
+          <span><i class="sw band"></i> <span lang="pt">Faixa típica</span><span lang="en">Typical range</span></span>
+          <span><i class="sw cap"></i> <span lang="pt">Capacidade licenciada</span><span lang="en">Permitted capacity</span></span>
+        </div>
+        <svg class="rc-tp-svg" viewBox="0 0 1080 260" role="img" aria-label="Weekly throughput chart">
+          <rect x="0" y="60" width="1080" height="82" fill="oklch(60% 0.16 150 / 0.10)"/>
+          <line x1="0" y1="34" x2="1080" y2="34" stroke="var(--block)" stroke-width="1.5" stroke-dasharray="8 6" vector-effect="non-scaling-stroke"/>
+          <text x="1070" y="26" font-size="12" fill="oklch(58% 0.20 25)" text-anchor="end" font-family="Manrope" font-weight="600">cap ~9 t/day</text>
+          <polyline fill="none" stroke="var(--accent-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            vector-effect="non-scaling-stroke"
+            points="30,164 200,140 380,152 560,102 730,115 900,80 1050,72"/>
+          <g fill="var(--accent-strong)">
+            <circle cx="30" cy="164" r="4"/>
+            <circle cx="200" cy="140" r="4"/>
+            <circle cx="380" cy="152" r="4"/>
+            <circle cx="560" cy="102" r="4"/>
+            <circle cx="730" cy="115" r="4"/>
+            <circle cx="900" cy="80" r="4"/>
+            <circle cx="1050" cy="72" r="5"/>
+          </g>
+        </svg>
+        <div class="rc-axis"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+      </div>
+
+      <div class="rc-tp-view" id="rc-tp-month">
+        <div class="rc-tp-head">
+          <span class="rc-tp-big">38.2</span>
+          <span class="rc-tp-unit"><span lang="pt">t / semana (média do mês)</span><span lang="en">t / week (this month avg)</span></span>
+          <span class="rc-tag rc-you">↑ 5% <span lang="pt">vs mês passado</span><span lang="en">vs last mo</span></span>
+        </div>
+        <div class="rc-tp-legend">
+          <span><i class="sw" style="background: var(--accent);"></i> <span lang="pt">Saída semanal</span><span lang="en">Weekly output</span></span>
+          <span><i class="sw band"></i> <span lang="pt">Faixa típica</span><span lang="en">Typical range</span></span>
+          <span><i class="sw cap"></i> <span lang="pt">Capacidade licenciada</span><span lang="en">Permitted capacity</span></span>
+        </div>
+        <svg class="rc-tp-svg" viewBox="0 0 1080 260" role="img" aria-label="Monthly throughput chart">
+          <rect x="0" y="66" width="1080" height="92" fill="oklch(60% 0.16 150 / 0.10)"/>
+          <line x1="0" y1="36" x2="1080" y2="36" stroke="var(--block)" stroke-width="1.5" stroke-dasharray="8 6" vector-effect="non-scaling-stroke"/>
+          <text x="1070" y="28" font-size="12" fill="oklch(58% 0.20 25)" text-anchor="end" font-family="Manrope" font-weight="600">cap ~54 t/wk</text>
+          <polyline fill="none" stroke="var(--accent-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            vector-effect="non-scaling-stroke"
+            points="90,150 390,128 690,110 990,90"/>
+          <g fill="var(--accent-strong)">
+            <circle cx="90" cy="150" r="5"/>
+            <circle cx="390" cy="128" r="5"/>
+            <circle cx="690" cy="110" r="5"/>
+            <circle cx="990" cy="90" r="6"/>
+          </g>
+        </svg>
+        <div class="rc-axis"><span>Wk 1</span><span>Wk 2</span><span>Wk 3</span><span>Wk 4</span></div>
+      </div>
+
+      <div class="rc-tp-view" id="rc-tp-year">
+        <div class="rc-tp-head">
+          <span class="rc-tp-big">158</span>
+          <span class="rc-tp-unit"><span lang="pt">t / mês (média móvel)</span><span lang="en">t / month (trailing avg)</span></span>
+          <span class="rc-tag rc-you">↑ 22% YTD</span>
+        </div>
+        <div class="rc-tp-legend">
+          <span><i class="sw" style="background: var(--accent);"></i> <span lang="pt">Saída mensal</span><span lang="en">Monthly output</span></span>
+          <span><i class="sw band"></i> <span lang="pt">Faixa típica</span><span lang="en">Typical range</span></span>
+          <span><i class="sw cap"></i> <span lang="pt">Capacidade licenciada</span><span lang="en">Permitted capacity</span></span>
+        </div>
+        <svg class="rc-tp-svg" viewBox="0 0 1080 260" role="img" aria-label="Yearly throughput chart">
+          <rect x="0" y="72" width="1080" height="106" fill="oklch(60% 0.16 150 / 0.10)"/>
+          <line x1="0" y1="30" x2="1080" y2="30" stroke="var(--block)" stroke-width="1.5" stroke-dasharray="8 6" vector-effect="non-scaling-stroke"/>
+          <text x="1070" y="22" font-size="12" fill="oklch(58% 0.20 25)" text-anchor="end" font-family="Manrope" font-weight="600">cap ~230 t/mo</text>
+          <polyline fill="none" stroke="var(--accent-strong)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            vector-effect="non-scaling-stroke"
+            points="24,205 120,192 216,178 312,184 408,164 504,158 600,146 696,138 792,144 888,120 984,108 1056,98"/>
+          <g fill="var(--accent-strong)">
+            <circle cx="24"   cy="205" r="4"/>
+            <circle cx="120"  cy="192" r="4"/>
+            <circle cx="216"  cy="178" r="4"/>
+            <circle cx="312"  cy="184" r="4"/>
+            <circle cx="408"  cy="164" r="4"/>
+            <circle cx="504"  cy="158" r="4"/>
+            <circle cx="600"  cy="146" r="4"/>
+            <circle cx="696"  cy="138" r="4"/>
+            <circle cx="792"  cy="144" r="4"/>
+            <circle cx="888"  cy="120" r="4"/>
+            <circle cx="984"  cy="108" r="4"/>
+            <circle cx="1056" cy="98"  r="5"/>
+          </g>
+        </svg>
+        <div class="rc-axis"><span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span></div>
+      </div>
+
+      <p class="rc-note">
+        <span lang="pt">A taxa efetiva reflete o que a planta realmente entrega, com downtime e trocas incluídos — o número que importa em contratos e planejamento de capacidade.</span><span lang="en">Effective rate reflects what the plant actually delivers, downtime and changeovers included — the number that matters for contracts and capacity planning.</span>
+      </p>
+    </div>
+
+    <!-- ===== 5 · VOLUME RECONCILIATION (RC-03) ===== -->
+    <div class="rc-card" id="volume" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Reconciliação de volume</span><span lang="en">Volume reconciliation</span></h2>
+          <p><span lang="pt">As cinco categorias que RecyClass reconcilia. Tudo que entra tem de ser contabilizado no que sai.</span><span lang="en">The five categories RecyClass reconciles. Everything in must be accounted for out.</span></p>
+        </div>
+        <span class="rc-tag rc-rc">RecyClass RC-03</span>
+      </div>
+
+      <div class="rc-recon">
+        <div class="rc-recon-row"><span class="nm"><span lang="pt">Entrada</span><span lang="en">Input</span></span><span class="track"><i style="width:100%; background: oklch(85% 0.02 220);"></i></span><span class="vv">182.0 t</span></div>
+        <div class="rc-recon-row"><span class="nm"><span lang="pt">Saída (flake)</span><span lang="en">Output (flake)</span></span><span class="track"><i style="width:79%; background: var(--accent);"></i></span><span class="vv">143.4 t</span></div>
+        <div class="rc-recon-row"><span class="nm"><span lang="pt">Aditivos</span><span lang="en">Additives</span></span><span class="track"><i style="width:4%; background: oklch(50% 0.15 265);"></i></span><span class="vv">2.1 t</span></div>
+        <div class="rc-recon-row"><span class="nm"><span lang="pt">Resíduos sólidos</span><span lang="en">Solid wastes</span></span><span class="track"><i style="width:15%; background: var(--warning);"></i></span><span class="vv">27.3 t</span></div>
+        <div class="rc-recon-row"><span class="nm"><span lang="pt">Subprodutos</span><span lang="en">By-products</span></span><span class="track"><i style="width:7%; background: oklch(55% 0.10 200);"></i></span><span class="vv">13.4 t</span></div>
+      </div>
+      <div class="rc-recon-check">
+        ✓ <span lang="pt">Reconcilia dentro da tolerância — nenhuma discrepância inexplicada para o auditor caçar.</span><span lang="en">Reconciles within tolerance — no unexplained discrepancy for the auditor to chase.</span>
+      </div>
+    </div>
+
+    <!-- ===== 6 · RECYCLED CONTENT (RC-04) ===== -->
+    <div class="rc-card" id="content" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Conteúdo reciclado — pré vs pós-consumo</span><span lang="en">Recycled content — pre vs post-consumer</span></h2>
+          <p><span lang="pt">O split que define seu claim e seu preço. Denominador inclui virgem, masterbatch, modificadores &amp; cargas.</span><span lang="en">The split that sets your claim and your price. Denominator includes virgin, masterbatch, modifiers &amp; fillers.</span></p>
+        </div>
+        <span class="rc-tag rc-rc">RecyClass RC-04</span>
+      </div>
+
+      <div class="rc-split">
+        <i style="width:71%; background: var(--accent);"><span lang="pt">Pós-consumo 71%</span><span lang="en">Post-consumer 71%</span></i>
+        <i style="width:23%; background: oklch(55% 0.10 200);"><span lang="pt">Pré 23%</span><span lang="en">Pre 23%</span></i>
+        <i style="width:6%; background: oklch(75% 0.008 220); color: var(--ink-soft);">6%</i>
+      </div>
+      <div class="rc-split-legend">
+        <span><i class="sw" style="background: var(--accent);"></i> <span lang="pt">Pós-consumo — comanda o prêmio sob PPWR</span><span lang="en">Post-consumer — commands the premium under PPWR</span></span>
+        <span><i class="sw" style="background: oklch(55% 0.10 200);"></i> <span lang="pt">Pré-consumo</span><span lang="en">Pre-consumer</span></span>
+        <span><i class="sw" style="background: oklch(75% 0.008 220);"></i> <span lang="pt">Virgem / aditivos (denominador)</span><span lang="en">Virgin / additives (denominator)</span></span>
+      </div>
+      <p class="rc-note">
+        <span lang="pt">Pós-consumo é a fração que brand owners mais pagam. Documentar o split (em vez de default 100% pré-consumo) é o que permite reivindicar — e cobrar por — o conteúdo de maior valor.</span><span lang="en">Post-consumer is the fraction brand owners pay most for. Documenting the split (rather than defaulting to 100% pre-consumer) is what lets you claim — and charge for — the higher-value content.</span>
+      </p>
+    </div>
+
+    <!-- ===== 7 · TRACEABILITY LEVEL (RC-05) ===== -->
+    <div class="rc-card" id="level" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Nível de rastreabilidade &amp; o que ele destrava</span><span lang="en">Traceability level &amp; what it unlocks</span></h2>
+          <p><span lang="pt">Seu nível define a granularidade do claim que você pode vender.</span><span lang="en">Your level sets how granular a claim you can sell.</span></p>
+        </div>
+        <span class="rc-tag rc-rc">RecyClass RC-05</span>
+      </div>
+
+      <div class="rc-tl">
+        <div class="rc-lvl"><b>L1</b><span><span lang="pt">por saída</span><span lang="en">per-output</span></span></div>
+        <div class="rc-lvl on"><b>L2</b><span><span lang="pt">por saída ·<br>você está aqui</span><span lang="en">per-output ·<br>you are here</span></span></div>
+        <div class="rc-lvl"><b>L3</b><span><span lang="pt">média mensal<br>do processo</span><span lang="en">monthly<br>process avg</span></span></div>
+      </div>
+      <p class="rc-note">
+        <span lang="pt">Em <strong>L2</strong>, cada lote de flake carrega sua própria taxa verificada — não a média mensal da planta. É uma proposta de venda mais afiada do que a de um concorrente L3.</span><span lang="en">At <strong>L2</strong> you can make per-output recycled-content claims — each batch of flake carries its own verified figure, not just a monthly plant average. That's a sharper selling proposition than an L3 competitor can offer.</span>
+      </p>
+      <div class="rc-flagline">
+        <span class="x" aria-hidden="true">!</span>
+        <span><strong><span lang="pt">Lembrete</span><span lang="en">Reminder</span></strong>: <span lang="pt">L2 exige esvaziamento de bay antes de trocar. Uma troca em 14 jun está sem a confirmação — registrá-la mantém seus claims L2 válidos.</span><span lang="en">L2 requires bay-emptying before switching bays. One bay-change on 14 Jun is missing its confirmation — logging it keeps your L2 claims valid.</span></span>
+      </div>
+    </div>
+
+    <!-- ===== 8 · INTAKE COMPOSITION ===== -->
+    <div class="rc-card" id="intake" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Composição de intake — polímero &amp; cor</span><span lang="en">Intake composition — polymer &amp; colour</span></h2>
+          <p><span lang="pt">Material classificado por massa em cada MassID. O mix de cor define o valor do flake.</span><span lang="en">Material classified by mass on each MassID. Colour mix sets flake value.</span></p>
+        </div>
+        <span class="rc-tag rc-you"><span lang="pt">Dos seus MassIDs</span><span lang="en">From your MassIDs</span></span>
+      </div>
+
+      <div class="rc-stack">
+        <i style="width:48%; background: oklch(85% 0.06 220);"></i>
+        <i style="width:17%; background: oklch(78% 0.10 240);"></i>
+        <i style="width:11%; background: oklch(72% 0.10 150);"></i>
+        <i style="width:8%; background: oklch(72% 0.08 300);"></i>
+        <i style="width:9%; background: oklch(75% 0.10 85);"></i>
+        <i style="width:7%; background: oklch(72% 0.10 25);"></i>
+      </div>
+      <div class="rc-lg">
+        <span><i class="sw" style="background: oklch(85% 0.06 220);"></i>Clear PET <strong>48%</strong></span>
+        <span><i class="sw" style="background: oklch(78% 0.10 240);"></i>Light-blue PET <strong>17%</strong></span>
+        <span><i class="sw" style="background: oklch(72% 0.10 150);"></i>Green PET <strong>11%</strong></span>
+        <span><i class="sw" style="background: oklch(72% 0.08 300);"></i>Mixed / opaque <strong>8%</strong></span>
+        <span><i class="sw" style="background: oklch(75% 0.10 85);"></i>Caps &amp; labels (PE/PP) <strong>9%</strong></span>
+        <span><i class="sw" style="background: oklch(72% 0.10 25);"></i><span lang="pt">Fora do escopo</span><span lang="en">Out-throw / non-PET</span> <strong>7%</strong></span>
+      </div>
+      <div class="rc-flagline">
+        <span class="x" aria-hidden="true">!</span>
+        <span><span lang="pt">Fora-de-escopo em lotes de Thessaloniki está subindo — cada quilo não-PET é massa que você pagou para receber, não pode vender e tem de contabilizar como resíduo sólido em RC-03.</span><span lang="en">Out-throw on Thessaloniki batches is creeping up — every non-PET kilo is mass you paid to receive, can't sell, and must account for as solid waste in RC-03.</span></span>
+      </div>
+    </div>
+
+    <!-- ===== 9 · RECENT MassIDs ===== -->
+    <div class="rc-card" id="massids" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">MassIDs recentes</span><span lang="en">Recent MassIDs</span></h2>
+          <p><span lang="pt">Cada lote registrado e sua posição no pipeline de certificação.</span><span lang="en">Each registered batch and its place in the certification pipeline.</span></p>
+        </div>
+        <span class="rc-tag rc-you"><span lang="pt">Dos seus MassIDs</span><span lang="en">From your MassIDs</span></span>
+      </div>
+
+      <table class="rc-table">
+        <thead>
+          <tr>
+            <th>MassID</th>
+            <th><span lang="pt">Resina · cor</span><span lang="en">Resin · colour</span></th>
+            <th><span lang="pt">Massa</span><span lang="en">Mass</span></th>
+            <th><span lang="pt">Pós-cons.</span><span lang="en">Post-cons.</span></th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="mid">MS-…451</td><td><span class="rc-cdot" style="background: oklch(85% 0.06 220);"></span> PET clear</td><td>1 025 kg</td><td>78%</td><td><span class="rc-st-pill rc-stp-ok"><span lang="pt">Mintado</span><span lang="en">Minted</span></span></td></tr>
+          <tr><td class="mid">MS-…452</td><td><span class="rc-cdot" style="background: oklch(78% 0.10 240);"></span> PET l-blue</td><td>880 kg</td><td>69%</td><td><span class="rc-st-pill rc-stp-ok"><span lang="pt">Mintado</span><span lang="en">Minted</span></span></td></tr>
+          <tr><td class="mid">MS-…453</td><td><span class="rc-cdot" style="background: oklch(72% 0.08 300);"></span> PET mixed</td><td>640 kg</td><td>55%</td><td><span class="rc-st-pill rc-stp-part"><span lang="pt">Flag · doc</span><span lang="en">Flag · doc</span></span></td></tr>
+          <tr><td class="mid">MS-…454</td><td><span class="rc-cdot" style="background: oklch(72% 0.10 150);"></span> PET green</td><td>510 kg</td><td>62%</td><td><span class="rc-st-pill rc-stp-new"><span lang="pt">Rascunho</span><span lang="en">Draft</span></span></td></tr>
+        </tbody>
+      </table>
+      <p class="rc-note">
+        <span lang="pt">MS-…453 está retido em flag de documentação — resolvê-lo é um dos dois itens que separam você de 100% de saúde de certificação.</span><span lang="en">MS-…453 is held on a documentation flag — resolving it is one of the two items between you and 100% certification health.</span>
+      </p>
+    </div>
+
+    <!-- ===== 10 · MOVEMENTS & WSR DOCS ===== -->
+    <div class="rc-card" id="movements" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Movimentações &amp; documentos WSR</span><span lang="en">Movements &amp; WSR documents</span></h2>
+          <p><span lang="pt">Eventos de cadeia de custódia por trás dos seus MassIDs. Atrasos aparecem como gaps entre timestamps; documentação faltando bloqueia o lote.</span><span lang="en">Chain-of-custody events behind your MassIDs. Delays show as gaps between logged timestamps; missing paperwork blocks the batch.</span></p>
+        </div>
+        <span class="rc-tag rc-you"><span lang="pt">Dos seus eventos</span><span lang="en">From your chain events</span></span>
+      </div>
+
+      <div class="rc-ship rc-ship-on"><span class="st"></span><div class="nm"><strong>Athens MRF → plant · MS-…451</strong><span><span lang="pt">Nota de transferência + licença de transportador + confirmação de recepção ✓</span><span lang="en">Waste transfer note + carrier licence + reception confirmation ✓</span></span></div><div class="eta"><strong>1 <span lang="pt">dia</span><span lang="en">day</span></strong><span lang="pt">completo</span><span lang="en">complete</span></div></div>
+      <div class="rc-ship rc-ship-late"><span class="st"></span><div class="nm"><strong>Thessaloniki → plant · MS-…453</strong><span><span lang="pt">Coletado 11 jun · chegou 14 jun · gap de balsa +2 dias</span><span lang="en">Collected 11 Jun · arrived 14 Jun · ferry gap +2 days</span></span></div><div class="eta"><strong>3 <span lang="pt">dias</span><span lang="en">days</span></strong><span lang="pt">recepção atrasada</span><span lang="en">reception late</span></div></div>
+      <div class="rc-ship rc-ship-on"><span class="st"></span><div class="nm"><strong>Crete Coastal → plant · MS-…452</strong><span>Annex VII + <span lang="pt">licença de transportador + confirmação de recepção</span><span lang="en">carrier licence + reception confirmation</span> ✓</span></div><div class="eta"><strong>1 <span lang="pt">dia</span><span lang="en">day</span></strong><span lang="pt">completo</span><span lang="en">complete</span></div></div>
+      <div class="rc-ship rc-ship-stuck"><span class="st"></span><div class="nm"><strong>Bari import (IT) → plant · MS-…454</strong><span><span lang="pt">Cross-border · licença presente · confirmação de recepção pendente (Art. 15, 2 dias úteis)</span><span lang="en">Cross-border · carrier licence present · reception confirmation pending (Art. 15, 2 working days)</span></span></div><div class="eta"><strong><span lang="pt">retido</span><span lang="en">held</span></strong><span lang="pt">gap de doc</span><span lang="en">doc gap</span></div></div>
+
+      <p class="rc-note">
+        <span lang="pt">RecyClass RC-06: o lote de Bari é adjacente a subcontrato — confirme que o fornecedor detém certificação RecyClass/EuCertPlast antes de mintar.</span><span lang="en">RecyClass RC-06: the Bari load is subcontracted-adjacent — confirm the supplier holds RecyClass/EuCertPlast certification before minting.</span>
+      </p>
+    </div>
+
+    <!-- ===== 11 · REGULATORY CALENDAR ===== -->
+    <div class="rc-card" id="calendar" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Calendário regulatório</span><span lang="en">Regulatory calendar</span></h2>
+          <p><span lang="pt">Datas WSR 2024/1157 que afetam como você pode movimentar material.</span><span lang="en">WSR 2024/1157 dates that affect how you can move material.</span></p>
+        </div>
+        <span class="rc-tag rc-you">WSR timeline</span>
+      </div>
+
+      <div class="rc-cal-row"><span class="dt">now</span><div class="ev"><strong><span lang="pt">Annex VII aceito em papel</span><span lang="en">Annex VII accepted on paper</span></strong><span><span lang="pt">Período de transição vai até 31 dez 2026 — depois disso, digital-only</span><span lang="en">Transition period runs through 31 Dec 2026 — after that, digital only</span></span></div></div>
+      <div class="rc-cal-row warn"><span class="dt">21 Nov 2026</span><div class="ev"><strong><span lang="pt">B3011 export para não-OCDE banido</span><span lang="en">B3011 export to non-OECD banned</span></strong><span><span lang="pt">≥ 2,5 anos — afeta pra onde streams residuais podem ir</span><span lang="en">≥ 2.5 years — affects where residual streams can go</span></span></div></div>
+      <div class="rc-cal-row"><span class="dt">1 Jan 2027</span><div class="ev"><strong><span lang="pt">DIWASS digital-only para cross-border</span><span lang="en">DIWASS digital-only for cross-border</span></strong><span><span lang="pt">Sua rota de Bari precisa estar totalmente DIWASS-loggada</span><span lang="en">Your Bari import lane must be fully DIWASS-logged</span></span></div></div>
+      <div class="rc-cal-row"><span class="dt">21 May 2029</span><div class="ev"><strong><span lang="pt">Deadline de instalação pré-consentida</span><span lang="en">Pre-consented facility deadline</span></strong><span><span lang="pt">Envios só para instalações de recuperação pré-consentidas</span><span lang="en">Shipments only to pre-consented recovery facilities</span></span></div></div>
+
+      <p class="rc-note">
+        <span lang="pt">Como seus docs de movimentação já são estruturados, estas transições são mudanças de configuração para você — não a corrida que serão para concorrentes de papel-e-Excel.</span><span lang="en">Because your movement docs are already structured, these transitions are configuration changes for you — not the scramble they'll be for paper-and-Excel competitors.</span>
+      </p>
+    </div>
+
+    <!-- ===== 12 · DIGITAL PRODUCT PASSPORT ===== -->
+    <div class="rc-card" id="dpp" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Digital Product Passport</span><span lang="en">Digital Product Passport</span></h2>
+          <p><span lang="pt">Transforme um lote verificado em um ativo de mercado que compradores podem escanear e confiar.</span><span lang="en">Turn a verified batch into a market asset buyers can scan and trust.</span></p>
+        </div>
+        <span class="rc-tag" style="background: oklch(96% 0.03 150); color: var(--accent-strong); border-color: oklch(88% 0.05 150);"><span lang="pt">Venda com ele</span><span lang="en">Sell with it</span></span>
+      </div>
+
+      <div class="rc-passport">
+        <div class="rc-qr">DPP<br>ID</div>
+        <div class="rc-pp">
+          <strong>DPP-GR-2026-000451 · clear rPET flake</strong>
+          <span><span lang="pt">Split de conteúdo reciclado verificado · origem rastreável até a fonte</span><span lang="en">Verified recycled-content split · origin traceable to source</span></span>
+          <span class="rc-hash">sha256:9f2a…c41e · <span lang="pt">ancorado 15 jun 2026</span><span lang="en">anchored 15 Jun 2026</span></span>
+        </div>
+      </div>
+
+      <div class="rc-pp-rows">
+        <div class="rc-pp-row"><span><span lang="pt">Conteúdo pós-consumo (RC-04)</span><span lang="en">Post-consumer content (RC-04)</span></span><strong>78%</strong></div>
+        <div class="rc-pp-row"><span><span lang="pt">Nível de rastreabilidade (RC-05)</span><span lang="en">Traceability level (RC-05)</span></span><strong>L2 · <span lang="pt">por saída</span><span lang="en">per-output</span></strong></div>
+        <div class="rc-pp-row"><span><span lang="pt">Cadeia de origem</span><span lang="en">Origin chain</span></span><strong><span lang="pt">coleta → você, intacta</span><span lang="en">collection → you, intact</span></strong></div>
+        <div class="rc-pp-row"><span><span lang="pt">Carbono (GasID)</span><span lang="en">Carbon (GasID)</span></span><strong style="color: var(--warning);"><span lang="pt">linkando <span class="rc-soon">em breve</span></span><span lang="en">linking <span class="rc-soon">soon</span></span></strong></div>
+      </div>
+
+      <p class="rc-note">
+        <span lang="pt">Dá aos conversores e brand owners uma prova independente e verificável em vez de uma ficha de spec auto-declarada — a diferença entre competir por preço e vencer por confiança sob PPWR.</span><span lang="en">Hand converters and brand owners independent, verifiable proof instead of a self-declared spec sheet — the difference between competing on price and winning on trust under PPWR.</span>
+      </p>
+    </div>
+
+    <!-- ===== 13 · CARBON GasID (soon) ===== -->
+    <div class="rc-card" id="carbon" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Pegada de carbono · GasID</span><span lang="en">Carbon footprint · GasID</span></h2>
+          <p><span lang="pt">Um registro de carbono por lote — computado para cada MassID, carregado no seu DPP.</span><span lang="en">A carbon record per batch — computed for each MassID, carried into its DPP.</span></p>
+        </div>
+        <span class="rc-tag" style="background: oklch(96% 0.03 80); color: oklch(45% 0.16 80); border-color: oklch(88% 0.05 80);"><span lang="pt">No pipeline</span><span lang="en">In the pipeline</span></span>
+      </div>
+
+      <div class="rc-gasid">
+        <div class="rc-gtag">GAS<br>ID</div>
+        <div><strong><span lang="pt">GasID — em breve</span><span lang="en">GasID — coming soon</span></strong><span><span lang="pt">Cada GasID linka 1:1 a um MassID e quantifica seu CO<sub>2</sub>e ao longo de coleta, transporte &amp; processamento.</span><span lang="en">Each GasID links 1:1 to a MassID and quantifies its CO<sub>2</sub>e across collection, transport &amp; processing.</span></span></div>
+      </div>
+
+      <div class="rc-cbar">
+        <i style="width:34%; background: oklch(78% 0.10 240);"></i>
+        <i style="width:41%; background: var(--accent);"></i>
+        <i style="width:25%; background: var(--brand-surface);"></i>
+      </div>
+      <div class="rc-cleg">
+        <span><i class="sw" style="background: oklch(78% 0.10 240);"></i><span lang="pt">Coleta</span><span lang="en">Collection</span> <strong>—</strong></span>
+        <span><i class="sw" style="background: var(--accent);"></i><span lang="pt">Transporte</span><span lang="en">Transport</span> <strong>—</strong></span>
+        <span><i class="sw" style="background: var(--brand-surface);"></i><span lang="pt">Processamento (energia)</span><span lang="en">Processing (energy)</span> <strong>—</strong></span>
+      </div>
+
+      <p class="rc-note">
+        <span lang="pt">Construído sobre as distâncias de origem e eventos de movimentação que você já loga. Quando ao vivo, coloca uma figura de carbono verificada por lote dentro do passaporte.</span><span lang="en">Built on the origin distances and movement events you already log. When live, it puts a verified per-batch carbon figure right inside the passport.</span>
+      </p>
+    </div>
+
+    <!-- ===== 14 · WHAT YOUR BUYER SEES ===== -->
+    <div class="rc-card" id="buyer-view" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">O que o seu comprador vê — verificação pública</span><span lang="en">What your buyer sees — public verification</span></h2>
+          <p><span lang="pt">Quando um conversor ou brand owner escaneia o DPP, chega aqui. Dados públicos são ancorados na blockchain Carrot; campos comerciais sensíveis ficam criptografados.</span><span lang="en">When a converter or brand owner scans the DPP, they reach this. Public claim data is anchored on the Carrot Network blockchain; commercially sensitive fields stay encrypted.</span></p>
+        </div>
+        <span class="rc-tag" style="background: oklch(96% 0.03 150); color: var(--accent-strong); border-color: oklch(88% 0.05 150);"><span lang="pt">Voltado ao comprador</span><span lang="en">Buyer-facing</span></span>
+      </div>
+
+      <div class="rc-verify">
+        <div class="rc-verify-head">
+          <div class="rc-vlock" aria-hidden="true">🔒</div>
+          <div>
+            <strong><span lang="pt">Verificado na Carrot Network · carrot.eco</span><span lang="en">Verified on Carrot Network · carrot.eco</span></strong>
+            <span><span lang="pt">Registro público · à prova de adulteração · qualquer um confirma, sem login</span><span lang="en">Public record · tamper-proof · anyone can confirm, no login needed</span></span>
+          </div>
+        </div>
+        <div class="rc-chainstrip">
+          <span class="cdotv"></span>
+          <span lang="pt">Ancorado on-chain</span><span lang="en">Anchored on-chain</span> <strong>0x7b…a2f9</strong> · block 62 184 097 · 15 Jun 2026 — <span lang="pt">hash bate, registro intacto</span><span lang="en">hash matches, record unaltered</span>
+        </div>
+      </div>
+
+      <div class="rc-vrows">
+        <div class="rc-vrow"><span class="vk">Product</span><span class="vv">clear rPET flake · DPP-GR-2026-000451</span></div>
+        <div class="rc-vrow"><span class="vk"><span lang="pt">Conteúdo reciclado — pós-consumo</span><span lang="en">Recycled content — post-consumer</span></span><span class="vv">78% <span class="rc-pub">public</span></span></div>
+        <div class="rc-vrow"><span class="vk"><span lang="pt">Nível de rastreabilidade</span><span lang="en">Traceability level</span></span><span class="vv">L2 · per-output <span class="rc-pub">public</span></span></div>
+        <div class="rc-vrow"><span class="vk"><span lang="pt">Origem</span><span lang="en">Origin</span></span><span class="vv"><span lang="pt">Grécia · coleta verificada</span><span lang="en">Greece · collection verified</span> <span class="rc-pub">public</span></span></div>
+        <div class="rc-vrow"><span class="vk"><span lang="pt">Status de certificação</span><span lang="en">Certification status</span></span><span class="vv">WSR + RecyClass valid <span class="rc-pub">public</span></span></div>
+        <div class="rc-vrow"><span class="vk"><span lang="pt">Pegada de carbono (GasID)</span><span lang="en">Carbon footprint (GasID)</span></span><span class="vv" style="color: var(--warning);"><span lang="pt">em breve</span><span lang="en">coming soon</span></span></div>
+        <div class="rc-vrow"><span class="vk">🔒 <span lang="pt">Identidades de fornecedores</span><span lang="en">Supplier identities</span></span><span class="vv"><span class="rc-enc"><span lang="pt">criptografado</span><span lang="en">encrypted</span></span></span></div>
+        <div class="rc-vrow"><span class="vk">🔒 <span lang="pt">Preço &amp; termos comerciais</span><span lang="en">Pricing &amp; commercial terms</span></span><span class="vv"><span class="rc-enc"><span lang="pt">criptografado</span><span lang="en">encrypted</span></span></span></div>
+      </div>
+    </div>
+
+    <!-- ===== 15 · BUYER PURCHASE HISTORY ===== -->
+    <div class="rc-card" id="buyer-history" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">Histórico de compra por comprador</span><span lang="en">Buyer purchase history</span></h2>
+          <p><span lang="pt">Quais MassIDs e DPPs cada comprador levou — você sabe qual produto verificado está em qual mão, e quem está devendo recompra.</span><span lang="en">Which MassIDs and DPP IDs each buyer has taken — so you know what verified product is in whose hands, and who's due for a reorder.</span></p>
+        </div>
+        <span class="rc-tag" style="background: oklch(96% 0.03 150); color: var(--accent-strong); border-color: oklch(88% 0.05 150);"><span lang="pt">Vendas &amp; rastreabilidade</span><span lang="en">Sales &amp; traceability</span></span>
+      </div>
+
+      <div class="rc-buyer">
+        <div class="rc-buyer-top">
+          <div class="bav" aria-hidden="true">🏭</div>
+          <div class="bnm"><strong>EuroPreform S.A.</strong><span><span lang="pt">Conversor · Thessaloniki, GR · comprador desde fev 2026</span><span lang="en">Converter · Thessaloniki, GR · buyer since Feb 2026</span></span></div>
+          <div class="bstat"><div class="tot">14.2 t</div><div class="lab"><span lang="pt">últimos 6 meses · 8 lotes</span><span lang="en">last 6 months · 8 batches</span></div></div>
+        </div>
+        <div class="rc-order-row"><span class="oid">DPP-GR-2026-000451</span><span class="odesc">Clear rPET · 78% <span lang="pt">pós-cons.</span><span lang="en">post-cons.</span></span><span class="odate">15 Jun 2026</span><span class="omass">1 025 kg</span></div>
+        <div class="rc-order-row"><span class="oid">DPP-GR-2026-000448</span><span class="odesc">Clear rPET · 74% <span lang="pt">pós-cons.</span><span lang="en">post-cons.</span></span><span class="odate">02 Jun 2026</span><span class="omass">1 180 kg</span></div>
+        <div class="rc-order-row"><span class="oid">DPP-GR-2026-000439</span><span class="odesc">Light-blue rPET · 69%</span><span class="odate">21 May 2026</span><span class="omass">880 kg</span></div>
+        <div class="rc-buyer-foot"><span><span lang="pt">Compra clear food-grade mensalmente · último pedido há 20 dias</span><span lang="en">Buys clear food-grade monthly · last order 20 days ago</span></span><span style="color: oklch(45% 0.12 265); font-weight: 700;"><span lang="pt">Recompra devida</span><span lang="en">Due for reorder</span></span></div>
+      </div>
+
+      <div class="rc-buyer">
+        <div class="rc-buyer-top">
+          <div class="bav" aria-hidden="true">🏢</div>
+          <div class="bnm"><strong>Adriatic Bottling Group</strong><span><span lang="pt">Brand owner · Milan, IT · comprador desde abr 2026</span><span lang="en">Brand owner · Milan, IT · buyer since Apr 2026</span></span></div>
+          <div class="bstat"><div class="tot">9.6 t</div><div class="lab"><span lang="pt">últimos 6 meses · 5 lotes</span><span lang="en">last 6 months · 5 batches</span></div></div>
+        </div>
+        <div class="rc-order-row"><span class="oid">DPP-GR-2026-000446</span><span class="odesc">Clear rPET · 76%</span><span class="odate">28 May 2026</span><span class="omass">2 050 kg</span></div>
+        <div class="rc-order-row"><span class="oid">DPP-GR-2026-000431</span><span class="odesc">Clear rPET · 72%</span><span class="odate">14 May 2026</span><span class="omass">1 940 kg</span></div>
+        <div class="rc-buyer-foot"><span><span lang="pt">Pedidos trimestrais em bulk · KYC verificado</span><span lang="en">Bulk quarterly orders · KYC verified</span></span><span><span lang="pt">Próximo esperado ~ago</span><span lang="en">Next expected ~Aug</span></span></div>
+      </div>
+
+      <div class="rc-buyer">
+        <div class="rc-buyer-top">
+          <div class="bav" aria-hidden="true">♻️</div>
+          <div class="bnm"><strong>Hellenic Fibres Ltd</strong><span><span lang="pt">Reciclador têxtil · Atenas, GR · comprador desde mai 2026</span><span lang="en">Textile recycler · Athens, GR · buyer since May 2026</span></span></div>
+          <div class="bstat"><div class="tot">3.1 t</div><div class="lab"><span lang="pt">últimos 6 meses · 2 lotes</span><span lang="en">last 6 months · 2 batches</span></div></div>
+        </div>
+        <div class="rc-order-row"><span class="oid">DPP-GR-2026-000452</span><span class="odesc">Green rPET · 62%</span><span class="odate">11 Jun 2026</span><span class="omass">1 600 kg</span></div>
+        <div class="rc-order-row"><span class="oid">DPP-GR-2026-000427</span><span class="odesc">Mixed rPET · 55%</span><span class="odate">30 Apr 2026</span><span class="omass">1 500 kg</span></div>
+        <div class="rc-buyer-foot"><span><span lang="pt">Aceita flake colorido / grade inferior</span><span lang="en">Takes coloured / lower-grade flake</span></span><span><span lang="pt">Ocasional</span><span lang="en">Occasional</span></span></div>
+      </div>
+    </div>
+
+    <!-- ===== 16 · WHAT TO ACT ON ===== -->
+    <div class="rc-card" id="act" style="margin-top: var(--space-md);">
+      <div class="rc-card-head">
+        <div>
+          <h2><span lang="pt">O que fazer a seguir</span><span lang="en">What to act on</span></h2>
+          <p><span lang="pt">Os movimentos que protegem sua licença, sobem a saúde de certificação e aumentam o preço que você vende.</span><span lang="en">The moves that protect your licence, lift certification health, and raise the price you sell at.</span></p>
+        </div>
+        <span class="rc-tag rc-you"><span lang="pt">Dos seus dados</span><span lang="en">From your data</span></span>
+      </div>
+
+      <div class="rc-alerts">
+        <div class="rc-alert"><div class="ic">🔒</div><div><strong><span lang="pt">Compartilhe o link de verificação on-chain com compradores</span><span lang="en">Share the on-chain verification link with buyers</span></strong><span><span lang="pt">Deixe conversores confirmarem seu claim de 78% pós-consumo em carrot.eco. Prova verificada vence ficha auto-declarada.</span><span lang="en">Let converters confirm your 78% post-consumer claim on carrot.eco themselves — verified proof wins specs over self-declared sheets.</span></span></div></div>
+        <div class="rc-alert"><div class="ic">⏱</div><div><strong><span lang="pt">Feche o gap de recepção no import de Bari</span><span lang="en">Close the reception gap on the Bari import</span></strong><span>Art. 15 <span lang="pt">confirmação de recepção pendente + confirme status RecyClass/EuCertPlast do fornecedor (RC-06).</span><span lang="en">reception confirmation pending + confirm supplier RecyClass/EuCertPlast status (RC-06).</span></span></div></div>
+        <div class="rc-alert"><div class="ic">↑</div><div><strong><span lang="pt">Lidere com claims pós-consumo + L2 por saída</span><span lang="en">Lead with post-consumer + L2 per-output claims</span></strong><span><span lang="pt">Seu passaporte por saída de 78% pós-consumo bate um concorrente L3 de média mensal — precifique de acordo.</span><span lang="en">Your 78% post-consumer, per-output passport beats an L3 monthly-average competitor — price it accordingly.</span></span></div></div>
+        <div class="rc-alert"><div class="ic">✓</div><div><strong><span lang="pt">Corte fora-de-escopo em Thessaloniki</span><span lang="en">Cut Thessaloniki out-throw</span></strong><span><span lang="pt">Menos não-PET eleva rendimento vendável e encolhe a linha de resíduos sólidos na sua reconciliação RC-03.</span><span lang="en">Less non-PET raises sellable yield and shrinks the solid-waste line in your RC-03 reconciliation.</span></span></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ FOOTER (compartilhado via shared.css) ============ -->
+<footer class="site-footer">
+  <div class="container">
+
+    <!-- Row 1: Manifesto tipografico -->
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+      </p>
+    </div>
+
+    <!-- Row 2: 3 colunas de links -->
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+      </div>
+    </div>
+
+    <!-- Row 3: brand line + versao (assinatura tipografica) -->
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">SHA a4f0&hellip;9c81 &middot; v0.4.7</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+// Throughput W/M/Y toggle
+(function(){
+  var seg = document.getElementById('tpSeg');
+  if (!seg) return;
+  seg.addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-tp]');
+    if (!btn) return;
+    var view = btn.getAttribute('data-tp');
+    seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b === btn); });
+    document.querySelectorAll('.rc-tp-view').forEach(function(v){ v.classList.remove('on'); });
+    var target = document.getElementById('rc-tp-' + view);
+    if (target) target.classList.add('on');
+  });
+})();
+</script>
+
+</body>
+</html>
