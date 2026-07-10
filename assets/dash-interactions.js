@@ -2122,7 +2122,7 @@
       delta: bi('+11% acima da média','+11% above average'),
       trend: bi('▲ 6.2% vs período anterior','▲ 6.2% vs prior period'),
       source: bi('Somatório do MassID.eligibleKg por planta / mês. Fonte canônica: engine de validação, sincronizada com escalas certificadas.','Sum of MassID.eligibleKg per plant / month. Canonical source: validation engine, synced with certified scales.'),
-      driver: bi('Cascade opera 312 cargas/mês vs 268 média do segmento. Diferença vem de utilização de linha superior (2 turnos vs 1.5).','Cascade runs 312 loads/mo vs 268 segment average. Difference comes from higher line utilisation (2 shifts vs 1.5).')
+      driver: bi('Aegean opera 312 cargas/mês vs 268 média do segmento. Diferença vem de utilização de linha superior (2 turnos vs 1.5).','Aegean runs 312 loads/mo vs 268 segment average. Difference comes from higher line utilisation (2 shifts vs 1.5).')
     },
     diversion: {
       title: bi('Taxa de aproveitamento','Diversion rate'),
@@ -2131,7 +2131,7 @@
       delta: bi('+6 pts acima da média','+6 pts above average'),
       trend: bi('▲ 2.1 pts vs período anterior','▲ 2.1 pts vs prior period'),
       source: bi('Output vendável ÷ input bruto por MassBalanceReconciliation mensal. Reconciliado contra as 5 categorias RC-03.','Sellable output ÷ gross input from monthly MassBalanceReconciliation. Reconciled against the 5 RC-03 categories.'),
-      driver: bi('Cascade tem contamination rate 4% menor que peers. Origem: pré-sorting na origem em 60% dos ingressos.','Cascade runs contamination 4% below peers. Driver: source-side pre-sorting on 60% of intake.')
+      driver: bi('Aegean tem contamination rate 4% menor que peers. Origem: pré-sorting na origem em 60% dos ingressos.','Aegean runs contamination 4% below peers. Driver: source-side pre-sorting on 60% of intake.')
     },
     quality: {
       title: bi('Nota de qualidade do dado','Data quality score'),
@@ -2154,10 +2154,10 @@
   };
 
   var BN_SEG_NAMES = {
-    large: bi('Large Processors','Large Processors'),
-    regional: bi('Regional Collector Networks','Regional Collector Networks'),
-    national: bi('National MRF Networks','National MRF Networks'),
-    all: bi('Todos os segmentos','All peer segments')
+    large: bi('Recicladores PET · UE','PET Recyclers · EU'),
+    regional: bi('Recicladores HDPE · UE','HDPE Recyclers · EU'),
+    national: bi('MRFs nacionais','National MRF Networks'),
+    all: bi('Todos os polímeros','All polymers')
   };
 
   /* ---------- Benchmark: Score card verde escuro ---------- */
@@ -2226,7 +2226,7 @@
     if (exp) exp.addEventListener('click', function () {
       mockAction(exp, function () {
         closeAll();
-        toast({ title: bi('Relatório exportado','Report exported'), msg: 'recovery-index-cascade-' + Date.now().toString(36) + '.pdf' });
+        toast({ title: bi('Relatório exportado','Report exported'), msg: 'recovery-index-aegean-' + Date.now().toString(36) + '.pdf' });
       });
     });
   }
@@ -2347,7 +2347,7 @@
     if (row.isYou) {
       openDrawer({
         eyebrow: bi('Sua posição no segmento','Your segment position'),
-        title: 'Cascade Materials Recovery',
+        title: 'Aegean PET Recycling',
         subtitle: bi('Percentil: ','Percentile: ') + row.percentile,
         body:
           '<div class="dash-section">' +
@@ -2423,7 +2423,7 @@
           subtitle: bi('Ledger 0x9f2c71a…e83 · auditado 8 jul 2026','Ledger 0x9f2c71a…e83 · audited Jul 8, 2026'),
           body:
             '<div class="dash-preview-card">' +
-              '<h4>Recovery Index · Cascade Materials Recovery</h4>' +
+              '<h4>Recovery Index · Aegean PET Recycling</h4>' +
               '<div class="pc-sub">' + bi('Índice composto público · verificável on-chain','Public composite index · on-chain verifiable') + '</div>' +
               '<div class="pc-hash">0x9f2c71a…e83 · ' + bi('block 62,184,097','block 62,184,097') + '</div>' +
             '</div>' +

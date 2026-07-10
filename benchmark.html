@@ -9,10 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/shared.css?v=20260710-16">
-<link rel="stylesheet" href="assets/dash-interactions.css?v=20260710-19">
+<link rel="stylesheet" href="assets/dash-interactions.css?v=20260710-20">
 <script src="assets/shared.js?v=20260626-1421" defer></script>
 <script src="assets/logo.js?v=20260707-4" defer></script>
-<script src="assets/dash-interactions.js?v=20260710-19" defer></script>
+<script src="assets/dash-interactions.js?v=20260710-20" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
 <style>
   /* Sub-nav */
@@ -549,13 +549,27 @@
   </div>
 </nav>
 
-<!-- (sub-nav removed) -->
+<!-- ============ DASH SUB-NAV (Operations | Market benchmark) ============ -->
+<nav class="dash-tabs" aria-label="Recycler dashboard views">
+  <div class="dash-tabs-inner">
+    <span class="dash-tabs-context">
+      <span class="eye"><span lang="pt">Painel do reciclador</span><span lang="en">Recycler dashboard</span></span>
+      <strong>Aegean PET Recycling</strong>
+    </span>
+    <a class="dash-tab" href="recycler.html">
+      <span lang="pt">Operações</span><span lang="en">Operations</span>
+    </a>
+    <a class="dash-tab active" href="benchmark.html">
+      <span lang="pt">Benchmark de mercado</span><span lang="en">Market benchmark</span>
+    </a>
+  </div>
+</nav>
 
 <!-- HERO -->
 <section class="hero bn-hero" id="overview">
   <div class="container">
     <span class="eyebrow-full">
-      <span lang="pt">Cascade Materials Recovery — segmento MRFs nacionais · ao vivo</span><span lang="en">Cascade Materials Recovery — national MRF segment · live</span>
+      <span lang="pt">Aegean PET Recycling — segmento recicladores de PET UE · ao vivo</span><span lang="en">Aegean PET Recycling — EU PET recyclers segment · live</span>
       <span class="demo-badge"><span lang="pt">Amostra · vista de demonstração</span><span lang="en">Sample data · demo view</span></span>
     </span>
     <h1>
@@ -573,9 +587,9 @@
     <!-- Filters -->
     <div class="bn-filters">
       <div class="bn-filter-group" id="segmentFilter">
-        <button type="button" class="on" data-seg="large"><span lang="pt">Large Processors (seu segmento)</span><span lang="en">Large Processors (your segment)</span></button>
-        <button type="button" data-seg="all"><span lang="pt">Todos os segmentos</span><span lang="en">All peer segments</span></button>
-        <button type="button" data-seg="regional"><span lang="pt">Coleta regional</span><span lang="en">Regional Collector Networks</span></button>
+        <button type="button" class="on" data-seg="large"><span lang="pt">Recicladores PET · UE (seu segmento)</span><span lang="en">PET Recyclers · EU (your segment)</span></button>
+        <button type="button" data-seg="all"><span lang="pt">Todos os polímeros</span><span lang="en">All polymers</span></button>
+        <button type="button" data-seg="regional"><span lang="pt">Recicladores HDPE · UE</span><span lang="en">HDPE Recyclers · EU</span></button>
         <button type="button" data-seg="national"><span lang="pt">MRFs nacionais</span><span lang="en">National MRF Networks</span></button>
       </div>
       <div class="bn-filter-group" id="periodFilter">
@@ -600,7 +614,7 @@
           <span class="bn-score-scale">/ 100</span>
         </div>
         <div class="bn-score-desc">
-          <strong>Cascade Materials Recovery</strong>
+          <strong>Aegean PET Recycling</strong>
           <span lang="pt">está no <strong><em id="indexPctPT">84º percentil</em></strong> entre pares Large Processor no índice blended — ponderado 55% volume &amp; fluxo de material, 25% qualidade do dado, 20% verificação de chain-of-custody.</span><span lang="en">ranks in the <strong><em id="indexPct">84th percentile</em></strong> among Large Processor peers on the blended index — weighted 55% material volume &amp; flow, 25% data quality, 20% chain-of-custody verification.</span>
         </div>
         <div class="bn-pct-track">
@@ -694,7 +708,7 @@
     <div class="bn-card" id="leaderboard" style="margin-top: var(--space-md);">
       <div class="bn-card-head">
         <div>
-          <h2><span lang="pt">Ranking do segmento — MRFs nacionais</span><span lang="en">Segment leaderboard — national MRFs</span></h2>
+          <h2><span lang="pt">Ranking do segmento — Recicladores PET UE</span><span lang="en">Segment leaderboard — EU PET Recyclers</span></h2>
           <p>
             <span lang="pt">Os 5 primeiros do segmento e sua posição. Identidades dos concorrentes ficam mascaradas — o benchmark trabalha em dado verificado, não em quem é quem.</span><span lang="en">The top 5 of the segment and where you rank. Competitor identities stay masked — the benchmark works on verified data, not on names.</span>
           </p>
@@ -782,8 +796,14 @@
 
 <script>
 // Recovery Index benchmark — reactivo aos filtros de segment + period
-window.addEventListener('load', function(){
-  if (typeof Chart === 'undefined') return;
+// Bind dos handlers sempre acontece (mesmo sem Chart), pra classList/UI reagir.
+// O render das charts é adiado até Chart estar disponível.
+document.addEventListener('DOMContentLoaded', function(){
+  var chartReady = function(){ return typeof Chart !== 'undefined'; };
+  if (chartReady()) {
+    Chart.defaults.font.family = "'Manrope', sans-serif";
+    Chart.defaults.color = '#6b7580';
+  }
 
   var ACCENT       = '#22a052';
   var ACCENT_STRG  = '#1a7a3d';
@@ -793,45 +813,43 @@ window.addEventListener('load', function(){
   var PEER_FILL    = 'rgba(138, 147, 155, 0.15)';
   var MANROPE      = "'Manrope', sans-serif";
   var MONO         = "'IBM Plex Mono', ui-monospace, monospace";
-  Chart.defaults.font.family = MANROPE;
-  Chart.defaults.color = INK_FAINT;
 
   // Data model — 3 segments com you + peers + trend por período
-  var youBase = { label: 'Cascade Materials Recovery (you)', tons: 4820, diversion: 71, quality: 92, trace: 88 };
+  var youBase = { label: 'Aegean PET Recycling (you)', tons: 4820, diversion: 71, quality: 92, trace: 88 };
   var segments = {
     large: {
-      name: 'Large Processors',
+      name: 'PET Recyclers · EU',
       you: Object.assign({}, youBase, { percentile: 84 }),
       peers: [
-        { label: 'Peer 1 · Large Processor', tons: 5210, diversion: 68, quality: 85, trace: 74, percentile: 79 },
-        { label: 'Peer 2 · Large Processor', tons: 4390, diversion: 63, quality: 79, trace: 81, percentile: 61 },
-        { label: 'Peer 3 · Large Processor', tons: 3980, diversion: 74, quality: 88, trace: 69, percentile: 70 },
-        { label: 'Peer 4 · Large Processor', tons: 4610, diversion: 59, quality: 71, trace: 65, percentile: 44 },
-        { label: 'Peer 5 · Large Processor', tons: 3510, diversion: 66, quality: 82, trace: 77, percentile: 58 }
+        { label: 'Peer 1 · PET Recycler', tons: 5210, diversion: 68, quality: 85, trace: 74, percentile: 79 },
+        { label: 'Peer 2 · PET Recycler', tons: 4390, diversion: 63, quality: 79, trace: 81, percentile: 61 },
+        { label: 'Peer 3 · PET Recycler', tons: 3980, diversion: 74, quality: 88, trace: 69, percentile: 70 },
+        { label: 'Peer 4 · PET Recycler', tons: 4610, diversion: 59, quality: 71, trace: 65, percentile: 44 },
+        { label: 'Peer 5 · PET Recycler', tons: 3510, diversion: 66, quality: 82, trace: 77, percentile: 58 }
       ]
     },
     regional: {
-      name: 'Regional Collector Networks',
+      name: 'HDPE Recyclers · EU',
       you: Object.assign({}, youBase, { percentile: 91 }),
       peers: [
-        { label: 'Peer 1 · Regional Collector', tons: 2100, diversion: 55, quality: 68, trace: 52, percentile: 38 },
-        { label: 'Peer 2 · Regional Collector', tons: 1870, diversion: 60, quality: 74, trace: 60, percentile: 49 },
-        { label: 'Peer 3 · Regional Collector', tons: 2450, diversion: 57, quality: 70, trace: 55, percentile: 41 },
-        { label: 'Peer 4 · Regional Collector', tons: 1650, diversion: 52, quality: 63, trace: 48, percentile: 30 }
+        { label: 'Peer 1 · HDPE Recycler', tons: 2100, diversion: 55, quality: 68, trace: 52, percentile: 38 },
+        { label: 'Peer 2 · HDPE Recycler', tons: 1870, diversion: 60, quality: 74, trace: 60, percentile: 49 },
+        { label: 'Peer 3 · HDPE Recycler', tons: 2450, diversion: 57, quality: 70, trace: 55, percentile: 41 },
+        { label: 'Peer 4 · HDPE Recycler', tons: 1650, diversion: 52, quality: 63, trace: 48, percentile: 30 }
       ]
     },
     national: {
       name: 'National MRF Networks',
       you: Object.assign({}, youBase, { percentile: 66 }),
       peers: [
-        { label: 'Peer 1 · National Network', tons: 9800,  diversion: 70, quality: 90, trace: 84, percentile: 74 },
-        { label: 'Peer 2 · National Network', tons: 11200, diversion: 73, quality: 94, trace: 90, percentile: 88 },
-        { label: 'Peer 3 · National Network', tons: 8700,  diversion: 66, quality: 86, trace: 79, percentile: 61 }
+        { label: 'Peer 1 · National MRF', tons: 9800,  diversion: 70, quality: 90, trace: 84, percentile: 74 },
+        { label: 'Peer 2 · National MRF', tons: 11200, diversion: 73, quality: 94, trace: 90, percentile: 88 },
+        { label: 'Peer 3 · National MRF', tons: 8700,  diversion: 66, quality: 86, trace: 79, percentile: 61 }
       ]
     }
   };
   segments.all = {
-    name: 'All segments',
+    name: 'All polymers',
     you: segments.large.you,
     peers: segments.large.peers.concat(segments.regional.peers, segments.national.peers)
   };
@@ -883,6 +901,7 @@ window.addEventListener('load', function(){
   }
 
   function renderVolume(seg){
+    if (!chartReady()) return;
     var labels = ['You'].concat(seg.peers.map(function(_,i){ return 'Peer ' + (i+1); }));
     var data   = [seg.you.tons].concat(seg.peers.map(function(p){ return p.tons; }));
     var colors = [ACCENT].concat(seg.peers.map(function(){ return PEER; }));
@@ -903,6 +922,7 @@ window.addEventListener('load', function(){
   }
 
   function renderRadar(seg){
+    if (!chartReady()) return;
     var a = { tons: avg(seg.peers.map(function(p){return p.tons;})),
               diversion: avg(seg.peers.map(function(p){return p.diversion;})),
               quality: avg(seg.peers.map(function(p){return p.quality;})),
@@ -930,6 +950,7 @@ window.addEventListener('load', function(){
   }
 
   function renderTrend(){
+    if (!chartReady()) return;
     var t = trendData[currentSegment][currentPeriod];
     if (trendChart) trendChart.destroy();
     trendChart = new Chart(document.getElementById('trendChart'), {
@@ -951,7 +972,7 @@ window.addEventListener('load', function(){
   }
 
   function renderTable(seg){
-    var rows = [{ label: 'Cascade Materials Recovery', tons: seg.you.tons, diversion: seg.you.diversion, quality: seg.you.quality, trace: seg.you.trace, percentile: seg.you.percentile, isYou: true }]
+    var rows = [{ label: 'Aegean PET Recycling', tons: seg.you.tons, diversion: seg.you.diversion, quality: seg.you.quality, trace: seg.you.trace, percentile: seg.you.percentile, isYou: true }]
       .concat(seg.peers.map(function(p){ return Object.assign({}, p, { isYou: false }); }));
     rows.sort(function(a,b){
       if (sortKey === 'label') return a.label.localeCompare(b.label) * sortDir;
@@ -960,7 +981,7 @@ window.addEventListener('load', function(){
     document.getElementById('lbBody').innerHTML = rows.map(function(r){
       return '<tr class="' + (r.isYou ? 'you-row' : '') + '">' +
         '<td>' + (r.isYou
-                    ? 'Cascade Materials Recovery <span class="you-tag">YOU</span>'
+                    ? 'Aegean PET Recycling <span class="you-tag">YOU</span>'
                     : r.label + ' · masked') + '</td>' +
         '<td class="right">' + fmt(r.tons) + '</td>' +
         '<td class="right">' + r.diversion + '%</td>' +
@@ -1013,7 +1034,26 @@ window.addEventListener('load', function(){
     });
   });
 
-  renderAll();
+  // Aguardar Chart estar pronto pra render inicial (defer + CDN podem chegar depois)
+  var attempts = 0;
+  function waitAndRender(){
+    if (chartReady()) {
+      Chart.defaults.font.family = MANROPE;
+      Chart.defaults.color = INK_FAINT;
+      renderAll();
+      return;
+    }
+    if (attempts++ > 40) { // ~4s max
+      // fallback: renderiza só o que não precisa de Chart (score + kpis + tabela)
+      var seg = segments[currentSegment];
+      renderScore(seg);
+      renderKPIs(seg);
+      renderTable(seg);
+      return;
+    }
+    setTimeout(waitAndRender, 100);
+  }
+  waitAndRender();
 });
 </script>
 
