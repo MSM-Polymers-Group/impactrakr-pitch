@@ -1,0 +1,11 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/gdj4zwv8/public_html
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/find $DEPLOYPATH -maxdepth 1 -mindepth 1 -not -name 'cgi-bin' -not -name '.well-known' -exec /bin/rm -rf {} +
+    - /bin/cp -R assets $DEPLOYPATH/
+    - /bin/cp -R cadastro $DEPLOYPATH/
+    - /bin/cp -f *.html $DEPLOYPATH/
+    - /bin/cp -f .nojekyll $DEPLOYPATH/ 2>/dev/null || true
+    - /bin/cp -f CNAME $DEPLOYPATH/ 2>/dev/null || true
