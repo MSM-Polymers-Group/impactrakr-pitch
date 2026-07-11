@@ -68,7 +68,7 @@
       <span lang="pt">Do resíduo ao DPP unit verificado<br><span class="display-italic">em três dias.</span></span><span lang="en">From waste to a verified DPP unit<br><span class="display-italic">in three days.</span></span>
     </h1>
     <p class="subtitle">
-      <span lang="pt">139 regras. 36 documentos. 4,2 segundos de validação. Diagrama operacional do cenário de referência, clique em qualquer task para abrir os detalhes.</span><span lang="en">139 rules. 36 documents. 4.2 seconds of validation. Operational diagram of the reference scenario, click any task to open details.</span>
+      <span lang="pt">139 regras. 36 documentos. Validação em segundos. Diagrama operacional do cenário de referência, clique em qualquer task para abrir os detalhes.</span><span lang="en">139 rules. 36 documents. Validation in seconds. Operational diagram of the reference scenario, click any task to open details.</span>
     </p>
   </div>
 </section>
@@ -411,7 +411,7 @@
         <text class="task-title compact" x="1605" y="1400"><tspan lang="pt">Retorna metadados</tspan><tspan lang="en">Returns metadata</tspan></text>
         <text class="task-sub compact" x="1605" y="1418">ID + <tspan lang="pt">status</tspan><tspan lang="en">status</tspan></text>
         <text class="task-sub compact" x="1605" y="1434"><tspan lang="pt">trilha de evidências</tspan><tspan lang="en">evidence trail</tspan></text>
-        <text class="task-sub compact" x="1605" y="1450"><tspan lang="pt">ancorado on-chain</tspan><tspan lang="en">on-chain anchor</tspan></text>
+        <text class="task-sub compact" x="1605" y="1450"><tspan lang="pt">selado com SHA-256</tspan><tspan lang="en">SHA-256 sealed</tspan></text>
 
         <!-- ============================================================
              FLOWS · planned through corridors, no task crossings
@@ -918,8 +918,8 @@
     'D1': {
       phase:'D', num:'15', title:{pt:'Sistema dispara o Validation Engine', en:'System triggers the Validation Engine'},
       actor:{pt:'<strong>Sistema ImpacTrakr</strong> · Validation Engine', en:'<strong>ImpacTrakr System</strong> · Validation Engine'},
-      what:{pt:'Quando o ciclo regulatório fecha (DIWASS arquiva o Completion Certificate), o ImpacTrakr dispara o motor de validação em três módulos paralelos: PURE (95 regras), UE (27 regras), RecyClass (17 regras), total 139 regras avaliadas em ~4,2 segundos.',
-            en:'When the regulatory cycle closes (DIWASS files the Completion Certificate), ImpacTrakr triggers the validation engine in three parallel modules: PURE (95 rules), EU (27 rules), RecyClass (17 rules), total 139 rules evaluated in ~4.2 seconds.'},
+      what:{pt:'Quando o ciclo regulatório fecha (DIWASS arquiva o Completion Certificate), o ImpacTrakr dispara o motor de validação em três módulos paralelos: PURE (95 regras), UE (27 regras), RecyClass (17 regras), total 139 regras avaliadas em segundos.',
+            en:'When the regulatory cycle closes (DIWASS files the Completion Certificate), ImpacTrakr triggers the validation engine in three parallel modules: PURE (95 rules), EU (27 rules), RecyClass (17 rules), total 139 rules evaluated in seconds.'},
       docs:[
         {name:'validation_execution_log',
          purpose:{pt:'Log determinístico e reproduzível da execução de cada uma das 139 regras.', en:'Deterministic and reproducible log of execution of each of the 139 rules.'},

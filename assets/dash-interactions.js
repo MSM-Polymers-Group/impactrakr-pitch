@@ -1989,7 +1989,7 @@
       strip.addEventListener('click', function () {
         openModal({
           title: bi('Hash chain SHA-256','SHA-256 hash chain'),
-          subtitle: bi('Ancorado na Carrot Network · 1.284 eventos deste cliente','Anchored on Carrot Network · 1,284 events for this client'),
+          subtitle: bi('Selado com SHA-256 · integração Carrot Network prevista · 1.284 eventos deste cliente','Sealed with SHA-256 · Carrot Network integration in scope · 1,284 events for this client'),
           body:
             '<div class="dash-preview-card">' +
               '<h4>0x7b…a2f9</h4>' +
