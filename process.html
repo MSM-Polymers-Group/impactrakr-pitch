@@ -918,8 +918,8 @@
     'D1': {
       phase:'D', num:'15', title:{pt:'Sistema dispara o Validation Engine', en:'System triggers the Validation Engine'},
       actor:{pt:'<strong>Sistema ImpacTrakr</strong> · Validation Engine', en:'<strong>ImpacTrakr System</strong> · Validation Engine'},
-      what:{pt:'Quando o ciclo regulatório fecha (DIWASS arquiva o Completion Certificate), o ImpacTrakr dispara o motor de validação em três módulos paralelos: PURE (95 regras), UE (27 regras), RecyClass (17 regras), total 139 regras avaliadas em segundos.',
-            en:'When the regulatory cycle closes (DIWASS files the Completion Certificate), ImpacTrakr triggers the validation engine in three parallel modules: PURE (95 rules), EU (27 rules), RecyClass (17 rules), total 139 rules evaluated in seconds.'},
+      what:{pt:'Quando o ciclo regulatório fecha (DIWASS arquiva o Completion Certificate), o ImpacTrakr dispara o motor de validação em três módulos paralelos: PURE (88 regras), UE (27 regras), RecyClass (24 regras — inclui 7 siblings universais compartilhados com PURE), total 139 regras avaliadas em segundos.',
+            en:'When the regulatory cycle closes (DIWASS files the Completion Certificate), ImpacTrakr triggers the validation engine in three parallel modules: PURE (88 rules), EU (27 rules), RecyClass (24 rules — includes 7 universal siblings shared with PURE), total 139 rules evaluated in seconds.'},
       docs:[
         {name:'validation_execution_log',
          purpose:{pt:'Log determinístico e reproduzível da execução de cada uma das 139 regras.', en:'Deterministic and reproducible log of execution of each of the 139 rules.'},
@@ -932,7 +932,7 @@
         phase2:{pt:'Otimizações: cache de evidências por hash, paralelismo intra-módulo, retry automático em regras com side-effects de I/O.',
                 en:'Optimisations: evidence cache by hash, intra-module parallelism, automatic retry on rules with I/O side-effects.'}
       },
-      rules:['ALL · PURE 95 + UE 27 + RecyClass 17'], next:'D3'
+      rules:['ALL · PURE 88 + UE 27 + RecyClass 24'], next:'D3'
     },
     'D3': {
       phase:'D', num:'16', title:{pt:'Carrot emite o crédito', en:'Carrot issues the credit'},
