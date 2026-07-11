@@ -1400,7 +1400,7 @@
       value: bi('Alerta preventivo antes que a exceção afete múltiplos clientes.','Preventive alert before the exception hits multiple clients.') },
     { icon: '↗', title: bi('Score de prontidão regulatória','Regulatory-readiness scoring'),
       example: bi('PPWR 2028 · 30% post-consumer food-grade obrigatório. 6 dos 24 clientes ainda em 22%.','PPWR 2028 · 30% post-consumer food-grade mandatory. 6 of the 24 clients still at 22%.'),
-      value: bi('Vira pipeline de consultoria pra Kiwa. Cada cliente vale ~€22k de remediation ticket.','Turns into consulting pipeline for Kiwa. Each client worth ~€22k remediation ticket.') },
+      value: bi('Vira pipeline de consultoria pro certificador. Cada cliente vale ~€22k de remediation ticket.','Turns into consulting pipeline for the certifier. Each client worth ~€22k remediation ticket.') },
     { icon: '◉', title: bi('Cross-sell por gap de cobertura','Coverage-gap cross-sell'),
       example: bi('Nordic Repro certifica planta Malmö mas tem planta Göteborg (mesmo fluxo) sem certificação.','Nordic Repro certifies Malmö plant but has Göteborg plant (same flow) uncertified.'),
       value: bi('Expansão pré-qualificada. Evidência da planta mãe reduz onboarding do irmão em 60%.','Pre-qualified expansion. Parent plant evidence cuts sibling onboarding by 60%.') }
@@ -1495,7 +1495,7 @@
             '<div class="dash-kv"><span class="k">' + bi('Observação (amber)','Watch (amber)') + '</span><span class="v" style="color:var(--warning);">3 / 24</span></div>' +
             '<div class="dash-kv"><span class="k">' + bi('Precisa revisão (red)','Needs review (red)') + '</span><span class="v" style="color:var(--block);">1 / 24</span></div>' +
           '</div>' +
-          '<div class="dash-section"><div class="dash-note">' + bi('83% do portfolio pode ser certificado em modo light-touch. Isso é multiplicador direto da margem operacional da Kiwa.','83% of the portfolio can be certified in light-touch mode. Direct multiplier on Kiwa\'s operating margin.') + '</div></div>' },
+          '<div class="dash-section"><div class="dash-note">' + bi('83% do portfolio pode ser certificado em modo light-touch. Isso é multiplicador direto da margem operacional do certificador.','83% of the portfolio can be certified in light-touch mode. Direct multiplier on the certifier\'s operating margin.') + '</div></div>' },
       { title: bi('Exceções abertas','Open exceptions'),
         body:
           '<div class="dash-section">' +
