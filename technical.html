@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImpacTrakr &middot; Technical documentation for IT &amp; Security teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260917-es1">
+<style>
+  /* === Page-specific: Technical docs === */
+
+  .doc-layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: start;
+    max-width: var(--max-wide);
+    margin: 0 auto;
+    padding: var(--space-fluid-section) var(--gutter);
+  }
+
+  .doc-toc {
+    position: sticky;
+    top: calc(var(--space-lg) + 84px);
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    padding-right: var(--space-sm);
+    border-right: 1px solid var(--line);
+  }
+  .doc-toc-heading {
+    font-family: 'Manrope', sans-serif;
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 var(--space-sm);
+  }
+  .doc-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: doc-toc; }
+  .doc-toc li { counter-increment: doc-toc; margin-bottom: 2px; }
+  .doc-toc a {
+    display: block;
+    padding: 6px var(--space-xs) 6px 0;
+    font-size: var(--fs-body-sm);
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    padding-left: var(--space-sm);
+    line-height: 1.4;
+    transition: color var(--d-quick) var(--ease-out), border-color var(--d-quick) var(--ease-out);
+  }
+  .doc-toc a::before {
+    content: counter(doc-toc, decimal-leading-zero) '  ';
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .doc-toc a:hover { color: var(--ink); }
+  .doc-toc a.active { color: var(--accent-strong); border-left-color: var(--accent); font-weight: 600; }
+
+  .doc-main { min-width: 0; }
+  .doc-header { max-width: var(--max-prose); margin-bottom: var(--space-2xl); }
+  .doc-header h1 { margin: var(--space-xs) 0 var(--space-md); }
+  .doc-header .lede { font-size: var(--fs-lead); line-height: var(--lh-relaxed); color: var(--ink-soft); }
+
+  .doc-section { padding-top: var(--space-2xl); margin-top: var(--space-2xl); border-top: 1px solid var(--line-soft); scroll-margin-top: 96px; }
+  .doc-section:first-of-type { border-top: none; margin-top: 0; }
+  .doc-section h2 { display: flex; align-items: baseline; gap: var(--space-sm); }
+  .doc-section h2 .doc-num { font-family: 'Manrope', sans-serif; font-size: var(--fs-body); font-weight: 700; color: var(--accent-strong); }
+  .doc-section > p { max-width: var(--max-prose); }
+  .doc-section h3 { margin-top: var(--space-lg); }
+
+  .doc-audience {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Manrope', sans-serif; font-size: var(--fs-eyebrow); font-weight: 700;
+    letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--accent-strong);
+    background: var(--surface-raised); border: 1px solid var(--brand-line);
+    padding: 6px 12px; border-radius: 999px; margin-bottom: var(--space-sm);
+  }
+
+  .fact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);
+    margin: var(--space-lg) 0 var(--space-xl);
+  }
+  .fact-card {
+    border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--space-md);
+    background: var(--surface-raised);
+  }
+  .fact-card .fk { display:block; font-size: var(--fs-caption); color: var(--ink-mute); margin-bottom: 4px; }
+  .fact-card .fv { display:block; font-size: var(--fs-body); color: var(--ink); font-weight: 600; }
+
+  table.spec-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0 var(--space-lg); font-size: var(--fs-body); }
+  table.spec-table th, table.spec-table td { text-align: left; padding: 10px var(--space-sm); border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.spec-table th { font-family: 'Manrope', sans-serif; font-size: var(--fs-caption); text-transform: uppercase; letter-spacing: var(--ls-eyebrow); color: var(--ink-mute); font-weight: 700; }
+  table.spec-table td.mono, table.spec-table th.mono { font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; font-size: var(--fs-body-sm); }
+
+  .flow-steps { display: flex; flex-direction: column; gap: 0; margin: var(--space-lg) 0; }
+  .flow-step { display: grid; grid-template-columns: 32px 1fr; gap: var(--space-sm); padding: var(--space-sm) 0; }
+  .flow-step .fs-dot { width: 32px; display:flex; flex-direction:column; align-items:center; }
+  .flow-step .fs-dot span { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .flow-step .fs-dot::after { content:''; flex:1; width:1px; background: var(--line); margin-top: 6px; }
+  .flow-step:last-child .fs-dot::after { display: none; }
+  .flow-step h4 { margin: 0 0 4px; font-family: 'Manrope', sans-serif; font-size: var(--fs-body-lg); font-weight: 700; }
+  .flow-step p { margin: 0; max-width: var(--max-prose); color: var(--ink-soft); font-size: var(--fs-body); }
+
+  .confirm-flag {
+    display: block; margin: var(--space-sm) 0 var(--space-md);
+    background: color-mix(in oklch, var(--warning) 16%, var(--bg));
+    border: 1px solid color-mix(in oklch, var(--warning) 55%, var(--line));
+    border-left: 3px solid var(--warning);
+    border-radius: var(--r-md); padding: var(--space-sm) var(--space-md);
+    font-size: var(--fs-body-sm); color: var(--ink-soft);
+  }
+  .confirm-flag strong { color: var(--ink); font-family: 'Manrope', sans-serif; letter-spacing: 0.01em; }
+
+  /* FAQ accordion — same component as index.html's faq-editorial section */
+  details.faq-item {
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  details.faq-item:last-child { border-bottom: 1px solid var(--line); }
+  details.faq-item[open] { padding-bottom: var(--space-md); }
+  details.faq-item > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+    transition: color var(--d-quick) var(--ease-out);
+  }
+  details.faq-item > summary::-webkit-details-marker { display: none; }
+  details.faq-item > summary::marker { content: ''; }
+  details.faq-item > summary:hover { color: var(--accent); }
+  details.faq-item > summary .faq-toggle {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    position: relative;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  details.faq-item > summary .faq-toggle::before,
+  details.faq-item > summary .faq-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    background: currentColor;
+    transition: transform var(--d-quick) var(--ease-out);
+  }
+  details.faq-item > summary .faq-toggle::before {
+    width: 14px; height: 2px;
+    transform: translate(-50%, -50%);
+  }
+  details.faq-item > summary .faq-toggle::after {
+    width: 2px; height: 14px;
+    transform: translate(-50%, -50%);
+  }
+  details.faq-item[open] > summary .faq-toggle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+  details.faq-item > .faq-answer {
+    padding: 0 0 var(--space-2xs);
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    max-width: 72ch;
+    margin: 0;
+  }
+
+  @media (max-width: 980px) {
+    .doc-layout { grid-template-columns: 1fr; }
+    .doc-toc { position: static; max-height: none; border-right: none; border-bottom: 1px solid var(--line); padding-bottom: var(--space-md); margin-bottom: var(--space-md); }
+    .fact-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body data-page="technical">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV &middot; TRACEABILITY &middot; COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada &middot; dMRV &middot; compliance UE &amp; RecyClass</span><span lang="en">Verified traceability &middot; dMRV &middot; EU &amp; RecyClass compliance</span><span lang="es">Trazabilidad verificada &middot; dMRV &middot; cumplimiento UE y RecyClass</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></span>
+    </a>
+    <a class="nav-tab" data-target="paineis" href="dashboards.html">
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span><span lang="es">Paneles</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></span>
+    </a>
+    <a class="nav-tab" data-target="technical" href="docs-index.html">
+      <span><span lang="pt">Docs</span><span lang="en">Docs</span><span lang="es">Docs</span></span>
+    </a>
+  </div>
+</nav>
+
+<div class="doc-layout">
+
+  <aside class="doc-toc">
+    <p class="doc-toc-heading"><span lang="pt">Nesta página</span><span lang="en">On this page</span><span lang="es">En esta página</span></p>
+    <ol id="doc-toc-list">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#architecture">Architecture &amp; stack</a></li>
+      <li><a href="#data-flow">Data flow</a></li>
+      <li><a href="#tenancy">Multi-tenant security</a></li>
+      <li><a href="#integrity">Data integrity &amp; audit trail</a></li>
+      <li><a href="#storage">Document &amp; storage security</a></li>
+      <li><a href="#db-access">Database access</a></li>
+      <li><a href="#auditor-access">External auditor access</a></li>
+      <li><a href="#compliance">Compliance posture</a></li>
+      <li><a href="#integration">Integration paths</a></li>
+      <li><a href="#process">Engineering process</a></li>
+      <li><a href="#faq">Security FAQ</a></li>
+      <li><a href="#contact">Next steps</a></li>
+    </ol>
+  </aside>
+
+  <main class="doc-main">
+
+    <div class="doc-header">
+      <span class="doc-audience"><span lang="pt">Para times de TI &amp; Segurança</span><span lang="en">For IT &amp; Security teams</span><span lang="es">Para equipos de TI y Seguridad</span></span>
+      <h1><span lang="pt">Documentação técnica</span><span lang="en">Technical documentation</span><span lang="es">Documentación técnica</span></h1>
+      <p class="lede">
+        <span lang="pt">Tudo que o time técnico de um cliente precisa pra avaliar a ImpacTrakr antes de recomendar uma integração ou piloto: arquitetura, modelo de segurança multi-tenant, trilha de auditoria, e como os dados se movem pela plataforma. Esta página é viva e será atualizada conforme a arquitetura evolui.</span><span lang="en">Everything a client's technical team needs to evaluate ImpacTrakr before recommending an integration or a pilot: architecture, multi-tenant security model, audit trail, and how data actually moves through the platform. This page is living documentation, updated as the architecture evolves.</span><span lang="es">Todo lo que el equipo técnico de un cliente necesita para evaluar ImpacTrakr antes de recomendar una integración o un piloto: arquitectura, modelo de seguridad multi-tenant, rastro de auditoría y cómo se mueven realmente los datos por la plataforma. Esta página es documentación viva, actualizada a medida que la arquitectura evoluciona.</span>
+      </p>
+    </div>
+
+    <div class="confirm-flag">
+      <strong>Note to reviewer:</strong> the chrome (header, nav, footer) is bilingual EN/PT like the rest of the site. The body content below is written in English only for this first draft &mdash; the audience is technical evaluators who default to English docs, and duplicating this much prose into PT would roughly double the review effort before this ships. Say the word and a PT pass gets added.
+    </div>
+
+    <section class="doc-section" id="overview">
+      <h2><span class="doc-num">01</span> Overview</h2>
+      <p>This page is written for the people who have to say yes or no before an integration happens: IT, security, and compliance reviewers. It is not a full API reference &mdash; it is the architecture, security, and data-handling picture you need to decide whether a pilot is safe to run.</p>
+
+      <div class="fact-grid">
+        <div class="fact-card"><span class="fk">Backend</span><span class="fv">NestJS (TypeScript), modular monolith</span></div>
+        <div class="fact-card"><span class="fk">Frontend</span><span class="fv">Next.js dashboard</span></div>
+        <div class="fact-card"><span class="fk">Database</span><span class="fv">PostgreSQL, one DB per module, on AWS RDS</span></div>
+        <div class="fact-card"><span class="fk">Authentication</span><span class="fv">AWS Cognito + self-hosted authorization</span></div>
+        <div class="fact-card"><span class="fk">Tenant isolation</span><span class="fv">Postgres Row-Level Security, enforced per request</span></div>
+        <div class="fact-card"><span class="fk">Audit trail</span><span class="fv">Append-only, SHA-256 hash-chained event log</span></div>
+        <div class="fact-card"><span class="fk">File storage</span><span class="fv">AWS S3, VPC-only, no public URLs</span></div>
+        <div class="fact-card"><span class="fk">Infrastructure</span><span class="fv">AWS, provisioned via Pulumi (infrastructure-as-code)</span></div>
+        <div class="fact-card"><span class="fk">CI/CD</span><span class="fv">GitHub Actions, gated deploys</span></div>
+        <div class="fact-card"><span class="fk">Region</span><span class="fv">AWS eu-central-1 (Frankfurt) &mdash; dev and prod both</span></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="architecture">
+      <h2><span class="doc-num">02</span> Architecture &amp; stack</h2>
+      <p>The backend is organized as a set of bounded contexts (independent business modules &mdash; participants, mass-tracking records, homologation/permits, audit) rather than one shared codebase with shared tables. Each module owns its own PostgreSQL database on a shared RDS instance, so a bug in one module's queries cannot accidentally read or write another module's data at the database level, on top of the tenant isolation described in section 04.</p>
+      <p>The API layer runs on AWS ECS inside private subnets, reachable only through API Gateway with a VPC Link &mdash; the application servers themselves have no public IP and are not directly reachable from the internet. The dashboard is a separate Next.js application that talks to the API as a client, not as a trusted backend peer.</p>
+      <table class="spec-table">
+        <tr><th>Layer</th><th>Technology</th></tr>
+        <tr><td>Backend</td><td class="mono">NestJS (TypeScript), event-oriented, modular monolith</td></tr>
+        <tr><td>Frontend</td><td class="mono">Next.js + Tailwind CSS</td></tr>
+        <tr><td>Database</td><td class="mono">PostgreSQL on AWS RDS &mdash; one database per module</td></tr>
+        <tr><td>Compute</td><td class="mono">AWS ECS (private subnets) behind API Gateway + VPC Link</td></tr>
+        <tr><td>File storage</td><td class="mono">AWS S3, VPC-only access (see section 06)</td></tr>
+        <tr><td>Infrastructure as code</td><td class="mono">Pulumi</td></tr>
+        <tr><td>CI/CD</td><td class="mono">GitHub Actions &mdash; every deploy runs automated verification before it's considered live</td></tr>
+        <tr><td>Secrets management</td><td class="mono">Doppler &mdash; no plaintext secrets in the repo or in CI logs</td></tr>
+      </table>
+      <p>Every non-trivial architectural choice behind this stack is written down as an Architecture Decision Record (ADR) &mdash; see section 11.</p>
+    </section>
+
+    <section class="doc-section" id="data-flow">
+      <h2><span class="doc-num">03</span> Data flow</h2>
+      <p>Data does not go anywhere external until it has passed internal validation. The flow, end to end:</p>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="fs-dot"><span></span></div><div><h4>1. Ingestion</h4><p>Today, the fastest and most common path for a new client is a structured Excel/CSV import &mdash; no engineering integration required to start a pilot. Direct API/ERP integration is available for machine clients today via API keys, and is the roadmapped default for scaled clients (see section 10).</p></div></div>
+        <div class="flow-step"><div class="fs-dot"><span></span></div><div><h4>2. Validation engine</h4><p>Every record runs against the rule set(s) pinned to its project (regulatory + program-specific rules, versioned so a rule change never silently reclassifies historical data). Each rule fails as either a hard <strong>BLOCK</strong> (stops progression) or a <strong>FLAG</strong> (routes to human review).</p></div></div>
+        <div class="flow-step"><div class="fs-dot"><span></span></div><div><h4>3. Persistence + audit trail</h4><p>Once validated, the record and every state change on it are written to PostgreSQL as an append-only, hash-chained event log (section 05), inside your organization's isolated tenant (section 04).</p></div></div>
+        <div class="flow-step"><div class="fs-dot"><span></span></div><div><h4>4. Dashboards</h4><p>Role-based dashboards read from the validated data &mdash; nothing on a dashboard bypasses the validation step.</p></div></div>
+        <div class="flow-step"><div class="fs-dot"><span></span></div><div><h4>5. Optional registry submission</h4><p>Only pre-validated, approved records are ever submitted to an external credit registry, and only for organizations that have opted into that specific integration. Nothing is pushed externally by default.</p></div></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="tenancy">
+      <h2><span class="doc-num">04</span> Multi-tenant security model</h2>
+      <p>The platform is multi-tenant by design, and tenant isolation is enforced at the database layer, not only in application code:</p>
+      <ul>
+        <li>Every operational table carries an organization identifier and has Postgres Row-Level Security <strong>enabled and forced</strong> &mdash; a policy requires <code class="mono">organization_id</code> to match the requesting organization on every single query, including ones a developer might forget to filter manually.</li>
+        <li>The organization scope is set per request via a database-level session variable (<code class="mono">SET LOCAL</code>), inside the same transaction as the query &mdash; there is no code path where "just don't filter" leaks another tenant's rows.</li>
+        <li>Schema migrations run under a separate, narrowly-scoped database role that is the only one allowed to bypass row-level security, and only for schema operations &mdash; never for serving application traffic.</li>
+      </ul>
+      <h3>Authentication</h3>
+      <p>Human users authenticate via <strong>AWS Cognito</strong> &mdash; password storage, session handling, and (where enabled) multi-factor authentication are offloaded to AWS-managed infrastructure rather than custom-built. Authorization (what an authenticated user can actually do) is self-hosted and role-based. Machine clients (ERP integrations and similar) authenticate with organization-scoped API keys rather than user credentials.</p>
+      <h3>A written threat model, not just a claim</h3>
+      <p>There is an explicit, documented threat model that catalogues who might attempt cross-tenant access and how (an unauthenticated external attacker, an authenticated user probing another tenant's resource IDs, a tampered or stale token, an internal operator with direct database access), and for each one, which specific automated test must exist and stay green before code merges. For example: a user from Organization B requesting Organization A's resource by ID must get a "not found," never a "forbidden" &mdash; a "forbidden" response would itself leak that the resource exists.</p>
+      <div class="confirm-flag"><strong>Confirm before publishing:</strong> whether to state that this threat-model test suite runs in CI on every PR (recommended framing) versus a periodic/manual check &mdash; whichever is actually true today.</div>
+    </section>
+
+    <section class="doc-section" id="integrity">
+      <h2><span class="doc-num">05</span> Data integrity &amp; audit trail</h2>
+      <p>Two independent mechanisms protect the audit trail from silent tampering:</p>
+      <h3>Hash-chained event log</h3>
+      <p>Every state change on a tracked record is stored as an event in an append-only log. Each event's hash is computed from its own content <em>plus</em> the previous event's hash, forming a chain &mdash; the same principle used in tamper-evident ledgers generally. Editing or deleting a past event breaks every hash after it, so retroactive tampering is mathematically detectable, not just against policy.</p>
+      <h3>Structured audit log</h3>
+      <p>Independently of the hash chain, every mutation across every module is logged with a structured before/after diff, the actor who made the change (a specific user or a specific API key &mdash; never an anonymous system write), the originating IP address, and a request ID that ties it back to a single API call. This is what a compliance or forensic review reads from, and it's queryable per record, per organization, or across an audit engagement.</p>
+    </section>
+
+    <section class="doc-section" id="storage">
+      <h2><span class="doc-num">06</span> Document &amp; storage security</h2>
+      <p>Compliance documents (permits, certificates, KYC records) are stored in AWS S3 with a deliberately unusual posture: the bucket has <strong>no public access and no presigned URLs</strong>. It is reachable only from inside the platform's own private network, and every download is streamed to the browser through an authenticated API call &mdash; there is never a standalone file URL that could end up in a browser's address-bar history, a clipboard, a screen-share, or a forwarded link and remain valid after the session ends. Revoking a user's session immediately revokes their ability to fetch any file, with nothing left over that a TTL has to expire on its own.</p>
+    </section>
+
+    <section class="doc-section" id="db-access">
+      <h2><span class="doc-num">07</span> Database access</h2>
+      <p>The production database has no public endpoint at all &mdash; it cannot be reached directly from the internet under any credential. External or manual access (for operations or debugging) goes exclusively through an AWS Systems Manager port-forwarding tunnel into the private network, which means there is no bastion host to keep patched and no database credential that is, by itself, exploitable from outside the network perimeter.</p>
+    </section>
+
+    <section class="doc-section" id="auditor-access">
+      <h2><span class="doc-num">08</span> External auditor access</h2>
+      <p>When an independent auditor needs to review a specific client's data, access is granted through an explicit, time-bounded <strong>engagement grant</strong> &mdash; not a standing account inside your organization:</p>
+      <ul>
+        <li>The auditor requests access to a specific organization; that organization's own administrator must confirm it before anything is granted.</li>
+        <li>Access expires automatically (annual re-authorization by default) and can be revoked at any time by the organization being audited.</li>
+        <li>Both sides can see the current state: the organization sees which auditors currently have access to it, and the auditor sees which organizations they're currently engaged with.</li>
+        <li>An auditor never becomes a member of your organization's user roster &mdash; every read they make is checked against the current, active grant, request by request.</li>
+      </ul>
+      <p>This is built, not just designed: request, confirm, revoke, and a scheduled job that auto-expires grants at the end of their validity window all exist in the codebase today.</p>
+      <div class="confirm-flag"><strong>Confirm before publishing:</strong> the mechanism above is implemented and covered by tests. Whether it has been switched on for real, paying customers yet is a rollout decision, not an engineering one &mdash; say "available" only once that's actually true.</div>
+    </section>
+
+    <section class="doc-section" id="compliance">
+      <h2><span class="doc-num">09</span> Compliance posture</h2>
+      <p>Being direct about where things stand, rather than rounding up:</p>
+      <p><strong>What's real today:</strong> the tenant-isolation, audit-trail, and access-control mechanisms described above; production and development environments run in fully separate AWS accounts; the <strong>EU Waste Shipment Regulation (EU) 2024/1157</strong> and the <strong>DIWASS</strong> digital exchange system it establishes are encoded directly into the validation engine's rule sets, versioned per project so a rule update never silently reclassifies past records.</p>
+      <p><strong>What's on the roadmap, not done:</strong> a completed, certified GDPR/LGPD compliance program is not something to claim as finished today. A legal terms framework exists internally but is an explicit draft awaiting legal review before any external use &mdash; treat the technical mechanisms above as the foundation that program is built on, not the program itself.</p>
+      <div class="confirm-flag"><strong>Confirm before publishing:</strong> is there a target date for the GDPR/LGPD program and the legal-terms review worth stating here, or should this stay open-ended.</div>
+    </section>
+
+    <section class="doc-section" id="integration">
+      <h2><span class="doc-num">10</span> Integration paths</h2>
+      <p><strong>Today &mdash; fastest path to a pilot:</strong> structured Excel/CSV import. This is deliberate: it lets a client validate the platform against their real historical data before either side invests in an engineering integration.</p>
+      <p><strong>Available today for machine clients:</strong> organization-scoped API keys for programmatic access, independent of the human-user authentication path.</p>
+      <p><strong>Roadmapped:</strong> direct ERP/API integrations as the default onboarding path for larger clients, building on the same API-key authentication already in place.</p>
+      <div class="confirm-flag"><strong>Confirm before publishing:</strong> any timeline for the ERP/API integration roadmap, or keep it open-ended as above.</div>
+    </section>
+
+    <section class="doc-section" id="process">
+      <h2><span class="doc-num">11</span> Engineering process</h2>
+      <p>Every architectural choice that would be expensive to reverse, or that a future engineer would reasonably wonder about, is written down as an Architecture Decision Record (ADR): the context that forced the decision, the decision itself, alternatives considered and why they were rejected, and the consequences accepted. This is an internal engineering log, not marketing copy &mdash; it exists so decisions survive team changes and so "why does it work this way" always has a written answer.</p>
+      <div class="confirm-flag"><strong>Confirm before publishing:</strong> the public-facing number of ADRs. The site previously used the phrase "70+ ADRs maintained internally" (agreed 2026-07-11) &mdash; that's stale. As of this check: 88 ADR files exist on disk, but the index (<code class="mono">docs/adr/README.md</code>) lists 89 entries &mdash; ADR-071 has a row and a link in the README but the file itself is missing from the repo. That's a small repo-hygiene gap worth closing (recreate the file or drop the row) before picking a number to publish here.</div>
+    </section>
+
+    <section class="doc-section faq" id="faq">
+      <h2><span class="doc-num">12</span> Security FAQ</h2>
+      <div class="faq-grid">
+        <details class="faq-item">
+          <summary><span>Where is our data hosted?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+          <p class="faq-answer">AWS, region eu-central-1 (Frankfurt, Germany) &mdash; both the development and production environments.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Who can see our data?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+          <p class="faq-answer">Only your organization's own authorized users by default, plus platform operators through a logged access path, and independent auditors only for the duration of an active, consented engagement grant (section 08). Row-Level Security enforces this at the database layer, not just in application logic.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Is our data automatically sent to any external registry or blockchain?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+          <p class="faq-answer">No. Nothing leaves the platform to an external registry unless your organization has explicitly opted into that specific integration, and even then only records that have already passed internal validation are ever submitted.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Can we get a security questionnaire response, SOC 2 report, or penetration test report?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+          <p class="faq-answer confirm-flag" style="margin:0;">Confirm before publishing: whether any of these exist today, and who owns fulfilling ad-hoc security-questionnaire requests from prospective clients.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>What's the incident response process if something goes wrong?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+          <p class="faq-answer confirm-flag" style="margin:0;">Confirm before publishing: there's no publicly documented incident-response process yet &mdash; decide whether to state one here or point to a contact instead.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Do you support single sign-on (SSO)?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+          <p class="faq-answer">Not yet wired up. The identity provider (AWS Cognito) supports SAML/OIDC federation in principle, but no SSO integration exists in the codebase today &mdash; this is roadmap, not available.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="doc-section" id="contact">
+      <h2><span class="doc-num">13</span> Next steps</h2>
+      <p>Have a question this page doesn't answer, or need something in writing for an internal review? <a href="mailto:info@impactrakr.com">info@impactrakr.com</a>.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-manifest">
+      <p>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span><span lang="es">Infraestructura de verificación para la <span class="display-italic">economía circular industrial.</span></span>
+      </p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span><span lang="es">Sitio</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></a>
+        <a href="docs-index.html">Docs</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span><span lang="es">Para ti</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span><span lang="es">Recicladores</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span><span lang="es">Auditores</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span><span lang="es">Reguladores</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span><span lang="es">Inversores</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span><span lang="es">Empresa</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span><span lang="es">Contacto</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span><span lang="es">Prensa</span></a>
+      </div>
+    </div>
+    <div class="footer-brandline">
+      <div class="footer-mark">
+        <span class="logo-mark"></span>
+        <span>ImpacTrakr</span>
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">v0.1 &middot; technical docs</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/shared.js?v=20260917-es1"></script>
+<script>
+  // Scroll-spy for the doc TOC
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('#doc-toc-list a'));
+    var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    function onScroll() {
+      var y = window.scrollY + 120;
+      var current = sections[0];
+      sections.forEach(function (s) { if (s.offsetTop <= y) current = s; });
+      links.forEach(function (a) {
+        a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id);
+      });
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+</body>
+</html>

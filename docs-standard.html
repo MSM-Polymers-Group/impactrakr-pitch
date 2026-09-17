@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standard &middot; ImpacTrakr Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260917-es1">
+<link rel="stylesheet" href="assets/docs.css?v=1">
+</head>
+<body data-page="technical">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV &middot; TRACEABILITY &middot; COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada &middot; dMRV &middot; compliance UE &amp; RecyClass</span><span lang="en">Verified traceability &middot; dMRV &middot; EU &amp; RecyClass compliance</span><span lang="es">Trazabilidad verificada &middot; dMRV &middot; cumplimiento UE y RecyClass</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span class="nav-num">00</span>
+      <span><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span class="nav-num">01</span>
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span class="nav-num">02</span>
+      <span><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></span>
+    </a>
+    <a class="nav-tab" data-target="paineis" href="dashboards.html">
+      <span class="nav-num">03</span>
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span><span lang="es">Paneles</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span class="nav-num">04</span>
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span class="nav-num">04</span>
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></span>
+    </a>
+    <a class="nav-tab active" data-target="technical" href="docs-index.html">
+      <span class="nav-num">05</span>
+      <span><span lang="pt">Docs</span><span lang="en">Docs</span><span lang="es">Docs</span></span>
+    </a>
+  </div>
+</nav>
+
+<div class="docs-shell">
+  <aside class="docs-sidebar">
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-index.html">Overview</a></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Architecture</p>
+<ul>
+<li><a class="" href="docs-architecture.html">How it works</a></li>
+<li><a class="" href="docs-architecture-roles.html">Roles in the ecosystem</a></li>
+<li><a class="" href="docs-architecture-security.html">Security model</a></li>
+<li><a class="" href="docs-architecture-external-verification.html">External verification</a></li>
+</ul></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-registry.html">Registry</a></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink active" href="docs-standard.html">Standard</a></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Methodologies</p>
+<ul>
+<li><a class="" href="docs-methodologies.html">Overview</a></li>
+<li><a class="" href="docs-methodologies-pure.html">PURE</a></li>
+<li><a class="" href="docs-methodologies-eu-regulatory.html">EU regulatory</a></li>
+<li><a class="" href="docs-methodologies-recyclass.html">RecyClass</a></li>
+</ul></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Integrations</p>
+<ul>
+<li><a class="" href="docs-integrations.html">Overview</a></li>
+<li><a class="" href="docs-integrations-quick-start.html">Quick start</a></li>
+<li><a class="" href="docs-integrations-core-concepts.html">Core concepts</a></li>
+<li><a class="" href="docs-integrations-environments.html">Environments</a></li>
+<li><a class="" href="docs-integrations-api.html">API</a></li>
+</ul></div>
+  </aside>
+  <main class="docs-content">
+    <p class="docs-breadcrumb">Docs</p>
+    <h1>Standard</h1>
+    <p class="docs-lede">How rule governance works: which rule sets exist, how they're versioned, and &mdash; critically &mdash; which ones ever leave the platform.</p>
+
+    <h2>Projects pin rule sets</h2>
+    <p>A project pins one or more rule-set pillars, by name and version, at creation. The validation engine only ever runs the pillars a project has pinned &mdash; it doesn't guess or apply everything available.</p>
+
+    <h2>Two severities</h2>
+    <p>Every rule resolves to one of two outcomes on failure: <strong>BLOCK</strong> (stops the record's progression outright) or <strong>FLAG</strong> (routes to human review; can proceed if a reviewer overrides it).</p>
+
+    <h2>Rule pillars today</h2>
+    <dl class="docs-fact-list">
+      <div class="docs-fact-row"><dt>PURE</dt><dd>67 rules &mdash; the core methodology. See <a href="docs-methodologies-pure.html">PURE</a>.</dd></div>
+      <div class="docs-fact-row"><dt>EU regulatory</dt><dd>26 rules &mdash; a regional compliance adapter. See <a href="docs-methodologies-eu-regulatory.html">EU regulatory</a>.</dd></div>
+      <div class="docs-fact-row"><dt>RecyClass</dt><dd>17 rules (RC-01&ndash;RC-17) &mdash; a complementary certification scheme. See <a href="docs-methodologies-recyclass.html">RecyClass</a>.</dd></div>
+    </dl>
+
+    <h2>A hard boundary, not a convention</h2>
+    <p>This is the detail worth understanding if you're evaluating what ImpacTrakr actually shares externally: only <strong>PURE</strong> verdicts ever leave the platform in a registry submission payload. EU regulatory and RecyClass rules are validated and recorded in full, but they stay internal &mdash; surfaced instead as a consolidated homologation/evidence document rather than sent to any external registry. This is an explicit architectural decision, not an oversight or a future limitation to be fixed.</p>
+
+    <h2>Versioning</h2>
+    <p>A rule-set version bump is adopted by closing the current project and opening a new one pinned to the new version &mdash; a project's already-issued records keep the rule version they were actually validated against, so a later rule change never silently reclassifies history.</p>
+
+    <h2>How rule changes get decided</h2>
+    <p>Unlike a standards body that runs an open governance process for third parties to author methodologies, ImpacTrakr's rule pillars are maintained by one team. Every non-trivial rule or architecture decision is still written down as an internal record before it ships &mdash; the discipline is internal engineering rigor, not open governance.</p>
+    
+    <div class="docs-pager">
+<a class="pg-prev" href="docs-registry.html"><span class="pg-label">Previous</span>← Registry</a>
+<a class="pg-next" href="docs-methodologies.html"><span class="pg-label">Next</span>Methodologies →</a>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-manifest">
+      <p><span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span><span lang="es">Infraestructura de verificación para la <span class="display-italic">economía circular industrial.</span></span></p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span><span lang="es">Sitio</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></a>
+        <a href="docs-index.html">Docs</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span><span lang="es">Para ti</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span><span lang="es">Recicladores</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span><span lang="es">Auditores</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span><span lang="es">Reguladores</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="docs-architecture-security.html"><span lang="pt">TI &amp; Segurança</span><span lang="en">IT &amp; Security</span><span lang="es">TI y Seguridad</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span><span lang="es">Empresa</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span><span lang="es">Contacto</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span><span lang="es">Prensa</span></a>
+      </div>
+    </div>
+    <div class="footer-brandline">
+      <div class="footer-mark"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">docs v0.1</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/shared.js?v=20260917-es1"></script>
+</body>
+</html>

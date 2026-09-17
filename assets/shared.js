@@ -10,7 +10,8 @@
 
   function setLang(lang) {
     html.setAttribute('data-app-lang', lang);
-    html.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
+    var langMap = { pt: 'pt-BR', es: 'es', en: 'en' };
+    html.setAttribute('lang', langMap[lang] || 'en');
     langButtons.forEach(function (btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
@@ -21,7 +22,7 @@
 
   let savedLang = null;
   try { savedLang = localStorage.getItem('impactrakr-lang'); } catch (e) {}
-  // Default = EN (PT é opcional). Respeita preferência salva se houver.
+  // Default = EN (PT/ES são opcionais). Respeita preferência salva se houver.
   setLang(savedLang || 'en');
 
   langButtons.forEach(function (btn) {

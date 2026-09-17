@@ -212,8 +212,12 @@ section.hero::before {
   -webkit-mask-image: linear-gradient(to bottom, black 35%, transparent 96%);
 }
 
+[data-app-lang="en"] [lang="pt"],
+[data-app-lang="en"] [lang="es"],
 [data-app-lang="pt"] [lang="en"],
-[data-app-lang="en"] [lang="pt"] { display: none; }
+[data-app-lang="pt"] [lang="es"],
+[data-app-lang="es"] [lang="en"],
+[data-app-lang="es"] [lang="pt"] { display: none; }
 
 /* ---------- Type system ---------- */
 h1, h2, h3, h4 {

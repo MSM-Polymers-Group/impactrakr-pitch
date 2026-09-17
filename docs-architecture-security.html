@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security model &middot; ImpacTrakr Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260917-es1">
+<link rel="stylesheet" href="assets/docs.css?v=1">
+</head>
+<body data-page="technical">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV &middot; TRACEABILITY &middot; COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada &middot; dMRV &middot; compliance UE &amp; RecyClass</span><span lang="en">Verified traceability &middot; dMRV &middot; EU &amp; RecyClass compliance</span><span lang="es">Trazabilidad verificada &middot; dMRV &middot; cumplimiento UE y RecyClass</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span class="nav-num">00</span>
+      <span><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span class="nav-num">01</span>
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span class="nav-num">02</span>
+      <span><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></span>
+    </a>
+    <a class="nav-tab" data-target="paineis" href="dashboards.html">
+      <span class="nav-num">03</span>
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span><span lang="es">Paneles</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span class="nav-num">04</span>
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span class="nav-num">04</span>
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></span>
+    </a>
+    <a class="nav-tab active" data-target="technical" href="docs-index.html">
+      <span class="nav-num">05</span>
+      <span><span lang="pt">Docs</span><span lang="en">Docs</span><span lang="es">Docs</span></span>
+    </a>
+  </div>
+</nav>
+
+<div class="docs-shell">
+  <aside class="docs-sidebar">
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-index.html">Overview</a></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Architecture</p>
+<ul>
+<li><a class="" href="docs-architecture.html">How it works</a></li>
+<li><a class="" href="docs-architecture-roles.html">Roles in the ecosystem</a></li>
+<li><a class="active" href="docs-architecture-security.html">Security model</a></li>
+<li><a class="" href="docs-architecture-external-verification.html">External verification</a></li>
+</ul></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-registry.html">Registry</a></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-standard.html">Standard</a></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Methodologies</p>
+<ul>
+<li><a class="" href="docs-methodologies.html">Overview</a></li>
+<li><a class="" href="docs-methodologies-pure.html">PURE</a></li>
+<li><a class="" href="docs-methodologies-eu-regulatory.html">EU regulatory</a></li>
+<li><a class="" href="docs-methodologies-recyclass.html">RecyClass</a></li>
+</ul></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Integrations</p>
+<ul>
+<li><a class="" href="docs-integrations.html">Overview</a></li>
+<li><a class="" href="docs-integrations-quick-start.html">Quick start</a></li>
+<li><a class="" href="docs-integrations-core-concepts.html">Core concepts</a></li>
+<li><a class="" href="docs-integrations-environments.html">Environments</a></li>
+<li><a class="" href="docs-integrations-api.html">API</a></li>
+</ul></div>
+  </aside>
+  <main class="docs-content">
+    <p class="docs-breadcrumb"><a href="docs-index.html">Docs</a> / Architecture</p>
+    <h1>Security model</h1>
+    <p class="docs-lede">For IT and security reviewers: how tenant isolation, authentication, and the audit trail are actually enforced &mdash; not just described.</p>
+
+    <h2>Multi-tenant isolation</h2>
+    <ul>
+      <li>Every operational table carries an organization identifier and has PostgreSQL Row-Level Security <strong>enabled and forced</strong> &mdash; a policy requires the organization id to match on every query, including ones a developer forgot to filter manually.</li>
+      <li>The organization scope is set per request via a database session variable, inside the same transaction as the query &mdash; there's no code path where "forgetting to filter" leaks another tenant's rows.</li>
+      <li>Schema migrations run under a separate, narrowly-scoped role that is the only one allowed to bypass row-level security, and only for schema operations, never application traffic.</li>
+    </ul>
+
+    <h2>Authentication</h2>
+    <p>Human users authenticate via <strong>AWS Cognito</strong> &mdash; password storage, sessions, and MFA (where enabled) are offloaded to AWS-managed infrastructure. Authorization (what an authenticated user can do) is self-hosted and role-based. Machine clients authenticate with organization-scoped API keys.</p>
+
+    <h2>A written threat model</h2>
+    <p>There's an explicit, documented threat model cataloguing who might attempt cross-tenant access (an unauthenticated attacker, an authenticated user probing another tenant's resource IDs, a tampered or stale token, an internal operator with direct database access) and which automated test must exist and stay green for each one. Example: a user from Organization B requesting Organization A's resource by ID must get a "not found," never a "forbidden" &mdash; a "forbidden" response would itself leak that the resource exists.</p>
+
+    <h2>Data integrity</h2>
+    <p>Two independent mechanisms protect the audit trail:</p>
+    <ul>
+      <li><strong>Hash-chained event log</strong> &mdash; every state change is an event whose hash is computed from its own content plus the previous event's hash. Editing or deleting a past event breaks every hash after it, so retroactive tampering is mathematically detectable.</li>
+      <li><strong>Structured audit log</strong> &mdash; independently, every mutation is logged with a before/after diff, the acting user or API key, IP address, and a request ID.</li>
+    </ul>
+
+    <h2>Storage &amp; database access</h2>
+    <p>Compliance documents live in an S3 bucket with <strong>no public access and no presigned URLs</strong> &mdash; every download is streamed through an authenticated API call, so nothing survives a logout as a standalone link. The production database has no public endpoint at all; external access goes exclusively through an AWS Systems Manager port-forwarding tunnel.</p>
+    
+    <div class="docs-pager">
+<a class="pg-prev" href="docs-architecture-roles.html"><span class="pg-label">Previous</span>← Roles in the ecosystem</a>
+<a class="pg-next" href="docs-architecture-external-verification.html"><span class="pg-label">Next</span>External verification →</a>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-manifest">
+      <p><span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span><span lang="es">Infraestructura de verificación para la <span class="display-italic">economía circular industrial.</span></span></p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span><span lang="es">Sitio</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></a>
+        <a href="docs-index.html">Docs</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span><span lang="es">Para ti</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span><span lang="es">Recicladores</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span><span lang="es">Auditores</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span><span lang="es">Reguladores</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="docs-architecture-security.html"><span lang="pt">TI &amp; Segurança</span><span lang="en">IT &amp; Security</span><span lang="es">TI y Seguridad</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span><span lang="es">Empresa</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span><span lang="es">Contacto</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span><span lang="es">Prensa</span></a>
+      </div>
+    </div>
+    <div class="footer-brandline">
+      <div class="footer-mark"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">docs v0.1</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/shared.js?v=20260917-es1"></script>
+</body>
+</html>

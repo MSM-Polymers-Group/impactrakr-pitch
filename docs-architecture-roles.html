@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-app-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roles in the ecosystem &middot; ImpacTrakr Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260917-es1">
+<link rel="stylesheet" href="assets/docs.css?v=1">
+</head>
+<body data-page="technical">
+
+<header class="top">
+  <div class="container top-grid">
+    <div class="logo">
+      <span class="logo-mark"></span>
+      <span>ImpacTrakr</span>
+    </div>
+    <div class="top-right">
+      <div class="top-meta">
+        dMRV &middot; TRACEABILITY &middot; COMPLIANCE
+        <em><span lang="pt">Rastreabilidade verificada &middot; dMRV &middot; compliance UE &amp; RecyClass</span><span lang="en">Verified traceability &middot; dMRV &middot; EU &amp; RecyClass compliance</span><span lang="es">Trazabilidad verificada &middot; dMRV &middot; cumplimiento UE y RecyClass</span></em>
+      </div>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="top-nav" aria-label="Chapters">
+  <div class="top-nav-inner">
+    <a class="nav-tab" data-target="landing" href="index.html">
+      <span class="nav-num">00</span>
+      <span><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></span>
+    </a>
+    <a class="nav-tab" data-target="visao" href="overview.html">
+      <span class="nav-num">01</span>
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></span>
+    </a>
+    <a class="nav-tab" data-target="processo" href="process.html">
+      <span class="nav-num">02</span>
+      <span><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></span>
+    </a>
+    <a class="nav-tab" data-target="paineis" href="dashboards.html">
+      <span class="nav-num">03</span>
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span><span lang="es">Paneles</span></span>
+    </a>
+    <a class="nav-tab" data-target="metodologia" href="methodology.html">
+      <span class="nav-num">04</span>
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></span>
+    </a>
+    <a class="nav-tab" data-target="mercado" href="market.html">
+      <span class="nav-num">04</span>
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></span>
+    </a>
+    <a class="nav-tab active" data-target="technical" href="docs-index.html">
+      <span class="nav-num">05</span>
+      <span><span lang="pt">Docs</span><span lang="en">Docs</span><span lang="es">Docs</span></span>
+    </a>
+  </div>
+</nav>
+
+<div class="docs-shell">
+  <aside class="docs-sidebar">
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-index.html">Overview</a></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Architecture</p>
+<ul>
+<li><a class="" href="docs-architecture.html">How it works</a></li>
+<li><a class="active" href="docs-architecture-roles.html">Roles in the ecosystem</a></li>
+<li><a class="" href="docs-architecture-security.html">Security model</a></li>
+<li><a class="" href="docs-architecture-external-verification.html">External verification</a></li>
+</ul></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-registry.html">Registry</a></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-standard.html">Standard</a></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Methodologies</p>
+<ul>
+<li><a class="" href="docs-methodologies.html">Overview</a></li>
+<li><a class="" href="docs-methodologies-pure.html">PURE</a></li>
+<li><a class="" href="docs-methodologies-eu-regulatory.html">EU regulatory</a></li>
+<li><a class="" href="docs-methodologies-recyclass.html">RecyClass</a></li>
+</ul></div>
+<div class="docs-sidebar-group">
+<p class="docs-sidebar-group-title">Integrations</p>
+<ul>
+<li><a class="" href="docs-integrations.html">Overview</a></li>
+<li><a class="" href="docs-integrations-quick-start.html">Quick start</a></li>
+<li><a class="" href="docs-integrations-core-concepts.html">Core concepts</a></li>
+<li><a class="" href="docs-integrations-environments.html">Environments</a></li>
+<li><a class="" href="docs-integrations-api.html">API</a></li>
+</ul></div>
+  </aside>
+  <main class="docs-content">
+    <p class="docs-breadcrumb"><a href="docs-index.html">Docs</a> / Architecture</p>
+    <h1>Roles in the ecosystem</h1>
+    <p class="docs-lede">Two different kinds of “role” show up in ImpacTrakr, and it's worth keeping them apart: who a participant is in the physical chain of custody, and what a platform account can do.</p>
+
+    <h2>Chain-of-custody participants</h2>
+    <p>Four participant types can appear on a MassID's chain of custody:</p>
+    <dl class="docs-fact-list">
+      <div class="docs-fact-row"><dt>Generator</dt><dd>Produces or collects the raw material (a brand owner, a municipality, a sortation facility). Always present on a MassID.</dd></div>
+      <div class="docs-fact-row"><dt>Hauler</dt><dd>Transports the material from collection to the next step. A generator can self-haul (no separate hauler).</dd></div>
+      <div class="docs-fact-row"><dt>Processor</dt><dd>Optional intermediate step (baling, washing, shredding) that doesn't yet recycle the material into a new product.</dd></div>
+      <div class="docs-fact-row"><dt>Recycler</dt><dd>The final transformer that converts the material into recycled feedstock or product.</dd></div>
+    </dl>
+    <p>Each of these needs an active <strong>homologation</strong> (a permit or certification record with a validity window and an issuing authority) before the platform trusts data attributed to them.</p>
+
+    <h2>Platform user roles</h2>
+    <p>Separately, every human account on the platform carries one of four roles that determine what they can see and do:</p>
+    <dl class="docs-fact-list">
+      <div class="docs-fact-row"><dt>Donor</dt><dd>End contributor; rarely interacts with MassIDs directly</dd></div>
+      <div class="docs-fact-row"><dt>Company</dt><dd>Operates a generator/hauler/processor/recycler organization</dd></div>
+      <div class="docs-fact-row"><dt>Resin8</dt><dd>Platform super-admin role, can see across organizations</dd></div>
+      <div class="docs-fact-row"><dt>Government</dt><dd>Regulator, read-only oversight</dd></div>
+    </dl>
+
+    <h2>External auditors</h2>
+    <p>Independent auditors are a fifth, deliberately separate category &mdash; they don't hold a standing seat in any organization's roster. See <a href="docs-architecture-external-verification.html">External verification</a> for how their access actually works.</p>
+
+    <h2>Registries</h2>
+    <p>Finally, a <strong>Registry</strong> is not a participant at all &mdash; it's the external destination ledger a MassID's approved outcome can optionally be submitted to. See <a href="docs-registry.html">Registry</a>.</p>
+    
+    <div class="docs-pager">
+<a class="pg-prev" href="docs-architecture.html"><span class="pg-label">Previous</span>← How it works</a>
+<a class="pg-next" href="docs-architecture-security.html"><span class="pg-label">Next</span>Security model →</a>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-manifest">
+      <p><span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span><span lang="es">Infraestructura de verificación para la <span class="display-italic">economía circular industrial.</span></span></p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span><span lang="es">Sitio</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></a>
+        <a href="docs-index.html">Docs</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span><span lang="es">Para ti</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span><span lang="es">Recicladores</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span><span lang="es">Auditores</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span><span lang="es">Reguladores</span></a>
+        <a href="index.html#enterprise">Enterprise</a>
+        <a href="docs-architecture-security.html"><span lang="pt">TI &amp; Segurança</span><span lang="en">IT &amp; Security</span><span lang="es">TI y Seguridad</span></a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span><span lang="es">Empresa</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span><span lang="es">Contacto</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span><span lang="es">Prensa</span></a>
+      </div>
+    </div>
+    <div class="footer-brandline">
+      <div class="footer-mark"><span class="logo-mark"></span><span>ImpacTrakr</span></div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Impactrakr Ltd &middot; Malta</span>
+        <span class="footer-hash">docs v0.1</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/shared.js?v=20260917-es1"></script>
+</body>
+</html>

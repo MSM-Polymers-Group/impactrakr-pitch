@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ImpacTrakr, Process Map · CRDC Malta</title>
+<title>ImpacTrakr, Process Map · Pilot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/shared.css?v=20260710-16">
-<script src="assets/shared.js?v=20260626-1421" defer></script>
+<link rel="stylesheet" href="assets/shared.css?v=20260917-es1">
+<script src="assets/shared.js?v=20260917-es1" defer></script>
   <script src="assets/logo.js?v=20260707-4" defer></script>
 </head>
 <body data-page="processo">
@@ -22,11 +22,12 @@
     <div class="top-right">
       <div class="top-meta">
         dMRV · TRACEABILITY · COMPLIANCE
-        <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span></em>
+        <em><span lang="pt">Rastreabilidade verificada · dMRV · compliance UE &amp; RecyClass</span><span lang="en">Verified traceability · dMRV · EU &amp; RecyClass compliance</span><span lang="es">Trazabilidad verificada · dMRV · cumplimiento UE y RecyClass</span></em>
       </div>
       <div class="lang-toggle" role="group" aria-label="Language">
-        <button type="button" data-lang="en">EN</a>
-        <button type="button" data-lang="pt">PT</a>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="es">ES</button>
       </div>
     </div>
   </div>
@@ -35,35 +36,32 @@
 <nav class="top-nav" aria-label="Chapters">
   <div class="top-nav-inner">
     <a class="nav-tab" data-target="landing" href="index.html">
-      <span class="nav-num">00</span>
-      <span><span lang="pt">Início</span><span lang="en">Home</span></span>
+      <span><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></span>
     </a>
     <a class="nav-tab" data-target="visao" href="overview.html">
-      <span class="nav-num">01</span>
-      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></span>
+      <span><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></span>
     </a>
     <a class="nav-tab active" data-target="processo" href="process.html">
-      <span class="nav-num">02</span>
-      <span><span lang="pt">Processo</span><span lang="en">Process</span></span>
+      <span><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></span>
     </a>
     <a class="nav-tab" data-target="paineis" href="dashboards.html">
-      <span class="nav-num">03</span>
-      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span></span>
+      <span><span lang="pt">Painéis</span><span lang="en">Dashboards</span><span lang="es">Paneles</span></span>
     </a>
     <a class="nav-tab" data-target="metodologia" href="methodology.html">
-      <span class="nav-num">04</span>
-      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span></span>
+      <span><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></span>
     </a>
     <a class="nav-tab" data-target="mercado" href="market.html">
-      <span class="nav-num">04</span>
-      <span><span lang="pt">Mercado</span><span lang="en">Market</span></span>
+      <span><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></span>
+    </a>
+    <a class="nav-tab" data-target="technical" href="docs-index.html">
+      <span><span lang="pt">Docs</span><span lang="en">Docs</span><span lang="es">Docs</span></span>
     </a>
   </div>
 </nav>
 
 <section class="hero" style="padding-bottom: 0;">
   <div class="container">
-    <span class="micro eye"><span lang="pt">Processo · cenário CRDC Malta</span><span lang="en">Process · CRDC Malta scenario</span></span>
+    <span class="micro eye"><span lang="pt">Processo · piloto em produção</span><span lang="en">Process · live pilot</span></span>
     <h1 style="max-width: 880px;">
       <span lang="pt">Do resíduo ao DPP unit verificado<br><span class="display-italic">em três dias.</span></span><span lang="en">From waste to a verified DPP unit<br><span class="display-italic">in three days.</span></span>
     </h1>
@@ -120,7 +118,7 @@
           Phase A: x=160-555 (395w) | Phase B: 555-950 | Phase C: 950-1345 | Phase D: 1345-1740
           Lane 1 Producer: y=120-320 | Lane 2 Carrier: 320-520 | Lane 3 Consignee: 520-720
           Lane 4 Operator: 720-920 | Lane 5 System: 920-1120 | Lane 6 DIWASS: 1120-1320
-          Lane 7 Carrot: 1320-1520
+          Lane 7 Registry: 1320-1520
           Standard task: 240w x 90h, centred in cell at (cell_x + 78, cell_y + 55)
           Arrow corridors: vertical x=550, 945, 1340; horizontal y=320, 520, 720, 920, 1120, 1320
         ============ -->
@@ -172,7 +170,7 @@
         <text class="lane-sublabel" x="96" y="434" text-anchor="middle">Notifier</text>
 
         <text class="lane-label" x="96" y="616" text-anchor="middle">Consignee</text>
-        <text class="lane-sublabel" x="96" y="634" text-anchor="middle">CRDC Malta</text>
+        <text class="lane-sublabel" x="96" y="634" text-anchor="middle"><tspan lang="pt">Reciclador</tspan><tspan lang="en">Recycler</tspan></text>
 
         <text class="lane-label" x="96" y="816" text-anchor="middle"><tspan lang="pt">Operação</tspan><tspan lang="en">Operations</tspan></text>
         <text class="lane-sublabel" x="96" y="834" text-anchor="middle">ImpacTrakr</text>
@@ -183,8 +181,8 @@
         <text class="lane-label" data-tech-only="1" x="96" y="1216" text-anchor="middle">DIWASS</text>
         <text class="lane-sublabel" data-tech-only="1" x="96" y="1234" text-anchor="middle"><tspan lang="pt">sistema UE</tspan><tspan lang="en">EU system</tspan></text>
 
-        <text class="lane-label" x="96" y="1416" text-anchor="middle">Carrot</text>
-        <text class="lane-sublabel" x="96" y="1434" text-anchor="middle">Registry</text>
+        <text class="lane-label" x="96" y="1416" text-anchor="middle">Registry</text>
+        <text class="lane-sublabel" x="96" y="1434" text-anchor="middle"><tspan lang="pt">destino</tspan><tspan lang="en">target</tspan></text>
 
         <!-- ============================================================
              PHASE A · HOMOLOGATION  (x range 160-555)
@@ -395,7 +393,7 @@
         <text class="task-sub on-dark" x="1563" y="1078" style="font-style: italic; font-size: 9px;"><tspan lang="pt">+ painéis no roadmap</tspan><tspan lang="en">+ more panels on roadmap</tspan></text>
         <text class="task-sub on-dark" x="1563" y="1096" style="font-style: italic;"><tspan lang="pt">ciclo da massa fechado</tspan><tspan lang="en">mass lifecycle closed</tspan></text>
 
-        <!-- D3, Carrot Emite crédito (Lane 7, left) -->
+        <!-- D3, Registry Emite crédito (Lane 7, left) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1367" y="1375" width="175" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1381" y="1387" width="26" height="26"/>
         <g class="task-icon" transform="translate(1387,1393)"><circle cx="8" cy="6" r="5"/><path d="M6 10 L5 15 L8 13 L11 15 L10 10"/></g>
@@ -404,7 +402,7 @@
         <text class="task-sub compact" x="1415" y="1434">41,8 kg PET-r</text>
         <text class="task-sub compact" x="1415" y="1450"><tspan lang="pt">selo PURE+UE+RecyClass</tspan><tspan lang="en">PURE+EU+RecyClass seal</tspan></text>
 
-        <!-- D4, Carrot Retorna metadados (Lane 7, right) -->
+        <!-- D4, Registry Retorna metadados (Lane 7, right) -->
         <rect class="tc" fill="#ffffff" stroke="#d6d9dd" stroke-width="1" rx="8" ry="8" x="1557" y="1375" width="175" height="90"/>
         <rect class="task-icon-bg" fill="#eef0f3" rx="6" ry="6" x="1571" y="1387" width="26" height="26"/>
         <g class="task-icon" transform="translate(1577,1393)"><path d="M2 8 L10 8"/><path d="M5 5 L2 8 L5 11"/><rect x="11" y="3" width="3" height="10"/></g>
@@ -456,10 +454,10 @@
         <!-- 13. D1 → Gateway D (down short, D1 bottom to gateway top) -->
         <path class="flow" data-tech-only="1" d="M 1422 1014 L 1422 1030" marker-end="url(#arrow)"/>
 
-        <!-- 14. Gateway D → D3 Carrot (down long via vertical, enter D3 top) -->
+        <!-- 14. Gateway D → D3 Registry (down long via vertical, enter D3 top) -->
         <path class="flow" data-tech-only="1" d="M 1422 1074 L 1422 1375 L 1452 1375" marker-end="url(#arrow)"/>
 
-        <!-- 15. D3 → D4 (Carrot internal, short horizontal) -->
+        <!-- 15. D3 → D4 (Registry internal, short horizontal) -->
         <path class="flow" d="M 1542 1420 L 1557 1420" marker-end="url(#arrow)"/>
 
         <!-- 16. D4 → D5 POPULA (up long, enter D5 right side from below) -->
@@ -513,17 +511,17 @@
             <tr><td class="doc-name">KYC / KYB · ToS · <span lang="pt">Contrato</span><span lang="en">Contract</span></td><td><span lang="pt">Cada participante</span><span lang="en">Each participant</span></td><td><span class="doc-phase">A</span><span lang="pt">Homologação · universal</span><span lang="en">Homologation · universal</span></td></tr>
             <tr><td class="doc-name"><span lang="pt">Licença de transporte de resíduos</span><span lang="en">Waste haulage licence</span></td><td>Carrier · Notifier</td><td><span class="doc-phase">A</span><span lang="pt">Homologação · específico do Carrier</span><span lang="en">Homologation · Carrier-specific</span></td></tr>
             <tr><td class="doc-name"><span lang="pt">Registro de frota autorizada</span><span lang="en">Authorised fleet register</span></td><td>Carrier</td><td><span class="doc-phase">A</span><span lang="pt">Homologação · específico do Carrier</span><span lang="en">Homologation · Carrier-specific</span></td></tr>
-            <tr><td class="doc-name"><span lang="pt">Permit de reciclagem (escopo EWC)</span><span lang="en">Recycling permit (EWC scope)</span></td><td>Consignee · CRDC</td><td><span class="doc-phase">A</span><span lang="pt">Homologação · específico do Consignee</span><span lang="en">Homologation · Consignee-specific</span></td></tr>
+            <tr><td class="doc-name"><span lang="pt">Permit de reciclagem (escopo EWC)</span><span lang="en">Recycling permit (EWC scope)</span></td><td>Consignee</td><td><span class="doc-phase">A</span><span lang="pt">Homologação · específico do Consignee</span><span lang="en">Homologation · Consignee-specific</span></td></tr>
             <tr><td class="doc-name">Waste Identification Sheet</td><td>Carrier · Notifier</td><td><span class="doc-phase">B</span>Basel B3011 · LoW · <span lang="pt">antes da coleta</span><span lang="en">before pickup</span></td></tr>
             <tr><td class="doc-name"><span lang="pt">Análise de composição</span><span lang="en">Composition analysis</span></td><td>Carrier · Notifier</td><td><span class="doc-phase">B</span><span lang="pt">apoia a classificação como B3011</span><span lang="en">supports B3011 classification</span></td></tr>
             <tr><td class="doc-name">Annex VII (Art. 18)</td><td>Carrier · Notifier</td><td><span class="doc-phase">B</span><span lang="pt">≥ 2 dias úteis antes do trecho · via DIWASS</span><span lang="en">≥ 2 working days ahead of leg · via DIWASS</span></td></tr>
             <tr><td class="doc-name">DIWASS submission reference</td><td>DIWASS</td><td><span class="doc-phase">B</span><span lang="pt">retorno automático após envio</span><span lang="en">automatic return on submission</span></td></tr>
-            <tr><td class="doc-name"><span lang="pt">Comprovante de entrada · foto portaria</span><span lang="en">Gate intake receipt · gate photo</span></td><td>Consignee · CRDC</td><td><span class="doc-phase">C</span><span lang="pt">no recebimento da massa</span><span lang="en">at intake of the mass</span></td></tr>
-            <tr><td class="doc-name"><span lang="pt">Relatório de triagem · pesagem · QC resina</span><span lang="en">Sorting · weighing · resin QC reports</span></td><td>Consignee · CRDC</td><td><span class="doc-phase">C</span><span lang="pt">ao longo do processo R3</span><span lang="en">across the R3 operation</span></td></tr>
-            <tr><td class="doc-name"><span lang="pt">Certificado de Conclusão de Recovery</span><span lang="en">Completion of Recovery Certificate</span></td><td>Consignee · CRDC</td><td><span class="doc-phase">C</span>Art. 15(6) · <span lang="pt">até 30 dias após conclusão · via DIWASS</span><span lang="en">within 30 days · via DIWASS</span></td></tr>
+            <tr><td class="doc-name"><span lang="pt">Comprovante de entrada · foto portaria</span><span lang="en">Gate intake receipt · gate photo</span></td><td>Consignee</td><td><span class="doc-phase">C</span><span lang="pt">no recebimento da massa</span><span lang="en">at intake of the mass</span></td></tr>
+            <tr><td class="doc-name"><span lang="pt">Relatório de triagem · pesagem · QC resina</span><span lang="en">Sorting · weighing · resin QC reports</span></td><td>Consignee</td><td><span class="doc-phase">C</span><span lang="pt">ao longo do processo R3</span><span lang="en">across the R3 operation</span></td></tr>
+            <tr><td class="doc-name"><span lang="pt">Certificado de Conclusão de Recovery</span><span lang="en">Completion of Recovery Certificate</span></td><td>Consignee</td><td><span class="doc-phase">C</span>Art. 15(6) · <span lang="pt">até 30 dias após conclusão · via DIWASS</span><span lang="en">within 30 days · via DIWASS</span></td></tr>
             <tr><td class="doc-name"><span lang="pt">Log de execução das 139 regras</span><span lang="en">Execution log of 139 rules</span></td><td><span lang="pt">Sistema ImpacTrakr</span><span lang="en">ImpacTrakr system</span></td><td><span class="doc-phase">D</span><span lang="pt">após validação dos 3 módulos</span><span lang="en">after the 3 modules validate</span></td></tr>
-            <tr><td class="doc-name"><span lang="pt">Pacote de evidências</span><span lang="en">Evidence package</span></td><td><span lang="pt">Sistema ImpacTrakr</span><span lang="en">ImpacTrakr system</span></td><td><span class="doc-phase">D</span><span lang="pt">envio ao Carrot</span><span lang="en">sent to Carrot</span></td></tr>
-            <tr><td class="doc-name"><span lang="pt">Certificado do crédito · metadados</span><span lang="en">Credit certificate · metadata</span></td><td>Carrot Registry</td><td><span class="doc-phase">D</span><span lang="pt">retorno ao ImpacTrakr</span><span lang="en">returned to ImpacTrakr</span></td></tr>
+            <tr><td class="doc-name"><span lang="pt">Pacote de evidências</span><span lang="en">Evidence package</span></td><td><span lang="pt">Sistema ImpacTrakr</span><span lang="en">ImpacTrakr system</span></td><td><span class="doc-phase">D</span><span lang="pt">envio ao registry</span><span lang="en">sent to the registry</span></td></tr>
+            <tr><td class="doc-name"><span lang="pt">Certificado do crédito · metadados</span><span lang="en">Credit certificate · metadata</span></td><td>Registry</td><td><span class="doc-phase">D</span><span lang="pt">retorno ao ImpacTrakr</span><span lang="en">returned to ImpacTrakr</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -653,7 +651,7 @@
     },
     'A3': {
       phase:'A', num:'03', title:{pt:'Consignee envia documentação', en:'Consignee submits documentation'},
-      actor:{pt:'<strong>Consignee</strong> · CRDC Malta (reciclador)', en:'<strong>Consignee</strong> · CRDC Malta (recycler)'},
+      actor:{pt:'<strong>Consignee</strong> (reciclador)', en:'<strong>Consignee</strong> (recycler)'},
       what:{pt:'O receiving facility (reciclador) é o ator de maior peso regulatório. Tem que comprovar permit de operação com escopo EWC compatível com B3011 e capacidade declarada.',
             en:'The receiving facility (recycler) carries the highest regulatory weight. Must prove operating permit with EWC scope compatible with B3011 and declared capacity.'},
       docs:[
@@ -821,9 +819,9 @@
     },
     'C1': {
       phase:'C', num:'11', title:{pt:'Consignee recebe na portaria', en:'Consignee gate intake'},
-      actor:{pt:'<strong>Consignee</strong> · CRDC Malta (portaria)', en:'<strong>Consignee</strong> · CRDC Malta (gate)'},
-      what:{pt:'A carga chega ao CRDC. Na portaria, a massa é pesada na entrada, fotografada, e a quantidade real é confrontada com a declarada no Annex VII. Aqui se decide se a carga entra ou é rejeitada.',
-            en:'The load arrives at CRDC. At the gate, the mass is weighed on intake, photographed, and the actual quantity is compared to that declared in Annex VII. Acceptance or rejection is decided here.'},
+      actor:{pt:'<strong>Consignee</strong> (portaria)', en:'<strong>Consignee</strong> (gate)'},
+      what:{pt:'A carga chega à planta. Na portaria, a massa é pesada na entrada, fotografada, e a quantidade real é confrontada com a declarada no Annex VII. Aqui se decide se a carga entra ou é rejeitada.',
+            en:'The load arrives at the plant. At the gate, the mass is weighed on intake, photographed, and the actual quantity is compared to that declared in Annex VII. Acceptance or rejection is decided here.'},
       docs:[
         {name:'gate_intake_receipt',
          purpose:{pt:'Comprovante de entrada da massa na planta.', en:'Mass intake receipt at the facility.'},
@@ -836,13 +834,13 @@
       criteria:[
         {pt:'<strong>Pesagem em balança calibrada</strong> com certificado de calibração válido (PG-26)', en:'<strong>Weighing on calibrated scale</strong> with valid calibration certificate (PG-26)'},
         {pt:'<strong>Foto obrigatória da carga</strong> antes do descarregamento', en:'<strong>Mandatory load photo</strong> before unloading'},
-        {pt:'<strong>Tolerância de variação:</strong> &le; 2% entre intake real e declarado no Annex VII (sugestão ImpacTrakr, criterio do CRDC a confirmar)', en:'<strong>Variance tolerance:</strong> &le; 2% between actual intake and Annex VII declaration (ImpacTrakr suggestion, CRDC criterion to confirm)'},
+        {pt:'<strong>Tolerância de variação:</strong> &le; 2% entre intake real e declarado no Annex VII (sugestão ImpacTrakr, critério do consignee a confirmar)', en:'<strong>Variance tolerance:</strong> &le; 2% between actual intake and Annex VII declaration (ImpacTrakr suggestion, consignee criterion to confirm)'},
         {pt:'<strong>Verificação visual</strong> de composição (aspecto B3011 sem contaminação aparente)', en:'<strong>Visual verification</strong> of composition (B3011 appearance with no apparent contamination)'},
         {pt:'<strong>Aceite ou rejeição formal:</strong> timestamp + responsável; rejeição exige motivo + foto', en:'<strong>Formal acceptance or rejection:</strong> timestamp + responsible; rejection requires reason + photo'}
       ],
       validation:{
-        phase1:{pt:'Operador do CRDC executa o checklist manualmente no app. Compliance da ImpacTrakr revisa rejeições e variâncias &gt; 5% em até 24h.',
-                en:'CRDC operator runs the checklist manually on the app. ImpacTrakr Compliance reviews rejections and variances &gt; 5% within 24h.'},
+        phase1:{pt:'Operador da planta executa o checklist manualmente no app. Compliance da ImpacTrakr revisa rejeições e variâncias &gt; 5% em até 24h.',
+                en:'Plant operator runs the checklist manually on the app. ImpacTrakr Compliance reviews rejections and variances &gt; 5% within 24h.'},
         phase2:{pt:'IA detecta automaticamente contaminação aparente; sistema aciona alerta para revisão humana se variância &gt; tolerância.',
                 en:'AI automatically detects apparent contamination; system triggers alert for human review if variance &gt; tolerance.'}
       },
@@ -850,7 +848,7 @@
     },
     'C2': {
       phase:'C', num:'12', title:{pt:'Consignee processa o material (R3)', en:'Consignee processes the material (R3)'},
-      actor:{pt:'<strong>Consignee</strong> · CRDC Malta (planta)', en:'<strong>Consignee</strong> · CRDC Malta (plant)'},
+      actor:{pt:'<strong>Consignee</strong> (planta)', en:'<strong>Consignee</strong> (plant)'},
       what:{pt:'A massa passa por triagem por polímero → pesagem calibrada → extrusão (reciclagem mecânica R3) → QC de saída da resina. Cada etapa interna gera evidência atrelada ao mesmo MID.',
             en:'The mass goes through polymer sorting → calibrated weighing → extrusion (mechanical recycling R3) → output resin QC. Each internal step generates evidence bound to the same MID.'},
       docs:[
@@ -875,17 +873,17 @@
         {pt:'<strong>Balanço de massa</strong> reconciliável (input × output × rejeito)', en:'<strong>Mass balance</strong> reconcilable (input × output × reject)'}
       ],
       validation:{
-        phase1:{pt:'Operador do CRDC registra cada etapa no app ImpacTrakr. Sistema roda validações automáticas (PG-26 calibration, P-44/45/48 weighing, P-26/50/58 process).',
-                en:'CRDC operator records each step in the ImpacTrakr app. System runs automatic validations (PG-26 calibration, P-44/45/48 weighing, P-26/50/58 process).'},
-        phase2:{pt:'Integração com SCADA do CRDC para ingestão automática de inputs/outputs por lote.', en:'Integration with CRDC SCADA for automatic per-batch input/output ingestion.'}
+        phase1:{pt:'Operador da planta registra cada etapa no app ImpacTrakr. Sistema roda validações automáticas (PG-26 calibration, P-44/45/48 weighing, P-26/50/58 process).',
+                en:'Plant operator records each step in the ImpacTrakr app. System runs automatic validations (PG-26 calibration, P-44/45/48 weighing, P-26/50/58 process).'},
+        phase2:{pt:'Integração com SCADA da planta para ingestão automática de inputs/outputs por lote.', en:'Integration with the plant SCADA for automatic per-batch input/output ingestion.'}
       },
       rules:['PG-26','P-26','P-44','P-45','P-48','P-50','P-58'], next:'C3'
     },
     'C3': {
       phase:'C', num:'13', title:{pt:'Consignee emite Certificado de Conclusão', en:'Consignee issues Completion Certificate'},
-      actor:{pt:'<strong>Consignee</strong> · CRDC Malta', en:'<strong>Consignee</strong> · CRDC Malta'},
-      what:{pt:'Em até 30 dias após concluído o processo R3, o CRDC emite o Completion-of-Recovery Certificate (Art. 15(6) Regulation EU 2024/1157) e o submete via DIWASS para arquivamento oficial.',
-            en:'Within 30 days of completing the R3 process, CRDC issues the Completion-of-Recovery Certificate (Art. 15(6) Regulation EU 2024/1157) and submits it via DIWASS for official filing.'},
+      actor:{pt:'<strong>Consignee</strong>', en:'<strong>Consignee</strong>'},
+      what:{pt:'Em até 30 dias após concluído o processo R3, o consignee emite o Completion-of-Recovery Certificate (Art. 15(6) Regulation EU 2024/1157) e o submete via DIWASS para arquivamento oficial.',
+            en:'Within 30 days of completing the R3 process, the consignee issues the Completion-of-Recovery Certificate (Art. 15(6) Regulation EU 2024/1157) and submits it via DIWASS for official filing.'},
       docs:[
         {name:'completion_of_recovery_certificate',
          purpose:{pt:'Documento regulatório que comprova que o recovery R3 foi concluído. Sem ele, o crédito não pode ser emitido.', en:'Regulatory document proving the R3 recovery has been completed. Without it, the credit cannot be issued.'},
@@ -893,8 +891,8 @@
                  en:'<strong>certificateNumber</strong> · <strong>diwassNotificationRef</strong> · <strong>facilityName + permitNumber</strong> · <strong>wasteReceivedAt</strong> · <strong>quantityRecoveredKg</strong> · <strong>rCode</strong> (R3) · <strong>completionDate</strong> · <strong>outputDescription</strong> · <strong>certifiedBy</strong>'}}
       ],
       validation:{
-        phase1:{pt:'Sistema monta o certificado automaticamente a partir das evidências já capturadas (C0–C2). CRDC assina digitalmente. Compliance ImpacTrakr revisa antes de submeter ao DIWASS.',
-                en:'System builds the certificate automatically from already-captured evidence (C0–C2). CRDC signs digitally. ImpacTrakr Compliance reviews before submitting to DIWASS.'},
+        phase1:{pt:'Sistema monta o certificado automaticamente a partir das evidências já capturadas (C0–C2). O consignee assina digitalmente. Compliance ImpacTrakr revisa antes de submeter ao DIWASS.',
+                en:'System builds the certificate automatically from already-captured evidence (C0–C2). The consignee signs digitally. ImpacTrakr Compliance reviews before submitting to DIWASS.'},
         phase2:{pt:'Submissão automática via DIWASS API.', en:'Automatic submission via DIWASS API.'}
       },
       rules:['EU-16','EU-22'], next:'C4'
@@ -935,10 +933,10 @@
       rules:['ALL · PURE 88 + UE 27 + RecyClass 24'], next:'D3'
     },
     'D3': {
-      phase:'D', num:'16', title:{pt:'Carrot emite o crédito', en:'Carrot issues the credit'},
-      actor:{pt:'<strong>Carrot Foundation</strong> · Registry destino', en:'<strong>Carrot Foundation</strong> · target Registry'},
-      what:{pt:'Quando o motor retorna 139/139 PASS, o ImpacTrakr empacota as evidências e envia ao Carrot Registry. A Carrot valida internamente o pacote e emite o crédito com ancoragem auditável.',
-            en:'When the engine returns 139/139 PASS, ImpacTrakr packages the evidence and sends to Carrot Registry. Carrot internally validates the package and issues the credit with auditable anchoring.'},
+      phase:'D', num:'16', title:{pt:'Registry emite o crédito', en:'Registry issues the credit'},
+      actor:{pt:'<strong>Registry</strong> de destino', en:'target <strong>Registry</strong>'},
+      what:{pt:'Quando o motor retorna 139/139 PASS, o ImpacTrakr empacota as evidências e envia ao registry de destino. O registry valida internamente o pacote e emite o crédito com ancoragem auditável.',
+            en:'When the engine returns 139/139 PASS, ImpacTrakr packages the evidence and sends it to the destination registry. The registry internally validates the package and issues the credit with auditable anchoring.'},
       docs:[
         {name:'credit_certificate',
          purpose:{pt:'Comprovante on-chain do crédito gerado, com identificação única e selo de conformidade.', en:'On-chain proof of the issued credit, with unique identification and conformity seal.'},
@@ -946,17 +944,17 @@
                  en:'<strong>creditId</strong> (e.g., CR-MLT-478) · <strong>quantityKg</strong> (41.8 kg PET-r) · <strong>methodology</strong> (PURE v1.0) · <strong>conformitySeals</strong> (PURE + EU + RecyClass) · <strong>txHash</strong> · <strong>issuedAt</strong>'}}
       ],
       validation:{
-        phase1:{pt:'Integração via Carrot HTTP client (ADR-061). ImpacTrakr envia o pacote; Carrot retorna creditId em até alguns segundos.',
-                en:'Integration via Carrot HTTP client (ADR-061). ImpacTrakr sends the package; Carrot returns creditId within seconds.'},
+        phase1:{pt:'Integração via HTTP client do registry (ADR-061). ImpacTrakr envia o pacote; o registry retorna creditId em até alguns segundos.',
+                en:'Integration via the registry HTTP client (ADR-061). ImpacTrakr sends the package; the registry returns creditId within seconds.'},
         phase2:{pt:'Retry automático em falhas de rede; idempotency key por pacote de evidências.', en:'Automatic retry on network failures; idempotency key per evidence package.'}
       },
       rules:['integração ADR-061'], next:'D4'
     },
     'D4': {
-      phase:'D', num:'17', title:{pt:'Carrot retorna metadados', en:'Carrot returns metadata'},
-      actor:{pt:'<strong>Carrot Foundation</strong>', en:'<strong>Carrot Foundation</strong>'},
-      what:{pt:'Carrot retorna ao ImpacTrakr o pacote final de metadados: credit ID, status, trilha de evidências consolidada e referência de ancoragem auditável.',
-            en:'Carrot returns to ImpacTrakr the final metadata package: credit ID, status, consolidated evidence trail and auditable anchoring reference.'},
+      phase:'D', num:'17', title:{pt:'Registry retorna metadados', en:'Registry returns metadata'},
+      actor:{pt:'<strong>Registry</strong>', en:'<strong>Registry</strong>'},
+      what:{pt:'O registry retorna ao ImpacTrakr o pacote final de metadados: credit ID, status, trilha de evidências consolidada e referência de ancoragem auditável.',
+            en:'The registry returns to ImpacTrakr the final metadata package: credit ID, status, consolidated evidence trail and auditable anchoring reference.'},
       docs:[
         {name:'credit_metadata_payload',
          purpose:{pt:'Payload com tudo que o ImpacTrakr precisa para popular os dashboards.', en:'Payload with everything ImpacTrakr needs to populate the dashboards.'},
@@ -964,7 +962,7 @@
                  en:'<strong>creditId</strong> · <strong>status</strong> · <strong>evidenceTrail</strong> (array of docs) · <strong>onChainAnchor</strong> (txHash + blockNumber) · <strong>conformitySeals</strong> · <strong>retiredFlag</strong>'}}
       ],
       validation:{
-        phase1:{pt:'ImpacTrakr verifica integridade do payload (hash chain + assinatura Carrot) antes de aceitar.', en:'ImpacTrakr verifies payload integrity (hash chain + Carrot signature) before accepting.'},
+        phase1:{pt:'ImpacTrakr verifica integridade do payload (hash chain + assinatura do registry) antes de aceitar.', en:'ImpacTrakr verifies payload integrity (hash chain + registry signature) before accepting.'},
         phase2:{pt:'Igual à Fase 1.', en:'Same as Phase 1.'}
       },
       rules:['integração ADR-061'], next:'D5'
@@ -1255,7 +1253,7 @@
     //      C3 → C4: 'M 1148 715 L 1148 1175'
     //      C4 → D1: 'M 1268 1220 L 1340 1220 L 1340 982 L 1367 982'
     //      D1 → Gateway D: 'M 1422 1014 L 1422 1030'
-    //      Gateway D → D3 Carrot: 'M 1422 1074 L 1422 1375 L 1452 1375'
+    //      Gateway D → D3 Registry: 'M 1422 1074 L 1422 1375 L 1452 1375'
     const TECH_FLOW_SUBSTRS = [
       'M 931 480 L 940 480',
       'M 1148 715 L 1148 1175',
@@ -1389,32 +1387,33 @@
     <!-- Row 1: Manifesto tipografico -->
     <div class="footer-manifest">
       <p>
-        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span>
+        <span lang="pt">Camada de verificação para a <span class="display-italic">economia circular industrial.</span></span><span lang="en">Verification infrastructure for the <span class="display-italic">circular industrial economy.</span></span><span lang="es">Infraestructura de verificación para la <span class="display-italic">economía circular industrial.</span></span>
       </p>
     </div>
 
     <!-- Row 2: 4 colunas de links -->
     <div class="footer-cols">
       <div class="footer-col">
-        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span></span>
-        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span></a>
-        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span></a>
-        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span></a>
-        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span></a>
-        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span></a>
+        <span class="footer-col-heading"><span lang="pt">Site</span><span lang="en">Site</span><span lang="es">Sitio</span></span>
+        <a href="index.html"><span lang="pt">Início</span><span lang="en">Home</span><span lang="es">Inicio</span></a>
+        <a href="overview.html"><span lang="pt">Manifesto</span><span lang="en">Manifesto</span><span lang="es">Manifiesto</span></a>
+        <a href="process.html"><span lang="pt">Processo</span><span lang="en">Process</span><span lang="es">Proceso</span></a>
+        <a href="methodology.html"><span lang="pt">Metodologia</span><span lang="en">Methodology</span><span lang="es">Metodología</span></a>
+        <a href="market.html"><span lang="pt">Mercado</span><span lang="en">Market</span><span lang="es">Mercado</span></a>
+        <a href="docs-index.html">Docs</a>
       </div>
       <div class="footer-col">
-        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span></span>
-        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span></a>
-        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span></a>
-        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span></a>
+        <span class="footer-col-heading"><span lang="pt">Para você</span><span lang="en">For you</span><span lang="es">Para ti</span></span>
+        <a href="index.html#para-recicladores"><span lang="pt">Recicladores</span><span lang="en">Recyclers</span><span lang="es">Recicladores</span></a>
+        <a href="index.html#para-auditores"><span lang="pt">Auditores</span><span lang="en">Auditors</span><span lang="es">Auditores</span></a>
+        <a href="index.html#por-que-agora"><span lang="pt">Reguladores</span><span lang="en">Regulators</span><span lang="es">Reguladores</span></a>
         <a href="index.html#enterprise">Enterprise</a>
-        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span></a>
+        <a href="index.html#signup"><span lang="pt">Investidores</span><span lang="en">Investors</span><span lang="es">Inversores</span></a>
       </div>
       <div class="footer-col">
-        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span></span>
-        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
-        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span></a>
+        <span class="footer-col-heading"><span lang="pt">Empresa</span><span lang="en">Company</span><span lang="es">Empresa</span></span>
+        <a href="mailto:info@impactrakr.com"><span lang="pt">Contato</span><span lang="en">Contact</span><span lang="es">Contacto</span></a>
+        <a href="mailto:press@impactrakr.com"><span lang="pt">Imprensa</span><span lang="en">Press</span><span lang="es">Prensa</span></a>
       </div>
     </div>
 
