@@ -67,67 +67,67 @@
 
 <div class="docs-shell">
   <aside class="docs-sidebar">
-<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-index.html">Overview</a></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-index.html"><span lang="pt">Visão geral</span><span lang="en">Overview</span><span lang="es">Resumen</span></a></div>
 <div class="docs-sidebar-group">
-<p class="docs-sidebar-group-title">Architecture</p>
+<p class="docs-sidebar-group-title"><span lang="pt">Arquitetura</span><span lang="en">Architecture</span><span lang="es">Arquitectura</span></p>
 <ul>
-<li><a class="active" href="docs-architecture.html">How it works</a></li>
-<li><a class="" href="docs-architecture-roles.html">Roles in the ecosystem</a></li>
-<li><a class="" href="docs-architecture-security.html">Security model</a></li>
-<li><a class="" href="docs-architecture-external-verification.html">External verification</a></li>
+<li><a class="active" href="docs-architecture.html"><span lang="pt">Como funciona</span><span lang="en">How it works</span><span lang="es">Cómo funciona</span></a></li>
+<li><a class="" href="docs-architecture-roles.html"><span lang="pt">Papéis no ecossistema</span><span lang="en">Roles in the ecosystem</span><span lang="es">Roles en el ecosistema</span></a></li>
+<li><a class="" href="docs-architecture-security.html"><span lang="pt">Modelo de segurança</span><span lang="en">Security model</span><span lang="es">Modelo de seguridad</span></a></li>
+<li><a class="" href="docs-architecture-external-verification.html"><span lang="pt">Verificação externa</span><span lang="en">External verification</span><span lang="es">Verificación externa</span></a></li>
 </ul></div>
-<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-registry.html">Registry</a></div>
-<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-standard.html">Standard</a></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-registry.html"><span lang="pt">Registry</span><span lang="en">Registry</span><span lang="es">Registry</span></a></div>
+<div class="docs-sidebar-group"><a class="docs-sidebar-toplink" href="docs-standard.html"><span lang="pt">Padrão</span><span lang="en">Standard</span><span lang="es">Estándar</span></a></div>
 <div class="docs-sidebar-group">
-<p class="docs-sidebar-group-title">Methodologies</p>
+<p class="docs-sidebar-group-title"><span lang="pt">Metodologias</span><span lang="en">Methodologies</span><span lang="es">Metodologías</span></p>
 <ul>
-<li><a class="" href="docs-methodologies.html">Overview</a></li>
-<li><a class="" href="docs-methodologies-pure.html">PURE</a></li>
-<li><a class="" href="docs-methodologies-eu-regulatory.html">EU regulatory</a></li>
-<li><a class="" href="docs-methodologies-recyclass.html">RecyClass</a></li>
+<li><a class="" href="docs-methodologies.html"><span lang="pt">Visão geral</span><span lang="en">Overview</span><span lang="es">Resumen</span></a></li>
+<li><a class="" href="docs-methodologies-pure.html"><span lang="pt">PURE</span><span lang="en">PURE</span><span lang="es">PURE</span></a></li>
+<li><a class="" href="docs-methodologies-eu-regulatory.html"><span lang="pt">Regulatório UE</span><span lang="en">EU regulatory</span><span lang="es">Regulatorio UE</span></a></li>
+<li><a class="" href="docs-methodologies-recyclass.html"><span lang="pt">RecyClass</span><span lang="en">RecyClass</span><span lang="es">RecyClass</span></a></li>
 </ul></div>
 <div class="docs-sidebar-group">
-<p class="docs-sidebar-group-title">Integrations</p>
+<p class="docs-sidebar-group-title"><span lang="pt">Integrações</span><span lang="en">Integrations</span><span lang="es">Integraciones</span></p>
 <ul>
-<li><a class="" href="docs-integrations.html">Overview</a></li>
-<li><a class="" href="docs-integrations-quick-start.html">Quick start</a></li>
-<li><a class="" href="docs-integrations-core-concepts.html">Core concepts</a></li>
-<li><a class="" href="docs-integrations-environments.html">Environments</a></li>
-<li><a class="" href="docs-integrations-api.html">API</a></li>
+<li><a class="" href="docs-integrations.html"><span lang="pt">Visão geral</span><span lang="en">Overview</span><span lang="es">Resumen</span></a></li>
+<li><a class="" href="docs-integrations-quick-start.html"><span lang="pt">Início rápido</span><span lang="en">Quick start</span><span lang="es">Inicio rápido</span></a></li>
+<li><a class="" href="docs-integrations-core-concepts.html"><span lang="pt">Conceitos essenciais</span><span lang="en">Core concepts</span><span lang="es">Conceptos esenciales</span></a></li>
+<li><a class="" href="docs-integrations-environments.html"><span lang="pt">Ambientes</span><span lang="en">Environments</span><span lang="es">Entornos</span></a></li>
+<li><a class="" href="docs-integrations-api.html"><span lang="pt">API</span><span lang="en">API</span><span lang="es">API</span></a></li>
 </ul></div>
   </aside>
   <main class="docs-content">
-    <p class="docs-breadcrumb"><a href="docs-index.html">Docs</a> / Architecture</p>
+    <p class="docs-breadcrumb"><a href="docs-index.html">Docs</a> / <span lang="pt">Arquitetura</span><span lang="en">Architecture</span><span lang="es">Arquitectura</span></p>
     <h1>How it works</h1>
-    <p class="docs-lede">Data does not go anywhere external until it has passed internal validation. Here's the full path, end to end.</p>
+    <p class="docs-lede"><span lang="pt">Nenhum dado sai pra fora até passar pela validação interna. Aqui está o caminho completo, ponta a ponta.</span><span lang="en">Data does not go anywhere external until it has passed internal validation. Here's the full path, end to end.</span><span lang="es">Ningún dato sale al exterior hasta pasar por la validación interna. Aquí está el camino completo, de punta a punta.</span></p>
 
-    <h2>1. Ingestion</h2>
-    <p>Today, the fastest and most common way to start a pilot is a structured Excel/CSV import &mdash; no engineering integration required. Organization-scoped API keys are available today for machine clients (see <a href="docs-integrations.html">Integrations</a>); direct ERP integration is the roadmapped default for scaled clients.</p>
+    <h2>1. <span lang="pt">Ingestão</span><span lang="en">Ingestion</span><span lang="es">Ingesta</span></h2>
+    <p><span lang="pt">Hoje, o jeito mais rápido e comum de começar um piloto é uma importação estruturada de Excel/CSV &mdash; sem exigir integração de engenharia. Chaves de API por organização já estão disponíveis hoje para clientes máquina (veja <a href="docs-integrations.html">Integrações</a>); integração direta com ERP é o caminho padrão planejado no roadmap para clientes em escala.</span><span lang="en">Today, the fastest and most common way to start a pilot is a structured Excel/CSV import &mdash; no engineering integration required. Organization-scoped API keys are available today for machine clients (see <a href="docs-integrations.html">Integrations</a>); direct ERP integration is the roadmapped default for scaled clients.</span><span lang="es">Hoy, la forma más rápida y común de empezar un piloto es una importación estructurada de Excel/CSV &mdash; sin necesidad de integración de ingeniería. Las claves de API por organización ya están disponibles hoy para clientes máquina (vea <a href="docs-integrations.html">Integraciones</a>); la integración directa con ERP es el camino por defecto planeado en el roadmap para clientes a escala.</span></p>
 
-    <h2>2. Validation engine</h2>
-    <p>Every record runs against the rule set(s) pinned to its project &mdash; see <a href="docs-standard.html">Standard</a> for how that governance works. Each rule fails as either a hard <strong>BLOCK</strong> (stops progression) or a <strong>FLAG</strong> (routed to human review, can proceed if overridden).</p>
+    <h2>2. <span lang="pt">Motor de validação</span><span lang="en">Validation engine</span><span lang="es">Motor de validación</span></h2>
+    <p><span lang="pt">Cada registro roda contra o(s) conjunto(s) de regras fixado(s) no seu projeto &mdash; veja <a href="docs-standard.html">Padrão</a> pra entender essa governança. Cada regra falha como um <strong>BLOCK</strong> (bloqueio, interrompe o progresso) ou um <strong>FLAG</strong> (sinalização, vai pra revisão humana, pode prosseguir se liberada).</span><span lang="en">Every record runs against the rule set(s) pinned to its project &mdash; see <a href="docs-standard.html">Standard</a> for how that governance works. Each rule fails as either a hard <strong>BLOCK</strong> (stops progression) or a <strong>FLAG</strong> (routed to human review, can proceed if overridden).</span><span lang="es">Cada registro se ejecuta contra el o los conjuntos de reglas fijados en su proyecto &mdash; vea <a href="docs-standard.html">Estándar</a> para entender esa gobernanza. Cada regla falla como un <strong>BLOCK</strong> (bloqueo, detiene el progreso) o un <strong>FLAG</strong> (marca, va a revisión humana, puede continuar si se anula).</span></p>
 
-    <h2>3. Persistence &amp; audit trail</h2>
-    <p>Validated records and every state change on them are written to PostgreSQL as an append-only, hash-chained event log, inside your organization's isolated tenant. See <a href="docs-architecture-security.html">Security model</a> for how isolation and tamper-evidence actually work.</p>
+    <h2>3. <span lang="pt">Persistência &amp; trilha de auditoria</span><span lang="en">Persistence &amp; audit trail</span><span lang="es">Persistencia y rastro de auditoría</span></h2>
+    <p><span lang="pt">Registros validados e cada mudança de estado neles são gravados no PostgreSQL como um log de eventos append-only encadeado em hash, dentro do tenant isolado da sua organização. Veja <a href="docs-architecture-security.html">Modelo de segurança</a> pra entender como o isolamento e a evidência de violação funcionam de fato.</span><span lang="en">Validated records and every state change on them are written to PostgreSQL as an append-only, hash-chained event log, inside your organization's isolated tenant. See <a href="docs-architecture-security.html">Security model</a> for how isolation and tamper-evidence actually work.</span><span lang="es">Los registros validados y cada cambio de estado sobre ellos se escriben en PostgreSQL como un log de eventos append-only encadenado por hash, dentro del tenant aislado de su organización. Vea <a href="docs-architecture-security.html">Modelo de seguridad</a> para entender cómo funcionan realmente el aislamiento y la evidencia de manipulación.</span></p>
 
-    <h2>4. Dashboards</h2>
-    <p>Role-based dashboards read only from validated data &mdash; nothing on a dashboard bypasses validation.</p>
+    <h2>4. <span lang="pt">Painéis</span><span lang="en">Dashboards</span><span lang="es">Paneles</span></h2>
+    <p><span lang="pt">Painéis baseados em papel de acesso leem só dados validados &mdash; nada num painel pula a validação.</span><span lang="en">Role-based dashboards read only from validated data &mdash; nothing on a dashboard bypasses validation.</span><span lang="es">Los paneles basados en roles leen solo datos validados &mdash; nada en un panel se salta la validación.</span></p>
 
-    <h2>5. Optional registry submission</h2>
-    <p>Only pre-validated, approved records are ever submitted to an external credit registry, and only for organizations that have opted into that integration. See <a href="docs-registry.html">Registry</a>.</p>
+    <h2>5. <span lang="pt">Envio opcional a um registry</span><span lang="en">Optional registry submission</span><span lang="es">Envío opcional a un registry</span></h2>
+    <p><span lang="pt">Só registros pré-validados e aprovados são enviados a um registry de crédito externo, e só para organizações que optaram por essa integração. Veja <a href="docs-registry.html">Registry</a>.</span><span lang="en">Only pre-validated, approved records are ever submitted to an external credit registry, and only for organizations that have opted into that integration. See <a href="docs-registry.html">Registry</a>.</span><span lang="es">Solo los registros pre-validados y aprobados se envían a un registry de crédito externo, y solo para organizaciones que optaron por esa integración. Vea <a href="docs-registry.html">Registry</a>.</span></p>
 
-    <h2>The stack underneath</h2>
+    <h2><span lang="pt">O stack por baixo</span><span lang="en">The stack underneath</span><span lang="es">El stack debajo</span></h2>
     <dl class="docs-fact-list">
-      <div class="docs-fact-row"><dt>Compute</dt><dd>AWS ECS in private subnets, behind API Gateway with a VPC Link &mdash; app servers have no public IP</dd></div>
-      <div class="docs-fact-row"><dt>Infrastructure as code</dt><dd>Pulumi</dd></div>
-      <div class="docs-fact-row"><dt>CI/CD</dt><dd>GitHub Actions &mdash; every deploy runs automated verification before it's considered live</dd></div>
-      <div class="docs-fact-row"><dt>Secrets</dt><dd>Doppler &mdash; no plaintext secrets in the repo or CI logs</dd></div>
+      <div class="docs-fact-row"><dt><span lang="pt">Computação</span><span lang="en">Compute</span><span lang="es">Cómputo</span></dt><dd><span lang="pt">AWS ECS em subnets privadas, atrás de um API Gateway com VPC Link &mdash; os servidores de aplicação não têm IP público</span><span lang="en">AWS ECS in private subnets, behind API Gateway with a VPC Link &mdash; app servers have no public IP</span><span lang="es">AWS ECS en subredes privadas, detrás de un API Gateway con VPC Link &mdash; los servidores de aplicación no tienen IP pública</span></dd></div>
+      <div class="docs-fact-row"><dt><span lang="pt">Infraestrutura como código</span><span lang="en">Infrastructure as code</span><span lang="es">Infraestructura como código</span></dt><dd>Pulumi</dd></div>
+      <div class="docs-fact-row"><dt>CI/CD</dt><dd><span lang="pt">GitHub Actions &mdash; todo deploy roda verificação automatizada antes de ser considerado no ar</span><span lang="en">GitHub Actions &mdash; every deploy runs automated verification before it's considered live</span><span lang="es">GitHub Actions &mdash; cada deploy ejecuta verificación automatizada antes de considerarse en vivo</span></dd></div>
+      <div class="docs-fact-row"><dt><span lang="pt">Segredos</span><span lang="en">Secrets</span><span lang="es">Secretos</span></dt><dd><span lang="pt">Doppler &mdash; nenhum segredo em texto puro no repositório ou nos logs de CI</span><span lang="en">Doppler &mdash; no plaintext secrets in the repo or CI logs</span><span lang="es">Doppler &mdash; ningún secreto en texto plano en el repositorio o en los logs de CI</span></dd></div>
     </dl>
-    <p>Every non-trivial architectural choice behind this stack is written down as an internal Architecture Decision Record &mdash; the practice that keeps "why does it work this way" from becoming folklore.</p>
+    <p><span lang="pt">Toda escolha arquitetural não-trivial por trás desse stack é registrada como uma Architecture Decision Record interna &mdash; a prática que impede que "por que funciona assim" vire folclore.</span><span lang="en">Every non-trivial architectural choice behind this stack is written down as an internal Architecture Decision Record &mdash; the practice that keeps "why does it work this way" from becoming folklore.</span><span lang="es">Cada decisión arquitectónica no trivial detrás de este stack se registra como una Architecture Decision Record interna &mdash; la práctica que evita que "por qué funciona así" se vuelva folclore.</span></p>
     
     <div class="docs-pager">
-<a class="pg-prev" href="docs-index.html"><span class="pg-label">Previous</span>← Overview</a>
-<a class="pg-next" href="docs-architecture-roles.html"><span class="pg-label">Next</span>Roles in the ecosystem →</a>
+<a class="pg-prev" href="docs-index.html"><span class="pg-label"><span lang="pt">Anterior</span><span lang="en">Previous</span><span lang="es">Anterior</span></span>← <span lang="pt">Visão geral</span><span lang="en">Overview</span><span lang="es">Resumen</span></a>
+<a class="pg-next" href="docs-architecture-roles.html"><span class="pg-label"><span lang="pt">Próximo</span><span lang="en">Next</span><span lang="es">Siguiente</span></span><span lang="pt">Papéis no ecossistema</span><span lang="en">Roles in the ecosystem</span><span lang="es">Roles en el ecosistema</span> →</a>
     </div>
   </main>
 </div>
@@ -171,6 +171,7 @@
   </div>
 </footer>
 
-<script src="assets/shared.js?v=20260917-es1"></script>
+<script src="assets/shared.js?v=20260917-es1" defer></script>
+<script src="assets/logo.js?v=20260707-4" defer></script>
 </body>
 </html>
