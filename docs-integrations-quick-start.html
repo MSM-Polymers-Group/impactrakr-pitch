@@ -115,13 +115,13 @@
     <pre><code># 1. <span lang="pt">Resolver participante</span><span lang="en">Resolve participant</span><span lang="es">Resolver participante</span>
 curl -X POST https://api.impactrakr.com/v1/participants \
   -H "Authorization: ApiKey &lt;sua-chave&gt;" -H "Content-Type: application/json" \
-  -d '{ "name": "Recicladora Exemplo", "taxId": "...", "type": "COMPANY" }'
+  -d '{ "deduplicationId": "«sua chave de idempotência»", "name": "Recicladora Exemplo", "taxId": "...", "type": "COMPANY" }'
 &rarr; { "id": "«participantId»" }
 
 # 2. <span lang="pt">Resolver endereço</span><span lang="en">Resolve address</span><span lang="es">Resolver dirección</span>
 curl -X POST https://api.impactrakr.com/v1/addresses \
   -H "Authorization: ApiKey &lt;sua-chave&gt;" -H "Content-Type: application/json" \
-  -d '{ "participantId": "«participantId»", "street": "...", "city": "São Paulo", "countryCode": "BR" }'
+  -d '{ "deduplicationId": "«sua chave de idempotência»", "participantId": "«participantId»", "street": "...", "city": "São Paulo", "countryCode": "BR" }'
 &rarr; { "id": "«addressId»" }
 
 # 3. <span lang="pt">Criar o MassID (só composição do material)</span><span lang="en">Create the MassID (material composition only)</span><span lang="es">Crear el MassID (solo composición del material)</span>
@@ -133,13 +133,13 @@ curl -X POST https://api.impactrakr.com/v1/massids \
 # 4. <span lang="pt">Registrar um evento (referencia o participante já resolvido)</span><span lang="en">Record an event (references the already-resolved participant)</span><span lang="es">Registrar un evento (referencia el participante ya resuelto)</span>
 curl -X POST https://api.impactrakr.com/v1/massids/«massidId»/events \
   -H "Authorization: ApiKey &lt;sua-chave&gt;" -H "Content-Type: application/json" \
-  -d '{ "code": "«código do catálogo de eventos»", "occurredAt": "2026-03-01T10:00:00.000Z", "participantId": "«participantId»", "payload": {} }'
+  -d '{ "deduplicationId": "«sua chave de idempotência»", "code": "«código do catálogo de eventos»", "occurredAt": "2026-03-01T10:00:00.000Z", "participantId": "«participantId»", "payload": {} }'
 
 # 5. <span lang="pt">Submeter para validação</span><span lang="en">Submit for validation</span><span lang="es">Enviar para validación</span>
 curl -X POST https://api.impactrakr.com/v1/massids/«massidId»/submit \
   -H "Authorization: ApiKey &lt;sua-chave&gt;"</code></pre>
     <p><span lang="pt">Os códigos de evento válidos (Etapa 4) vêm de <code>GET /v1/event-catalog</code>, não de uma lista fixa &mdash; veja <a href="docs-integrations-core-concepts.html">Conceitos essenciais</a>.</span><span lang="en">Valid event codes (Step 4) come from <code>GET /v1/event-catalog</code>, not a fixed list &mdash; see <a href="docs-integrations-core-concepts.html">Core concepts</a>.</span><span lang="es">Los códigos de evento válidos (Paso 4) vienen de <code>GET /v1/event-catalog</code>, no de una lista fija &mdash; vea <a href="docs-integrations-core-concepts.html">Conceptos esenciales</a>.</span></p>
-    <p><span lang="pt">A Etapa 3 (criar o MassID) já aceita uma chave de idempotência (<code>deduplicationId</code>, veja <a href="docs-integrations-api.html">API</a>): uma retentativa com a mesma chave e o mesmo corpo resolve para o mesmo MassID em vez de criar um duplicado. As Etapas 1, 2 e 4 (participante, endereço, evento) ainda não têm essa proteção &mdash; trate uma retentativa dessas chamadas com cuidado.</span><span lang="en">Step 3 (create the MassID) now accepts an idempotency key (<code>deduplicationId</code>, see <a href="docs-integrations-api.html">API</a>): a retry with the same key and the same body resolves to the same MassID instead of creating a duplicate. Steps 1, 2, and 4 (participant, address, event) don't have that protection yet &mdash; handle a retry of those calls with care.</span><span lang="es">El Paso 3 (crear el MassID) ya acepta una clave de idempotencia (<code>deduplicationId</code>, vea <a href="docs-integrations-api.html">API</a>): un reintento con la misma clave y el mismo cuerpo resuelve al mismo MassID en lugar de crear un duplicado. Los Pasos 1, 2 y 4 (participante, dirección, evento) todavía no tienen esa protección &mdash; maneje un reintento de esas llamadas con cuidado.</span></p>
+    <p><span lang="pt">Todas as quatro chamadas de escrita acima (Etapas 1, 2, 3 e 4) já exigem uma chave de idempotência (<code>deduplicationId</code>, veja <a href="docs-integrations-api.html">API</a>): uma retentativa com a mesma chave e o mesmo corpo resolve para o mesmo registro em vez de criar um duplicado.</span><span lang="en">All four write calls above (Steps 1, 2, 3, and 4) now require an idempotency key (<code>deduplicationId</code>, see <a href="docs-integrations-api.html">API</a>): a retry with the same key and the same body resolves to the same record instead of creating a duplicate.</span><span lang="es">Las cuatro llamadas de escritura anteriores (Pasos 1, 2, 3 y 4) ya exigen una clave de idempotencia (<code>deduplicationId</code>, vea <a href="docs-integrations-api.html">API</a>): un reintento con la misma clave y el mismo cuerpo resuelve al mismo registro en lugar de crear un duplicado.</span></p>
     
     <div class="docs-pager">
 <a class="pg-prev" href="docs-integrations.html"><span class="pg-label"><span lang="pt">Anterior</span><span lang="en">Previous</span><span lang="es">Anterior</span></span>← <span lang="pt">Visão geral</span><span lang="en">Overview</span><span lang="es">Resumen</span></a>
